@@ -3,7 +3,7 @@ module Framework
         ( Modifier(..)
         )
 
-{-| This is an incomplete experimental Style Framework that leverage the new (still in alpha release) version of stile-element.
+{-| This is an incomplete Style Framework that leverage the [experimental version of style-elements](http://package.elm-lang.org/packages/mdgriffith/stylish-elephants/4.0.0). Major changes may happen at any time to this Repo.
 
 See the [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usage examples.
 
