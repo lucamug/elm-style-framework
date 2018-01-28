@@ -21322,8 +21322,8 @@ var _lucamug$elm_style_framework$Framework_Button$buttonAttr = function (modifie
 			default:
 				return A2(
 					_eskimoblood$elm_color_extra$Color_Manipulate$desaturate,
-					0.3,
-					A2(_eskimoblood$elm_color_extra$Color_Manipulate$lighten, 0.3, color));
+					0.1,
+					A2(_eskimoblood$elm_color_extra$Color_Manipulate$lighten, 0.2, color));
 		}
 	}();
 	var borderRounded = function () {
@@ -21699,18 +21699,14 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 									_lucamug$elm_style_framework$Framework_Button$button,
 									{
 										ctor: '::',
-										_0: _lucamug$elm_style_framework$Framework$Primary,
-										_1: {
-											ctor: '::',
-											_0: _lucamug$elm_style_framework$Framework$Outlined,
-											_1: {ctor: '[]'}
-										}
+										_0: _lucamug$elm_style_framework$Framework$Danger,
+										_1: {ctor: '[]'}
 									},
 									_elm_lang$core$Maybe$Nothing,
 									buttonText),
 								_1: A2(
 									_elm_lang$core$Basics_ops['++'],
-									'button [ Primary, Outlined ] Nothing \"',
+									'button [ Danger ] Nothing \"',
 									A2(_elm_lang$core$Basics_ops['++'], buttonText, '\"'))
 							},
 							_1: {
@@ -21721,10 +21717,10 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 										_lucamug$elm_style_framework$Framework_Button$button,
 										{
 											ctor: '::',
-											_0: _lucamug$elm_style_framework$Framework$Primary,
+											_0: _lucamug$elm_style_framework$Framework$Danger,
 											_1: {
 												ctor: '::',
-												_0: _lucamug$elm_style_framework$Framework$Loading,
+												_0: _lucamug$elm_style_framework$Framework$Outlined,
 												_1: {ctor: '[]'}
 											}
 										},
@@ -21732,7 +21728,7 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 										buttonText),
 									_1: A2(
 										_elm_lang$core$Basics_ops['++'],
-										'button [ Primary, Loading ] Nothing \"',
+										'button [ Danger, Outlined ] Nothing \"',
 										A2(_elm_lang$core$Basics_ops['++'], buttonText, '\"'))
 								},
 								_1: {
@@ -21743,10 +21739,10 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 											_lucamug$elm_style_framework$Framework_Button$button,
 											{
 												ctor: '::',
-												_0: _lucamug$elm_style_framework$Framework$Primary,
+												_0: _lucamug$elm_style_framework$Framework$Danger,
 												_1: {
 													ctor: '::',
-													_0: _lucamug$elm_style_framework$Framework$Disabled,
+													_0: _lucamug$elm_style_framework$Framework$Loading,
 													_1: {ctor: '[]'}
 												}
 											},
@@ -21754,10 +21750,33 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 											buttonText),
 										_1: A2(
 											_elm_lang$core$Basics_ops['++'],
-											'button [ Primary, Disabled ] Nothing \"',
+											'button [ Danger, Loading ] Nothing \"',
 											A2(_elm_lang$core$Basics_ops['++'], buttonText, '\"'))
 									},
-									_1: {ctor: '[]'}
+									_1: {
+										ctor: '::',
+										_0: {
+											ctor: '_Tuple2',
+											_0: A3(
+												_lucamug$elm_style_framework$Framework_Button$button,
+												{
+													ctor: '::',
+													_0: _lucamug$elm_style_framework$Framework$Danger,
+													_1: {
+														ctor: '::',
+														_0: _lucamug$elm_style_framework$Framework$Disabled,
+														_1: {ctor: '[]'}
+													}
+												},
+												_elm_lang$core$Maybe$Nothing,
+												buttonText),
+											_1: A2(
+												_elm_lang$core$Basics_ops['++'],
+												'button [ Danger, Disabled ] Nothing \"',
+												A2(_elm_lang$core$Basics_ops['++'], buttonText, '\"'))
+										},
+										_1: {ctor: '[]'}
+									}
 								}
 							}
 						}
