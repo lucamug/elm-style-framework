@@ -222,7 +222,7 @@ buttonAttr modifiers =
                 modifiers
 
         color =
-            Color.toColor conf.color
+            Color.color conf.color
 
         fontSize =
             toPx conf.size
@@ -238,10 +238,10 @@ buttonAttr modifiers =
                 StateOutlined ->
                     case conf.color of
                         Color.ColorDefault ->
-                            Color.toColor Color.ColorBorderDefault
+                            Color.color Color.ColorBorderDefault
 
                         _ ->
-                            Color.toColor Color.ColorDefault
+                            Color.color Color.ColorDefault
 
                 StateLoading ->
                     color
@@ -265,7 +265,7 @@ buttonAttr modifiers =
         borderColor =
             case conf.color of
                 Color.ColorDefault ->
-                    Color.toColor Color.ColorBorderDefault
+                    Color.color Color.ColorBorderDefault
 
                 _ ->
                     case conf.state of
@@ -278,13 +278,13 @@ buttonAttr modifiers =
         spinnerColor =
             case conf.color of
                 Color.ColorWarning ->
-                    Color.toColor Color.ColorFontDark
+                    Color.color Color.ColorFontDark
 
                 Color.ColorDefault ->
-                    Color.toColor Color.ColorFontDark
+                    Color.color Color.ColorFontDark
 
                 _ ->
-                    Color.toColor Color.ColorFontBright
+                    Color.color Color.ColorFontBright
 
         fontColor =
             case conf.state of
@@ -300,13 +300,13 @@ buttonAttr modifiers =
                 _ ->
                     case conf.color of
                         Color.ColorWarning ->
-                            Color.toColor Color.ColorFontDark
+                            Color.color Color.ColorFontDark
 
                         Color.ColorDefault ->
-                            Color.toColor Color.ColorFontDark
+                            Color.color Color.ColorFontDark
 
                         _ ->
-                            Color.toColor Color.ColorFontBright
+                            Color.color Color.ColorFontBright
 
         inFrontAddon =
             case conf.state of

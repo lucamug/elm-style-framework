@@ -1,11 +1,11 @@
 module Framework.Color
     exposing
         ( Color(..)
+        , color
         , colorToHex
         , hexToColor
         , introspection
         , maximumContrast
-        , toColor
         )
 
 {-| Colors generator
@@ -15,7 +15,7 @@ See the [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usa
 
 # Functions
 
-@docs Color, colorToHex, hexToColor, introspection, toColor, maximumContrast
+@docs Color, colorToHex, hexToColor, introspection, color, maximumContrast
 
 -}
 
@@ -34,23 +34,23 @@ import Styleguide
 introspection : Styleguide.Data msg
 introspection =
     { name = "Color"
-    , signature = "toColor : Color -> Color.Color"
+    , signature = "color : Color -> Color.Color"
     , description = "List of colors"
-    , usage = "toColor ColorPrimary"
+    , usage = "color ColorPrimary"
     , usageResult = usageWrapper ColorPrimary
     , boxed = True
     , types =
         [ ( "Sizes"
-          , [ ( usageWrapper ColorDefault, "toColor ColorDefault" )
-            , ( usageWrapper ColorPrimary, "toColor ColorPrimary" )
-            , ( usageWrapper ColorLink, "toColor ColorLink" )
-            , ( usageWrapper ColorInfo, "toColor ColorInfo" )
-            , ( usageWrapper ColorSuccess, "toColor ColorSuccess" )
-            , ( usageWrapper ColorWarning, "toColor ColorWarning" )
-            , ( usageWrapper ColorDanger, "toColor ColorDanger" )
-            , ( usageWrapper ColorFontBright, "toColor ColorFontBright" )
-            , ( usageWrapper ColorFontDark, "toColor ColorFontDark" )
-            , ( usageWrapper ColorBorderDefault, "toColor ColorBorderDefault" )
+          , [ ( usageWrapper ColorDefault, "color ColorDefault" )
+            , ( usageWrapper ColorPrimary, "color ColorPrimary" )
+            , ( usageWrapper ColorLink, "color ColorLink" )
+            , ( usageWrapper ColorInfo, "color ColorInfo" )
+            , ( usageWrapper ColorSuccess, "color ColorSuccess" )
+            , ( usageWrapper ColorWarning, "color ColorWarning" )
+            , ( usageWrapper ColorDanger, "color ColorDanger" )
+            , ( usageWrapper ColorFontBright, "color ColorFontBright" )
+            , ( usageWrapper ColorFontDark, "color ColorFontDark" )
+            , ( usageWrapper ColorBorderDefault, "color ColorBorderDefault" )
             ]
           )
         ]
@@ -60,30 +60,30 @@ introspection =
 usageWrapper : Color -> Element.Element msg
 usageWrapper colorType =
     let
-        color =
-            toColor colorType
+        c =
+            color colorType
     in
     Element.el
-        [ Element.Background.color color
+        [ Element.Background.color c
         , Element.width <| Element.px 100
         , Element.height <| Element.px 100
         , Element.padding 10
         , Element.Border.rounded 5
-        , Element.Font.color <| maximumContrast color
+        , Element.Font.color <| maximumContrast c
         ]
     <|
         Element.text <|
-            Color.Convert.colorToHex color
+            Color.Convert.colorToHex c
 
 
 {-| Return one of the font color that has maximum contrast on a background color
 
-    maximumContrast Color.black == toColor ColorFontBright
+    maximumContrast Color.black == color ColorFontBright
 
 -}
 maximumContrast : Color.Color -> Color.Color
 maximumContrast c =
-    Maybe.withDefault Color.black <| Color.Accessibility.maximumContrast c [ toColor ColorFontBright, toColor ColorFontDark ]
+    Maybe.withDefault Color.black <| Color.Accessibility.maximumContrast c [ color ColorFontBright, color ColorFontDark ]
 
 
 {-| List of colors
@@ -123,11 +123,11 @@ colorToHex =
 
 {-| Convert a type of color to a Color
 
-    toColor ColorPrimary == hexToColor "#00D1B2"
+    color ColorPrimary == hexToColor "#00D1B2"
 
 -}
-toColor : Color -> Color.Color
-toColor color =
+color : Color -> Color.Color
+color color =
     case color of
         ColorDefault ->
             hexToColor "#ffffff"
