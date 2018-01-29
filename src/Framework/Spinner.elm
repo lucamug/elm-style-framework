@@ -5,6 +5,17 @@ module Framework.Spinner
         , spinner
         )
 
+{-| Spinners generator
+
+Check [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usage examples.
+
+
+# Functions
+
+@docs Spinner, spinner, introspection
+
+-}
+
 import Color
 import Element
 import Framework.Color
@@ -14,6 +25,8 @@ import Svg exposing (..)
 import Svg.Attributes as SA exposing (..)
 
 
+{-| Used to generate the [Style Guide](https://lucamug.github.io/elm-style-framework/)
+-}
 introspection : Styleguide.Data msg
 introspection =
     { name = "Spinner"
@@ -32,6 +45,11 @@ introspection =
     }
 
 
+{-| SVG Spinner
+
+    spinner ThreeCircles 32 Color.black
+
+-}
 spinner : Spinner -> Int -> Color.Color -> Element.Element msg
 spinner spinner size color =
     Element.html <|
@@ -43,6 +61,8 @@ spinner spinner size color =
                 spinnerRotationHtml size color
 
 
+{-| Type of spinners
+-}
 type Spinner
     = ThreeCircles
     | Rotation

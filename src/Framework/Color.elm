@@ -10,7 +10,7 @@ module Framework.Color
 
 {-| Colors generator
 
-See the [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usage examples.
+Check [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usage examples.
 
 
 # Functions
@@ -26,6 +26,7 @@ import Element
 import Element.Background
 import Element.Border
 import Element.Font
+import Framework.Configuration exposing (conf)
 import Styleguide
 
 
@@ -37,20 +38,29 @@ introspection =
     , signature = "color : Color -> Color.Color"
     , description = "List of colors"
     , usage = "color ColorPrimary"
-    , usageResult = usageWrapper ColorPrimary
+    , usageResult = usageWrapper Primary
     , boxed = True
     , types =
         [ ( "Sizes"
-          , [ ( usageWrapper ColorDefault, "color ColorDefault" )
-            , ( usageWrapper ColorPrimary, "color ColorPrimary" )
-            , ( usageWrapper ColorLink, "color ColorLink" )
-            , ( usageWrapper ColorInfo, "color ColorInfo" )
-            , ( usageWrapper ColorSuccess, "color ColorSuccess" )
-            , ( usageWrapper ColorWarning, "color ColorWarning" )
-            , ( usageWrapper ColorDanger, "color ColorDanger" )
-            , ( usageWrapper ColorFontBright, "color ColorFontBright" )
-            , ( usageWrapper ColorFontDark, "color ColorFontDark" )
-            , ( usageWrapper ColorBorderDefault, "color ColorBorderDefault" )
+          , [ ( usageWrapper White, "color White" )
+            , ( usageWrapper Black, "color Black" )
+            , ( usageWrapper Light, "color Light" )
+            , ( usageWrapper Dark, "color Dark" )
+            , ( usageWrapper Primary, "color Primary" )
+            , ( usageWrapper Link, "color Link" )
+            , ( usageWrapper Info, "color Info" )
+            , ( usageWrapper Success, "color Success" )
+            , ( usageWrapper Warning, "color Warning" )
+            , ( usageWrapper Danger, "color Danger" )
+            , ( usageWrapper BlackBis, "color BlackBis " )
+            , ( usageWrapper BlackTer, "color BlackTer " )
+            , ( usageWrapper GreyDarker, "color GreyDarker" )
+            , ( usageWrapper GreyDark, "color GreyDark " )
+            , ( usageWrapper Grey, "color Grey" )
+            , ( usageWrapper GreyLight, "color GreyLight" )
+            , ( usageWrapper GreyLighter, "color GreyLighter" )
+            , ( usageWrapper WhiteTer, "color WhiteTer" )
+            , ( usageWrapper WhiteBis, "color WhiteBis " )
             ]
           )
         ]
@@ -83,22 +93,31 @@ usageWrapper colorType =
 -}
 maximumContrast : Color.Color -> Color.Color
 maximumContrast c =
-    Maybe.withDefault Color.black <| Color.Accessibility.maximumContrast c [ color ColorFontBright, color ColorFontDark ]
+    Maybe.withDefault Color.black <| Color.Accessibility.maximumContrast c [ color White, color Dark ]
 
 
 {-| List of colors
 -}
 type Color
-    = ColorDefault
-    | ColorPrimary
-    | ColorLink
-    | ColorInfo
-    | ColorSuccess
-    | ColorWarning
-    | ColorDanger
-    | ColorFontBright
-    | ColorFontDark
-    | ColorBorderDefault
+    = White
+    | Black
+    | Light
+    | Dark
+    | Primary
+    | Info
+    | Success
+    | Warning
+    | Danger
+    | BlackBis
+    | BlackTer
+    | GreyDarker
+    | GreyDark
+    | Grey
+    | GreyLight
+    | GreyLighter
+    | WhiteTer
+    | WhiteBis
+    | Link
 
 
 {-| Convert a String to a Color
@@ -129,32 +148,60 @@ colorToHex =
 color : Color -> Color.Color
 color color =
     case color of
-        ColorDefault ->
-            hexToColor "#ffffff"
+        -- https://bulma.io/documentation/modifiers/typography-helpers/
+        Link ->
+            conf.colors.link
 
-        ColorPrimary ->
-            hexToColor "#00D1B2"
+        White ->
+            conf.colors.white
 
-        ColorLink ->
-            hexToColor "#276CDA"
+        Black ->
+            conf.colors.black
 
-        ColorInfo ->
-            hexToColor "#209CEE"
+        Light ->
+            conf.colors.light
 
-        ColorSuccess ->
-            hexToColor "#23D160"
+        Dark ->
+            conf.colors.dark
 
-        ColorWarning ->
-            hexToColor "#ffdd57"
+        Primary ->
+            conf.colors.primary
 
-        ColorDanger ->
-            hexToColor "#FF3860"
+        Info ->
+            conf.colors.info
 
-        ColorFontBright ->
-            hexToColor "#fff"
+        Success ->
+            conf.colors.success
 
-        ColorFontDark ->
-            hexToColor "#363636"
+        Warning ->
+            conf.colors.warning
 
-        ColorBorderDefault ->
-            hexToColor "#dbdbdb"
+        Danger ->
+            conf.colors.danger
+
+        BlackBis ->
+            conf.colors.blackBis
+
+        BlackTer ->
+            conf.colors.blackTer
+
+        GreyDarker ->
+            conf.colors.greyDarker
+
+        GreyDark ->
+            conf.colors.greyDark
+
+        Grey ->
+            conf.colors.grey
+
+        GreyLight ->
+            conf.colors.greyLight
+
+        GreyLighter ->
+            conf.colors.greyLighter
+
+        WhiteTer ->
+            conf.colors.whiteTer
+
+        WhiteBis ->
+            conf.colors.whiteBis

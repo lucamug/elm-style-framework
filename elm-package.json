@@ -8,8 +8,10 @@
     ],
     "exposed-modules": [
         "Framework",
+        "Framework.Configuration",
         "Framework.Button",
-        "Framework.Color"
+        "Framework.Color",
+        "Framework.Spinner"
     ],
     "dependencies": {
         "elm-lang/core": "5.1.1 <= v < 6.0.0",
