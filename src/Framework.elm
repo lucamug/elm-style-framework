@@ -29,4 +29,5 @@ type Modifier
     | Large
     | Outlined
     | Loading
+    | Waiting
     | Disabled

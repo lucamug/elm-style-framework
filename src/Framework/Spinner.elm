@@ -1,98 +1,169 @@
 module Framework.Spinner
     exposing
-        ( spinner
+        ( Spinner(..)
+        , introspection
+        , spinner
         )
 
 import Color
 import Element
 import Framework.Color
 import Html
-import Svg
-import Svg.Attributes
+import Styleguide
+import Svg exposing (..)
+import Svg.Attributes as SA exposing (..)
 
 
-spinner : Int -> Color.Color -> Element.Element msg
-spinner =
-    partElement
+introspection : Styleguide.Data msg
+introspection =
+    { name = "Spinner"
+    , signature = "spinner : Spinner -> Int -> Color.Color -> Element.Element msg"
+    , description = "List of SVG spinners"
+    , usage = "spinner ThreeCircles 20 Color.black"
+    , usageResult = spinner ThreeCircles 20 Color.black
+    , boxed = True
+    , types =
+        [ ( "Spinners"
+          , [ ( spinner ThreeCircles 32 Color.black, "spinner ThreeCircles 32 Color.black" )
+            , ( spinner Rotation 32 Color.black, "spinner Rotation 32 Color.black" )
+            ]
+          )
+        ]
+    }
 
 
-partElement : Int -> Color.Color -> Element.Element msg
-partElement size color =
-    Element.html <| partHtml size color
+spinner : Spinner -> Int -> Color.Color -> Element.Element msg
+spinner spinner size color =
+    Element.html <|
+        case spinner of
+            ThreeCircles ->
+                spinnerThreeCirclesHtml size color
+
+            Rotation ->
+                spinnerRotationHtml size color
 
 
-partHtml : Int -> Color.Color -> Html.Html msg
-partHtml size color =
+type Spinner
+    = ThreeCircles
+    | Rotation
+
+
+spinnerThreeCirclesHtml : Int -> Color.Color -> Html.Html msg
+spinnerThreeCirclesHtml size color =
     let
         colorString =
             Framework.Color.colorToHex color
 
-        id =
+        idElement =
+            "id" ++ String.dropLeft 1 colorString
+
+        speed =
+            "0.6s"
+
+        size =
+            32
+    in
+    svg
+        [ viewBox "0 0 64 64"
+        , xmlSpace "http://www.w3.org/2000/svg"
+        , width <| toString size
+        , height <| toString size
+        ]
+        [ g
+            []
+            [ circle
+                [ cx "16", cy "32", strokeWidth "0", r "4.26701", fill colorString ]
+                [ animate
+                    [ attributeName "fill-opacity"
+                    , dur "750ms"
+                    , values ".5;.6;.8;1;.8;.6;.5;.5"
+                    , repeatCount "indefinite"
+                    ]
+                    []
+                , animate [ attributeName "r", dur "750ms", values "3;3;4;5;6;5;4;3", repeatCount "indefinite" ] []
+                ]
+            , circle
+                [ cx "32", cy "32", strokeWidth "0", r "5.26701", fill colorString ]
+                [ animate
+                    [ attributeName "fill-opacity"
+                    , dur "750ms"
+                    , values ".5;.5;.6;.8;1;.8;.6;.5"
+                    , repeatCount "indefinite"
+                    ]
+                    []
+                , animate [ attributeName "r", dur "750ms", values "4;3;3;4;5;6;5;4", repeatCount "indefinite" ] []
+                ]
+            , circle
+                [ cx "48", cy "32", strokeWidth "0", r "5.73299", fill colorString ]
+                [ animate
+                    [ attributeName "fill-opacity"
+                    , dur "750ms"
+                    , values ".6;.5;.5;.6;.8;1;.8;.6"
+                    , repeatCount "indefinite"
+                    ]
+                    []
+                , animate [ attributeName "r", dur "750ms", values "5;4;3;3;4;5;6;5", repeatCount "indefinite" ] []
+                ]
+            ]
+        ]
+
+
+spinnerRotationHtml : Int -> Color.Color -> Html.Html msg
+spinnerRotationHtml size color =
+    let
+        colorString =
+            Framework.Color.colorToHex color
+
+        idElement =
             "id" ++ String.dropLeft 1 colorString
 
         speed =
             "0.6s"
     in
     Svg.svg
-        [ Svg.Attributes.viewBox "0 0 38 38"
-        , Svg.Attributes.xmlSpace "http://www.w3.org/2000/svg"
-        , Svg.Attributes.width <| toString size
-        , Svg.Attributes.height <| toString size
+        [ viewBox "0 0 38 38"
+        , xmlSpace "http://www.w3.org/2000/svg"
+        , width <| toString size
+        , height <| toString size
         ]
         [ Svg.defs []
             [ Svg.linearGradient
-                [ Svg.Attributes.id id
-                , Svg.Attributes.x1 "8%"
-                , Svg.Attributes.x2 "65.7%"
-                , Svg.Attributes.y1 "0%"
-                , Svg.Attributes.y2 "23.9%"
-                ]
+                [ id idElement, x1 "8%", x2 "65.7%", y1 "0%", y2 "23.9%" ]
                 [ Svg.stop
-                    [ Svg.Attributes.offset "0%"
-                    , Svg.Attributes.stopColor colorString
-                    , Svg.Attributes.stopOpacity "0"
-                    ]
+                    [ offset "0%", stopColor colorString, stopOpacity "0" ]
                     []
                 , Svg.stop
-                    [ Svg.Attributes.offset "63.1%"
-                    , Svg.Attributes.stopColor colorString
-                    , Svg.Attributes.stopOpacity ".6"
-                    ]
+                    [ offset "63.1%", stopColor colorString, stopOpacity ".6" ]
                     []
                 , Svg.stop
-                    [ Svg.Attributes.offset "100%"
-                    , Svg.Attributes.stopColor colorString
-                    ]
+                    [ offset "100%", stopColor colorString ]
                     []
                 ]
             ]
-        , Svg.g
-            [ Svg.Attributes.fill "none"
-            , Svg.Attributes.fillRule "evenodd"
-            , Svg.Attributes.transform "translate(1 1)"
-            ]
+        , Svg.g [ fill "none", fillRule "evenodd", transform "translate(1 1)" ]
             [ Svg.path
-                [ Svg.Attributes.d "M36 18C36 8 28 0 18 0"
-                , Svg.Attributes.stroke <| "url(#" ++ id ++ ")"
-                , Svg.Attributes.strokeWidth "2"
+                [ d "M36 18C36 8 28 0 18 0"
+                , stroke <| "url(#" ++ idElement ++ ")"
+                , strokeWidth "2"
                 ]
                 [ Svg.animateTransform
-                    [ Svg.Attributes.attributeName "transform", Svg.Attributes.dur speed, Svg.Attributes.from "0 18 18", Svg.Attributes.repeatCount "indefinite", Svg.Attributes.to "360 18 18", Svg.Attributes.type_ "rotate" ]
+                    [ attributeName "transform"
+                    , dur speed
+                    , from "0 18 18"
+                    , repeatCount "indefinite"
+                    , to "360 18 18"
+                    , type_ "rotate"
+                    ]
                     []
                 ]
-            , Svg.circle
-                [ Svg.Attributes.cx "36"
-                , Svg.Attributes.cy "18"
-                , Svg.Attributes.fill colorString
-                , Svg.Attributes.r "1"
-                ]
+            , Svg.circle [ cx "36", cy "18", fill colorString, r "1" ]
                 [ Svg.animateTransform
-                    [ Svg.Attributes.attributeName "transform"
-                    , Svg.Attributes.dur speed
-                    , Svg.Attributes.from "0 18 18"
-                    , Svg.Attributes.repeatCount "indefinite"
-                    , Svg.Attributes.to "360 18 18"
-                    , Svg.Attributes.type_ "rotate"
+                    [ attributeName "transform"
+                    , dur speed
+                    , from "0 18 18"
+                    , repeatCount "indefinite"
+                    , to "360 18 18"
+                    , type_ "rotate"
                     ]
                     []
                 ]

@@ -6,6 +6,7 @@ import Element.Area as Area
 import Element.Font as Font
 import Framework.Button
 import Framework.Color
+import Framework.Spinner
 import Html
 import Styleguide
 
@@ -18,6 +19,7 @@ main =
             , Styleguide.page
                 [ Framework.Button.introspection
                 , Framework.Color.introspection
+                , Framework.Spinner.introspection
                 ]
             ]
 

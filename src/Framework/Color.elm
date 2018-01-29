@@ -4,6 +4,7 @@ module Framework.Color
         , colorToHex
         , hexToColor
         , introspection
+        , maximumContrast
         , toColor
         )
 
@@ -14,7 +15,7 @@ See the [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usa
 
 # Functions
 
-@docs Color, colorToHex, hexToColor, introspection, toColor
+@docs Color, colorToHex, hexToColor, introspection, toColor, maximumContrast
 
 -}
 
@@ -32,15 +33,9 @@ import Styleguide
 -}
 introspection : Styleguide.Data msg
 introspection =
-    let
-        buttonText =
-            "Button"
-    in
     { name = "Color"
     , signature = "toColor : Color -> Color.Color"
     , description = "List of colors"
-
-    --
     , usage = "toColor ColorPrimary"
     , usageResult = usageWrapper ColorPrimary
     , boxed = True
@@ -74,13 +69,18 @@ usageWrapper colorType =
         , Element.height <| Element.px 100
         , Element.padding 10
         , Element.Border.rounded 5
-        , Element.Font.color <| Maybe.withDefault Color.black <| Color.Accessibility.maximumContrast color [ Color.white, Color.black ]
+        , Element.Font.color <| maximumContrast color
         ]
     <|
         Element.text <|
             Color.Convert.colorToHex color
 
 
+{-| Return one of the font color that has maximum contrast on a background color
+
+    maximumContrast Color.black == toColor ColorFontBright
+
+-}
 maximumContrast : Color.Color -> Color.Color
 maximumContrast c =
     Maybe.withDefault Color.black <| Color.Accessibility.maximumContrast c [ toColor ColorFontBright, toColor ColorFontDark ]

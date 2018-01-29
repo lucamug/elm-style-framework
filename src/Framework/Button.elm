@@ -75,6 +75,7 @@ introspection =
           , [ ( button [ Danger ] Nothing buttonText, "button [ Danger ] Nothing \"" ++ buttonText ++ "\"" )
             , ( button [ Danger, Outlined ] Nothing buttonText, "button [ Danger, Outlined ] Nothing \"" ++ buttonText ++ "\"" )
             , ( button [ Danger, Loading ] Nothing buttonText, "button [ Danger, Loading ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Danger, Waiting ] Nothing buttonText, "button [ Danger, Waiting ] Nothing \"" ++ buttonText ++ "\"" )
             , ( button [ Danger, Disabled ] Nothing buttonText, "button [ Danger, Disabled ] Nothing \"" ++ buttonText ++ "\"" )
             ]
           )
@@ -83,9 +84,9 @@ introspection =
             , ( Input.button (buttonAttr [ Primary ]) <| { onPress = Nothing, label = text "button" }, "Input.button (buttonAttr [ Primary ]) <| { onPress = Nothing, label = text \"Button\" }" )
             , ( paragraph [] [ text "so it is possible to use the button styling also with other elements, for example:" ], "" )
             , ( el (buttonAttr [ Primary ]) <| text "Button", "el (buttonAttr [ Primary ]) <| text \"Button\"" )
-            , ( el (buttonAttr [ Danger, Outlined, Medium ]) <| text "Button", "el (buttonAttr [ Primary ]) <| text \"Button\"" )
+            , ( el (buttonAttr [ Danger, Outlined, Medium ]) <| text "Button", "el (buttonAttr [ Danger, Outlined, Medium ]) <| text \"Button\"" )
             , ( column (buttonAttr [ Warning ] ++ [ spacing 10 ]) [ text "Row 1", text "Row 2" ], """column (buttonAttr [ Warning ] ++ [ spacing 10 ]) [ text "Row 1", text "Row 2" ]""" )
-            , ( column (buttonAttr [ Warning, Loading ] ++ [ spacing 10 ]) [ text "Row 1", text "Row 2" ], """column (buttonAttr [ Warning, Loading ] ++ [ spacing 10 ]) [ text "Row 1", text "Row 2" ]""" )
+            , ( column (buttonAttr [ Warning, Waiting ] ++ [ spacing 10 ]) [ text "Row 1", text "Row 2" ], """column (buttonAttr [ Warning, Waiting ] ++ [ spacing 10 ]) [ text "Row 1", text "Row 2" ]""" )
             , ( row (buttonAttr [ Info ] ++ [ spacing 10 ]) [ text "Col 1", text "Col 2" ], """row (buttonAttr [ Info ] ++ [ spacing 10 ]) [ text "Col 1", text "Col 2" ]""" )
             ]
           )
@@ -104,6 +105,7 @@ type State
     = StateDefault
     | StateOutlined
     | StateLoading
+    | StateWaiting
     | StateDisabled
 
 
@@ -128,6 +130,22 @@ toPx size =
 
         SizeLarge ->
             24
+
+
+toButtonPadding : Size -> ( Int, Int )
+toButtonPadding size =
+    case size of
+        SizeSmall ->
+            ( 9, 4 )
+
+        SizeDefault ->
+            ( 12, 5 )
+
+        SizeMedium ->
+            ( 15, 6 )
+
+        SizeLarge ->
+            ( 18, 7 )
 
 
 processConf : Modifier -> Conf -> Conf
@@ -165,6 +183,9 @@ processConf modifier conf =
 
         Loading ->
             { conf | state = StateLoading }
+
+        Waiting ->
+            { conf | state = StateWaiting }
 
         Disabled ->
             { conf | state = StateDisabled }
@@ -204,32 +225,10 @@ buttonAttr modifiers =
             Color.toColor conf.color
 
         fontSize =
-            case conf.size of
-                SizeSmall ->
-                    12
+            toPx conf.size
 
-                SizeDefault ->
-                    16
-
-                SizeMedium ->
-                    20
-
-                SizeLarge ->
-                    24
-
-        padding =
-            case conf.size of
-                SizeSmall ->
-                    ( 9, 4 )
-
-                SizeDefault ->
-                    ( 12, 5 )
-
-                SizeMedium ->
-                    ( 15, 6 )
-
-                SizeLarge ->
-                    ( 18, 7 )
+        buttonPadding =
+            toButtonPadding conf.size
 
         backgroundColor =
             case conf.state of
@@ -245,6 +244,9 @@ buttonAttr modifiers =
                             Color.toColor Color.ColorDefault
 
                 StateLoading ->
+                    color
+
+                StateWaiting ->
                     color
 
                 StateDisabled ->
@@ -285,12 +287,14 @@ buttonAttr modifiers =
                     Color.toColor Color.ColorFontBright
 
         fontColor =
-            -- Maybe.withDefault (toColor ColorFontDark) <| Color.Accessibility.maximumContrast color [ toColor ColorFontDark, toColor ColorFontBright ]
             case conf.state of
                 StateOutlined ->
                     color
 
                 StateLoading ->
+                    backgroundColor
+
+                StateWaiting ->
                     backgroundColor
 
                 _ ->
@@ -304,13 +308,21 @@ buttonAttr modifiers =
                         _ ->
                             Color.toColor Color.ColorFontBright
 
-        spinner =
-            el [ centerY ] <| Spinner.spinner fontSize spinnerColor
-
         inFrontAddon =
             case conf.state of
                 StateLoading ->
-                    [ inFront True spinner ]
+                    [ inFront True
+                        (el [ centerY ] <|
+                            Spinner.spinner Spinner.Rotation fontSize spinnerColor
+                        )
+                    ]
+
+                StateWaiting ->
+                    [ inFront True
+                        (el [ centerY ] <|
+                            Spinner.spinner Spinner.ThreeCircles fontSize spinnerColor
+                        )
+                    ]
 
                 _ ->
                     []
@@ -318,7 +330,7 @@ buttonAttr modifiers =
     [ Font.size fontSize
     , Font.color fontColor
     , Background.color backgroundColor
-    , paddingXY (Tuple.first padding) (Tuple.second padding)
+    , paddingXY (Tuple.first buttonPadding) (Tuple.second buttonPadding)
     , Border.rounded borderRounded
     , Border.width 1
     , Border.color borderColor
