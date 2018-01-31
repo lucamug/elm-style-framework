@@ -299,6 +299,31 @@ buttonAttr modifiers =
         buttonPadding =
             toButtonPadding conf.size
 
+        backgroundMouseOverColor =
+            case conf.state of
+                StateOutlined ->
+                    color
+
+                _ ->
+                    backgroundColor
+                        |> Color.Manipulate.darken 0.05
+                        |> Color.Manipulate.desaturate 0.05
+
+        borderMouseOverColor =
+            borderColor
+                |> Color.Manipulate.darken 0.05
+                |> Color.Manipulate.desaturate 0.05
+
+        fontMouseOverColor =
+            case conf.state of
+                StateOutlined ->
+                    Color.color Color.White
+
+                _ ->
+                    fontColor
+                        |> Color.Manipulate.darken 0.05
+                        |> Color.Manipulate.desaturate 0.05
+
         backgroundColor =
             case conf.state of
                 StateDefault ->
@@ -361,10 +386,10 @@ buttonAttr modifiers =
                     color
 
                 StateLoading ->
-                    backgroundColor
+                    Color.color Color.Transparent
 
                 StateWaiting ->
-                    backgroundColor
+                    Color.color Color.Transparent
 
                 _ ->
                     case conf.color of
@@ -398,7 +423,10 @@ buttonAttr modifiers =
     in
     [ Font.size fontSize
     , Font.color fontColor
+    , Font.mouseOverColor fontMouseOverColor
     , Background.color backgroundColor
+    , Background.mouseOverColor backgroundMouseOverColor
+    , Border.mouseOverColor borderMouseOverColor
     , paddingXY (Tuple.first buttonPadding) (Tuple.second buttonPadding)
     , Border.rounded borderRounded
     , Border.width 1
