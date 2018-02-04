@@ -1,4 +1,4 @@
-module Documentation exposing (main)
+module Main exposing (main)
 
 import Framework
 import Html

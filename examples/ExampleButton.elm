@@ -1,4 +1,4 @@
-module Button exposing (main)
+module Main exposing (main)
 
 import Element exposing (..)
 import Framework.Button as Button exposing (button)

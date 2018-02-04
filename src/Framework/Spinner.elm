@@ -27,7 +27,7 @@ import Svg.Attributes as SA exposing (..)
 
 {-| Used to generate the [Style Guide](https://lucamug.github.io/elm-style-framework/)
 -}
-introspection : Styleguide.Data msg
+introspection : Styleguide.Introspection msg
 introspection =
     { name = "Spinner"
     , signature = "spinner : Spinner -> Int -> Color.Color -> Element.Element msg"

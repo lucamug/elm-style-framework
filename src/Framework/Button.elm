@@ -43,7 +43,7 @@ import Styleguide
 
 {-| Used to generate the [Style Guide](https://lucamug.github.io/elm-style-framework/)
 -}
-introspection : Styleguide.Data msg
+introspection : Styleguide.Introspection msg
 introspection =
     let
         buttonText =
@@ -307,13 +307,13 @@ buttonAttr modifiers =
 
                 _ ->
                     backgroundColor
-                        |> Color.darken 0.05
-                        |> Color.desaturate 0.05
+                        |> Color.lighten 0.8
+                        |> Color.saturate 0.9
 
         borderMouseOverColor =
             borderColor
-                |> Color.darken 0.05
-                |> Color.desaturate 0.05
+                |> Color.lighten 0.8
+                |> Color.saturate 0.9
 
         fontMouseOverColor =
             case conf.state of
@@ -322,8 +322,8 @@ buttonAttr modifiers =
 
                 _ ->
                     fontColor
-                        |> Color.darken 0.05
-                        |> Color.desaturate 0.05
+                        |> Color.lighten 0.8
+                        |> Color.saturate 0.9
 
         backgroundColor =
             case conf.state of
@@ -346,8 +346,8 @@ buttonAttr modifiers =
 
                 StateDisabled ->
                     color
-                        |> Color.lighten 0.2
-                        |> Color.desaturate 0.1
+                        |> Color.lighten 1.2
+                        |> Color.saturate 0.9
 
         borderRounded =
             case conf.size of

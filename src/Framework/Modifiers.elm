@@ -15,7 +15,8 @@ Check [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usage
 -}
 
 
-{-| -}
+{-| This is the main list of modifier that can be used with all elements
+-}
 type Modifier
     = Primary
     | Link

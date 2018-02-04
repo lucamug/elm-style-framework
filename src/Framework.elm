@@ -22,26 +22,12 @@ import Html
 import Styleguide
 
 
-{-| This is the main list of modifier that can be used with all elements
--}
-type Modifier
-    = Primary
-    | Link
-    | Info
-    | Success
-    | Warning
-    | Danger
-    | Small
-    | Medium
-    | Large
-    | Outlined
-    | Loading
-    | Waiting
-    | Disabled
-
-
-
 -- INTERNAL
+
+
+version : String
+version =
+    "5.0.0"
 
 
 {-| -}

@@ -1,33 +1,12 @@
 module Framework.Color
     exposing
         ( Color(..)
-        , black
-        , blackBis
-        , blackTer
         , color
         , colorToHex
-        , danger
-        , dark
-        , darken
-        , desaturate
-        , grey
-        , greyDark
-        , greyDarker
-        , greyLight
-        , greyLighter
-        , info
         , introspection
-        , light
         , lighten
-        , link
         , maximumContrast
-        , primary
-        , success
-        , transparent
-        , warning
-        , white
-        , whiteBis
-        , whiteTer
+        , saturate
         )
 
 {-| Colors generator
@@ -37,12 +16,7 @@ Check [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usage
 
 # Functions
 
-@docs Color, colorToHex, introspection, color, maximumContrast, darken, lighten, desaturate
-
-
-# Colors
-
-@docs link , white , black , light , dark , primary , info , success , warning , danger , blackBis , blackTer , greyDarker , greyDark , grey , greyLight , greyLighter , whiteTer , whiteBis , transparent
+@docs Color, color, colorToHex, introspection, lighten, maximumContrast, saturate
 
 -}
 
@@ -75,26 +49,28 @@ import Styleguide
 
 
 {-| -}
-darken : Float -> Color.Color -> Color.Color
-darken quantity cl =
-    cl
-
-
-{-| -}
 lighten : Float -> Color.Color -> Color.Color
 lighten quantity cl =
-    cl
+    let
+        { hue, saturation, lightness } =
+            Color.toHsl cl
+    in
+    Color.hsl hue saturation (lightness * quantity)
 
 
 {-| -}
-desaturate : Float -> Color.Color -> Color.Color
-desaturate quantity cl =
-    cl
+saturate : Float -> Color.Color -> Color.Color
+saturate quantity cl =
+    let
+        { hue, saturation, lightness } =
+            Color.toHsl cl
+    in
+    Color.hsl hue (saturation * quantity) lightness
 
 
 {-| Used to generate the [Style Guide](https://lucamug.github.io/elm-style-framework/)
 -}
-introspection : Styleguide.Data msg
+introspection : Styleguide.Introspection msg
 introspection =
     { name = "Color"
     , signature = "color : Color -> Color.Color"
@@ -161,7 +137,7 @@ maximumContrast c =
             c
                 |> Color.toHsl
     in
-    if lightness > 0.5 then
+    if lightness < 0.7 then
         color White
     else
         color Dark
@@ -170,10 +146,9 @@ maximumContrast c =
 {-| List of colors
 -}
 type Color
-    = White
-    | Black
-    | Light
+    = Black
     | Dark
+    | Light
     | Primary
     | Info
     | Success
@@ -186,6 +161,7 @@ type Color
     | Grey
     | GreyLight
     | GreyLighter
+    | White
     | WhiteTer
     | WhiteBis
     | Link
@@ -230,8 +206,8 @@ toRadix n =
 
 -}
 color : Color -> Color.Color
-color color =
-    case color of
+color cl =
+    case cl of
         -- https://bulma.io/documentation/modifiers/typography-helpers/
         Link ->
             conf.colors.link
@@ -292,123 +268,3 @@ color color =
 
         Transparent ->
             Color.hsla 0 0 0 0
-
-
-{-| -}
-link : Color.Color
-link =
-    conf.colors.link
-
-
-{-| -}
-white : Color.Color
-white =
-    conf.colors.white
-
-
-{-| -}
-black : Color.Color
-black =
-    conf.colors.black
-
-
-{-| -}
-light : Color.Color
-light =
-    conf.colors.light
-
-
-{-| -}
-dark : Color.Color
-dark =
-    conf.colors.dark
-
-
-{-| -}
-primary : Color.Color
-primary =
-    conf.colors.primary
-
-
-{-| -}
-info : Color.Color
-info =
-    conf.colors.info
-
-
-{-| -}
-success : Color.Color
-success =
-    conf.colors.success
-
-
-{-| -}
-warning : Color.Color
-warning =
-    conf.colors.warning
-
-
-{-| -}
-danger : Color.Color
-danger =
-    conf.colors.danger
-
-
-{-| -}
-blackBis : Color.Color
-blackBis =
-    conf.colors.blackBis
-
-
-{-| -}
-blackTer : Color.Color
-blackTer =
-    conf.colors.blackTer
-
-
-{-| -}
-greyDarker : Color.Color
-greyDarker =
-    conf.colors.greyDarker
-
-
-{-| -}
-greyDark : Color.Color
-greyDark =
-    conf.colors.greyDark
-
-
-{-| -}
-grey : Color.Color
-grey =
-    conf.colors.grey
-
-
-{-| -}
-greyLight : Color.Color
-greyLight =
-    conf.colors.greyLight
-
-
-{-| -}
-greyLighter : Color.Color
-greyLighter =
-    conf.colors.greyLighter
-
-
-{-| -}
-whiteTer : Color.Color
-whiteTer =
-    conf.colors.whiteTer
-
-
-{-| -}
-whiteBis : Color.Color
-whiteBis =
-    conf.colors.whiteBis
-
-
-{-| -}
-transparent : Color.Color
-transparent =
-    Color.hsla 0 0 0 0
