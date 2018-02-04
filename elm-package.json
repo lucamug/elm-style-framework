@@ -1,5 +1,5 @@
 {
-    "version": "3.0.0",
+    "version": "4.0.0",
     "summary": "A simple Style Framework built on top of style-elements",
     "repository": "https://github.com/lucamug/elm-style-framework.git",
     "license": "BSD3",
@@ -12,7 +12,7 @@
         "Framework.Button",
         "Framework.Color",
         "Framework.Spinner",
-        "Framework.Modifier"
+        "Framework.Modifiers"
     ],
     "dependencies": {
         "elm-lang/core": "5.1.1 <= v < 6.0.0",
