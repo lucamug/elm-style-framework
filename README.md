@@ -9,31 +9,36 @@ See the [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usa
 To use it:
 
 ```elm
-module Main exposing (main)
+module Button exposing (main)
 
-import Framework.Button as button
+import Element exposing (..)
+import Framework.Button as Button exposing (button)
+import Framework.Modifiers exposing (..)
 
-main : Html.Html msg
+
 main =
     layout [] <|
         button [ Medium, Success, Outlined ] Nothing "Button"
 ```
 
-The framework is compatible with [elm-styleguide-generator](http://package.elm-lang.org/packages/lucamug/elm-styleguide-generator/latest) so is possible to generate a Style Guide simply doing
+The framework has documentation built-in (based on [elm-styleguide-generator](http://package.elm-lang.org/packages/lucamug/elm-styleguide-generator/latest)) that can be automatically generated.
+ so is possible to generate a Style Guide simply doing
 
 ```elm
-module Main exposing (main)
+module Documentation exposing (main)
 
-import Element exposing (..)
-import Framework.Button as Button
+import Framework
 import Html
-import Styleguide
 
-main : Html.Html msg
+
+main : Program Never Framework.Model Framework.Msg
 main =
-    Styleguide.htmlPage
-        [ Button.introspection
-        ]
+    Html.program
+        { init = Framework.init
+        , view = Framework.view
+        , update = Framework.update
+        , subscriptions = \_ -> Sub.none
+        }
 ```
 
 ## Updates

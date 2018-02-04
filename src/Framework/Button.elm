@@ -11,7 +11,8 @@ Check [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usage
 
 -}
 
-import Color.Manipulate
+--import Color.Manipulate
+
 import Element
     exposing
         ( Attribute
@@ -34,8 +35,8 @@ import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
-import Framework exposing (..)
 import Framework.Color as Color
+import Framework.Modifiers as Modifiers exposing (..)
 import Framework.Spinner as Spinner
 import Styleguide
 
@@ -306,13 +307,13 @@ buttonAttr modifiers =
 
                 _ ->
                     backgroundColor
-                        |> Color.Manipulate.darken 0.05
-                        |> Color.Manipulate.desaturate 0.05
+                        |> Color.darken 0.05
+                        |> Color.desaturate 0.05
 
         borderMouseOverColor =
             borderColor
-                |> Color.Manipulate.darken 0.05
-                |> Color.Manipulate.desaturate 0.05
+                |> Color.darken 0.05
+                |> Color.desaturate 0.05
 
         fontMouseOverColor =
             case conf.state of
@@ -321,8 +322,8 @@ buttonAttr modifiers =
 
                 _ ->
                     fontColor
-                        |> Color.Manipulate.darken 0.05
-                        |> Color.Manipulate.desaturate 0.05
+                        |> Color.darken 0.05
+                        |> Color.desaturate 0.05
 
         backgroundColor =
             case conf.state of
@@ -345,8 +346,8 @@ buttonAttr modifiers =
 
                 StateDisabled ->
                     color
-                        |> Color.Manipulate.lighten 0.2
-                        |> Color.Manipulate.desaturate 0.1
+                        |> Color.lighten 0.2
+                        |> Color.desaturate 0.1
 
         borderRounded =
             case conf.size of

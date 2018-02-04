@@ -8,15 +8,17 @@ module Framework.Color
         , colorToHex
         , danger
         , dark
+        , darken
+        , desaturate
         , grey
         , greyDark
         , greyDarker
         , greyLight
         , greyLighter
-        , hexToColor
         , info
         , introspection
         , light
+        , lighten
         , link
         , maximumContrast
         , primary
@@ -35,7 +37,7 @@ Check [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usage
 
 # Functions
 
-@docs Color, colorToHex, hexToColor, introspection, color, maximumContrast
+@docs Color, colorToHex, introspection, color, maximumContrast, darken, lighten, desaturate
 
 
 # Colors
@@ -44,15 +46,50 @@ Check [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usage
 
 -}
 
+{- TODO
+   Work directly with hue, saturation, lightness
+
+   { hue, saturation, lightness } =
+       baseColor
+           |> Color.toHsl
+
+   headingColor =
+       Color.hsl hue saturation (lightness * 0.7)
+
+   detailsColor =
+       Color.hsl hue (saturation * 0.8) (lightness * 0.5 + 0.3)
+
+   backgroundColor =
+       Color.hsl hue (saturation * 1.2) (lightness * 0.05 + 0.93)
+-}
+--import Color.Convert
+
+import Char
 import Color
-import Color.Accessibility
-import Color.Convert
 import Element
 import Element.Background
 import Element.Border
 import Element.Font
 import Framework.Configuration exposing (conf)
 import Styleguide
+
+
+{-| -}
+darken : Float -> Color.Color -> Color.Color
+darken quantity cl =
+    cl
+
+
+{-| -}
+lighten : Float -> Color.Color -> Color.Color
+lighten quantity cl =
+    cl
+
+
+{-| -}
+desaturate : Float -> Color.Color -> Color.Color
+desaturate quantity cl =
+    cl
 
 
 {-| Used to generate the [Style Guide](https://lucamug.github.io/elm-style-framework/)
@@ -96,20 +133,20 @@ introspection =
 usageWrapper : Color -> Element.Element msg
 usageWrapper colorType =
     let
-        c =
+        cl =
             color colorType
     in
     Element.el
-        [ Element.Background.color c
+        [ Element.Background.color cl
         , Element.width <| Element.px 100
         , Element.height <| Element.px 100
         , Element.padding 10
         , Element.Border.rounded 5
-        , Element.Font.color <| maximumContrast c
+        , Element.Font.color <| maximumContrast cl
         ]
     <|
         Element.text <|
-            Color.Convert.colorToHex c
+            colorToHex cl
 
 
 {-| Return one of the font color that has maximum contrast on a background color
@@ -119,7 +156,15 @@ usageWrapper colorType =
 -}
 maximumContrast : Color.Color -> Color.Color
 maximumContrast c =
-    Maybe.withDefault Color.black <| Color.Accessibility.maximumContrast c [ color White, color Dark ]
+    let
+        { hue, saturation, lightness } =
+            c
+                |> Color.toHsl
+    in
+    if lightness > 0.5 then
+        color White
+    else
+        color Dark
 
 
 {-| List of colors
@@ -147,24 +192,36 @@ type Color
     | Transparent
 
 
-{-| Convert a String to a Color
-
-    hexToColor "#000000" == Color.Black
-
--}
-hexToColor : String -> Color.Color
-hexToColor color =
-    Result.withDefault Color.gray <| Color.Convert.hexToColor color
-
-
-{-| Convert a Color to a String
-
-    colorToHex Color.black == "#000000"
-
--}
+{-| -}
 colorToHex : Color.Color -> String
-colorToHex =
-    Color.Convert.colorToHex
+colorToHex cl =
+    let
+        { red, green, blue } =
+            Color.toRgb cl
+    in
+    List.map toHex [ red, green, blue ]
+        |> (::) "#"
+        |> String.join ""
+
+
+toHex : Int -> String
+toHex =
+    toRadix >> String.padLeft 2 '0'
+
+
+toRadix : Int -> String
+toRadix n =
+    let
+        getChr c =
+            if c < 10 then
+                toString c
+            else
+                String.fromChar <| Char.fromCode (87 + c)
+    in
+    if n < 16 then
+        getChr n
+    else
+        toRadix (n // 16) ++ getChr (n % 16)
 
 
 {-| Convert a type of color to a Color
