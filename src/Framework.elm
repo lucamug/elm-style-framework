@@ -103,8 +103,8 @@ introduction =
                 }
             , text " (built on top of "
             , link [ Font.color Color.orange ]
-                { url = "http://package.elm-lang.org/packages/mdgriffith/stylish-elephants/4.0.0/Element"
-                , label = text "style-elements v.4.alpha"
+                { url = "http://package.elm-lang.org/packages/mdgriffith/stylish-elephants/5.0.0/Element"
+                , label = text "style-elements v.4.alpha2"
                 }
             , text ") automatically generated from Elm code using "
             , link [ Font.color Color.orange ]
