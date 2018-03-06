@@ -40,11 +40,3 @@ main =
         , subscriptions = \_ -> Sub.none
         }
 ```
-
-## Updates
-
-v.2.0.0
-
-v.1.0.1
-
-v.1.0.0

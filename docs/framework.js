@@ -22746,6 +22746,188 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 	};
 }();
 
+var _lucamug$elm_style_framework$Framework_Element$introspection = {
+	name: 'Style-Elements',
+	signature: '',
+	description: 'This is a raw list of all elements of style-elements as they are',
+	usage: '',
+	usageResult: _mdgriffith$stylish_elephants$Element$empty,
+	boxed: true,
+	types: {
+		ctor: '::',
+		_0: {
+			ctor: '_Tuple2',
+			_0: 'Basic Elements',
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: _mdgriffith$stylish_elephants$Element$empty, _1: 'empty'},
+				_1: {
+					ctor: '::',
+					_0: {
+						ctor: '_Tuple2',
+						_0: _mdgriffith$stylish_elephants$Element$text('text'),
+						_1: 'text \"text\"'
+					},
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: A2(
+								_mdgriffith$stylish_elephants$Element$el,
+								{ctor: '[]'},
+								_mdgriffith$stylish_elephants$Element$text('el')),
+							_1: 'el [] <| text \"el\"'
+						},
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		},
+		_1: {
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: 'Rows and Columns',
+				_1: {
+					ctor: '::',
+					_0: {
+						ctor: '_Tuple2',
+						_0: A2(
+							_mdgriffith$stylish_elephants$Element$row,
+							{
+								ctor: '::',
+								_0: _mdgriffith$stylish_elephants$Element$spacing(20),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: _mdgriffith$stylish_elephants$Element$text('item 1'),
+								_1: {
+									ctor: '::',
+									_0: _mdgriffith$stylish_elephants$Element$text('item 2'),
+									_1: {ctor: '[]'}
+								}
+							}),
+						_1: 'row [ spacing 20 ] [ text \"item 1\", text \"item 2\" ]'
+					},
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: A2(
+								_mdgriffith$stylish_elephants$Element$column,
+								{
+									ctor: '::',
+									_0: _mdgriffith$stylish_elephants$Element$spacing(20),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: _mdgriffith$stylish_elephants$Element$text('item 1'),
+									_1: {
+										ctor: '::',
+										_0: _mdgriffith$stylish_elephants$Element$text('item 2'),
+										_1: {ctor: '[]'}
+									}
+								}),
+							_1: 'column [ spacing 20 ] [ text \"item 1\", text \"item 2\" ]'
+						},
+						_1: {ctor: '[]'}
+					}
+				}
+			},
+			_1: {
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'Links and Images',
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: A2(
+								_mdgriffith$stylish_elephants$Element$link,
+								{ctor: '[]'},
+								{
+									url: 'http://example.com',
+									label: _mdgriffith$stylish_elephants$Element$text('link')
+								}),
+							_1: 'link [] { url = \"http://example.com\", label = text \"label\" }'
+						},
+						_1: {
+							ctor: '::',
+							_0: {
+								ctor: '_Tuple2',
+								_0: A2(
+									_mdgriffith$stylish_elephants$Element$newTabLink,
+									{ctor: '[]'},
+									{
+										url: 'http://example.com',
+										label: _mdgriffith$stylish_elephants$Element$text('newTabLink')
+									}),
+								_1: 'newTabLink [] { url = \"http://example.com\", label = text \"newTabLink\" }'
+							},
+							_1: {
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: A2(
+										_mdgriffith$stylish_elephants$Element$download,
+										{ctor: '[]'},
+										{
+											url: 'http://example.com',
+											label: _mdgriffith$stylish_elephants$Element$text('download')
+										}),
+									_1: 'download [] { url = \"http://example.com\", label = text \"download\" }'
+								},
+								_1: {
+									ctor: '::',
+									_0: {
+										ctor: '_Tuple2',
+										_0: A2(
+											_mdgriffith$stylish_elephants$Element$downloadAs,
+											{ctor: '[]'},
+											{
+												url: 'http://example.com',
+												label: _mdgriffith$stylish_elephants$Element$text('downloadAs'),
+												filename: 'filename'
+											}),
+										_1: 'downloadAs [] { url = \"http://example.com\", label = text \"downloadAs\", filename = \"filename\" }'
+									},
+									_1: {
+										ctor: '::',
+										_0: {
+											ctor: '_Tuple2',
+											_0: A2(
+												_mdgriffith$stylish_elephants$Element$image,
+												{ctor: '[]'},
+												{src: 'http://via.placeholder.com/200x100/ff3399/000', description: 'description'}),
+											_1: 'image [] { src = \"http://via.placeholder.com/200x100/ff3399/000\", description = \"description\" }'
+										},
+										_1: {
+											ctor: '::',
+											_0: {
+												ctor: '_Tuple2',
+												_0: A2(
+													_mdgriffith$stylish_elephants$Element$decorativeImage,
+													{ctor: '[]'},
+													{src: 'http://via.placeholder.com/200x100/ff3399/000'}),
+												_1: 'decorativeImage [] { src = \"http://via.placeholder.com/200x100/ff3399/000\" }'
+											},
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				_1: {ctor: '[]'}
+			}
+		}
+	}
+};
+
 var _lucamug$elm_style_framework$Framework$h1 = {
 	ctor: '::',
 	_0: _mdgriffith$stylish_elephants$Element_Area$heading(1),
@@ -22888,14 +23070,18 @@ var _lucamug$elm_style_framework$Framework$init = {
 	_0: {
 		styleguide: {
 			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Button$introspection, _1: true},
+			_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Element$introspection, _1: true},
 			_1: {
 				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Spinner$introspection, _1: true},
+				_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Button$introspection, _1: true},
 				_1: {
 					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Color$introspection, _1: true},
-					_1: {ctor: '[]'}
+					_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Spinner$introspection, _1: true},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Color$introspection, _1: true},
+						_1: {ctor: '[]'}
+					}
 				}
 			}
 		}

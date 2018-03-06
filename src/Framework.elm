@@ -17,6 +17,7 @@ import Element.Area as Area
 import Element.Font as Font
 import Framework.Button
 import Framework.Color
+import Framework.Element
 import Framework.Spinner
 import Html
 import Styleguide
@@ -68,7 +69,8 @@ update msg model =
 init : ( Model, Cmd Msg )
 init =
     ( { styleguide =
-            [ ( Framework.Button.introspection, True )
+            [ ( Framework.Element.introspection, True )
+            , ( Framework.Button.introspection, True )
             , ( Framework.Spinner.introspection, True )
             , ( Framework.Color.introspection, True )
             ]
