@@ -11,8 +11,6 @@ module Framework.Color
 
 {-| Colors generator
 
-Check [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usage examples.
-
 
 # Functions
 
@@ -40,12 +38,11 @@ Check [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usage
 
 import Char
 import Color
-import Element
+import Element exposing (..)
 import Element.Background
 import Element.Border
 import Element.Font
 import Framework.Configuration exposing (conf)
-import Styleguide
 
 
 {-| -}
@@ -68,37 +65,48 @@ saturate quantity cl =
     Color.hsl hue (saturation * quantity) lightness
 
 
-{-| Used to generate the [Style Guide](https://lucamug.github.io/elm-style-framework/)
--}
-introspection : Styleguide.Introspection msg
+{-| -}
+introspection :
+    { boxed : Bool
+    , description : String
+    , name : String
+    , signature : String
+    , usage : String
+    , usageResult : Element msg
+    , variations : List ( String, List ( Element msg1, String ) )
+    }
 introspection =
-    { name = "Color"
+    { name = "Colors"
     , signature = "color : Color -> Color.Color"
-    , description = "List of colors"
+    , description = ""
     , usage = "color ColorPrimary"
     , usageResult = usageWrapper Primary
-    , boxed = True
-    , types =
-        [ ( "Sizes"
-          , [ ( usageWrapper White, "color White" )
-            , ( usageWrapper Black, "color Black" )
-            , ( usageWrapper Light, "color Light" )
-            , ( usageWrapper Dark, "color Dark" )
+    , boxed = False
+    , variations =
+        [ ( "Gray Scale"
+          , [ ( usageWrapper GrayLightest, "color GrayLightest" )
+            , ( usageWrapper GrayLighter, "color GrayLighter" )
+            , ( usageWrapper GrayLight, "color GrayLight" )
+            , ( usageWrapper GrayMediumLight, "color GrayMediumLight" )
+            , ( usageWrapper GrayMedium, "color GrayMedium" )
+            , ( usageWrapper Gray, "color Gray" )
+            , ( usageWrapper GrayDark, "color GrayDark" )
+            , ( usageWrapper GrayDarker, "color GrayDarker" )
+            , ( usageWrapper GrayDarkest, "color GrayDarkest" )
+            ]
+          )
+        , ( "Colors"
+          , [ ( usageWrapper Muted, "color Muted" )
             , ( usageWrapper Primary, "color Primary" )
-            , ( usageWrapper Link, "color Link" )
-            , ( usageWrapper Info, "color Info" )
             , ( usageWrapper Success, "color Success" )
+            , ( usageWrapper Info, "color Info" )
             , ( usageWrapper Warning, "color Warning" )
             , ( usageWrapper Danger, "color Danger" )
-            , ( usageWrapper BlackBis, "color BlackBis" )
-            , ( usageWrapper BlackTer, "color BlackTer" )
-            , ( usageWrapper GreyDarker, "color GreyDarker" )
-            , ( usageWrapper GreyDark, "color GreyDark" )
-            , ( usageWrapper Grey, "color Grey" )
-            , ( usageWrapper GreyLight, "color GreyLight" )
-            , ( usageWrapper GreyLighter, "color GreyLighter" )
-            , ( usageWrapper WhiteTer, "color WhiteTer" )
-            , ( usageWrapper WhiteBis, "color WhiteBis" )
+            ]
+          )
+        , ( "Base"
+          , [ ( usageWrapper Black, "color Black" )
+            , ( usageWrapper White, "color White" )
             , ( usageWrapper Transparent, "color Transparent" )
             ]
           )
@@ -114,15 +122,18 @@ usageWrapper colorType =
     in
     Element.el
         [ Element.Background.color cl
-        , Element.width <| Element.px 100
-        , Element.height <| Element.px 100
+        , Element.width <| Element.px 200
+
+        -- , Element.height <| Element.px 100
         , Element.padding 10
         , Element.Border.rounded 5
         , Element.Font.color <| maximumContrast cl
         ]
     <|
-        Element.text <|
-            colorToHex cl
+        column []
+            [ text <| colorToHex cl
+            , text <| colorToHsl cl
+            ]
 
 
 {-| Return one of the font color that has maximum contrast on a background color
@@ -140,44 +151,77 @@ maximumContrast c =
     if lightness < 0.7 then
         color White
     else
-        color Dark
+        color Black
 
 
 {-| List of colors
 -}
 type Color
-    = Black
-    | Dark
-    | Light
+    = Transparent
+    | White
+    | Black
+      -- GRAY SCALE
+    | GrayLightest
+    | GrayLighter
+    | GrayLight
+    | GrayMediumLight
+    | GrayMedium
+    | Gray
+    | GrayDark
+    | GrayDarker
+    | GrayDarkest
+      -- COLORS
+    | Muted
     | Primary
-    | Info
     | Success
+    | Info
     | Warning
     | Danger
-    | BlackBis
-    | BlackTer
-    | GreyDarker
-    | GreyDark
-    | Grey
-    | GreyLight
-    | GreyLighter
-    | White
-    | WhiteTer
-    | WhiteBis
-    | Link
-    | Transparent
+
+
+norm : Float -> Int
+norm value =
+    round (value * 255)
+
+
+norm100 : Float -> Int
+norm100 value =
+    round (value * 100)
+
+
+norm57 : Float -> Int
+norm57 value =
+    round (value * 57)
 
 
 {-| -}
 colorToHex : Color.Color -> String
 colorToHex cl =
     let
-        { red, green, blue } =
+        { red, green, blue, alpha } =
             Color.toRgb cl
     in
+    -- List.map toHex [ red, green, blue, floor (alpha * 255) ]
     List.map toHex [ red, green, blue ]
         |> (::) "#"
         |> String.join ""
+
+
+colorToHsl : Color.Color -> String
+colorToHsl cl =
+    let
+        { hue, saturation, lightness, alpha } =
+            Color.toHsl cl
+
+        hue2 =
+            if toString hue == "NaN" then
+                0
+            else
+                hue
+    in
+    List.map toString [ norm57 hue2, norm100 saturation, norm100 lightness, norm100 alpha ]
+        |> String.join "-"
+        |> (++) "Hsl "
 
 
 toHex : Int -> String
@@ -208,63 +252,58 @@ toRadix n =
 color : Color -> Color.Color
 color cl =
     case cl of
-        -- https://bulma.io/documentation/modifiers/typography-helpers/
-        Link ->
-            conf.colors.link
+        Transparent ->
+            Color.hsla 0 0 0 0
 
         White ->
-            conf.colors.white
+            Color.rgb 0xFF 0xFF 0xFF
 
         Black ->
-            conf.colors.black
+            Color.rgb 0x00 0x00 0x00
 
-        Light ->
-            conf.colors.light
+        -- GRAY SCALE
+        GrayLightest ->
+            conf.colors.grayLightest
 
-        Dark ->
-            conf.colors.dark
+        GrayLighter ->
+            conf.colors.grayLighter
+
+        GrayLight ->
+            conf.colors.grayLight
+
+        GrayMediumLight ->
+            conf.colors.grayMediumLight
+
+        GrayMedium ->
+            conf.colors.grayMedium
+
+        Gray ->
+            conf.colors.gray
+
+        GrayDark ->
+            conf.colors.grayDark
+
+        GrayDarker ->
+            conf.colors.grayDarker
+
+        GrayDarkest ->
+            conf.colors.grayDarkest
+
+        -- COLORS
+        Muted ->
+            conf.colors.muted
 
         Primary ->
             conf.colors.primary
 
-        Info ->
-            conf.colors.info
-
         Success ->
             conf.colors.success
+
+        Info ->
+            conf.colors.info
 
         Warning ->
             conf.colors.warning
 
         Danger ->
             conf.colors.danger
-
-        BlackBis ->
-            conf.colors.blackBis
-
-        BlackTer ->
-            conf.colors.blackTer
-
-        GreyDarker ->
-            conf.colors.greyDarker
-
-        GreyDark ->
-            conf.colors.greyDark
-
-        Grey ->
-            conf.colors.grey
-
-        GreyLight ->
-            conf.colors.greyLight
-
-        GreyLighter ->
-            conf.colors.greyLighter
-
-        WhiteTer ->
-            conf.colors.whiteTer
-
-        WhiteBis ->
-            conf.colors.whiteBis
-
-        Transparent ->
-            Color.hsla 0 0 0 0

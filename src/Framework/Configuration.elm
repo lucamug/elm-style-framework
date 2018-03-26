@@ -5,8 +5,6 @@ module Framework.Configuration
 
 {-| List of values that you can change to costumize the aspect of the framwork
 
-Check [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usage examples.
-
 
 # Functions
 
@@ -20,25 +18,21 @@ import Color
 {-| -}
 conf :
     { colors :
-        { black : Color.Color
-        , blackBis : Color.Color
-        , blackTer : Color.Color
-        , danger : Color.Color
-        , dark : Color.Color
-        , grey : Color.Color
-        , greyDark : Color.Color
-        , greyDarker : Color.Color
-        , greyLight : Color.Color
-        , greyLighter : Color.Color
+        { danger : Color.Color
+        , gray : Color.Color
+        , grayDark : Color.Color
+        , grayDarker : Color.Color
+        , grayDarkest : Color.Color
+        , grayLight : Color.Color
+        , grayLighter : Color.Color
+        , grayLightest : Color.Color
+        , grayMedium : Color.Color
+        , grayMediumLight : Color.Color
         , info : Color.Color
-        , light : Color.Color
-        , link : Color.Color
+        , muted : Color.Color
         , primary : Color.Color
         , success : Color.Color
         , warning : Color.Color
-        , white : Color.Color
-        , whiteBis : Color.Color
-        , whiteTer : Color.Color
         }
     , sizes :
         { size1 : Float
@@ -64,24 +58,23 @@ conf =
 
     -- https://bulma.io/documentation/modifiers/typography-helpers/
     , colors =
-        { link = Color.hsl (degrees 204) 0.86 0.53
-        , white = Color.hsl (degrees 0) 0 1
-        , black = Color.hsl (degrees 0) 0 0.04
-        , light = Color.hsl (degrees 0) 0 0.96
-        , dark = Color.hsl (degrees 0) 0 0.21
-        , primary = Color.hsl (degrees 171) 1 0.41
-        , info = Color.hsl (degrees 217) 0.71 0.53
-        , success = Color.hsl (degrees 141) 0.71 0.48
-        , warning = Color.hsl (degrees 48) 1 0.67
-        , danger = Color.hsl (degrees 348) 1 0.61
-        , blackBis = Color.hsl (degrees 0) 0 0.07
-        , blackTer = Color.hsl (degrees 0) 0 0.14
-        , greyDarker = Color.hsl (degrees 0) 0 0.21
-        , greyDark = Color.hsl (degrees 0) 0 0.29
-        , grey = Color.hsl (degrees 0) 0 0.48
-        , greyLight = Color.hsl (degrees 0) 0 0.71
-        , greyLighter = Color.hsl (degrees 0) 0 0.86
-        , whiteTer = Color.hsl (degrees 0) 0 0.96
-        , whiteBis = Color.hsl (degrees 0) 0 0.98
+        { -- GRAY SCALE
+          grayLightest = Color.rgb 0xF7 0xF7 0xF7
+        , grayLighter = Color.rgb 0xEB 0xEB 0xEB
+        , grayLight = Color.rgb 0xD1 0xD1 0xD1
+        , grayMediumLight = Color.rgb 0xB6 0xB6 0xB6
+        , grayMedium = Color.rgb 0x9C 0x9C 0x9C
+        , gray = Color.rgb 0x82 0x82 0x82
+        , grayDark = Color.rgb 0x68 0x68 0x68
+        , grayDarker = Color.rgb 0x4D 0x4D 0x4D
+        , grayDarkest = Color.rgb 0x33 0x33 0x33
+
+        -- COLORS
+        , muted = Color.rgb 0xD1 0xD1 0xD1
+        , primary = Color.rgb 0x00 0xD1 0xB2
+        , success = Color.rgb 0x23 0xD1 0x60
+        , info = Color.rgb 0x20 0x9C 0xEE
+        , warning = Color.rgb 0xFF 0xDD 0x57
+        , danger = Color.rgb 0xFF 0x38 0x60
         }
     }

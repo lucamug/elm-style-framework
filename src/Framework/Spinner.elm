@@ -7,8 +7,6 @@ module Framework.Spinner
 
 {-| Spinners generator
 
-Check [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usage examples.
-
 
 # Functions
 
@@ -20,22 +18,28 @@ import Color
 import Element
 import Framework.Color
 import Html
-import Styleguide
 import Svg exposing (..)
 import Svg.Attributes as SA exposing (..)
 
 
-{-| Used to generate the [Style Guide](https://lucamug.github.io/elm-style-framework/)
--}
-introspection : Styleguide.Introspection msg
+{-| -}
+introspection :
+    { boxed : Bool
+    , description : String
+    , name : String
+    , signature : String
+    , usage : String
+    , usageResult : Element.Element msg
+    , variations : List ( String, List ( Element.Element msg1, String ) )
+    }
 introspection =
-    { name = "Spinner"
+    { name = "Spinners"
     , signature = "spinner : Spinner -> Int -> Color.Color -> Element.Element msg"
     , description = "List of SVG spinners"
     , usage = "spinner ThreeCircles 20 Color.black"
     , usageResult = spinner ThreeCircles 20 Color.black
     , boxed = True
-    , types =
+    , variations =
         [ ( "Spinners"
           , [ ( spinner ThreeCircles 32 Color.black, "spinner ThreeCircles 32 Color.black" )
             , ( spinner Rotation 32 Color.black, "spinner Rotation 32 Color.black" )

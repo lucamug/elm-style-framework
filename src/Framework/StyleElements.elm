@@ -1,4 +1,4 @@
-module Framework.Element exposing (..)
+module Framework.StyleElements exposing (..)
 
 {-| Buttons generator
 
@@ -12,21 +12,19 @@ Check [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usage
 -}
 
 --import Color.Manipulate
+--import Element.Background as Background
+--import Element.Border as Border
+--import Element.Font as Font
+--import Element.Input as Input
+--import Framework.Color as Color
+--import Framework.Modifiers as Modifiers exposing (..)
+--import Framework.Spinner as Spinner
 
 import Element exposing (..)
-import Element.Background as Background
-import Element.Border as Border
-import Element.Font as Font
-import Element.Input as Input
-import Framework.Color as Color
-import Framework.Modifiers as Modifiers exposing (..)
-import Framework.Spinner as Spinner
-import Styleguide
 
 
 {-| Used to generate the [Style Guide](https://lucamug.github.io/elm-style-framework/)
 -}
-introspection : Styleguide.Introspection msg
 introspection =
     { name = "Style-Elements"
     , signature = ""
@@ -34,7 +32,7 @@ introspection =
     , usage = ""
     , usageResult = empty
     , boxed = True
-    , types =
+    , variations =
         [ ( "Basic Elements"
           , [ ( empty, """empty""" )
             , ( text "text", """text "text\"""" )

@@ -5,8 +5,6 @@ module Framework.Modifiers
 
 {-| Colors generator
 
-Check [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usage examples.
-
 
 # Functions
 
@@ -17,16 +15,20 @@ Check [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usage
 
 {-| This is the main list of modifier that can be used with all elements
 -}
-type Modifier
-    = Primary
-    | Link
-    | Info
+type
+    Modifier
+    -- Colors
+    = Muted
+    | Primary
     | Success
+    | Info
     | Warning
     | Danger
+      -- Sizes
     | Small
     | Medium
     | Large
+      -- States
     | Outlined
     | Loading
     | Waiting

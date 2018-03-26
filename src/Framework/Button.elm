@@ -2,8 +2,6 @@ module Framework.Button exposing (button, buttonAttr, introspection)
 
 {-| Buttons generator
 
-Check [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usage examples.
-
 
 # Functions
 
@@ -13,24 +11,7 @@ Check [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usage
 
 --import Color.Manipulate
 
-import Element
-    exposing
-        ( Attribute
-        , Element
-        , centerY
-        , column
-        , el
-        , empty
-        , fill
-        , inFront
-        , padding
-        , paddingXY
-        , paragraph
-        , row
-        , spacing
-        , text
-        , width
-        )
+import Element exposing (..)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
@@ -38,115 +19,84 @@ import Element.Input as Input
 import Framework.Color as Color
 import Framework.Modifiers as Modifiers exposing (..)
 import Framework.Spinner as Spinner
-import Styleguide
 
 
-{-| Used to generate the [Style Guide](https://lucamug.github.io/elm-style-framework/)
--}
-introspection : Styleguide.Introspection msg
+{-| -}
+introspection :
+    { boxed : Bool
+    , description : String
+    , name : String
+    , signature : String
+    , usage : String
+    , usageResult : Element a
+    , variations : List ( String, List ( Element a1, String ) )
+    }
 introspection =
     let
         buttonText =
             "Button"
     in
-    { name = "Button"
+    { name = "Buttons"
     , signature = "button : List Modifier -> Maybe msg -> String -> Element msg"
     , description = "Buttons accept a list of modifiers, a Maybe msg (for example: \"Just DoSomething\") and the text to display inside the button."
     , usage = "button [ Medium, Success, Outlined ] Nothing \"" ++ buttonText ++ "\""
     , usageResult = button [ Medium, Success, Outlined ] Nothing buttonText
     , boxed = False
-    , types =
-        [ ( "Sizes"
+    , variations =
+        [ ( "States"
+          , [ ( button [ Primary ] Nothing buttonText, "button [ Primary ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Primary, Outlined ] Nothing buttonText, "button [ Primary, Outlined ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Primary, Loading ] Nothing buttonText, "button [ Primary, Loading ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Primary, Waiting ] Nothing buttonText, "button [ Primary, Waiting ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Primary, Disabled ] Nothing buttonText, "button [ Primary, Disabled ] Nothing \"" ++ buttonText ++ "\"" )
+            ]
+          )
+        , ( "Colors"
+          , [ ( button [ Muted ] Nothing buttonText, "button [ Muted ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Primary ] Nothing buttonText, "button [ Primary ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Success ] Nothing buttonText, "button [ Success ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Info ] Nothing buttonText, "button [ Info ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Warning ] Nothing buttonText, "button [ Warning ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Danger ] Nothing buttonText, "button [ Danger ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [] Nothing buttonText, "button [] Nothing \"" ++ buttonText ++ "\"" )
+            ]
+          )
+        , ( "Sizes"
           , [ ( button [ Small ] Nothing buttonText, "button [ Small ] Nothing \"" ++ buttonText ++ "\"" )
             , ( button [] Nothing buttonText, "button [] Nothing \"" ++ buttonText ++ "\"" )
             , ( button [ Medium ] Nothing buttonText, "button [ Medium ] Nothing \"" ++ buttonText ++ "\"" )
             , ( button [ Large ] Nothing buttonText, "button [ Large ] Nothing \"" ++ buttonText ++ "\"" )
             ]
           )
-        , ( "Colors"
-          , [ ( button [] Nothing buttonText, "button [] Nothing \"" ++ buttonText ++ "\"" )
-            , ( button [ Primary ] Nothing buttonText, "button [ Primary ] Nothing \"" ++ buttonText ++ "\"" )
-            , ( button [ Link ] Nothing buttonText, "button [ Link ] Nothing \"" ++ buttonText ++ "\"" )
-            , ( button [ Info ] Nothing buttonText, "button [ Info ] Nothing \"" ++ buttonText ++ "\"" )
-            , ( button [ Success ] Nothing buttonText, "button [ Success ] Nothing \"" ++ buttonText ++ "\"" )
-            , ( button [ Warning ] Nothing buttonText, "button [ Warning ] Nothing \"" ++ buttonText ++ "\"" )
-            , ( button [ Danger ] Nothing buttonText, "button [ Danger ] Nothing \"" ++ buttonText ++ "\"" )
-            ]
-          )
-        , ( "States"
-          , [ ( button [ Danger ] Nothing buttonText, "button [ Danger ] Nothing \"" ++ buttonText ++ "\"" )
-            , ( button [ Danger, Outlined ] Nothing buttonText, "button [ Danger, Outlined ] Nothing \"" ++ buttonText ++ "\"" )
-            , ( button [ Danger, Loading ] Nothing buttonText, "button [ Danger, Loading ] Nothing \"" ++ buttonText ++ "\"" )
-            , ( button [ Danger, Waiting ] Nothing buttonText, "button [ Danger, Waiting ] Nothing \"" ++ buttonText ++ "\"" )
-            , ( button [ Danger, Disabled ] Nothing buttonText, "button [ Danger, Disabled ] Nothing \"" ++ buttonText ++ "\"" )
-            ]
-          )
-        , ( "Usage with others elements"
-          , [ ( paragraph [] [ text "The example above are just shortcuts for" ], "" )
-            , ( Input.button (buttonAttr [ Primary ]) <| { onPress = Nothing, label = text "button" }, "Input.button (buttonAttr [ Primary ]) <| { onPress = Nothing, label = text \"Button\" }" )
-            , ( paragraph [] [ text "so it is possible to use the button styling also with other elements, for example with \"el\":" ], "" )
-            , ( el (buttonAttr [ Primary ]) <| text "Button", "el (buttonAttr [ Primary ]) <| text \"Button\"" )
+        , ( "Composed"
+          , [ ( Input.button (buttonAttr [ Primary ]) <|
+                    { onPress = Nothing, label = text "button" }
+              , """-- This is the longest form for
+-- button [ Primary ] Nothing "Button"
+
+Input.button (buttonAttr [ Primary ]) <|
+    { onPress = Nothing, label = text "Button" }"""
+              )
+            , ( el (buttonAttr [ Primary ]) <|
+                    text "Button"
+              , """-- Is possible to use the button
+-- styling also with other elements,
+-- for example with "el":
+
+el (buttonAttr [ Primary ]) <|
+    text "Button\""""
+              )
             , ( el (buttonAttr [ Danger, Outlined, Medium ]) <| text "Button", "el (buttonAttr [ Danger, Outlined, Medium ]) <| text \"Button\"" )
             , ( column (buttonAttr [ Warning ] ++ [ spacing 10 ]) [ text "Row 1", text "Row 2" ], """column (buttonAttr [ Warning ] ++ [ spacing 10 ]) [ text "Row 1", text "Row 2" ]""" )
             , ( column (buttonAttr [ Warning, Waiting ] ++ [ spacing 10 ]) [ text "Row 1", text "Row 2" ], """column (buttonAttr [ Warning, Waiting ] ++ [ spacing 10 ]) [ text "Row 1", text "Row 2" ]""" )
             , ( row (buttonAttr [ Info ] ++ [ spacing 10 ]) [ text "Col 1", text "Col 2" ], """row (buttonAttr [ Info ] ++ [ spacing 10 ]) [ text "Col 1", text "Col 2" ]""" )
-            , ( paragraph [] [ text "If conflicting modifiers are given. only the last one is taken in consideration:" ], "" )
-            , ( Input.button (buttonAttr [ Primary, Danger ]) <| { onPress = Nothing, label = text "button" }, "Input.button (buttonAttr [ Primary, Danger ]) <| { onPress = Nothing, label = text \"Button\" }" )
-            ]
-          )
-        , ( "Normal"
-          , [ ( paragraph [ spacing 10, padding 0 ]
-                    [ button [] Nothing buttonText
-                    , button [ Primary ] Nothing buttonText
-                    , button [ Link ] Nothing buttonText
-                    , button [ Info ] Nothing buttonText
-                    , button [ Success ] Nothing buttonText
-                    , button [ Warning ] Nothing buttonText
-                    , button [ Danger ] Nothing buttonText
-                    ]
-              , ""
-              )
-            ]
-          )
-        , ( "Outlined"
-          , [ ( paragraph [ spacing 10, padding 0 ]
-                    [ button [ Outlined ] Nothing buttonText
-                    , button [ Outlined, Primary ] Nothing buttonText
-                    , button [ Outlined, Link ] Nothing buttonText
-                    , button [ Outlined, Info ] Nothing buttonText
-                    , button [ Outlined, Success ] Nothing buttonText
-                    , button [ Outlined, Warning ] Nothing buttonText
-                    , button [ Outlined, Danger ] Nothing buttonText
-                    ]
-              , ""
-              )
-            ]
-          )
-        , ( "Waiting"
-          , [ ( paragraph [ spacing 10, padding 0 ]
-                    [ button [ Waiting ] Nothing buttonText
-                    , button [ Waiting, Primary ] Nothing buttonText
-                    , button [ Waiting, Link ] Nothing buttonText
-                    , button [ Waiting, Info ] Nothing buttonText
-                    , button [ Waiting, Success ] Nothing buttonText
-                    , button [ Waiting, Warning ] Nothing buttonText
-                    , button [ Waiting, Danger ] Nothing buttonText
-                    ]
-              , ""
-              )
-            ]
-          )
-        , ( "Disabled"
-          , [ ( paragraph [ spacing 10, padding 0 ]
-                    [ button [ Disabled ] Nothing buttonText
-                    , button [ Disabled, Primary ] Nothing buttonText
-                    , button [ Disabled, Link ] Nothing buttonText
-                    , button [ Disabled, Info ] Nothing buttonText
-                    , button [ Disabled, Success ] Nothing buttonText
-                    , button [ Disabled, Warning ] Nothing buttonText
-                    , button [ Disabled, Danger ] Nothing buttonText
-                    ]
-              , ""
+            , ( Input.button (buttonAttr [ Primary, Danger ]) <|
+                    { onPress = Nothing, label = text "button" }
+              , """-- If conflicting modifiers are given,
+-- only the last one is taken in consideration
+
+Input.button (buttonAttr [ Primary, Danger ]) <|
+    { onPress = Nothing, label = text "button" }"""
               )
             ]
           )
@@ -196,13 +146,13 @@ toButtonPadding : Size -> ( Int, Int )
 toButtonPadding size =
     case size of
         SizeSmall ->
-            ( 9, 4 )
+            ( 10, 4 )
 
         SizeDefault ->
-            ( 12, 5 )
+            ( 40, 8 )
 
         SizeMedium ->
-            ( 15, 6 )
+            ( 40, 20 )
 
         SizeLarge ->
             ( 18, 7 )
@@ -211,17 +161,18 @@ toButtonPadding size =
 processConf : Modifier -> Conf -> Conf
 processConf modifier conf =
     case modifier of
+        -- Colors
+        Muted ->
+            { conf | color = Color.Muted }
+
         Primary ->
             { conf | color = Color.Primary }
 
-        Link ->
-            { conf | color = Color.Link }
+        Success ->
+            { conf | color = Color.Success }
 
         Info ->
             { conf | color = Color.Info }
-
-        Success ->
-            { conf | color = Color.Success }
 
         Warning ->
             { conf | color = Color.Warning }
@@ -229,6 +180,7 @@ processConf modifier conf =
         Danger ->
             { conf | color = Color.Danger }
 
+        -- SIZES
         Small ->
             { conf | size = SizeSmall }
 
@@ -238,6 +190,7 @@ processConf modifier conf =
         Large ->
             { conf | size = SizeLarge }
 
+        -- STATES
         Outlined ->
             { conf | state = StateOutlined }
 
@@ -272,7 +225,7 @@ colorDefault =
 
 colorBorderDefault : Color.Color
 colorBorderDefault =
-    Color.GreyLighter
+    Color.GrayLighter
 
 
 {-| Generate a list of attributes that can be attached to any element
@@ -317,6 +270,12 @@ buttonAttr modifiers =
 
         fontMouseOverColor =
             case conf.state of
+                StateLoading ->
+                    Color.color Color.Transparent
+
+                StateWaiting ->
+                    Color.color Color.Transparent
+
                 StateOutlined ->
                     Color.color Color.White
 
@@ -336,7 +295,7 @@ buttonAttr modifiers =
                             Color.color colorBorderDefault
 
                         _ ->
-                            Color.color colorDefault
+                            Color.color Color.Transparent
 
                 StateLoading ->
                     color
@@ -372,11 +331,8 @@ buttonAttr modifiers =
 
         spinnerColor =
             case conf.color of
-                Color.Warning ->
-                    Color.color Color.Dark
-
                 Color.White ->
-                    Color.color Color.Dark
+                    Color.color Color.GrayDark
 
                 _ ->
                     Color.color Color.White
@@ -394,11 +350,8 @@ buttonAttr modifiers =
 
                 _ ->
                     case conf.color of
-                        Color.Warning ->
-                            Color.color Color.Dark
-
                         Color.White ->
-                            Color.color Color.Dark
+                            Color.color Color.GrayDark
 
                         _ ->
                             Color.color Color.White
@@ -406,15 +359,15 @@ buttonAttr modifiers =
         inFrontAddon =
             case conf.state of
                 StateLoading ->
-                    [ inFront True
-                        (el [ centerY ] <|
+                    [ inFront
+                        (el [ centerY, centerX ] <|
                             Spinner.spinner Spinner.Rotation fontSize spinnerColor
                         )
                     ]
 
                 StateWaiting ->
-                    [ inFront True
-                        (el [ centerY ] <|
+                    [ inFront
+                        (el [ centerY, centerX ] <|
                             Spinner.spinner Spinner.ThreeCircles fontSize spinnerColor
                         )
                     ]
@@ -424,10 +377,12 @@ buttonAttr modifiers =
     in
     [ Font.size fontSize
     , Font.color fontColor
-    , Font.mouseOverColor fontMouseOverColor
+    , mouseOver
+        [ Font.color fontMouseOverColor
+        , Background.color backgroundMouseOverColor
+        , Border.color borderMouseOverColor
+        ]
     , Background.color backgroundColor
-    , Background.mouseOverColor backgroundMouseOverColor
-    , Border.mouseOverColor borderMouseOverColor
     , paddingXY (Tuple.first buttonPadding) (Tuple.second buttonPadding)
     , Border.rounded borderRounded
     , Border.width 1
