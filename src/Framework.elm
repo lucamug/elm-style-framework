@@ -24,6 +24,7 @@ import Element.Border as Border
 import Element.Events as Events
 import Element.Font as Font
 import Element.Input as Input
+import Element.Region exposing (description)
 import Framework.Button as Button
 import Framework.Cards as Cards
 import Framework.Color as Color exposing (Color(..), color)
@@ -42,35 +43,30 @@ import Window
 
 conf :
     { introduction : Element msg
+    , logo : Element msg1
     , mainPadding : number
-    , subTitle : String
-    , title : Element msg1
-    , version : String
     , p : String
+    , version : String
     }
 conf =
-    { title =
+    { logo =
         column []
-            [ el [ moveLeft 3 ] <| text "Style"
+            [ paragraph
+                [ Font.size 55
+                , Font.bold
+                , moveLeft 3
+                ]
+                [ el [ alpha 0.5 ] <| text "elm"
+                , text "Style"
+                ]
+            , el [ Font.size 16, Font.bold ] <| text "FRAMEWORK"
             ]
-    , subTitle = "FRAMEWORK"
     , version = "0.0.1"
     , mainPadding = 41
     , p = "1234"
     , introduction =
         paragraph []
-            [ text "This is an example of "
-            , link [ Font.color Color.lightBlue ] { label = text "Living Style Guide", url = "https://medium.com/@l.mugnaini/zero-maintenance-always-up-to-date-living-style-guide-in-elm-dbf236d07522" }
-            , text " made using "
-            , link [ Font.color Color.lightBlue ] { label = text "Elm", url = "http://elm-lang.org/" }
-            , text ", "
-            , link [ Font.color Color.lightBlue ] { label = text "style-elements", url = "http://package.elm-lang.org/packages/mdgriffith/stylish-elephants/5.0.0/" }
-            , text ", "
-            , link [ Font.color Color.lightBlue ] { label = text "elm-style-framework", url = "http://package.elm-lang.org/packages/lucamug/elm-style-framework/latest" }
-            , text " and "
-            , link [ Font.color Color.lightBlue ] { label = text "elm-styleguide-generator", url = "http://package.elm-lang.org/packages/lucamug/elm-styleguide-generator/latest" }
-            , text "."
-            ]
+            []
     }
 
 
@@ -358,7 +354,7 @@ viewMenuColumn model =
         , height fill
         ]
         [ column [ height shrink ]
-            [ viewLogo conf.title conf.subTitle conf.version
+            [ viewLogo conf.logo conf.version
             , row
                 [ spacing 10
                 , Font.size 14
@@ -387,7 +383,7 @@ viewContentColumn model =
             <|
                 column []
                     [ column [ padding <| conf.mainPadding + 100, spacing conf.mainPadding ]
-                        [ el [] <| viewLogo conf.title conf.subTitle conf.version
+                        [ el [] <| viewLogo conf.logo conf.version
                         , el [ Font.size 24 ] conf.introduction
                         , el [ centerX, alpha 0.2 ] <| Icon.icon Icon.ChevronDown 32
                         ]
@@ -441,11 +437,10 @@ viewIntrospectionBody model title listSubSection =
         ]
 
 
-viewLogo : Element Msg -> String -> String -> Element Msg
-viewLogo title subTitle version =
+viewLogo : Element Msg -> String -> Element Msg
+viewLogo logo version =
     column [ Events.onClick MsgGoTop, pointer, height shrink ]
-        [ el [ Font.size 60, Font.bold, Events.onClick MsgGoTop ] title
-        , el [ Font.size 16, Font.bold, Events.onClick MsgGoTop ] <| text subTitle
+        [ logo
         , el [ Font.size 16, Font.bold, Events.onClick MsgGoTop ] <| text <| "v" ++ version
         ]
 
@@ -661,6 +656,14 @@ layoutFontsAndAttributes =
     , Font.size 16
     , Font.color <| Color.rgb 0x33 0x33 0x33
     , Background.color Color.white
+    , Element.inFront <|
+        link
+            [ alignRight
+            , Font.color <| color Primary
+            ]
+            { label = image [ width <| px 60, alpha 0.5 ] { src = "images/github.png", description = "Fork me on Github" }
+            , url = "https://github.com/lucamug/elm-style-framework/tree/5.0.1"
+            }
     ]
 
 
