@@ -24,7 +24,6 @@ import Element.Border as Border
 import Element.Events as Events
 import Element.Font as Font
 import Element.Input as Input
-import Element.Region exposing (description)
 import Framework.Button as Button
 import Framework.Cards as Cards
 import Framework.Color as Color exposing (Color(..), color)
@@ -41,15 +40,10 @@ import Navigation
 import Window
 
 
-conf :
-    { introduction : Element msg
-    , logo : Element msg1
-    , mainPadding : number
-    , p : String
-    , version : String
-    }
 conf =
-    { logo =
+    { gray3 = Color.rgb 0x33 0x33 0x33
+    , grayB = Color.rgb 0xB6 0xB6 0xB6
+    , logo =
         column []
             [ paragraph
                 [ Font.size 55
@@ -262,7 +256,26 @@ view model =
                 }
             ]
         }
-        layoutFontsAndAttributes
+        [ Font.family
+            [ Font.external
+                { name = "Noto Sans"
+                , url = "https://fonts.googleapis.com/css?family=Noto+Sans"
+                }
+            , Font.typeface "Noto Sans"
+            , Font.sansSerif
+            ]
+        , Font.size 16
+        , Font.color <| conf.gray3
+        , Background.color Color.white
+        , Element.inFront <|
+            link
+                [ alignRight
+                , Font.color <| color Primary
+                ]
+                { label = image [ width <| px 60, alpha 0.5 ] { src = "images/github.png", description = "Fork me on Github" }
+                , url = "https://github.com/lucamug/elm-style-framework"
+                }
+        ]
     <|
         if model.location.hostname == "localhost" || model.p == conf.p then
             viewPage model.maybeWindowSize model
@@ -345,8 +358,8 @@ viewPage maybeWindowSize model =
 viewMenuColumn : Model -> Element Msg
 viewMenuColumn model =
     column
-        [ Background.color <| Color.rgb 0x33 0x33 0x33
-        , Font.color <| Color.rgb 0xB6 0xB6 0xB6
+        [ Background.color <| conf.gray3
+        , Font.color <| conf.grayB
         , width fill
         , height shrink
         , spacing 30
@@ -632,7 +645,7 @@ sourceCodeWrapper sourceCode =
         , Font.color <| rgb 0x99 0x99 0x99
         , Font.family [ Font.monospace ]
         , Font.size 16
-        , Background.color <| Color.rgb 0x33 0x33 0x33
+        , Background.color <| conf.gray3
         , padding 16
         , Border.rounded 8
         ]
@@ -641,30 +654,6 @@ sourceCodeWrapper sourceCode =
 
 
 -- INTERNAL
-
-
-layoutFontsAndAttributes : List (Attribute msg)
-layoutFontsAndAttributes =
-    [ Font.family
-        [ Font.external
-            { name = "Noto Sans"
-            , url = "https://fonts.googleapis.com/css?family=Noto+Sans"
-            }
-        , Font.typeface "Noto Sans"
-        , Font.sansSerif
-        ]
-    , Font.size 16
-    , Font.color <| Color.rgb 0x33 0x33 0x33
-    , Background.color Color.white
-    , Element.inFront <|
-        link
-            [ alignRight
-            , Font.color <| color Primary
-            ]
-            { label = image [ width <| px 60, alpha 0.5 ] { src = "images/github.png", description = "Fork me on Github" }
-            , url = "https://github.com/lucamug/elm-style-framework/tree/5.0.1"
-            }
-    ]
 
 
 generatedBy : Element msg

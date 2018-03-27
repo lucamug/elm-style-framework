@@ -30442,131 +30442,6 @@ var _lucamug$elm_style_framework$Framework$introspectionExample = function (id) 
 		}
 	};
 };
-var _lucamug$elm_style_framework$Framework$layoutFontsAndAttributes = {
-	ctor: '::',
-	_0: _mdgriffith$stylish_elephants$Element_Font$family(
-		{
-			ctor: '::',
-			_0: _mdgriffith$stylish_elephants$Element_Font$external(
-				{name: 'Noto Sans', url: 'https://fonts.googleapis.com/css?family=Noto+Sans'}),
-			_1: {
-				ctor: '::',
-				_0: _mdgriffith$stylish_elephants$Element_Font$typeface('Noto Sans'),
-				_1: {
-					ctor: '::',
-					_0: _mdgriffith$stylish_elephants$Element_Font$sansSerif,
-					_1: {ctor: '[]'}
-				}
-			}
-		}),
-	_1: {
-		ctor: '::',
-		_0: _mdgriffith$stylish_elephants$Element_Font$size(16),
-		_1: {
-			ctor: '::',
-			_0: _mdgriffith$stylish_elephants$Element_Font$color(
-				A3(_elm_lang$core$Color$rgb, 51, 51, 51)),
-			_1: {
-				ctor: '::',
-				_0: _mdgriffith$stylish_elephants$Element_Background$color(_elm_lang$core$Color$white),
-				_1: {
-					ctor: '::',
-					_0: _mdgriffith$stylish_elephants$Element$inFront(
-						A2(
-							_mdgriffith$stylish_elephants$Element$link,
-							{
-								ctor: '::',
-								_0: _mdgriffith$stylish_elephants$Element$alignRight,
-								_1: {
-									ctor: '::',
-									_0: _mdgriffith$stylish_elephants$Element_Font$color(
-										_lucamug$elm_style_framework$Framework_Color$color(_lucamug$elm_style_framework$Framework_Color$Primary)),
-									_1: {ctor: '[]'}
-								}
-							},
-							{
-								label: A2(
-									_mdgriffith$stylish_elephants$Element$image,
-									{
-										ctor: '::',
-										_0: _mdgriffith$stylish_elephants$Element$width(
-											_mdgriffith$stylish_elephants$Element$px(60)),
-										_1: {
-											ctor: '::',
-											_0: _mdgriffith$stylish_elephants$Element$alpha(0.5),
-											_1: {ctor: '[]'}
-										}
-									},
-									{src: 'images/github.png', description: 'Fork me on Github'}),
-								url: 'https://github.com/lucamug/elm-style-framework/tree/5.0.1'
-							})),
-					_1: {ctor: '[]'}
-				}
-			}
-		}
-	}
-};
-var _lucamug$elm_style_framework$Framework$sourceCodeWrapper = function (sourceCode) {
-	return A2(
-		_mdgriffith$stylish_elephants$Element$paragraph,
-		{
-			ctor: '::',
-			_0: _mdgriffith$stylish_elephants$Element$width(_mdgriffith$stylish_elephants$Element$fill),
-			_1: {
-				ctor: '::',
-				_0: _mdgriffith$stylish_elephants$Element$scrollbars,
-				_1: {
-					ctor: '::',
-					_0: _mdgriffith$stylish_elephants$Element$alignTop,
-					_1: {
-						ctor: '::',
-						_0: _mdgriffith$stylish_elephants$Element_Font$color(
-							A3(_elm_lang$core$Color$rgb, 153, 153, 153)),
-						_1: {
-							ctor: '::',
-							_0: _mdgriffith$stylish_elephants$Element_Font$family(
-								{
-									ctor: '::',
-									_0: _mdgriffith$stylish_elephants$Element_Font$monospace,
-									_1: {ctor: '[]'}
-								}),
-							_1: {
-								ctor: '::',
-								_0: _mdgriffith$stylish_elephants$Element_Font$size(16),
-								_1: {
-									ctor: '::',
-									_0: _mdgriffith$stylish_elephants$Element_Background$color(
-										A3(_elm_lang$core$Color$rgb, 51, 51, 51)),
-									_1: {
-										ctor: '::',
-										_0: _mdgriffith$stylish_elephants$Element$padding(16),
-										_1: {
-											ctor: '::',
-											_0: _mdgriffith$stylish_elephants$Element_Border$rounded(8),
-											_1: {ctor: '[]'}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		{
-			ctor: '::',
-			_0: _mdgriffith$stylish_elephants$Element$html(
-				A2(
-					_elm_lang$html$Html$pre,
-					{ctor: '[]'},
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html$text(sourceCode),
-						_1: {ctor: '[]'}
-					})),
-			_1: {ctor: '[]'}
-		});
-};
 var _lucamug$elm_style_framework$Framework$hackInLineStyle = F2(
 	function (text1, text2) {
 		return _mdgriffith$stylish_elephants$Element$htmlAttribute(
@@ -30696,6 +30571,8 @@ var _lucamug$elm_style_framework$Framework$update = F2(
 		}
 	});
 var _lucamug$elm_style_framework$Framework$conf = {
+	gray3: A3(_elm_lang$core$Color$rgb, 51, 51, 51),
+	grayB: A3(_elm_lang$core$Color$rgb, 182, 182, 182),
 	logo: A2(
 		_mdgriffith$stylish_elephants$Element$column,
 		{ctor: '[]'},
@@ -30879,6 +30756,66 @@ var _lucamug$elm_style_framework$Framework$viewIntrospectionTitle = function (in
 		_lucamug$elm_style_framework$Framework$viewTitleAndSubTitle,
 		introspection.name,
 		_mdgriffith$stylish_elephants$Element$text(introspection.description));
+};
+var _lucamug$elm_style_framework$Framework$sourceCodeWrapper = function (sourceCode) {
+	return A2(
+		_mdgriffith$stylish_elephants$Element$paragraph,
+		{
+			ctor: '::',
+			_0: _mdgriffith$stylish_elephants$Element$width(_mdgriffith$stylish_elephants$Element$fill),
+			_1: {
+				ctor: '::',
+				_0: _mdgriffith$stylish_elephants$Element$scrollbars,
+				_1: {
+					ctor: '::',
+					_0: _mdgriffith$stylish_elephants$Element$alignTop,
+					_1: {
+						ctor: '::',
+						_0: _mdgriffith$stylish_elephants$Element_Font$color(
+							A3(_elm_lang$core$Color$rgb, 153, 153, 153)),
+						_1: {
+							ctor: '::',
+							_0: _mdgriffith$stylish_elephants$Element_Font$family(
+								{
+									ctor: '::',
+									_0: _mdgriffith$stylish_elephants$Element_Font$monospace,
+									_1: {ctor: '[]'}
+								}),
+							_1: {
+								ctor: '::',
+								_0: _mdgriffith$stylish_elephants$Element_Font$size(16),
+								_1: {
+									ctor: '::',
+									_0: _mdgriffith$stylish_elephants$Element_Background$color(_lucamug$elm_style_framework$Framework$conf.gray3),
+									_1: {
+										ctor: '::',
+										_0: _mdgriffith$stylish_elephants$Element$padding(16),
+										_1: {
+											ctor: '::',
+											_0: _mdgriffith$stylish_elephants$Element_Border$rounded(8),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		{
+			ctor: '::',
+			_0: _mdgriffith$stylish_elephants$Element$html(
+				A2(
+					_elm_lang$html$Html$pre,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(sourceCode),
+						_1: {ctor: '[]'}
+					})),
+			_1: {ctor: '[]'}
+		});
 };
 var _lucamug$elm_style_framework$Framework$generatedBy = A2(
 	_mdgriffith$stylish_elephants$Element$el,
@@ -31433,12 +31370,10 @@ var _lucamug$elm_style_framework$Framework$viewMenuColumn = function (model) {
 		_mdgriffith$stylish_elephants$Element$column,
 		{
 			ctor: '::',
-			_0: _mdgriffith$stylish_elephants$Element_Background$color(
-				A3(_elm_lang$core$Color$rgb, 51, 51, 51)),
+			_0: _mdgriffith$stylish_elephants$Element_Background$color(_lucamug$elm_style_framework$Framework$conf.gray3),
 			_1: {
 				ctor: '::',
-				_0: _mdgriffith$stylish_elephants$Element_Font$color(
-					A3(_elm_lang$core$Color$rgb, 182, 182, 182)),
+				_0: _mdgriffith$stylish_elephants$Element_Font$color(_lucamug$elm_style_framework$Framework$conf.grayB),
 				_1: {
 					ctor: '::',
 					_0: _mdgriffith$stylish_elephants$Element$width(_mdgriffith$stylish_elephants$Element$fill),
@@ -31653,7 +31588,69 @@ var _lucamug$elm_style_framework$Framework$view = function (model) {
 				_1: {ctor: '[]'}
 			}
 		},
-		_lucamug$elm_style_framework$Framework$layoutFontsAndAttributes,
+		{
+			ctor: '::',
+			_0: _mdgriffith$stylish_elephants$Element_Font$family(
+				{
+					ctor: '::',
+					_0: _mdgriffith$stylish_elephants$Element_Font$external(
+						{name: 'Noto Sans', url: 'https://fonts.googleapis.com/css?family=Noto+Sans'}),
+					_1: {
+						ctor: '::',
+						_0: _mdgriffith$stylish_elephants$Element_Font$typeface('Noto Sans'),
+						_1: {
+							ctor: '::',
+							_0: _mdgriffith$stylish_elephants$Element_Font$sansSerif,
+							_1: {ctor: '[]'}
+						}
+					}
+				}),
+			_1: {
+				ctor: '::',
+				_0: _mdgriffith$stylish_elephants$Element_Font$size(16),
+				_1: {
+					ctor: '::',
+					_0: _mdgriffith$stylish_elephants$Element_Font$color(_lucamug$elm_style_framework$Framework$conf.gray3),
+					_1: {
+						ctor: '::',
+						_0: _mdgriffith$stylish_elephants$Element_Background$color(_elm_lang$core$Color$white),
+						_1: {
+							ctor: '::',
+							_0: _mdgriffith$stylish_elephants$Element$inFront(
+								A2(
+									_mdgriffith$stylish_elephants$Element$link,
+									{
+										ctor: '::',
+										_0: _mdgriffith$stylish_elephants$Element$alignRight,
+										_1: {
+											ctor: '::',
+											_0: _mdgriffith$stylish_elephants$Element_Font$color(
+												_lucamug$elm_style_framework$Framework_Color$color(_lucamug$elm_style_framework$Framework_Color$Primary)),
+											_1: {ctor: '[]'}
+										}
+									},
+									{
+										label: A2(
+											_mdgriffith$stylish_elephants$Element$image,
+											{
+												ctor: '::',
+												_0: _mdgriffith$stylish_elephants$Element$width(
+													_mdgriffith$stylish_elephants$Element$px(60)),
+												_1: {
+													ctor: '::',
+													_0: _mdgriffith$stylish_elephants$Element$alpha(0.5),
+													_1: {ctor: '[]'}
+												}
+											},
+											{src: 'images/github.png', description: 'Fork me on Github'}),
+										url: 'https://github.com/lucamug/elm-style-framework'
+									})),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}
+		},
 		(_elm_lang$core$Native_Utils.eq(model.location.hostname, 'localhost') || _elm_lang$core$Native_Utils.eq(model.p, _lucamug$elm_style_framework$Framework$conf.p)) ? A2(_lucamug$elm_style_framework$Framework$viewPage, model.maybeWindowSize, model) : A2(
 			_mdgriffith$stylish_elephants$Element$column,
 			{
