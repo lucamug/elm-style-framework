@@ -1,9 +1,4 @@
-module Framework.Logo
-    exposing
-        ( Logo(..)
-        , introspection
-        , logo
-        )
+module Framework.Logo exposing (..)
 
 {-| Logos generator
 

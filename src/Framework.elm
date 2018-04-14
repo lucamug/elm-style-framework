@@ -42,19 +42,27 @@ import Window
 
 conf :
     { gray3 : Color.Color
+    , gray9 : Color.Color
     , grayB : Color.Color
+    , grayD : Color.Color
+    , grayF : Color.Color
+    , title : Element msg1
+    , subTitle : String
+    , version : String
     , introduction : Element msg
-    , logo : Element msg1
     , mainPadding : number
     , p : String
-    , version : String
     }
 conf =
-    { gray3 = Color.rgb 0x33 0x33 0x33
-    , grayB = Color.rgb 0xB6 0xB6 0xB6
-    , logo =
+    { gray3 = Color.rgba 0x33 0x33 0x33 0xFF
+    , gray9 = Color.rgba 0x99 0x99 0x99 0xFF
+    , grayB = Color.rgba 0xB6 0xB6 0xB6 0xFF
+    , grayD = Color.rgba 0xD1 0xD1 0xD1 0xFF
+    , grayF = Color.rgba 0xF7 0xF7 0xF7 0xFF
+    , title =
         column []
-            [ paragraph
+            [ el [ alpha 0.3 ] <| Logo.logo (Logo.LogoElm <| Logo.ElmColor Logo.White) 60
+            , paragraph
                 [ Font.size 55
                 , Font.bold
                 , moveLeft 3
@@ -62,14 +70,12 @@ conf =
                 [ el [ alpha 0.5 ] <| text "elm"
                 , text "Style"
                 ]
-            , el [ Font.size 16, Font.bold ] <| text "FRAMEWORK"
             ]
+    , subTitle = "FRAMEWORK"
     , version = "0.0.1"
+    , introduction = empty
     , mainPadding = 41
     , p = "1234"
-    , introduction =
-        paragraph []
-            []
     }
 
 
@@ -82,43 +88,45 @@ type alias Model =
     , modelCards : Cards.Model
     , introspections : List ( Introspection, Bool )
     , location : Navigation.Location
-    , localStorage : String
     , maybeWindowSize : Maybe Window.Size
     , p : String
     }
 
 
+initModel : Flag -> Navigation.Location -> Model
+initModel flag location =
+    { location = location
+    , p = conf.p
+    , selected = Nothing
+    , modelStyleElementsInput = StyleElementsInput.initModel
+    , modelForm = Form.initModel
+    , modelCards = Cards.initModel
+    , maybeWindowSize = Just <| Window.Size flag.width flag.height
+    , introspections =
+        [ ( Framework.Color.introspection, True )
+        , ( Form.introspection, True )
+        , ( Typography.introspection, True )
+        , ( Cards.introspection, True )
+        , ( Button.introspection, True )
+        , ( Spinner.introspection, True )
+        , ( Logo.introspection, True )
+        , ( Icon.introspection, True )
+        , ( StyleElements.introspection, True )
+        , ( StyleElementsInput.introspection, True )
+        ]
+    }
+
+
 init : Flag -> Navigation.Location -> ( Model, Cmd Msg )
 init flag location =
-    ( { location = location
-      , p = conf.p
-      , selected = Nothing
-      , modelStyleElementsInput = StyleElementsInput.initModel
-      , modelForm = Form.initModel
-      , modelCards = Cards.initModel
-      , localStorage = flag.local_storage
-      , maybeWindowSize = Just <| Window.Size flag.width flag.height
-      , introspections =
-            [ ( Framework.Color.introspection, True )
-            , ( Form.introspection, True )
-            , ( Typography.introspection, True )
-            , ( Cards.introspection, True )
-            , ( Button.introspection, True )
-            , ( Spinner.introspection, True )
-            , ( Logo.introspection, True )
-            , ( Icon.introspection, True )
-            , ( StyleElements.introspection, True )
-            , ( StyleElementsInput.introspection, True )
-            ]
-      }
+    ( initModel flag location
       --, Cmd.batch [ Task.perform MsgChangeWindowSize Window.size ]
     , Cmd.batch []
     )
 
 
 type alias Flag =
-    { local_storage : String
-    , width : Int
+    { width : Int
     , height : Int
     }
 
@@ -286,14 +294,7 @@ view model =
         , Font.size 16
         , Font.color <| conf.gray3
         , Background.color Color.white
-        , Element.inFront <|
-            link
-                [ alignRight
-                , Font.color <| color Primary
-                ]
-                { label = image [ width <| px 60, alpha 0.5 ] { src = "images/github.png", description = "Fork me on Github" }
-                , url = "https://github.com/lucamug/elm-style-framework"
-                }
+        , forkMe
         ]
     <|
         if model.location.hostname == "localhost" || model.p == conf.p then
@@ -386,11 +387,11 @@ viewMenuColumn model =
         , height fill
         ]
         [ column [ height shrink ]
-            [ viewLogo conf.logo conf.version
+            [ viewLogo conf.title conf.subTitle conf.version
             , row
                 [ spacing 10
                 , Font.size 14
-                , Font.color <| rgba 0x82 0x82 0x82 0xFF
+                , Font.color <| conf.gray9
                 ]
                 [ el [ pointer, Events.onClick MsgOpenAll ] <| text "Expand All"
                 , el [ pointer, Events.onClick MsgCloseAll ] <| text "Close All"
@@ -415,7 +416,7 @@ viewContentColumn model =
             <|
                 column []
                     [ column [ padding <| conf.mainPadding + 100, spacing conf.mainPadding ]
-                        [ el [] <| viewLogo conf.logo conf.version
+                        [ el [] <| viewLogo conf.title conf.subTitle conf.version
                         , el [ Font.size 24 ] conf.introduction
                         , el [ centerX, alpha 0.2 ] <| Icon.icon Icon.ChevronDown 32
                         ]
@@ -469,10 +470,11 @@ viewIntrospectionBody model title listSubSection =
         ]
 
 
-viewLogo : Element Msg -> String -> Element Msg
-viewLogo logo version =
+viewLogo : Element Msg -> String -> String -> Element Msg
+viewLogo title subTitle version =
     column [ Events.onClick MsgGoTop, pointer, height shrink ]
-        [ logo
+        [ el [ Font.size 60, Font.bold, Events.onClick MsgGoTop ] title
+        , el [ Font.size 16, Font.bold, Events.onClick MsgGoTop ] <| text subTitle
         , el [ Font.size 16, Font.bold, Events.onClick MsgGoTop ] <| text <| "v" ++ version
         ]
 
@@ -480,7 +482,7 @@ viewLogo logo version =
 viewIntrospectionForMenu : Introspection -> Bool -> Element Msg
 viewIntrospectionForMenu introspection open =
     column
-        [ Font.color <| rgba 0x82 0x82 0x82 0xFF
+        [ Font.color <| conf.gray9
         ]
         [ el
             [ pointer
@@ -511,7 +513,7 @@ viewIntrospectionForMenu introspection open =
             ([ clip
              , height shrink
              , Font.size 16
-             , Font.color <| rgba 0xD1 0xD1 0xD1 0xFF
+             , Font.color <| conf.grayD
              , spacing 2
              , paddingEach { bottom = 0, left = 26, right = 0, top = 0 }
              ]
@@ -542,7 +544,7 @@ viewListVariationForMenu introspection variations =
 viewTitleAndSubTitle : String -> Element Msg -> Element Msg
 viewTitleAndSubTitle title subTitle =
     column
-        [ Background.color <| rgba 0xF7 0xF7 0xF7 0xFF
+        [ Background.color <| conf.grayF
         , padding conf.mainPadding
         , spacing 10
         , height shrink
@@ -641,33 +643,12 @@ viewSubSection model ( componentExample, componentExampleSourceCode ) boxed =
                 specialComponent model StyleElementsInput.example11
             else
                 ( componentExample, componentExampleSourceCode )
-
-        --        componentExampleSourceCodeToDisplay =
-        --            if componentExampleSourceCode == "" then
-        --                el [ width fill ] empty
-        --            else
-        --                paragraph
-        --                    [ width fill
-        --                    , scrollbars
-        --                    , alignTop
-        --                    , Font.color <| rgb 0x99 0x99 0x99
-        --                    , Font.family [ Font.monospace ]
-        --                    , Font.size 16
-        --                    , Background.color <| Color.rgb 0x33 0x33 0x33
-        --                    , padding 16
-        --                    , Border.rounded 8
-        --                    ]
-        --                    [ html (Html.pre [] [ Html.text componentExampleSourceCode ]) ]
     in
     row
         []
         [ paragraph
             [ width fill
-
-            --, scrollbars
             , alignTop
-
-            --, Border.width 1
             ]
             [ componentExampleToDisplay ]
         , sourceCodeWrapper componentExampleSourceCodeToDisplay
@@ -680,7 +661,7 @@ sourceCodeWrapper sourceCode =
         [ width fill
         , scrollbars
         , alignTop
-        , Font.color <| rgba 0x99 0x99 0x99 0xFF
+        , Font.color <| conf.gray9
         , Font.family [ Font.monospace ]
         , Font.size 16
         , Background.color <| conf.gray3
@@ -749,3 +730,15 @@ main =
         , update = update
         , subscriptions = subscriptions
         }
+
+
+forkMe : Attribute msg
+forkMe =
+    Element.inFront <|
+        link
+            [ alignRight
+            , Font.color <| color Primary
+            ]
+            { label = image [ width <| px 60, alpha 0.5 ] { src = "images/github.png", description = "Fork me on Github" }
+            , url = "https://github.com/lucamug/elm-style-framework"
+            }
