@@ -17,7 +17,7 @@ For more info about the idea, see [this post](https://medium.com/@l.mugnaini/zer
 
 --import Element.Input as Input
 
-import Color exposing (gray, rgb)
+import Color exposing (gray, rgba)
 import Element exposing (..)
 import Element.Background as Background
 import Element.Border as Border
@@ -26,7 +26,7 @@ import Element.Font as Font
 import Element.Input as Input
 import Framework.Button as Button
 import Framework.Cards as Cards
-import Framework.Color as Color exposing (Color(..), color)
+import Framework.Color exposing (Color(..), color)
 import Framework.Form as Form
 import Framework.Icon as Icon
 import Framework.Logo as Logo
@@ -40,6 +40,15 @@ import Navigation
 import Window
 
 
+conf :
+    { gray3 : Color.Color
+    , grayB : Color.Color
+    , introduction : Element msg
+    , logo : Element msg1
+    , mainPadding : number
+    , p : String
+    , version : String
+    }
 conf =
     { gray3 = Color.rgb 0x33 0x33 0x33
     , grayB = Color.rgb 0xB6 0xB6 0xB6
@@ -70,6 +79,7 @@ type alias Model =
     , maybeWindowSize : Maybe Window.Size
     , modelStyleElementsInput : StyleElementsInput.Model
     , modelForm : Form.Model
+    , modelCards : Cards.Model
     , introspections : List ( Introspection, Bool )
     , location : Navigation.Location
     , localStorage : String
@@ -85,10 +95,11 @@ init flag location =
       , selected = Nothing
       , modelStyleElementsInput = StyleElementsInput.initModel
       , modelForm = Form.initModel
+      , modelCards = Cards.initModel
       , localStorage = flag.local_storage
       , maybeWindowSize = Just <| Window.Size flag.width flag.height
       , introspections =
-            [ ( Color.introspection, True )
+            [ ( Framework.Color.introspection, True )
             , ( Form.introspection, True )
             , ( Typography.introspection, True )
             , ( Cards.introspection, True )
@@ -168,6 +179,7 @@ type Msg
     | MsgChangeWindowSize Window.Size
     | MsgStyleElementsInput StyleElementsInput.Msg
     | MsgForm Form.Msg
+    | MsgCards Cards.Msg
     | MsgChangeUrl Navigation.Location
     | MsgChangeP String
 
@@ -228,6 +240,13 @@ update msg model =
                     Form.update msg model.modelForm
             in
             ( { model | modelForm = newModel }, Cmd.none )
+
+        MsgCards msg ->
+            let
+                ( newModel, newCmd ) =
+                    Cards.update msg model.modelCards
+            in
+            ( { model | modelCards = newModel }, Cmd.none )
 
         MsgChangeUrl location ->
             ( { model | location = location }, Cmd.none )
@@ -371,7 +390,7 @@ viewMenuColumn model =
             , row
                 [ spacing 10
                 , Font.size 14
-                , Font.color <| rgb 0x82 0x82 0x82
+                , Font.color <| rgba 0x82 0x82 0x82 0xFF
                 ]
                 [ el [ pointer, Events.onClick MsgOpenAll ] <| text "Expand All"
                 , el [ pointer, Events.onClick MsgCloseAll ] <| text "Close All"
@@ -461,7 +480,7 @@ viewLogo logo version =
 viewIntrospectionForMenu : Introspection -> Bool -> Element Msg
 viewIntrospectionForMenu introspection open =
     column
-        [ Font.color <| rgb 0x82 0x82 0x82
+        [ Font.color <| rgba 0x82 0x82 0x82 0xFF
         ]
         [ el
             [ pointer
@@ -492,7 +511,7 @@ viewIntrospectionForMenu introspection open =
             ([ clip
              , height shrink
              , Font.size 16
-             , Font.color <| rgb 0xD1 0xD1 0xD1
+             , Font.color <| rgba 0xD1 0xD1 0xD1 0xFF
              , spacing 2
              , paddingEach { bottom = 0, left = 26, right = 0, top = 0 }
              ]
@@ -523,7 +542,7 @@ viewListVariationForMenu introspection variations =
 viewTitleAndSubTitle : String -> Element Msg -> Element Msg
 viewTitleAndSubTitle title subTitle =
     column
-        [ Background.color <| rgb 0xF7 0xF7 0xF7
+        [ Background.color <| rgba 0xF7 0xF7 0xF7 0xFF
         , padding conf.mainPadding
         , spacing 10
         , height shrink
@@ -570,6 +589,20 @@ specialComponentForm model component =
     )
 
 
+specialComponentCards :
+    Model
+    -> (Cards.Model -> ( Element Cards.Msg, c ))
+    -> ( Element Msg, c )
+specialComponentCards model component =
+    let
+        componentTuplet =
+            component model.modelCards
+    in
+    ( Element.map MsgCards (Tuple.first <| componentTuplet)
+    , Tuple.second <| componentTuplet
+    )
+
+
 viewSubSection : Model -> SubSection -> Bool -> Element Msg
 viewSubSection model ( componentExample, componentExampleSourceCode ) boxed =
     let
@@ -578,6 +611,8 @@ viewSubSection model ( componentExample, componentExampleSourceCode ) boxed =
                 specialComponentForm model Form.example1
             else if componentExample == text "special: Form.example2" then
                 specialComponentForm model Form.example2
+            else if componentExample == text "special: Cards.example1" then
+                specialComponentCards model Cards.example1
             else if componentExample == text "special: example0" then
                 specialComponent model StyleElementsInput.example0
             else if componentExample == text "special: example1" then
@@ -628,8 +663,11 @@ viewSubSection model ( componentExample, componentExampleSourceCode ) boxed =
         []
         [ paragraph
             [ width fill
-            , scrollbars
+
+            --, scrollbars
             , alignTop
+
+            --, Border.width 1
             ]
             [ componentExampleToDisplay ]
         , sourceCodeWrapper componentExampleSourceCodeToDisplay
@@ -642,7 +680,7 @@ sourceCodeWrapper sourceCode =
         [ width fill
         , scrollbars
         , alignTop
-        , Font.color <| rgb 0x99 0x99 0x99
+        , Font.color <| rgba 0x99 0x99 0x99 0xFF
         , Font.family [ Font.monospace ]
         , Font.size 16
         , Background.color <| conf.gray3
