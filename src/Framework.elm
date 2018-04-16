@@ -1,4 +1,4 @@
-module Framework exposing (Introspection, Model, Msg, update, view, viewPage)
+module Framework exposing (Conf, Introspection, Model, Msg, initConf, initModel, update, view, viewPage)
 
 {-| This simple package generates a page with Style Guides.
 It uses certain data structure that each section of the framework expose ([Example](https://lucamug.github.io/elm-styleguide-generator/), [Example source](https://github.com/lucamug/elm-styleguide-generator/blob/master/examples/Main.elm)).
@@ -11,7 +11,7 @@ For more info about the idea, see [this post](https://medium.com/@l.mugnaini/zer
 
 # Functions
 
-@docs Introspection, Model, Msg, update, view, viewPage
+@docs Conf, Introspection, Model, Msg, initConf, initModel, update, view, viewPage
 
 -}
 
@@ -40,31 +40,60 @@ import Navigation
 import Window
 
 
-conf :
+{-| Configuration
+-}
+type alias Conf msg =
     { gray3 : Color.Color
     , gray9 : Color.Color
     , grayB : Color.Color
     , grayD : Color.Color
     , grayF : Color.Color
-    , title : Element msg1
+    , title : Element msg
     , subTitle : String
     , version : String
     , introduction : Element msg
-    , mainPadding : number
+    , mainPadding : Int
     , password : String
+    , forkMe : Attribute msg
+    , hostnamesWithoutPassword : String -> Bool
     }
-conf =
+
+
+{-| -}
+initConf : Conf msg
+initConf =
     { gray3 = Color.rgba 0x33 0x33 0x33 0xFF
     , gray9 = Color.rgba 0x99 0x99 0x99 0xFF
     , grayB = Color.rgba 0xB6 0xB6 0xB6 0xFF
     , grayD = Color.rgba 0xD1 0xD1 0xD1 0xFF
     , grayF = Color.rgba 0xF7 0xF7 0xF7 0xFF
-    , title = title
-    , subTitle = subTitle
-    , version = version
-    , introduction = introduction
+    , title =
+        column []
+            [ el [ alpha 0.3 ] <| Logo.logo (Logo.LogoElm <| Logo.ElmColor Logo.White) 60
+            , paragraph
+                [ Font.size 55
+                , Font.bold
+                , moveLeft 3
+                ]
+                [ el [ alpha 0.5 ] <| text "elm"
+                , text "Style"
+                ]
+            ]
+    , subTitle = "FRAMEWORK"
+    , version = "0.0.1"
+    , introduction = empty
     , mainPadding = 41
-    , password = password
+    , password = ""
+    , forkMe =
+        Element.inFront <|
+            link
+                [ alignRight
+                , Font.color <| color Primary
+                ]
+                { label = image [ width <| px 60, alpha 0.5 ] { src = "images/github.png", description = "Fork me on Github" }
+                , url = "https://github.com/lucamug/elm-style-framework"
+                }
+    , hostnamesWithoutPassword = \hostname -> hostname == "localhost"
     }
 
 
@@ -79,9 +108,11 @@ type alias Model =
     , location : Navigation.Location
     , maybeWindowSize : Maybe Window.Size
     , password : String
+    , conf : Conf Msg
     }
 
 
+{-| -}
 initModel : Flag -> Navigation.Location -> Model
 initModel flag location =
     { location = location
@@ -91,6 +122,7 @@ initModel flag location =
     , modelForm = Form.initModel
     , modelCards = Cards.initModel
     , maybeWindowSize = Just <| Window.Size flag.width flag.height
+    , conf = initConf
     , introspections =
         [ ( Framework.Color.introspection, True )
         , ( Form.introspection, True )
@@ -263,6 +295,10 @@ Example, in your Style Guide page:
 -}
 view : Model -> Html.Html Msg
 view model =
+    let
+        conf =
+            model.conf
+    in
     layoutWith
         { options =
             [ focusStyle
@@ -283,10 +319,10 @@ view model =
         , Font.size 16
         , Font.color <| conf.gray3
         , Background.color Color.white
-        , forkMe
+        , conf.forkMe
         ]
     <|
-        if hostnameCheck model || model.password == conf.password || String.length conf.password == 0 then
+        if conf.hostnamesWithoutPassword model.location.hostname || model.password == conf.password || String.length conf.password == 0 then
             viewPage model.maybeWindowSize model
         else
             column [ width fill, height fill ]
@@ -348,6 +384,10 @@ Example, in your Style Guide page:
 -}
 viewPage : Maybe Window.Size -> Model -> Element Msg
 viewPage maybeWindowSize model =
+    let
+        conf =
+            model.conf
+    in
     row
         [ height <|
             case maybeWindowSize of
@@ -366,6 +406,10 @@ viewPage maybeWindowSize model =
 
 viewMenuColumn : Model -> Element Msg
 viewMenuColumn model =
+    let
+        conf =
+            model.conf
+    in
     column
         [ Background.color <| conf.gray3
         , Font.color <| conf.grayB
@@ -386,12 +430,16 @@ viewMenuColumn model =
                 , el [ pointer, Events.onClick MsgCloseAll ] <| text "Close All"
                 ]
             ]
-        , column [ spacing 30, height shrink, alignTop ] <| List.map (\( data, show ) -> viewIntrospectionForMenu data show) model.introspections
+        , column [ spacing 30, height shrink, alignTop ] <| List.map (\( data, show ) -> viewIntrospectionForMenu conf data show) model.introspections
         ]
 
 
 viewContentColumn : Model -> Element Msg
 viewContentColumn model =
+    let
+        conf =
+            model.conf
+    in
     case model.selected of
         Just something ->
             viewSomething model something
@@ -416,7 +464,7 @@ viewContentColumn model =
 viewIntrospection : Model -> Introspection -> Element Msg
 viewIntrospection model introspection =
     column []
-        ([ viewIntrospectionTitle introspection
+        ([ viewIntrospectionTitle model.conf introspection
          ]
             ++ List.map
                 (\( string, listSubSections ) ->
@@ -430,7 +478,7 @@ viewSomething : Model -> ( Introspection, ( String, List SubSection ) ) -> Eleme
 viewSomething model ( introspection, ( title, listSubSection ) ) =
     column
         []
-        [ viewIntrospectionTitle introspection
+        [ viewIntrospectionTitle model.conf introspection
 
         --, el [ Font.size 18 ] <| text "Signature"
         --, paragraph codeAttributes [ text <| introspection.signature ]
@@ -442,13 +490,17 @@ viewSomething model ( introspection, ( title, listSubSection ) ) =
         ]
 
 
-viewIntrospectionTitle : Introspection -> Element Msg
-viewIntrospectionTitle introspection =
-    viewTitleAndSubTitle introspection.name (text introspection.description)
+viewIntrospectionTitle : Conf msg -> Introspection -> Element Msg
+viewIntrospectionTitle conf introspection =
+    viewTitleAndSubTitle conf introspection.name (text introspection.description)
 
 
 viewIntrospectionBody : Model -> String -> List SubSection -> Element Msg
 viewIntrospectionBody model title listSubSection =
+    let
+        conf =
+            model.conf
+    in
     column
         [ padding conf.mainPadding
         , spacing conf.mainPadding
@@ -468,8 +520,8 @@ viewLogo title subTitle version =
         ]
 
 
-viewIntrospectionForMenu : Introspection -> Bool -> Element Msg
-viewIntrospectionForMenu introspection open =
+viewIntrospectionForMenu : Conf msg -> Introspection -> Bool -> Element Msg
+viewIntrospectionForMenu conf introspection open =
     column
         [ Font.color <| conf.gray9
         ]
@@ -530,8 +582,8 @@ viewListVariationForMenu introspection variations =
         variations
 
 
-viewTitleAndSubTitle : String -> Element Msg -> Element Msg
-viewTitleAndSubTitle title subTitle =
+viewTitleAndSubTitle : Conf msg -> String -> Element Msg -> Element Msg
+viewTitleAndSubTitle conf title subTitle =
     column
         [ Background.color <| conf.grayF
         , padding conf.mainPadding
@@ -640,12 +692,12 @@ viewSubSection model ( componentExample, componentExampleSourceCode ) boxed =
             , alignTop
             ]
             [ componentExampleToDisplay ]
-        , sourceCodeWrapper componentExampleSourceCodeToDisplay
+        , sourceCodeWrapper model.conf componentExampleSourceCodeToDisplay
         ]
 
 
-sourceCodeWrapper : String -> Element Msg
-sourceCodeWrapper sourceCode =
+sourceCodeWrapper : Conf msg -> String -> Element Msg
+sourceCodeWrapper conf sourceCode =
     paragraph
         [ width fill
         , scrollbars
@@ -702,55 +754,3 @@ main =
         , update = update
         , subscriptions = subscriptions
         }
-
-
-forkMe : Attribute msg
-forkMe =
-    Element.inFront <|
-        link
-            [ alignRight
-            , Font.color <| color Primary
-            ]
-            { label = image [ width <| px 60, alpha 0.5 ] { src = "images/github.png", description = "Fork me on Github" }
-            , url = "https://github.com/lucamug/elm-style-framework"
-            }
-
-
-hostnameCheck : Model -> Bool
-hostnameCheck model =
-    model.location.hostname == "localhost"
-
-
-password : String
-password =
-    ""
-
-
-title : Element msg
-title =
-    column []
-        [ el [ alpha 0.3 ] <| Logo.logo (Logo.LogoElm <| Logo.ElmColor Logo.White) 60
-        , paragraph
-            [ Font.size 55
-            , Font.bold
-            , moveLeft 3
-            ]
-            [ el [ alpha 0.5 ] <| text "elm"
-            , text "Style"
-            ]
-        ]
-
-
-subTitle : String
-subTitle =
-    "FRAMEWORK"
-
-
-version : String
-version =
-    "0.0.1"
-
-
-introduction : Element msg
-introduction =
-    empty
