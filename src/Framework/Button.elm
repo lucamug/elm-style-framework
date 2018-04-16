@@ -100,6 +100,10 @@ Input.button (buttonAttr [ Primary, Danger ]) <|
               )
             ]
           )
+        , ( "Button Link"
+          , [ ( buttonLink [ Small ] "http://example.com" "Button Link", """( buttonLink [ Small ] "http://example.com" "Button Link" """ )
+            ]
+          )
         ]
     }
 
@@ -214,6 +218,15 @@ button modifiers onPress label =
     Input.button
         (buttonAttr modifiers)
         { onPress = onPress
+        , label = text label
+        }
+
+
+buttonLink : List Modifier -> String -> String -> Element msg
+buttonLink modifiers url label =
+    link
+        (buttonAttr modifiers)
+        { url = url
         , label = text label
         }
 

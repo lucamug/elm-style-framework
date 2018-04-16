@@ -37,7 +37,13 @@ import Framework.Typography as Typography
 import Html
 import Html.Attributes
 import Navigation
+import UrlParser exposing ((</>), Parser, oneOf, parseHash, s, string)
 import Window
+
+
+debug : Bool
+debug =
+    True
 
 
 {-| Configuration
@@ -124,18 +130,36 @@ initModel flag location =
     , maybeWindowSize = Just <| Window.Size flag.width flag.height
     , conf = initConf
     , introspections =
-        [ ( Framework.Color.introspection, True )
-        , ( Form.introspection, True )
-        , ( Typography.introspection, True )
-        , ( Cards.introspection, True )
-        , ( Button.introspection, True )
-        , ( Spinner.introspection, True )
-        , ( Logo.introspection, True )
-        , ( Icon.introspection, True )
-        , ( StyleElements.introspection, True )
-        , ( StyleElementsInput.introspection, True )
-        ]
+        case debug of
+            True ->
+                introspections
+
+            False ->
+                introspectionsForDebuggin
     }
+
+
+introspectionsForDebuggin : List ( Introspection, Bool )
+introspectionsForDebuggin =
+    [ ( introspectionExample "ID 1", True )
+    , ( introspectionExample "ID 2", True )
+    , ( introspectionExample "ID 3", True )
+    ]
+
+
+introspections : List ( Introspection, Bool )
+introspections =
+    [ ( Framework.Color.introspection, True )
+    , ( Form.introspection, True )
+    , ( Typography.introspection, True )
+    , ( Cards.introspection, True )
+    , ( Button.introspection, True )
+    , ( Spinner.introspection, True )
+    , ( Logo.introspection, True )
+    , ( Icon.introspection, True )
+    , ( StyleElements.introspection, True )
+    , ( StyleElementsInput.introspection, True )
+    ]
 
 
 init : Flag -> Navigation.Location -> ( Model, Cmd Msg )
@@ -184,10 +208,6 @@ type alias Introspection =
     , variations : List Variation
     , boxed : Bool
     }
-
-
-type alias IntrospectionWithView =
-    ( Introspection, Bool )
 
 
 type alias Variation =
@@ -595,15 +615,6 @@ viewTitleAndSubTitle conf title subTitle =
         ]
 
 
-
--- hackInLineStyle : String -> String -> Element.Element msg
-
-
-hackInLineStyle : String -> String -> Attribute msg
-hackInLineStyle text1 text2 =
-    Element.htmlAttribute (Html.Attributes.style [ ( text1, text2 ) ])
-
-
 specialComponent :
     Model
     -> (StyleElementsInput.Model -> ( Element StyleElementsInput.Msg, c ))
@@ -754,3 +765,66 @@ main =
         , update = update
         , subscriptions = subscriptions
         }
+
+
+
+-- ROUTING
+
+
+type Route
+    = RouteHome
+    | RouteSubPage Slug
+
+
+route : Parser (Route -> a) a
+route =
+    oneOf
+        [ UrlParser.map RouteHome (s "")
+        , UrlParser.map RouteSubPage (s "framework" </> stateParser)
+        ]
+
+
+type Slug
+    = Slug String
+
+
+slugToString : Slug -> String
+slugToString (Slug slug) =
+    slug
+
+
+stateParser : UrlParser.Parser (Slug -> a) a
+stateParser =
+    UrlParser.custom "SLUG" (Ok << Slug)
+
+
+routeToString : Route -> String
+routeToString page =
+    let
+        pieces =
+            case page of
+                RouteHome ->
+                    []
+
+                RouteSubPage slug ->
+                    [ "framework", slugToString slug ]
+    in
+    "#/" ++ String.join "/" pieces
+
+
+url : Route -> String
+url route =
+    routeToString route
+
+
+modifyUrl : Route -> Cmd msg
+modifyUrl =
+    routeToString >> Navigation.modifyUrl
+
+
+fromLocation : Navigation.Location -> Maybe Route
+fromLocation location =
+    if String.isEmpty location.hash then
+        Just RouteHome
+    else
+        parseHash route location
