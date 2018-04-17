@@ -1,9 +1,6 @@
-module Framework.Modifiers
-    exposing
-        ( Modifier(..)
-        )
+module Framework.Modifiers exposing (Modifier(..))
 
-{-| Colors generator
+{-|
 
 
 # Functions

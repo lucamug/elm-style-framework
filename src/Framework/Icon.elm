@@ -1,16 +1,11 @@
-module Framework.Icon
-    exposing
-        ( Icon(..)
-        , icon
-        , introspection
-        )
+module Framework.Icon exposing (Icon(..), icon, introspection)
 
-{-| Logos generator
+{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Icons/Icons)
 
 
 # Functions
 
-@docs Logo, spinner, introspection
+@docs Icon, icon, introspection
 
 -}
 

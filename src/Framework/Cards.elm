@@ -1,4 +1,15 @@
-module Framework.Cards exposing (..)
+module Framework.Cards exposing (Model, Msg, example1, flipping, initModel, introspection, simple, simpleWithTitle, update)
+
+{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Cards/Flipping)
+
+Wrapper for content
+
+
+# Functions
+
+@docs Model, Msg, example1, flipping, initModel, introspection, simple, simpleWithTitle, update
+
+-}
 
 import Color
 import Element exposing (..)
@@ -12,21 +23,25 @@ import Html.Attributes
 import Regex
 
 
+{-| -}
 type alias Model =
     { flip : Bool
     }
 
 
+{-| -}
 initModel : Model
 initModel =
     { flip = True
     }
 
 
+{-| -}
 type Msg
     = Flip
 
 
+{-| -}
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
@@ -57,18 +72,10 @@ introspection =
 text "Content\"""" ) ] )
         , ( "Simple", [ ( simple <| text "Content", """simple <| text "Content\"""" ) ] )
         ]
-
-    --, variations =
-    --    [ "Variations"
-    --, [ ( simpleWithTitle "Simple" "with Title" <| text "Content", """simpleWithTitle "Simple" "with Title" <|
-    --text "Content\"""" )
-    --, ( simple <| text "Content", """simple <|
-    --text "Content\"""" )
-    --        [ ( "Credit Card number", [ ( text "special: Form.example2", "" ) ] ) ]
-    --    ]
     }
 
 
+{-| -}
 cardCommonAttr : List (Attribute msg)
 cardCommonAttr =
     [ Border.shadow { blur = 10, color = Color.rgba 0 0 0 0.05, offset = ( 0, 2 ), size = 1 }
@@ -79,6 +86,7 @@ cardCommonAttr =
     ]
 
 
+{-| -}
 example1 : { a | flip : Bool } -> ( Element Msg, String )
 example1 model =
     let
@@ -134,6 +142,7 @@ flipping
     )
 
 
+{-| -}
 simpleWithTitle : String -> String -> Element msg -> Element msg
 simpleWithTitle title subTitle content =
     column
@@ -158,6 +167,7 @@ simpleWithTitle title subTitle content =
         ]
 
 
+{-| -}
 simple : Element msg -> Element msg
 simple content =
     el
@@ -171,6 +181,7 @@ simple content =
         content
 
 
+{-| -}
 flipping :
     { a
         | activeFront : Bool
@@ -234,6 +245,7 @@ flipping data =
             ]
 
 
+{-| -}
 style : String -> String -> Attribute msg
 style key value =
     if Regex.contains (Regex.regex <| "|" ++ key ++ "|") "|backface-visibility|perspective|transition|transform-style|transform|" then

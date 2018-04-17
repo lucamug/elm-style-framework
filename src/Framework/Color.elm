@@ -1,15 +1,6 @@
-module Framework.Color
-    exposing
-        ( Color(..)
-        , color
-        , colorToHex
-        , introspection
-        , lighten
-        , maximumContrast
-        , saturate
-        )
+module Framework.Color exposing (Color(..), color, colorToHex, introspection, lighten, maximumContrast, saturate)
 
-{-| Colors generator
+{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Colors/Gray%20Scale)
 
 
 # Functions

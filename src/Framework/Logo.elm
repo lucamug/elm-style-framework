@@ -1,11 +1,11 @@
-module Framework.Logo exposing (..)
+module Framework.Logo exposing (Color(..), Logo(..), LogoElmType(..), introspection, logo)
 
-{-| Logos generator
+{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Logos/Logos)
 
 
 # Functions
 
-@docs Logo, spinner, introspection
+@docs Logo, Color, LogoElmType, logo, introspection
 
 -}
 
@@ -82,6 +82,7 @@ type Logo
     | LogoLucamug
 
 
+{-| -}
 type LogoElmType
     = ElmColor Color
     | ElmColorful
@@ -91,6 +92,7 @@ type alias Size =
     Int
 
 
+{-| -}
 type Color
     = Orange
     | Green

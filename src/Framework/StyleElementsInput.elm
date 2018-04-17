@@ -1,9 +1,21 @@
-module Framework.StyleElementsInput exposing (..)
+module Framework.StyleElementsInput exposing (Model, Msg, example0, example1, example10, example11, example2, example3, example4, example5, example6, example7, example8, example9, initModel, introspection, update)
+
+{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Style-Elements%20Input/Button)
+
+Style-elements Input (Alpha version) Examples
+
+
+# Functions
+
+@docs Model, Msg, example0, example1, example10, example11, example2, example3, example4, example5, example6, example7, example8, example9, initModel, introspection, update
+
+-}
 
 import Element exposing (..)
 import Element.Input as Input
 
 
+{-| -}
 type alias Model =
     { radio : Maybe String
     , text : String
@@ -11,6 +23,7 @@ type alias Model =
     }
 
 
+{-| -}
 type Msg
     = Radio String
     | Button
@@ -18,6 +31,7 @@ type Msg
     | Checkbox Bool
 
 
+{-| -}
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg |> Debug.log "Msg" of
@@ -34,6 +48,7 @@ update msg model =
             ( { model | checkbox = value }, Cmd.none )
 
 
+{-| -}
 initModel : Model
 initModel =
     { radio = Just "A"
@@ -42,6 +57,16 @@ initModel =
     }
 
 
+{-| -}
+introspection :
+    { boxed : Bool
+    , description : String
+    , name : String
+    , signature : String
+    , usage : String
+    , usageResult : Element msg
+    , variations : List ( String, List ( Element msg1, String ) )
+    }
 introspection =
     { name = "Style-Elements Input"
     , signature = ""
@@ -66,6 +91,8 @@ introspection =
     }
 
 
+{-| -}
+example0 : a -> ( Element Msg, String )
 example0 model =
     ( Input.button []
         { label = text "Label"
@@ -78,6 +105,8 @@ example0 model =
     )
 
 
+{-| -}
+example1 : { a | text : String } -> ( Element Msg, String )
 example1 model =
     ( Input.text []
         { label = Input.labelAbove [] <| text "Label"
@@ -94,6 +123,8 @@ example1 model =
     )
 
 
+{-| -}
+example2 : { a | checkbox : Bool } -> ( Element Msg, String )
 example2 model =
     ( Input.checkbox []
         { label = Input.labelAbove [] <| text "Label"
@@ -110,6 +141,8 @@ example2 model =
     )
 
 
+{-| -}
+example3 : { a | radio : Maybe String } -> ( Element Msg, String )
 example3 model =
     ( Input.radio []
         { label = Input.labelAbove [] <| text "Label"
@@ -134,6 +167,8 @@ example3 model =
     )
 
 
+{-| -}
+example4 : { a | radio : Maybe String } -> ( Element Msg, String )
 example4 model =
     ( Input.radioRow []
         { label = Input.labelAbove [] <| text "Label"
@@ -158,6 +193,8 @@ example4 model =
     )
 
 
+{-| -}
+example5 : { a | text : String } -> ( Element Msg, String )
 example5 model =
     ( Input.username []
         { label = Input.labelAbove [] <| text "Label"
@@ -174,6 +211,8 @@ example5 model =
     )
 
 
+{-| -}
+example6 : { a | text : String } -> ( Element Msg, String )
 example6 model =
     ( Input.newPassword []
         { label = Input.labelAbove [] <| text "Label"
@@ -192,6 +231,8 @@ example6 model =
     )
 
 
+{-| -}
+example7 : { a | text : String } -> ( Element Msg, String )
 example7 model =
     ( Input.currentPassword []
         { label = Input.labelAbove [] <| text "Label"
@@ -210,6 +251,8 @@ example7 model =
     )
 
 
+{-| -}
+example8 : { a | text : String } -> ( Element Msg, String )
 example8 model =
     ( Input.email []
         { label = Input.labelAbove [] <| text "Label"
@@ -226,6 +269,8 @@ example8 model =
     )
 
 
+{-| -}
+example9 : { a | text : String } -> ( Element Msg, String )
 example9 model =
     ( Input.search []
         { label = Input.labelAbove [] <| text "Label"
@@ -242,6 +287,8 @@ example9 model =
     )
 
 
+{-| -}
+example10 : { a | text : String } -> ( Element Msg, String )
 example10 model =
     ( Input.multiline []
         { label = Input.labelAbove [] <| text "Label"
@@ -260,6 +307,8 @@ example10 model =
     )
 
 
+{-| -}
+example11 : { a | text : String } -> ( Element Msg, String )
 example11 model =
     ( Input.multiline []
         { label = Input.labelAbove [] <| text "Label"

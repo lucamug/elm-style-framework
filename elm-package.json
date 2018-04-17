@@ -8,11 +8,18 @@
     ],
     "exposed-modules": [
         "Framework",
-        "Framework.Configuration",
         "Framework.Button",
+        "Framework.Cards",
         "Framework.Color",
+        "Framework.Configuration",
+        "Framework.Form",
+        "Framework.Icon",
+        "Framework.Logo",
+        "Framework.Modifiers",
         "Framework.Spinner",
-        "Framework.Modifiers"
+        "Framework.StyleElements",
+        "Framework.StyleElementsInput",
+        "Framework.Typography"
     ],
     "dependencies": {
         "NoRedInk/elm-decode-pipeline": "3.0.0 <= v < 4.0.0",

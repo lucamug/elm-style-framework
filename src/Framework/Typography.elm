@@ -1,8 +1,13 @@
-module Framework.Typography exposing (..)
+module Framework.Typography exposing (h1, h2, h3, h4, h5, h6, introspection)
 
---import Element.Background as Background
---import Element.Border as Border
---import Framework.Color exposing (Color(..), color)
+{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Typography/Heading)
+
+
+# Functions
+
+@docs h1, h2, h3, h4, h5, h6, introspection
+
+-}
 
 import Element exposing (..)
 import Element.Font as Font
@@ -10,6 +15,15 @@ import Element.Region as Region
 
 
 {-| -}
+introspection :
+    { boxed : Bool
+    , description : String
+    , name : String
+    , signature : String
+    , usage : String
+    , usageResult : Element msg
+    , variations : List ( String, List ( Element msg1, String ) )
+    }
 introspection =
     { name = "Typography"
     , signature = "h1 : List (Element.Attribute msg) -> Element.Element msg -> Element.Element msg"
@@ -31,31 +45,37 @@ introspection =
     }
 
 
+{-| -}
 h1 : List (Element.Attribute msg) -> Element.Element msg -> Element.Element msg
 h1 listAttr element =
     heading SizeH1 listAttr element
 
 
+{-| -}
 h2 : List (Element.Attribute msg) -> Element.Element msg -> Element.Element msg
 h2 =
     heading SizeH2
 
 
+{-| -}
 h3 : List (Element.Attribute msg) -> Element.Element msg -> Element.Element msg
 h3 =
     heading SizeH3
 
 
+{-| -}
 h4 : List (Element.Attribute msg) -> Element.Element msg -> Element.Element msg
 h4 =
     heading SizeH4
 
 
+{-| -}
 h5 : List (Element.Attribute msg) -> Element.Element msg -> Element.Element msg
 h5 =
     heading SizeH5
 
 
+{-| -}
 h6 : List (Element.Attribute msg) -> Element.Element msg -> Element.Element msg
 h6 =
     heading SizeH6

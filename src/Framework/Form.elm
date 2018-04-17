@@ -1,6 +1,13 @@
-module Framework.Form exposing (..)
+module Framework.Form exposing (Model, Msg, example1, example2, initModel, inputText, introspection, update)
 
---import Element.Area as Area
+{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Form%20Elements/Phone%20number%20USA)
+
+
+# Functions
+
+@docs Model, Msg, example1, example2, initModel, inputText, introspection, update
+
+-}
 
 import Element exposing (..)
 import Element.Background as Background
@@ -13,6 +20,7 @@ import Html.Attributes
 import Regex
 
 
+{-| -}
 type alias Model =
     { radio : Maybe String
     , telephone : String
@@ -22,6 +30,7 @@ type alias Model =
     }
 
 
+{-| -}
 initModel : Model
 initModel =
     { radio = Just "A"
@@ -32,11 +41,13 @@ initModel =
     }
 
 
+{-| -}
 type Field
     = FieldTelephone
     | FieldCreditCard
 
 
+{-| -}
 type Msg
     = Radio String
     | Button
@@ -46,6 +57,7 @@ type Msg
     | OnLoseFocus Field
 
 
+{-| -}
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg |> Debug.log "Msg" of
@@ -85,6 +97,7 @@ update msg model =
             ( { model | focus = Nothing }, Cmd.none )
 
 
+{-| -}
 introspection :
     { boxed : Bool
     , description : String
@@ -108,6 +121,7 @@ introspection =
     }
 
 
+{-| -}
 hasFocus : Model -> Field -> Bool
 hasFocus model field =
     case model.focus of
@@ -118,11 +132,13 @@ hasFocus model field =
             False
 
 
+{-| -}
 hackInLineStyle : String -> String -> Attribute msg
 hackInLineStyle text1 text2 =
     Element.htmlAttribute (Html.Attributes.style [ ( text1, text2 ) ])
 
 
+{-| -}
 example1 : Model -> ( Element Msg, String )
 example1 model =
     ( inputText model
@@ -138,6 +154,7 @@ example1 model =
     )
 
 
+{-| -}
 example2 : Model -> ( Element Msg, String )
 example2 model =
     ( inputText model
@@ -153,6 +170,7 @@ example2 model =
     )
 
 
+{-| -}
 inputText : Model -> { a | field : Field, label : String, pattern : String } -> Element Msg
 inputText model { field, pattern, label } =
     let
@@ -225,21 +243,20 @@ inputText model { field, pattern, label } =
             }
 
 
-
---
-
-
+{-| -}
 type Token
     = Inputxxx
     | Other Char
 
 
+{-| -}
 parse : Char -> String -> List Token
 parse inputChar pattern =
     String.toList pattern
         |> List.map (tokenize inputChar)
 
 
+{-| -}
 tokenize : Char -> Char -> Token
 tokenize inputChar pattern =
     if pattern == inputChar then
@@ -248,6 +265,7 @@ tokenize inputChar pattern =
         Other pattern
 
 
+{-| -}
 format : List Token -> String -> String
 format tokens input =
     if String.isEmpty input then
@@ -256,11 +274,13 @@ format tokens input =
         append tokens (String.toList input) ""
 
 
+{-| -}
 result : String -> String -> String
 result template string =
     format (parse '0' template) string
 
 
+{-| -}
 append : List Token -> List Char -> String -> String
 append tokens input formatted =
     let
@@ -284,11 +304,3 @@ append tokens input formatted =
 
                 Other char ->
                     append (Maybe.withDefault [] <| List.tail tokens) input (formatted ++ String.fromChar char)
-
-
-
-{-
-   main : Html msg
-   main =
-       text <| toString <| result "(000)-0000-0000" "1234566666666666"
--}

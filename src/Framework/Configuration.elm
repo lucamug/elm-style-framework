@@ -1,7 +1,4 @@
-module Framework.Configuration
-    exposing
-        ( conf
-        )
+module Framework.Configuration exposing (conf)
 
 {-| List of values that you can change to costumize the aspect of the framwork
 

@@ -1,24 +1,15 @@
-module Framework.StyleElements exposing (..)
+module Framework.StyleElements exposing (introspection)
 
-{-| Buttons generator
+{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Style-Elements/Basic%20Elements)
 
-Check [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usage examples.
+Style-elements (Alpha version) Examples
 
 
 # Functions
 
-@docs button, buttonAttr, introspection
+@docs introspection
 
 -}
-
---import Color.Manipulate
---import Element.Background as Background
---import Element.Border as Border
---import Element.Font as Font
---import Element.Input as Input
---import Framework.Color as Color
---import Framework.Modifiers as Modifiers exposing (..)
---import Framework.Spinner as Spinner
 
 import Element exposing (..)
 

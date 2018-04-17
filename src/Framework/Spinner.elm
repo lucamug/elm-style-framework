@@ -1,11 +1,6 @@
-module Framework.Spinner
-    exposing
-        ( Spinner(..)
-        , introspection
-        , spinner
-        )
+module Framework.Spinner exposing (Spinner(..), introspection, spinner)
 
-{-| Spinners generator
+{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Spinners/Spinners)
 
 
 # Functions

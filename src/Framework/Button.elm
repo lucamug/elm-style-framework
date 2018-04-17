@@ -1,6 +1,6 @@
 module Framework.Button exposing (button, buttonAttr, introspection)
 
-{-| Buttons generator
+{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Buttons/States)
 
 
 # Functions
