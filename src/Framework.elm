@@ -103,9 +103,19 @@ initConf =
     }
 
 
+fromMaybeRouteToMaybeSelected : Maybe Route -> Maybe ( Introspection, Variation )
+fromMaybeRouteToMaybeSelected maybeRoute =
+    -- TODO work here
+    let
+        _ =
+            Debug.log "need to convert this to a maybe selected" maybeRoute
+    in
+    Nothing
+
+
 {-| -}
 type alias Model =
-    { selected : Maybe ( Introspection, Variation )
+    { maybeSelected : Maybe ( Introspection, Variation )
     , maybeWindowSize : Maybe Window.Size
     , modelStyleElementsInput : StyleElementsInput.Model
     , modelForm : Form.Model
@@ -115,6 +125,7 @@ type alias Model =
     , maybeWindowSize : Maybe Window.Size
     , password : String
     , conf : Conf Msg
+    , maybeRoute : Maybe Route
     }
 
 
@@ -123,7 +134,7 @@ initModel : Flag -> Navigation.Location -> Model
 initModel flag location =
     { location = location
     , password = ""
-    , selected = Nothing
+    , maybeSelected = Nothing
     , modelStyleElementsInput = StyleElementsInput.initModel
     , modelForm = Form.initModel
     , modelCards = Cards.initModel
@@ -136,6 +147,7 @@ initModel flag location =
 
             False ->
                 introspectionsForDebuggin
+    , maybeRoute = fromLocation location
     }
 
 
@@ -230,6 +242,7 @@ type Msg
     | MsgForm Form.Msg
     | MsgCards Cards.Msg
     | MsgChangeUrl Navigation.Location
+    | MsgChangeRoute (Maybe Route)
     | MsgChangePassword String
 
 
@@ -237,14 +250,22 @@ type Msg
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        MsgChangeRoute maybeRoute ->
+            let
+                -- TODO Work here
+                maybeSelected =
+                    fromMaybeRouteToMaybeSelected maybeRoute
+            in
+            ( { model | maybeRoute = maybeRoute }, Cmd.none )
+
         MsgChangePassword password ->
             ( { model | password = password }, Cmd.none )
 
         MsgGoTop ->
-            ( { model | selected = Nothing }, Cmd.none )
+            ( { model | maybeSelected = Nothing }, Cmd.none )
 
         MsgSelectThis introspectionAndVariation ->
-            ( { model | selected = Just introspectionAndVariation }, Cmd.none )
+            ( { model | maybeSelected = Just introspectionAndVariation }, Cmd.none )
 
         MsgOpenAll ->
             let
@@ -460,7 +481,7 @@ viewContentColumn model =
         conf =
             model.conf
     in
-    case model.selected of
+    case model.maybeSelected of
         Just something ->
             viewSomething model something
 
@@ -592,12 +613,15 @@ viewListVariationForMenu : Introspection -> List Variation -> List (Element Msg)
 viewListVariationForMenu introspection variations =
     List.map
         (\( title, variation ) ->
-            el
-                [ pointer
-                , Events.onClick <| MsgSelectThis ( introspection, ( title, variation ) )
+            column
+                -- TODO Remove onClick event and create function
+                [ Events.onClick <| MsgSelectThis ( introspection, ( title, variation ) )
                 ]
-            <|
-                text title
+                [ link []
+                    { label = text title
+                    , url = url <| RouteSubPage (Slug introspection.name) (Slug title)
+                    }
+                ]
         )
         variations
 
@@ -759,7 +783,8 @@ subscriptions model =
 
 main : Program Flag Model Msg
 main =
-    Navigation.programWithFlags MsgChangeUrl
+    --Navigation.programWithFlags MsgChangeUrl
+    Navigation.programWithFlags (fromLocation >> MsgChangeRoute)
         { init = init
         , view = view
         , update = update
@@ -773,14 +798,14 @@ main =
 
 type Route
     = RouteHome
-    | RouteSubPage Slug
+    | RouteSubPage Slug Slug
 
 
 route : Parser (Route -> a) a
 route =
     oneOf
         [ UrlParser.map RouteHome (s "")
-        , UrlParser.map RouteSubPage (s "framework" </> stateParser)
+        , UrlParser.map RouteSubPage (s "framework" </> stateParser </> stateParser)
         ]
 
 
@@ -806,8 +831,8 @@ routeToString page =
                 RouteHome ->
                     []
 
-                RouteSubPage slug ->
-                    [ "framework", slugToString slug ]
+                RouteSubPage slug1 slug2 ->
+                    [ "framework", slugToString slug1, slugToString slug2 ]
     in
     "#/" ++ String.join "/" pieces
 

@@ -13255,6 +13255,367 @@ var _elm_lang$html$Html_Events$Options = F2(
 		return {stopPropagation: a, preventDefault: b};
 	});
 
+var _elm_lang$http$Native_Http = function() {
+
+
+// ENCODING AND DECODING
+
+function encodeUri(string)
+{
+	return encodeURIComponent(string);
+}
+
+function decodeUri(string)
+{
+	try
+	{
+		return _elm_lang$core$Maybe$Just(decodeURIComponent(string));
+	}
+	catch(e)
+	{
+		return _elm_lang$core$Maybe$Nothing;
+	}
+}
+
+
+// SEND REQUEST
+
+function toTask(request, maybeProgress)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		var xhr = new XMLHttpRequest();
+
+		configureProgress(xhr, maybeProgress);
+
+		xhr.addEventListener('error', function() {
+			callback(_elm_lang$core$Native_Scheduler.fail({ ctor: 'NetworkError' }));
+		});
+		xhr.addEventListener('timeout', function() {
+			callback(_elm_lang$core$Native_Scheduler.fail({ ctor: 'Timeout' }));
+		});
+		xhr.addEventListener('load', function() {
+			callback(handleResponse(xhr, request.expect.responseToResult));
+		});
+
+		try
+		{
+			xhr.open(request.method, request.url, true);
+		}
+		catch (e)
+		{
+			return callback(_elm_lang$core$Native_Scheduler.fail({ ctor: 'BadUrl', _0: request.url }));
+		}
+
+		configureRequest(xhr, request);
+		send(xhr, request.body);
+
+		return function() { xhr.abort(); };
+	});
+}
+
+function configureProgress(xhr, maybeProgress)
+{
+	if (maybeProgress.ctor === 'Nothing')
+	{
+		return;
+	}
+
+	xhr.addEventListener('progress', function(event) {
+		if (!event.lengthComputable)
+		{
+			return;
+		}
+		_elm_lang$core$Native_Scheduler.rawSpawn(maybeProgress._0({
+			bytes: event.loaded,
+			bytesExpected: event.total
+		}));
+	});
+}
+
+function configureRequest(xhr, request)
+{
+	function setHeader(pair)
+	{
+		xhr.setRequestHeader(pair._0, pair._1);
+	}
+
+	A2(_elm_lang$core$List$map, setHeader, request.headers);
+	xhr.responseType = request.expect.responseType;
+	xhr.withCredentials = request.withCredentials;
+
+	if (request.timeout.ctor === 'Just')
+	{
+		xhr.timeout = request.timeout._0;
+	}
+}
+
+function send(xhr, body)
+{
+	switch (body.ctor)
+	{
+		case 'EmptyBody':
+			xhr.send();
+			return;
+
+		case 'StringBody':
+			xhr.setRequestHeader('Content-Type', body._0);
+			xhr.send(body._1);
+			return;
+
+		case 'FormDataBody':
+			xhr.send(body._0);
+			return;
+	}
+}
+
+
+// RESPONSES
+
+function handleResponse(xhr, responseToResult)
+{
+	var response = toResponse(xhr);
+
+	if (xhr.status < 200 || 300 <= xhr.status)
+	{
+		response.body = xhr.responseText;
+		return _elm_lang$core$Native_Scheduler.fail({
+			ctor: 'BadStatus',
+			_0: response
+		});
+	}
+
+	var result = responseToResult(response);
+
+	if (result.ctor === 'Ok')
+	{
+		return _elm_lang$core$Native_Scheduler.succeed(result._0);
+	}
+	else
+	{
+		response.body = xhr.responseText;
+		return _elm_lang$core$Native_Scheduler.fail({
+			ctor: 'BadPayload',
+			_0: result._0,
+			_1: response
+		});
+	}
+}
+
+function toResponse(xhr)
+{
+	return {
+		status: { code: xhr.status, message: xhr.statusText },
+		headers: parseHeaders(xhr.getAllResponseHeaders()),
+		url: xhr.responseURL,
+		body: xhr.response
+	};
+}
+
+function parseHeaders(rawHeaders)
+{
+	var headers = _elm_lang$core$Dict$empty;
+
+	if (!rawHeaders)
+	{
+		return headers;
+	}
+
+	var headerPairs = rawHeaders.split('\u000d\u000a');
+	for (var i = headerPairs.length; i--; )
+	{
+		var headerPair = headerPairs[i];
+		var index = headerPair.indexOf('\u003a\u0020');
+		if (index > 0)
+		{
+			var key = headerPair.substring(0, index);
+			var value = headerPair.substring(index + 2);
+
+			headers = A3(_elm_lang$core$Dict$update, key, function(oldValue) {
+				if (oldValue.ctor === 'Just')
+				{
+					return _elm_lang$core$Maybe$Just(value + ', ' + oldValue._0);
+				}
+				return _elm_lang$core$Maybe$Just(value);
+			}, headers);
+		}
+	}
+
+	return headers;
+}
+
+
+// EXPECTORS
+
+function expectStringResponse(responseToResult)
+{
+	return {
+		responseType: 'text',
+		responseToResult: responseToResult
+	};
+}
+
+function mapExpect(func, expect)
+{
+	return {
+		responseType: expect.responseType,
+		responseToResult: function(response) {
+			var convertedResponse = expect.responseToResult(response);
+			return A2(_elm_lang$core$Result$map, func, convertedResponse);
+		}
+	};
+}
+
+
+// BODY
+
+function multipart(parts)
+{
+	var formData = new FormData();
+
+	while (parts.ctor !== '[]')
+	{
+		var part = parts._0;
+		formData.append(part._0, part._1);
+		parts = parts._1;
+	}
+
+	return { ctor: 'FormDataBody', _0: formData };
+}
+
+return {
+	toTask: F2(toTask),
+	expectStringResponse: expectStringResponse,
+	mapExpect: F2(mapExpect),
+	multipart: multipart,
+	encodeUri: encodeUri,
+	decodeUri: decodeUri
+};
+
+}();
+
+var _elm_lang$http$Http_Internal$map = F2(
+	function (func, request) {
+		return _elm_lang$core$Native_Utils.update(
+			request,
+			{
+				expect: A2(_elm_lang$http$Native_Http.mapExpect, func, request.expect)
+			});
+	});
+var _elm_lang$http$Http_Internal$RawRequest = F7(
+	function (a, b, c, d, e, f, g) {
+		return {method: a, headers: b, url: c, body: d, expect: e, timeout: f, withCredentials: g};
+	});
+var _elm_lang$http$Http_Internal$Request = function (a) {
+	return {ctor: 'Request', _0: a};
+};
+var _elm_lang$http$Http_Internal$Expect = {ctor: 'Expect'};
+var _elm_lang$http$Http_Internal$FormDataBody = {ctor: 'FormDataBody'};
+var _elm_lang$http$Http_Internal$StringBody = F2(
+	function (a, b) {
+		return {ctor: 'StringBody', _0: a, _1: b};
+	});
+var _elm_lang$http$Http_Internal$EmptyBody = {ctor: 'EmptyBody'};
+var _elm_lang$http$Http_Internal$Header = F2(
+	function (a, b) {
+		return {ctor: 'Header', _0: a, _1: b};
+	});
+
+var _elm_lang$http$Http$decodeUri = _elm_lang$http$Native_Http.decodeUri;
+var _elm_lang$http$Http$encodeUri = _elm_lang$http$Native_Http.encodeUri;
+var _elm_lang$http$Http$expectStringResponse = _elm_lang$http$Native_Http.expectStringResponse;
+var _elm_lang$http$Http$expectJson = function (decoder) {
+	return _elm_lang$http$Http$expectStringResponse(
+		function (response) {
+			return A2(_elm_lang$core$Json_Decode$decodeString, decoder, response.body);
+		});
+};
+var _elm_lang$http$Http$expectString = _elm_lang$http$Http$expectStringResponse(
+	function (response) {
+		return _elm_lang$core$Result$Ok(response.body);
+	});
+var _elm_lang$http$Http$multipartBody = _elm_lang$http$Native_Http.multipart;
+var _elm_lang$http$Http$stringBody = _elm_lang$http$Http_Internal$StringBody;
+var _elm_lang$http$Http$jsonBody = function (value) {
+	return A2(
+		_elm_lang$http$Http_Internal$StringBody,
+		'application/json',
+		A2(_elm_lang$core$Json_Encode$encode, 0, value));
+};
+var _elm_lang$http$Http$emptyBody = _elm_lang$http$Http_Internal$EmptyBody;
+var _elm_lang$http$Http$header = _elm_lang$http$Http_Internal$Header;
+var _elm_lang$http$Http$request = _elm_lang$http$Http_Internal$Request;
+var _elm_lang$http$Http$post = F3(
+	function (url, body, decoder) {
+		return _elm_lang$http$Http$request(
+			{
+				method: 'POST',
+				headers: {ctor: '[]'},
+				url: url,
+				body: body,
+				expect: _elm_lang$http$Http$expectJson(decoder),
+				timeout: _elm_lang$core$Maybe$Nothing,
+				withCredentials: false
+			});
+	});
+var _elm_lang$http$Http$get = F2(
+	function (url, decoder) {
+		return _elm_lang$http$Http$request(
+			{
+				method: 'GET',
+				headers: {ctor: '[]'},
+				url: url,
+				body: _elm_lang$http$Http$emptyBody,
+				expect: _elm_lang$http$Http$expectJson(decoder),
+				timeout: _elm_lang$core$Maybe$Nothing,
+				withCredentials: false
+			});
+	});
+var _elm_lang$http$Http$getString = function (url) {
+	return _elm_lang$http$Http$request(
+		{
+			method: 'GET',
+			headers: {ctor: '[]'},
+			url: url,
+			body: _elm_lang$http$Http$emptyBody,
+			expect: _elm_lang$http$Http$expectString,
+			timeout: _elm_lang$core$Maybe$Nothing,
+			withCredentials: false
+		});
+};
+var _elm_lang$http$Http$toTask = function (_p0) {
+	var _p1 = _p0;
+	return A2(_elm_lang$http$Native_Http.toTask, _p1._0, _elm_lang$core$Maybe$Nothing);
+};
+var _elm_lang$http$Http$send = F2(
+	function (resultToMessage, request) {
+		return A2(
+			_elm_lang$core$Task$attempt,
+			resultToMessage,
+			_elm_lang$http$Http$toTask(request));
+	});
+var _elm_lang$http$Http$Response = F4(
+	function (a, b, c, d) {
+		return {url: a, status: b, headers: c, body: d};
+	});
+var _elm_lang$http$Http$BadPayload = F2(
+	function (a, b) {
+		return {ctor: 'BadPayload', _0: a, _1: b};
+	});
+var _elm_lang$http$Http$BadStatus = function (a) {
+	return {ctor: 'BadStatus', _0: a};
+};
+var _elm_lang$http$Http$NetworkError = {ctor: 'NetworkError'};
+var _elm_lang$http$Http$Timeout = {ctor: 'Timeout'};
+var _elm_lang$http$Http$BadUrl = function (a) {
+	return {ctor: 'BadUrl', _0: a};
+};
+var _elm_lang$http$Http$StringPart = F2(
+	function (a, b) {
+		return {ctor: 'StringPart', _0: a, _1: b};
+	});
+var _elm_lang$http$Http$stringPart = _elm_lang$http$Http$StringPart;
+
 var _elm_lang$navigation$Native_Navigation = function() {
 
 
@@ -14119,6 +14480,257 @@ var _elm_lang$window$Window$subMap = F2(
 			});
 	});
 _elm_lang$core$Native_Platform.effectManagers['Window'] = {pkg: 'elm-lang/window', init: _elm_lang$window$Window$init, onEffects: _elm_lang$window$Window$onEffects, onSelfMsg: _elm_lang$window$Window$onSelfMsg, tag: 'sub', subMap: _elm_lang$window$Window$subMap};
+
+var _evancz$url_parser$UrlParser$toKeyValuePair = function (segment) {
+	var _p0 = A2(_elm_lang$core$String$split, '=', segment);
+	if (((_p0.ctor === '::') && (_p0._1.ctor === '::')) && (_p0._1._1.ctor === '[]')) {
+		return A3(
+			_elm_lang$core$Maybe$map2,
+			F2(
+				function (v0, v1) {
+					return {ctor: '_Tuple2', _0: v0, _1: v1};
+				}),
+			_elm_lang$http$Http$decodeUri(_p0._0),
+			_elm_lang$http$Http$decodeUri(_p0._1._0));
+	} else {
+		return _elm_lang$core$Maybe$Nothing;
+	}
+};
+var _evancz$url_parser$UrlParser$parseParams = function (queryString) {
+	return _elm_lang$core$Dict$fromList(
+		A2(
+			_elm_lang$core$List$filterMap,
+			_evancz$url_parser$UrlParser$toKeyValuePair,
+			A2(
+				_elm_lang$core$String$split,
+				'&',
+				A2(_elm_lang$core$String$dropLeft, 1, queryString))));
+};
+var _evancz$url_parser$UrlParser$splitUrl = function (url) {
+	var _p1 = A2(_elm_lang$core$String$split, '/', url);
+	if ((_p1.ctor === '::') && (_p1._0 === '')) {
+		return _p1._1;
+	} else {
+		return _p1;
+	}
+};
+var _evancz$url_parser$UrlParser$parseHelp = function (states) {
+	parseHelp:
+	while (true) {
+		var _p2 = states;
+		if (_p2.ctor === '[]') {
+			return _elm_lang$core$Maybe$Nothing;
+		} else {
+			var _p4 = _p2._0;
+			var _p3 = _p4.unvisited;
+			if (_p3.ctor === '[]') {
+				return _elm_lang$core$Maybe$Just(_p4.value);
+			} else {
+				if ((_p3._0 === '') && (_p3._1.ctor === '[]')) {
+					return _elm_lang$core$Maybe$Just(_p4.value);
+				} else {
+					var _v4 = _p2._1;
+					states = _v4;
+					continue parseHelp;
+				}
+			}
+		}
+	}
+};
+var _evancz$url_parser$UrlParser$parse = F3(
+	function (_p5, url, params) {
+		var _p6 = _p5;
+		return _evancz$url_parser$UrlParser$parseHelp(
+			_p6._0(
+				{
+					visited: {ctor: '[]'},
+					unvisited: _evancz$url_parser$UrlParser$splitUrl(url),
+					params: params,
+					value: _elm_lang$core$Basics$identity
+				}));
+	});
+var _evancz$url_parser$UrlParser$parseHash = F2(
+	function (parser, location) {
+		return A3(
+			_evancz$url_parser$UrlParser$parse,
+			parser,
+			A2(_elm_lang$core$String$dropLeft, 1, location.hash),
+			_evancz$url_parser$UrlParser$parseParams(location.search));
+	});
+var _evancz$url_parser$UrlParser$parsePath = F2(
+	function (parser, location) {
+		return A3(
+			_evancz$url_parser$UrlParser$parse,
+			parser,
+			location.pathname,
+			_evancz$url_parser$UrlParser$parseParams(location.search));
+	});
+var _evancz$url_parser$UrlParser$intParamHelp = function (maybeValue) {
+	var _p7 = maybeValue;
+	if (_p7.ctor === 'Nothing') {
+		return _elm_lang$core$Maybe$Nothing;
+	} else {
+		return _elm_lang$core$Result$toMaybe(
+			_elm_lang$core$String$toInt(_p7._0));
+	}
+};
+var _evancz$url_parser$UrlParser$mapHelp = F2(
+	function (func, _p8) {
+		var _p9 = _p8;
+		return {
+			visited: _p9.visited,
+			unvisited: _p9.unvisited,
+			params: _p9.params,
+			value: func(_p9.value)
+		};
+	});
+var _evancz$url_parser$UrlParser$State = F4(
+	function (a, b, c, d) {
+		return {visited: a, unvisited: b, params: c, value: d};
+	});
+var _evancz$url_parser$UrlParser$Parser = function (a) {
+	return {ctor: 'Parser', _0: a};
+};
+var _evancz$url_parser$UrlParser$s = function (str) {
+	return _evancz$url_parser$UrlParser$Parser(
+		function (_p10) {
+			var _p11 = _p10;
+			var _p12 = _p11.unvisited;
+			if (_p12.ctor === '[]') {
+				return {ctor: '[]'};
+			} else {
+				var _p13 = _p12._0;
+				return _elm_lang$core$Native_Utils.eq(_p13, str) ? {
+					ctor: '::',
+					_0: A4(
+						_evancz$url_parser$UrlParser$State,
+						{ctor: '::', _0: _p13, _1: _p11.visited},
+						_p12._1,
+						_p11.params,
+						_p11.value),
+					_1: {ctor: '[]'}
+				} : {ctor: '[]'};
+			}
+		});
+};
+var _evancz$url_parser$UrlParser$custom = F2(
+	function (tipe, stringToSomething) {
+		return _evancz$url_parser$UrlParser$Parser(
+			function (_p14) {
+				var _p15 = _p14;
+				var _p16 = _p15.unvisited;
+				if (_p16.ctor === '[]') {
+					return {ctor: '[]'};
+				} else {
+					var _p18 = _p16._0;
+					var _p17 = stringToSomething(_p18);
+					if (_p17.ctor === 'Ok') {
+						return {
+							ctor: '::',
+							_0: A4(
+								_evancz$url_parser$UrlParser$State,
+								{ctor: '::', _0: _p18, _1: _p15.visited},
+								_p16._1,
+								_p15.params,
+								_p15.value(_p17._0)),
+							_1: {ctor: '[]'}
+						};
+					} else {
+						return {ctor: '[]'};
+					}
+				}
+			});
+	});
+var _evancz$url_parser$UrlParser$string = A2(_evancz$url_parser$UrlParser$custom, 'STRING', _elm_lang$core$Result$Ok);
+var _evancz$url_parser$UrlParser$int = A2(_evancz$url_parser$UrlParser$custom, 'NUMBER', _elm_lang$core$String$toInt);
+var _evancz$url_parser$UrlParser_ops = _evancz$url_parser$UrlParser_ops || {};
+_evancz$url_parser$UrlParser_ops['</>'] = F2(
+	function (_p20, _p19) {
+		var _p21 = _p20;
+		var _p22 = _p19;
+		return _evancz$url_parser$UrlParser$Parser(
+			function (state) {
+				return A2(
+					_elm_lang$core$List$concatMap,
+					_p22._0,
+					_p21._0(state));
+			});
+	});
+var _evancz$url_parser$UrlParser$map = F2(
+	function (subValue, _p23) {
+		var _p24 = _p23;
+		return _evancz$url_parser$UrlParser$Parser(
+			function (_p25) {
+				var _p26 = _p25;
+				return A2(
+					_elm_lang$core$List$map,
+					_evancz$url_parser$UrlParser$mapHelp(_p26.value),
+					_p24._0(
+						{visited: _p26.visited, unvisited: _p26.unvisited, params: _p26.params, value: subValue}));
+			});
+	});
+var _evancz$url_parser$UrlParser$oneOf = function (parsers) {
+	return _evancz$url_parser$UrlParser$Parser(
+		function (state) {
+			return A2(
+				_elm_lang$core$List$concatMap,
+				function (_p27) {
+					var _p28 = _p27;
+					return _p28._0(state);
+				},
+				parsers);
+		});
+};
+var _evancz$url_parser$UrlParser$top = _evancz$url_parser$UrlParser$Parser(
+	function (state) {
+		return {
+			ctor: '::',
+			_0: state,
+			_1: {ctor: '[]'}
+		};
+	});
+var _evancz$url_parser$UrlParser_ops = _evancz$url_parser$UrlParser_ops || {};
+_evancz$url_parser$UrlParser_ops['<?>'] = F2(
+	function (_p30, _p29) {
+		var _p31 = _p30;
+		var _p32 = _p29;
+		return _evancz$url_parser$UrlParser$Parser(
+			function (state) {
+				return A2(
+					_elm_lang$core$List$concatMap,
+					_p32._0,
+					_p31._0(state));
+			});
+	});
+var _evancz$url_parser$UrlParser$QueryParser = function (a) {
+	return {ctor: 'QueryParser', _0: a};
+};
+var _evancz$url_parser$UrlParser$customParam = F2(
+	function (key, func) {
+		return _evancz$url_parser$UrlParser$QueryParser(
+			function (_p33) {
+				var _p34 = _p33;
+				var _p35 = _p34.params;
+				return {
+					ctor: '::',
+					_0: A4(
+						_evancz$url_parser$UrlParser$State,
+						_p34.visited,
+						_p34.unvisited,
+						_p35,
+						_p34.value(
+							func(
+								A2(_elm_lang$core$Dict$get, key, _p35)))),
+					_1: {ctor: '[]'}
+				};
+			});
+	});
+var _evancz$url_parser$UrlParser$stringParam = function (name) {
+	return A2(_evancz$url_parser$UrlParser$customParam, name, _elm_lang$core$Basics$identity);
+};
+var _evancz$url_parser$UrlParser$intParam = function (name) {
+	return A2(_evancz$url_parser$UrlParser$customParam, name, _evancz$url_parser$UrlParser$intParamHelp);
+};
 
 var _mdgriffith$stylish_elephants$Internal_Style$class = function (cls) {
 	var _p0 = cls;
@@ -27273,6 +27885,16 @@ var _lucamug$elm_style_framework$Framework_Button$button = F3(
 				label: _mdgriffith$stylish_elephants$Element$text(label)
 			});
 	});
+var _lucamug$elm_style_framework$Framework_Button$buttonLink = F3(
+	function (modifiers, url, label) {
+		return A2(
+			_mdgriffith$stylish_elephants$Element$link,
+			_lucamug$elm_style_framework$Framework_Button$buttonAttr(modifiers),
+			{
+				url: url,
+				label: _mdgriffith$stylish_elephants$Element$text(label)
+			});
+	});
 var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 	var buttonText = 'Button';
 	return {
@@ -27820,7 +28442,31 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 								}
 							}
 						},
-						_1: {ctor: '[]'}
+						_1: {
+							ctor: '::',
+							_0: {
+								ctor: '_Tuple2',
+								_0: 'Button Link',
+								_1: {
+									ctor: '::',
+									_0: {
+										ctor: '_Tuple2',
+										_0: A3(
+											_lucamug$elm_style_framework$Framework_Button$buttonLink,
+											{
+												ctor: '::',
+												_0: _lucamug$elm_style_framework$Framework_Modifiers$Small,
+												_1: {ctor: '[]'}
+											},
+											'http://example.com',
+											'Button Link'),
+										_1: '( buttonLink [ Small ] \"http://example.com\" \"Button Link\" '
+									},
+									_1: {ctor: '[]'}
+								}
+							},
+							_1: {ctor: '[]'}
+						}
 					}
 				}
 			}
@@ -30660,6 +31306,43 @@ var _lucamug$elm_style_framework$Framework_Typography$introspection = {
 	}
 };
 
+var _lucamug$elm_style_framework$Framework$slugToString = function (_p0) {
+	var _p1 = _p0;
+	return _p1._0;
+};
+var _lucamug$elm_style_framework$Framework$routeToString = function (page) {
+	var pieces = function () {
+		var _p2 = page;
+		if (_p2.ctor === 'RouteHome') {
+			return {ctor: '[]'};
+		} else {
+			return {
+				ctor: '::',
+				_0: 'framework',
+				_1: {
+					ctor: '::',
+					_0: _lucamug$elm_style_framework$Framework$slugToString(_p2._0),
+					_1: {
+						ctor: '::',
+						_0: _lucamug$elm_style_framework$Framework$slugToString(_p2._1),
+						_1: {ctor: '[]'}
+					}
+				}
+			};
+		}
+	}();
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		'#/',
+		A2(_elm_lang$core$String$join, '/', pieces));
+};
+var _lucamug$elm_style_framework$Framework$url = function (route) {
+	return _lucamug$elm_style_framework$Framework$routeToString(route);
+};
+var _lucamug$elm_style_framework$Framework$modifyUrl = function (_p3) {
+	return _elm_lang$navigation$Navigation$modifyUrl(
+		_lucamug$elm_style_framework$Framework$routeToString(_p3));
+};
 var _lucamug$elm_style_framework$Framework$introspectionExample = function (id) {
 	return {
 		name: A2(_elm_lang$core$Basics_ops['++'], 'Element ', id),
@@ -30802,16 +31485,6 @@ var _lucamug$elm_style_framework$Framework$sourceCodeWrapper = F2(
 				_1: {ctor: '[]'}
 			});
 	});
-var _lucamug$elm_style_framework$Framework$hackInLineStyle = F2(
-	function (text1, text2) {
-		return _mdgriffith$stylish_elephants$Element$htmlAttribute(
-			_elm_lang$html$Html_Attributes$style(
-				{
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: text1, _1: text2},
-					_1: {ctor: '[]'}
-				}));
-	});
 var _lucamug$elm_style_framework$Framework$viewTitleAndSubTitle = F3(
 	function (conf, title, subTitle) {
 		return A2(
@@ -30878,16 +31551,96 @@ var _lucamug$elm_style_framework$Framework$viewIntrospectionTitle = F2(
 			_mdgriffith$stylish_elephants$Element$text(introspection.description));
 	});
 var _lucamug$elm_style_framework$Framework$css = '\nbody {\n    line-height: normal !important;\n}\n.elmStyleguideGenerator-open {\ntransition: all .8s;\nttransform: translateY(0);\nmax-height: 500px;\n}\n.elmStyleguideGenerator-close {\ntransition: all .1s;\nttransform: translateY(-100%);\nmax-height: 0;\n}\npre {\n    margin: 0;\n}\n';
+var _lucamug$elm_style_framework$Framework$introspections = {
+	ctor: '::',
+	_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Color$introspection, _1: true},
+	_1: {
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Form$introspection, _1: true},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Typography$introspection, _1: true},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Cards$introspection, _1: true},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Button$introspection, _1: true},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Spinner$introspection, _1: true},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Logo$introspection, _1: true},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Icon$introspection, _1: true},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_StyleElements$introspection, _1: true},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_StyleElementsInput$introspection, _1: true},
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+};
+var _lucamug$elm_style_framework$Framework$introspectionsForDebuggin = {
+	ctor: '::',
+	_0: {
+		ctor: '_Tuple2',
+		_0: _lucamug$elm_style_framework$Framework$introspectionExample('ID 1'),
+		_1: true
+	},
+	_1: {
+		ctor: '::',
+		_0: {
+			ctor: '_Tuple2',
+			_0: _lucamug$elm_style_framework$Framework$introspectionExample('ID 2'),
+			_1: true
+		},
+		_1: {
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: _lucamug$elm_style_framework$Framework$introspectionExample('ID 3'),
+				_1: true
+			},
+			_1: {ctor: '[]'}
+		}
+	}
+};
+var _lucamug$elm_style_framework$Framework$fromMaybeRouteToMaybeSelected = function (maybeRoute) {
+	var _p4 = A2(_elm_lang$core$Debug$log, 'need to convert this to a maybe selected', maybeRoute);
+	return _elm_lang$core$Maybe$Nothing;
+};
 var _lucamug$elm_style_framework$Framework$update = F2(
 	function (msg, model) {
-		var _p0 = msg;
-		switch (_p0.ctor) {
+		var _p5 = msg;
+		switch (_p5.ctor) {
+			case 'MsgChangeRoute':
+				var _p6 = _p5._0;
+				var maybeSelected = _lucamug$elm_style_framework$Framework$fromMaybeRouteToMaybeSelected(_p6);
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{maybeRoute: _p6}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
 			case 'MsgChangePassword':
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{password: _p0._0}),
+						{password: _p5._0}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'MsgGoTop':
@@ -30895,7 +31648,7 @@ var _lucamug$elm_style_framework$Framework$update = F2(
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{selected: _elm_lang$core$Maybe$Nothing}),
+						{maybeSelected: _elm_lang$core$Maybe$Nothing}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'MsgSelectThis':
@@ -30904,16 +31657,16 @@ var _lucamug$elm_style_framework$Framework$update = F2(
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							selected: _elm_lang$core$Maybe$Just(_p0._0)
+							maybeSelected: _elm_lang$core$Maybe$Just(_p5._0)
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'MsgOpenAll':
 				var introspections = A2(
 					_elm_lang$core$List$map,
-					function (_p1) {
-						var _p2 = _p1;
-						return {ctor: '_Tuple2', _0: _p2._0, _1: true};
+					function (_p7) {
+						var _p8 = _p7;
+						return {ctor: '_Tuple2', _0: _p8._0, _1: true};
 					},
 					model.introspections);
 				return {
@@ -30926,9 +31679,9 @@ var _lucamug$elm_style_framework$Framework$update = F2(
 			case 'MsgCloseAll':
 				var introspections = A2(
 					_elm_lang$core$List$map,
-					function (_p3) {
-						var _p4 = _p3;
-						return {ctor: '_Tuple2', _0: _p4._0, _1: false};
+					function (_p9) {
+						var _p10 = _p9;
+						return {ctor: '_Tuple2', _0: _p10._0, _1: false};
 					},
 					model.introspections);
 				return {
@@ -30939,11 +31692,11 @@ var _lucamug$elm_style_framework$Framework$update = F2(
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'MsgToggleSection':
-				var toggle = function (_p5) {
-					var _p6 = _p5;
-					var _p8 = _p6._1;
-					var _p7 = _p6._0;
-					return _elm_lang$core$Native_Utils.eq(_p7.name, _p0._0) ? {ctor: '_Tuple2', _0: _p7, _1: !_p8} : {ctor: '_Tuple2', _0: _p7, _1: _p8};
+				var toggle = function (_p11) {
+					var _p12 = _p11;
+					var _p14 = _p12._1;
+					var _p13 = _p12._0;
+					return _elm_lang$core$Native_Utils.eq(_p13.name, _p5._0) ? {ctor: '_Tuple2', _0: _p13, _1: !_p14} : {ctor: '_Tuple2', _0: _p13, _1: _p14};
 				};
 				var introspections = A2(_elm_lang$core$List$map, toggle, model.introspections);
 				return {
@@ -30959,14 +31712,14 @@ var _lucamug$elm_style_framework$Framework$update = F2(
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							maybeWindowSize: _elm_lang$core$Maybe$Just(_p0._0)
+							maybeWindowSize: _elm_lang$core$Maybe$Just(_p5._0)
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'MsgStyleElementsInput':
-				var _p9 = A2(_lucamug$elm_style_framework$Framework_StyleElementsInput$update, _p0._0, model.modelStyleElementsInput);
-				var newModel = _p9._0;
-				var newCmd = _p9._1;
+				var _p15 = A2(_lucamug$elm_style_framework$Framework_StyleElementsInput$update, _p5._0, model.modelStyleElementsInput);
+				var newModel = _p15._0;
+				var newCmd = _p15._1;
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
@@ -30975,9 +31728,9 @@ var _lucamug$elm_style_framework$Framework$update = F2(
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'MsgForm':
-				var _p10 = A2(_lucamug$elm_style_framework$Framework_Form$update, _p0._0, model.modelForm);
-				var newModel = _p10._0;
-				var newCmd = _p10._1;
+				var _p16 = A2(_lucamug$elm_style_framework$Framework_Form$update, _p5._0, model.modelForm);
+				var newModel = _p16._0;
+				var newCmd = _p16._1;
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
@@ -30986,9 +31739,9 @@ var _lucamug$elm_style_framework$Framework$update = F2(
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'MsgCards':
-				var _p11 = A2(_lucamug$elm_style_framework$Framework_Cards$update, _p0._0, model.modelCards);
-				var newModel = _p11._0;
-				var newCmd = _p11._1;
+				var _p17 = A2(_lucamug$elm_style_framework$Framework_Cards$update, _p5._0, model.modelCards);
+				var newModel = _p17._0;
+				var newCmd = _p17._1;
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
@@ -31001,7 +31754,7 @@ var _lucamug$elm_style_framework$Framework$update = F2(
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{location: _p0._0}),
+						{location: _p5._0}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 		}
@@ -31103,70 +31856,7 @@ var _lucamug$elm_style_framework$Framework$initConf = {
 		return _elm_lang$core$Native_Utils.eq(hostname, 'localhost');
 	}
 };
-var _lucamug$elm_style_framework$Framework$initModel = F2(
-	function (flag, location) {
-		return {
-			location: location,
-			password: '',
-			selected: _elm_lang$core$Maybe$Nothing,
-			modelStyleElementsInput: _lucamug$elm_style_framework$Framework_StyleElementsInput$initModel,
-			modelForm: _lucamug$elm_style_framework$Framework_Form$initModel,
-			modelCards: _lucamug$elm_style_framework$Framework_Cards$initModel,
-			maybeWindowSize: _elm_lang$core$Maybe$Just(
-				A2(_elm_lang$window$Window$Size, flag.width, flag.height)),
-			conf: _lucamug$elm_style_framework$Framework$initConf,
-			introspections: {
-				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Color$introspection, _1: true},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Form$introspection, _1: true},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Typography$introspection, _1: true},
-						_1: {
-							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Cards$introspection, _1: true},
-							_1: {
-								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Button$introspection, _1: true},
-								_1: {
-									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Spinner$introspection, _1: true},
-									_1: {
-										ctor: '::',
-										_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Logo$introspection, _1: true},
-										_1: {
-											ctor: '::',
-											_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Icon$introspection, _1: true},
-											_1: {
-												ctor: '::',
-												_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_StyleElements$introspection, _1: true},
-												_1: {
-													ctor: '::',
-													_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_StyleElementsInput$introspection, _1: true},
-													_1: {ctor: '[]'}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		};
-	});
-var _lucamug$elm_style_framework$Framework$init = F2(
-	function (flag, location) {
-		return {
-			ctor: '_Tuple2',
-			_0: A2(_lucamug$elm_style_framework$Framework$initModel, flag, location),
-			_1: _elm_lang$core$Platform_Cmd$batch(
-				{ctor: '[]'})
-		};
-	});
+var _lucamug$elm_style_framework$Framework$debug = true;
 var _lucamug$elm_style_framework$Framework$Conf = function (a) {
 	return function (b) {
 		return function (c) {
@@ -31204,7 +31894,9 @@ var _lucamug$elm_style_framework$Framework$Model = function (a) {
 							return function (h) {
 								return function (i) {
 									return function (j) {
-										return {selected: a, maybeWindowSize: b, modelStyleElementsInput: c, modelForm: d, modelCards: e, introspections: f, location: g, maybeWindowSize: h, password: i, conf: j};
+										return function (k) {
+											return {maybeSelected: a, maybeWindowSize: b, modelStyleElementsInput: c, modelForm: d, modelCards: e, introspections: f, location: g, maybeWindowSize: h, password: i, conf: j, maybeRoute: k};
+										};
 									};
 								};
 							};
@@ -31225,6 +31917,9 @@ var _lucamug$elm_style_framework$Framework$Introspection = F7(
 	});
 var _lucamug$elm_style_framework$Framework$MsgChangePassword = function (a) {
 	return {ctor: 'MsgChangePassword', _0: a};
+};
+var _lucamug$elm_style_framework$Framework$MsgChangeRoute = function (a) {
+	return {ctor: 'MsgChangeRoute', _0: a};
 };
 var _lucamug$elm_style_framework$Framework$MsgChangeUrl = function (a) {
 	return {ctor: 'MsgChangeUrl', _0: a};
@@ -31275,44 +31970,44 @@ var _lucamug$elm_style_framework$Framework$specialComponent = F2(
 		};
 	});
 var _lucamug$elm_style_framework$Framework$viewSubSection = F3(
-	function (model, _p12, boxed) {
-		var _p13 = _p12;
-		var _p15 = _p13._0;
-		var _p14 = _elm_lang$core$Native_Utils.eq(
-			_p15,
+	function (model, _p18, boxed) {
+		var _p19 = _p18;
+		var _p21 = _p19._0;
+		var _p20 = _elm_lang$core$Native_Utils.eq(
+			_p21,
 			_mdgriffith$stylish_elephants$Element$text('special: Form.example1')) ? A2(_lucamug$elm_style_framework$Framework$specialComponentForm, model, _lucamug$elm_style_framework$Framework_Form$example1) : (_elm_lang$core$Native_Utils.eq(
-			_p15,
+			_p21,
 			_mdgriffith$stylish_elephants$Element$text('special: Form.example2')) ? A2(_lucamug$elm_style_framework$Framework$specialComponentForm, model, _lucamug$elm_style_framework$Framework_Form$example2) : (_elm_lang$core$Native_Utils.eq(
-			_p15,
+			_p21,
 			_mdgriffith$stylish_elephants$Element$text('special: Cards.example1')) ? A2(_lucamug$elm_style_framework$Framework$specialComponentCards, model, _lucamug$elm_style_framework$Framework_Cards$example1) : (_elm_lang$core$Native_Utils.eq(
-			_p15,
+			_p21,
 			_mdgriffith$stylish_elephants$Element$text('special: example0')) ? A2(_lucamug$elm_style_framework$Framework$specialComponent, model, _lucamug$elm_style_framework$Framework_StyleElementsInput$example0) : (_elm_lang$core$Native_Utils.eq(
-			_p15,
+			_p21,
 			_mdgriffith$stylish_elephants$Element$text('special: example1')) ? A2(_lucamug$elm_style_framework$Framework$specialComponent, model, _lucamug$elm_style_framework$Framework_StyleElementsInput$example1) : (_elm_lang$core$Native_Utils.eq(
-			_p15,
+			_p21,
 			_mdgriffith$stylish_elephants$Element$text('special: example2')) ? A2(_lucamug$elm_style_framework$Framework$specialComponent, model, _lucamug$elm_style_framework$Framework_StyleElementsInput$example2) : (_elm_lang$core$Native_Utils.eq(
-			_p15,
+			_p21,
 			_mdgriffith$stylish_elephants$Element$text('special: example3')) ? A2(_lucamug$elm_style_framework$Framework$specialComponent, model, _lucamug$elm_style_framework$Framework_StyleElementsInput$example3) : (_elm_lang$core$Native_Utils.eq(
-			_p15,
+			_p21,
 			_mdgriffith$stylish_elephants$Element$text('special: example4')) ? A2(_lucamug$elm_style_framework$Framework$specialComponent, model, _lucamug$elm_style_framework$Framework_StyleElementsInput$example4) : (_elm_lang$core$Native_Utils.eq(
-			_p15,
+			_p21,
 			_mdgriffith$stylish_elephants$Element$text('special: example5')) ? A2(_lucamug$elm_style_framework$Framework$specialComponent, model, _lucamug$elm_style_framework$Framework_StyleElementsInput$example5) : (_elm_lang$core$Native_Utils.eq(
-			_p15,
+			_p21,
 			_mdgriffith$stylish_elephants$Element$text('special: example6')) ? A2(_lucamug$elm_style_framework$Framework$specialComponent, model, _lucamug$elm_style_framework$Framework_StyleElementsInput$example6) : (_elm_lang$core$Native_Utils.eq(
-			_p15,
+			_p21,
 			_mdgriffith$stylish_elephants$Element$text('special: example7')) ? A2(_lucamug$elm_style_framework$Framework$specialComponent, model, _lucamug$elm_style_framework$Framework_StyleElementsInput$example7) : (_elm_lang$core$Native_Utils.eq(
-			_p15,
+			_p21,
 			_mdgriffith$stylish_elephants$Element$text('special: example8')) ? A2(_lucamug$elm_style_framework$Framework$specialComponent, model, _lucamug$elm_style_framework$Framework_StyleElementsInput$example8) : (_elm_lang$core$Native_Utils.eq(
-			_p15,
+			_p21,
 			_mdgriffith$stylish_elephants$Element$text('special: example9')) ? A2(_lucamug$elm_style_framework$Framework$specialComponent, model, _lucamug$elm_style_framework$Framework_StyleElementsInput$example9) : (_elm_lang$core$Native_Utils.eq(
-			_p15,
+			_p21,
 			_mdgriffith$stylish_elephants$Element$text('special: example9')) ? A2(_lucamug$elm_style_framework$Framework$specialComponent, model, _lucamug$elm_style_framework$Framework_StyleElementsInput$example9) : (_elm_lang$core$Native_Utils.eq(
-			_p15,
+			_p21,
 			_mdgriffith$stylish_elephants$Element$text('special: example10')) ? A2(_lucamug$elm_style_framework$Framework$specialComponent, model, _lucamug$elm_style_framework$Framework_StyleElementsInput$example10) : (_elm_lang$core$Native_Utils.eq(
-			_p15,
-			_mdgriffith$stylish_elephants$Element$text('special: example11')) ? A2(_lucamug$elm_style_framework$Framework$specialComponent, model, _lucamug$elm_style_framework$Framework_StyleElementsInput$example11) : {ctor: '_Tuple2', _0: _p15, _1: _p13._1})))))))))))))));
-		var componentExampleToDisplay = _p14._0;
-		var componentExampleSourceCodeToDisplay = _p14._1;
+			_p21,
+			_mdgriffith$stylish_elephants$Element$text('special: example11')) ? A2(_lucamug$elm_style_framework$Framework$specialComponent, model, _lucamug$elm_style_framework$Framework_StyleElementsInput$example11) : {ctor: '_Tuple2', _0: _p21, _1: _p19._1})))))))))))))));
+		var componentExampleToDisplay = _p20._0;
+		var componentExampleSourceCodeToDisplay = _p20._1;
 		return A2(
 			_mdgriffith$stylish_elephants$Element$row,
 			{ctor: '[]'},
@@ -31380,12 +32075,12 @@ var _lucamug$elm_style_framework$Framework$viewIntrospectionBody = F3(
 						},
 						A2(
 							_elm_lang$core$List$map,
-							function (_p16) {
-								var _p17 = _p16;
+							function (_p22) {
+								var _p23 = _p22;
 								return A3(
 									_lucamug$elm_style_framework$Framework$viewSubSection,
 									model,
-									{ctor: '_Tuple2', _0: _p17._0, _1: _p17._1},
+									{ctor: '_Tuple2', _0: _p23._0, _1: _p23._1},
 									false);
 							},
 							listSubSection)),
@@ -31407,24 +32102,24 @@ var _lucamug$elm_style_framework$Framework$viewIntrospection = F2(
 				},
 				A2(
 					_elm_lang$core$List$map,
-					function (_p18) {
-						var _p19 = _p18;
-						return A3(_lucamug$elm_style_framework$Framework$viewIntrospectionBody, model, _p19._0, _p19._1);
+					function (_p24) {
+						var _p25 = _p24;
+						return A3(_lucamug$elm_style_framework$Framework$viewIntrospectionBody, model, _p25._0, _p25._1);
 					},
 					introspection.variations)));
 	});
 var _lucamug$elm_style_framework$Framework$viewSomething = F2(
-	function (model, _p20) {
-		var _p21 = _p20;
+	function (model, _p26) {
+		var _p27 = _p26;
 		return A2(
 			_mdgriffith$stylish_elephants$Element$column,
 			{ctor: '[]'},
 			{
 				ctor: '::',
-				_0: A2(_lucamug$elm_style_framework$Framework$viewIntrospectionTitle, model.conf, _p21._0),
+				_0: A2(_lucamug$elm_style_framework$Framework$viewIntrospectionTitle, model.conf, _p27._0),
 				_1: {
 					ctor: '::',
-					_0: A3(_lucamug$elm_style_framework$Framework$viewIntrospectionBody, model, _p21._1._0, _p21._1._1),
+					_0: A3(_lucamug$elm_style_framework$Framework$viewIntrospectionBody, model, _p27._1._0, _p27._1._1),
 					_1: {ctor: '[]'}
 				}
 			});
@@ -31520,9 +32215,9 @@ var _lucamug$elm_style_framework$Framework$viewLogo = F3(
 	});
 var _lucamug$elm_style_framework$Framework$viewContentColumn = function (model) {
 	var conf = model.conf;
-	var _p22 = model.selected;
-	if (_p22.ctor === 'Just') {
-		return A2(_lucamug$elm_style_framework$Framework$viewSomething, model, _p22._0);
+	var _p28 = model.maybeSelected;
+	if (_p28.ctor === 'Just') {
+		return A2(_lucamug$elm_style_framework$Framework$viewSomething, model, _p28._0);
 	} else {
 		return A2(
 			_mdgriffith$stylish_elephants$Element$el,
@@ -31596,9 +32291,9 @@ var _lucamug$elm_style_framework$Framework$viewContentColumn = function (model) 
 							{ctor: '[]'},
 							A2(
 								_elm_lang$core$List$map,
-								function (_p23) {
-									var _p24 = _p23;
-									return A2(_lucamug$elm_style_framework$Framework$viewIntrospection, model, _p24._0);
+								function (_p29) {
+									var _p30 = _p29;
+									return A2(_lucamug$elm_style_framework$Framework$viewIntrospection, model, _p30._0);
 								},
 								model.introspections)),
 						_1: {ctor: '[]'}
@@ -31609,39 +32304,57 @@ var _lucamug$elm_style_framework$Framework$viewContentColumn = function (model) 
 var _lucamug$elm_style_framework$Framework$MsgSelectThis = function (a) {
 	return {ctor: 'MsgSelectThis', _0: a};
 };
-var _lucamug$elm_style_framework$Framework$viewListVariationForMenu = F2(
-	function (introspection, variations) {
-		return A2(
-			_elm_lang$core$List$map,
-			function (_p25) {
-				var _p26 = _p25;
-				var _p27 = _p26._0;
-				return A2(
-					_mdgriffith$stylish_elephants$Element$el,
-					{
-						ctor: '::',
-						_0: _mdgriffith$stylish_elephants$Element$pointer,
-						_1: {
-							ctor: '::',
-							_0: _mdgriffith$stylish_elephants$Element_Events$onClick(
-								_lucamug$elm_style_framework$Framework$MsgSelectThis(
-									{
-										ctor: '_Tuple2',
-										_0: introspection,
-										_1: {ctor: '_Tuple2', _0: _p27, _1: _p26._1}
-									})),
-							_1: {ctor: '[]'}
-						}
-					},
-					_mdgriffith$stylish_elephants$Element$text(_p27));
-			},
-			variations);
-	});
 var _lucamug$elm_style_framework$Framework$MsgCloseAll = {ctor: 'MsgCloseAll'};
 var _lucamug$elm_style_framework$Framework$MsgOpenAll = {ctor: 'MsgOpenAll'};
 var _lucamug$elm_style_framework$Framework$MsgToggleSection = function (a) {
 	return {ctor: 'MsgToggleSection', _0: a};
 };
+var _lucamug$elm_style_framework$Framework$RouteSubPage = F2(
+	function (a, b) {
+		return {ctor: 'RouteSubPage', _0: a, _1: b};
+	});
+var _lucamug$elm_style_framework$Framework$RouteHome = {ctor: 'RouteHome'};
+var _lucamug$elm_style_framework$Framework$Slug = function (a) {
+	return {ctor: 'Slug', _0: a};
+};
+var _lucamug$elm_style_framework$Framework$viewListVariationForMenu = F2(
+	function (introspection, variations) {
+		return A2(
+			_elm_lang$core$List$map,
+			function (_p31) {
+				var _p32 = _p31;
+				var _p33 = _p32._0;
+				return A2(
+					_mdgriffith$stylish_elephants$Element$column,
+					{
+						ctor: '::',
+						_0: _mdgriffith$stylish_elephants$Element_Events$onClick(
+							_lucamug$elm_style_framework$Framework$MsgSelectThis(
+								{
+									ctor: '_Tuple2',
+									_0: introspection,
+									_1: {ctor: '_Tuple2', _0: _p33, _1: _p32._1}
+								})),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: A2(
+							_mdgriffith$stylish_elephants$Element$link,
+							{ctor: '[]'},
+							{
+								label: _mdgriffith$stylish_elephants$Element$text(_p33),
+								url: _lucamug$elm_style_framework$Framework$url(
+									A2(
+										_lucamug$elm_style_framework$Framework$RouteSubPage,
+										_lucamug$elm_style_framework$Framework$Slug(introspection.name),
+										_lucamug$elm_style_framework$Framework$Slug(_p33)))
+							}),
+						_1: {ctor: '[]'}
+					});
+			},
+			variations);
+	});
 var _lucamug$elm_style_framework$Framework$viewIntrospectionForMenu = F3(
 	function (conf, introspection, open) {
 		return A2(
@@ -31875,9 +32588,9 @@ var _lucamug$elm_style_framework$Framework$viewMenuColumn = function (model) {
 					},
 					A2(
 						_elm_lang$core$List$map,
-						function (_p28) {
-							var _p29 = _p28;
-							return A3(_lucamug$elm_style_framework$Framework$viewIntrospectionForMenu, conf, _p29._0, _p29._1);
+						function (_p34) {
+							var _p35 = _p34;
+							return A3(_lucamug$elm_style_framework$Framework$viewIntrospectionForMenu, conf, _p35._0, _p35._1);
 						},
 						model.introspections)),
 				_1: {ctor: '[]'}
@@ -31893,9 +32606,9 @@ var _lucamug$elm_style_framework$Framework$viewPage = F2(
 				ctor: '::',
 				_0: _mdgriffith$stylish_elephants$Element$height(
 					function () {
-						var _p30 = maybeWindowSize;
-						if (_p30.ctor === 'Just') {
-							return _mdgriffith$stylish_elephants$Element$px(_p30._0.height);
+						var _p36 = maybeWindowSize;
+						if (_p36.ctor === 'Just') {
+							return _mdgriffith$stylish_elephants$Element$px(_p36._0.height);
 						} else {
 							return _mdgriffith$stylish_elephants$Element$fill;
 						}
@@ -32085,9 +32798,73 @@ var _lucamug$elm_style_framework$Framework$view = function (model) {
 				}
 			}));
 };
+var _lucamug$elm_style_framework$Framework$stateParser = A2(
+	_evancz$url_parser$UrlParser$custom,
+	'SLUG',
+	function (_p37) {
+		return _elm_lang$core$Result$Ok(
+			_lucamug$elm_style_framework$Framework$Slug(_p37));
+	});
+var _lucamug$elm_style_framework$Framework$route = _evancz$url_parser$UrlParser$oneOf(
+	{
+		ctor: '::',
+		_0: A2(
+			_evancz$url_parser$UrlParser$map,
+			_lucamug$elm_style_framework$Framework$RouteHome,
+			_evancz$url_parser$UrlParser$s('')),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_evancz$url_parser$UrlParser$map,
+				_lucamug$elm_style_framework$Framework$RouteSubPage,
+				A2(
+					_evancz$url_parser$UrlParser_ops['</>'],
+					_evancz$url_parser$UrlParser$s('framework'),
+					A2(_evancz$url_parser$UrlParser_ops['</>'], _lucamug$elm_style_framework$Framework$stateParser, _lucamug$elm_style_framework$Framework$stateParser))),
+			_1: {ctor: '[]'}
+		}
+	});
+var _lucamug$elm_style_framework$Framework$fromLocation = function (location) {
+	return _elm_lang$core$String$isEmpty(location.hash) ? _elm_lang$core$Maybe$Just(_lucamug$elm_style_framework$Framework$RouteHome) : A2(_evancz$url_parser$UrlParser$parseHash, _lucamug$elm_style_framework$Framework$route, location);
+};
+var _lucamug$elm_style_framework$Framework$initModel = F2(
+	function (flag, location) {
+		return {
+			location: location,
+			password: '',
+			maybeSelected: _elm_lang$core$Maybe$Nothing,
+			modelStyleElementsInput: _lucamug$elm_style_framework$Framework_StyleElementsInput$initModel,
+			modelForm: _lucamug$elm_style_framework$Framework_Form$initModel,
+			modelCards: _lucamug$elm_style_framework$Framework_Cards$initModel,
+			maybeWindowSize: _elm_lang$core$Maybe$Just(
+				A2(_elm_lang$window$Window$Size, flag.width, flag.height)),
+			conf: _lucamug$elm_style_framework$Framework$initConf,
+			introspections: function () {
+				var _p38 = _lucamug$elm_style_framework$Framework$debug;
+				if (_p38 === true) {
+					return _lucamug$elm_style_framework$Framework$introspections;
+				} else {
+					return _lucamug$elm_style_framework$Framework$introspectionsForDebuggin;
+				}
+			}(),
+			maybeRoute: _lucamug$elm_style_framework$Framework$fromLocation(location)
+		};
+	});
+var _lucamug$elm_style_framework$Framework$init = F2(
+	function (flag, location) {
+		return {
+			ctor: '_Tuple2',
+			_0: A2(_lucamug$elm_style_framework$Framework$initModel, flag, location),
+			_1: _elm_lang$core$Platform_Cmd$batch(
+				{ctor: '[]'})
+		};
+	});
 var _lucamug$elm_style_framework$Framework$main = A2(
 	_elm_lang$navigation$Navigation$programWithFlags,
-	_lucamug$elm_style_framework$Framework$MsgChangeUrl,
+	function (_p39) {
+		return _lucamug$elm_style_framework$Framework$MsgChangeRoute(
+			_lucamug$elm_style_framework$Framework$fromLocation(_p39));
+	},
 	{init: _lucamug$elm_style_framework$Framework$init, view: _lucamug$elm_style_framework$Framework$view, update: _lucamug$elm_style_framework$Framework$update, subscriptions: _lucamug$elm_style_framework$Framework$subscriptions})(
 	A2(
 		_elm_lang$core$Json_Decode$andThen,
@@ -32105,7 +32882,7 @@ var _lucamug$elm_style_framework$Framework$main = A2(
 var Elm = {};
 Elm['Framework'] = Elm['Framework'] || {};
 if (typeof _lucamug$elm_style_framework$Framework$main !== 'undefined') {
-    _lucamug$elm_style_framework$Framework$main(Elm['Framework'], 'Framework', {"types":{"unions":{"Framework.Form.Field":{"args":[],"tags":{"FieldTelephone":[],"FieldCreditCard":[]}},"Framework.Form.Msg":{"args":[],"tags":{"OnFocus":["Framework.Form.Field"],"Input":["Framework.Form.Field","String","String"],"Button":[],"Radio":["String"],"OnLoseFocus":["Framework.Form.Field"],"Checkbox":["Bool"]}},"Internal.Model.Font":{"args":[],"tags":{"Serif":[],"Typeface":["String"],"SansSerif":[],"Monospace":[],"ImportFont":["String","String"]}},"Color.Color":{"args":[],"tags":{"HSLA":["Float","Float","Float","Float"],"RGBA":["Int","Int","Int","Float"]}},"Internal.Model.PseudoClass":{"args":[],"tags":{"Focus":[],"Active":[],"Hover":[]}},"Internal.Model.Element":{"args":["msg"],"tags":{"Text":["String"],"Empty":[],"Styled":["{ styles : List Internal.Model.Style , html : Maybe.Maybe String -> Internal.Model.LayoutContext -> Html.Html msg }"],"Unstyled":["Internal.Model.LayoutContext -> Html.Html msg"]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"Framework.StyleElementsInput.Msg":{"args":[],"tags":{"Input":["String"],"Button":[],"Radio":["String"],"Checkbox":["Bool"]}},"Internal.Model.Transformation":{"args":[],"tags":{"Scale":["Float","Float","Float"],"Rotate":["Float","Float","Float","Float"],"Move":["Maybe.Maybe Float","Maybe.Maybe Float","Maybe.Maybe Float"]}},"VirtualDom.Node":{"args":["msg"],"tags":{"Node":[]}},"Internal.Model.Length":{"args":[],"tags":{"Content":[],"Fill":["Int"],"FillBetween":["{ portion : Int, min : Maybe.Maybe Int, max : Maybe.Maybe Int }"],"Px":["Int"]}},"Internal.Model.Style":{"args":[],"tags":{"Transform":["Internal.Model.Transformation"],"Style":["String","List Internal.Model.Property"],"GridTemplateStyle":["{ spacing : ( Internal.Model.Length, Internal.Model.Length ) , columns : List Internal.Model.Length , rows : List Internal.Model.Length }"],"Shadows":["String","String"],"PseudoSelector":["Internal.Model.PseudoClass","List Internal.Model.Style"],"FontFamily":["String","List Internal.Model.Font"],"Transparency":["String","Float"],"FontSize":["Int"],"GridPosition":["{ row : Int, col : Int, width : Int, height : Int }"],"Colored":["String","String","Color.Color"],"Single":["String","String","String"],"PaddingStyle":["Int","Int","Int","Int"],"SpacingStyle":["Int","Int"],"LineHeight":["Float"]}},"Internal.Model.Property":{"args":[],"tags":{"Property":["String","String"]}},"Framework.Cards.Msg":{"args":[],"tags":{"Flip":[]}},"Internal.Model.LayoutContext":{"args":[],"tags":{"AsColumn":[],"AsEl":[],"AsTextColumn":[],"AsParagraph":[],"AsGrid":[],"AsRow":[]}},"Framework.Msg":{"args":[],"tags":{"MsgOpenAll":[],"MsgChangeUrl":["Navigation.Location"],"MsgSelectThis":["( Framework.Introspection, Framework.Variation )"],"MsgForm":["Framework.Form.Msg"],"MsgGoTop":[],"MsgToggleSection":["String"],"MsgStyleElementsInput":["Framework.StyleElementsInput.Msg"],"MsgChangePassword":["String"],"MsgChangeWindowSize":["Window.Size"],"MsgCloseAll":[],"MsgCards":["Framework.Cards.Msg"]}}},"aliases":{"Framework.SubSection":{"args":[],"type":"( Element.Element Framework.Msg, String )"},"Framework.Introspection":{"args":[],"type":"{ name : String , signature : String , description : String , usage : String , usageResult : Element.Element Framework.Msg , variations : List Framework.Variation , boxed : Bool }"},"Framework.Variation":{"args":[],"type":"( String, List Framework.SubSection )"},"Element.Element":{"args":["msg"],"type":"Internal.Model.Element msg"},"Window.Size":{"args":[],"type":"{ width : Int, height : Int }"},"Html.Html":{"args":["msg"],"type":"VirtualDom.Node msg"},"Navigation.Location":{"args":[],"type":"{ href : String , host : String , hostname : String , protocol : String , origin : String , port_ : String , pathname : String , search : String , hash : String , username : String , password : String }"}},"message":"Framework.Msg"},"versions":{"elm":"0.18.0"}});
+    _lucamug$elm_style_framework$Framework$main(Elm['Framework'], 'Framework', {"types":{"unions":{"Framework.Form.Field":{"args":[],"tags":{"FieldTelephone":[],"FieldCreditCard":[]}},"Framework.Form.Msg":{"args":[],"tags":{"OnFocus":["Framework.Form.Field"],"Input":["Framework.Form.Field","String","String"],"Button":[],"Radio":["String"],"OnLoseFocus":["Framework.Form.Field"],"Checkbox":["Bool"]}},"Internal.Model.Font":{"args":[],"tags":{"Serif":[],"Typeface":["String"],"SansSerif":[],"Monospace":[],"ImportFont":["String","String"]}},"Color.Color":{"args":[],"tags":{"HSLA":["Float","Float","Float","Float"],"RGBA":["Int","Int","Int","Float"]}},"Internal.Model.PseudoClass":{"args":[],"tags":{"Focus":[],"Active":[],"Hover":[]}},"Internal.Model.Element":{"args":["msg"],"tags":{"Text":["String"],"Empty":[],"Styled":["{ styles : List Internal.Model.Style , html : Maybe.Maybe String -> Internal.Model.LayoutContext -> Html.Html msg }"],"Unstyled":["Internal.Model.LayoutContext -> Html.Html msg"]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"Framework.StyleElementsInput.Msg":{"args":[],"tags":{"Input":["String"],"Button":[],"Radio":["String"],"Checkbox":["Bool"]}},"Internal.Model.Transformation":{"args":[],"tags":{"Scale":["Float","Float","Float"],"Rotate":["Float","Float","Float","Float"],"Move":["Maybe.Maybe Float","Maybe.Maybe Float","Maybe.Maybe Float"]}},"VirtualDom.Node":{"args":["msg"],"tags":{"Node":[]}},"Internal.Model.Length":{"args":[],"tags":{"Content":[],"Fill":["Int"],"FillBetween":["{ portion : Int, min : Maybe.Maybe Int, max : Maybe.Maybe Int }"],"Px":["Int"]}},"Internal.Model.Style":{"args":[],"tags":{"Transform":["Internal.Model.Transformation"],"Style":["String","List Internal.Model.Property"],"GridTemplateStyle":["{ spacing : ( Internal.Model.Length, Internal.Model.Length ) , columns : List Internal.Model.Length , rows : List Internal.Model.Length }"],"Shadows":["String","String"],"PseudoSelector":["Internal.Model.PseudoClass","List Internal.Model.Style"],"FontFamily":["String","List Internal.Model.Font"],"Transparency":["String","Float"],"FontSize":["Int"],"GridPosition":["{ row : Int, col : Int, width : Int, height : Int }"],"Colored":["String","String","Color.Color"],"Single":["String","String","String"],"PaddingStyle":["Int","Int","Int","Int"],"SpacingStyle":["Int","Int"],"LineHeight":["Float"]}},"Internal.Model.Property":{"args":[],"tags":{"Property":["String","String"]}},"Framework.Slug":{"args":[],"tags":{"Slug":["String"]}},"Framework.Cards.Msg":{"args":[],"tags":{"Flip":[]}},"Internal.Model.LayoutContext":{"args":[],"tags":{"AsColumn":[],"AsEl":[],"AsTextColumn":[],"AsParagraph":[],"AsGrid":[],"AsRow":[]}},"Framework.Msg":{"args":[],"tags":{"MsgOpenAll":[],"MsgChangeUrl":["Navigation.Location"],"MsgSelectThis":["( Framework.Introspection, Framework.Variation )"],"MsgForm":["Framework.Form.Msg"],"MsgGoTop":[],"MsgToggleSection":["String"],"MsgStyleElementsInput":["Framework.StyleElementsInput.Msg"],"MsgChangePassword":["String"],"MsgChangeWindowSize":["Window.Size"],"MsgCloseAll":[],"MsgChangeRoute":["Maybe.Maybe Framework.Route"],"MsgCards":["Framework.Cards.Msg"]}},"Framework.Route":{"args":[],"tags":{"RouteSubPage":["Framework.Slug","Framework.Slug"],"RouteHome":[]}}},"aliases":{"Framework.SubSection":{"args":[],"type":"( Element.Element Framework.Msg, String )"},"Framework.Introspection":{"args":[],"type":"{ name : String , signature : String , description : String , usage : String , usageResult : Element.Element Framework.Msg , variations : List Framework.Variation , boxed : Bool }"},"Framework.Variation":{"args":[],"type":"( String, List Framework.SubSection )"},"Element.Element":{"args":["msg"],"type":"Internal.Model.Element msg"},"Window.Size":{"args":[],"type":"{ width : Int, height : Int }"},"Html.Html":{"args":["msg"],"type":"VirtualDom.Node msg"},"Navigation.Location":{"args":[],"type":"{ href : String , host : String , hostname : String , protocol : String , origin : String , port_ : String , pathname : String , search : String , hash : String , username : String , password : String }"}},"message":"Framework.Msg"},"versions":{"elm":"0.18.0"}});
 }
 
 if (typeof define === "function" && define['amd'])
