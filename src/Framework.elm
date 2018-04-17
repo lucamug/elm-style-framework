@@ -36,7 +36,9 @@ import Framework.StyleElementsInput as StyleElementsInput
 import Framework.Typography as Typography
 import Html
 import Html.Attributes
+import Http
 import Navigation
+import Task
 import UrlParser exposing ((</>), Parser, oneOf, parseHash, s, string)
 import Window
 
@@ -103,14 +105,51 @@ initConf =
     }
 
 
-fromMaybeRouteToMaybeSelected : Maybe Route -> Maybe ( Introspection, Variation )
-fromMaybeRouteToMaybeSelected maybeRoute =
-    -- TODO work here
+emptyIntrospection : Introspection
+emptyIntrospection =
+    { name = "Not found"
+    , signature = ""
+    , description = ""
+    , usage = ""
+    , usageResult = empty
+    , boxed = True
+    , variations =
+        []
+    }
+
+
+emptyVariation : Variation
+emptyVariation =
+    ( "Not found"
+    , []
+    )
+
+
+fromMaybeRouteToMaybeSelected : Model -> Maybe Route -> Maybe ( Introspection, Variation )
+fromMaybeRouteToMaybeSelected model maybeRoute =
     let
-        _ =
-            Debug.log "need to convert this to a maybe selected" maybeRoute
+        ( slug1, slug2 ) =
+            case maybeRoute of
+                Just route ->
+                    case route of
+                        RouteSubPage slug1 slug2 ->
+                            ( Maybe.withDefault "" <| Http.decodeUri (slugToString slug1)
+                            , Maybe.withDefault "" <| Http.decodeUri (slugToString slug2)
+                            )
+
+                        _ ->
+                            ( "", "" )
+
+                Nothing ->
+                    ( "", "" )
+
+        ( introspection, view ) =
+            Maybe.withDefault ( emptyIntrospection, False ) <| List.head <| List.filter (\( introspection, _ ) -> introspection.name == slug1) model.introspections
+
+        variation =
+            Maybe.withDefault emptyVariation <| List.head <| List.filter (\( name, _ ) -> name == slug2) introspection.variations
     in
-    Nothing
+    Just ( introspection, variation )
 
 
 {-| -}
@@ -177,9 +216,37 @@ introspections =
 init : Flag -> Navigation.Location -> ( Model, Cmd Msg )
 init flag location =
     ( initModel flag location
-      --, Cmd.batch [ Task.perform MsgChangeWindowSize Window.size ]
-    , Cmd.batch []
+      -- TODO fix this
+      -- FIX THIS, "send" SHOULD NOT BE NECESSARY
+      {- MsgChangeRoute maybeRoute ->
+         let
+             maybeSelected =
+                 fromMaybeRouteToMaybeSelected model maybeRoute
+         in
+         ( { model
+             | maybeRoute = maybeRoute
+             , maybeSelected = maybeSelected
+           }
+         , Cmd.none
+         )
+      -}
+    , Cmd.batch [ send <| MsgChangeRoute <| fromLocation location ]
     )
+
+
+send : msg -> Cmd msg
+send msg =
+    Task.succeed msg
+        |> Task.perform identity
+
+
+
+-- Route.modifyUrl Route.Home
+
+
+modifyUrl : Route -> Cmd msg
+modifyUrl =
+    routeToString >> Navigation.modifyUrl
 
 
 type alias Flag =
@@ -252,11 +319,15 @@ update msg model =
     case msg of
         MsgChangeRoute maybeRoute ->
             let
-                -- TODO Work here
                 maybeSelected =
-                    fromMaybeRouteToMaybeSelected maybeRoute
+                    fromMaybeRouteToMaybeSelected model maybeRoute
             in
-            ( { model | maybeRoute = maybeRoute }, Cmd.none )
+            ( { model
+                | maybeRoute = maybeRoute
+                , maybeSelected = maybeSelected
+              }
+            , Cmd.none
+            )
 
         MsgChangePassword password ->
             ( { model | password = password }, Cmd.none )
@@ -613,15 +684,10 @@ viewListVariationForMenu : Introspection -> List Variation -> List (Element Msg)
 viewListVariationForMenu introspection variations =
     List.map
         (\( title, variation ) ->
-            column
-                -- TODO Remove onClick event and create function
-                [ Events.onClick <| MsgSelectThis ( introspection, ( title, variation ) )
-                ]
-                [ link []
-                    { label = text title
-                    , url = url <| RouteSubPage (Slug introspection.name) (Slug title)
-                    }
-                ]
+            link []
+                { label = text title
+                , url = url <| RouteSubPage (Slug introspection.name) (Slug title)
+                }
         )
         variations
 
@@ -781,10 +847,20 @@ subscriptions model =
         ]
 
 
+
+{-
+   programWithFlags
+       :  (Location -> msg)
+       -> { init : flags -> Location -> (model, Cmd msg), update : msg -> model -> (model, Cmd msg), view : model -> Html msg, subscriptions : model -> Sub msg }
+       -> Program flags model msg
+-}
+-- fromLocation : Navigation.Location -> Maybe Route
+
+
 main : Program Flag Model Msg
 main =
     --Navigation.programWithFlags MsgChangeUrl
-    Navigation.programWithFlags (fromLocation >> MsgChangeRoute)
+    Navigation.programWithFlags (\location -> MsgChangeRoute <| fromLocation location)
         { init = init
         , view = view
         , update = update
@@ -840,11 +916,6 @@ routeToString page =
 url : Route -> String
 url route =
     routeToString route
-
-
-modifyUrl : Route -> Cmd msg
-modifyUrl =
-    routeToString >> Navigation.modifyUrl
 
 
 fromLocation : Navigation.Location -> Maybe Route
