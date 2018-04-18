@@ -31310,15 +31310,20 @@ var _lucamug$elm_style_framework$Framework$slugToString = function (_p0) {
 	var _p1 = _p0;
 	return _p1._0;
 };
+var _lucamug$elm_style_framework$Framework$routeValues = {root: 'framework'};
 var _lucamug$elm_style_framework$Framework$routeToString = function (page) {
 	var pieces = function () {
 		var _p2 = page;
 		if (_p2.ctor === 'RouteHome') {
-			return {ctor: '[]'};
+			return {
+				ctor: '::',
+				_0: _lucamug$elm_style_framework$Framework$routeValues.root,
+				_1: {ctor: '[]'}
+			};
 		} else {
 			return {
 				ctor: '::',
-				_0: 'framework',
+				_0: _lucamug$elm_style_framework$Framework$routeValues.root,
 				_1: {
 					ctor: '::',
 					_0: _lucamug$elm_style_framework$Framework$slugToString(_p2._0),
@@ -32483,7 +32488,7 @@ var _lucamug$elm_style_framework$Framework$route = _evancz$url_parser$UrlParser$
 		_0: A2(
 			_evancz$url_parser$UrlParser$map,
 			_lucamug$elm_style_framework$Framework$RouteHome,
-			_evancz$url_parser$UrlParser$s('')),
+			_evancz$url_parser$UrlParser$s(_lucamug$elm_style_framework$Framework$routeValues.root)),
 		_1: {
 			ctor: '::',
 			_0: A2(
@@ -32491,7 +32496,7 @@ var _lucamug$elm_style_framework$Framework$route = _evancz$url_parser$UrlParser$
 				_lucamug$elm_style_framework$Framework$RouteSubPage,
 				A2(
 					_evancz$url_parser$UrlParser_ops['</>'],
-					_evancz$url_parser$UrlParser$s('framework'),
+					_evancz$url_parser$UrlParser$s(_lucamug$elm_style_framework$Framework$routeValues.root),
 					A2(_evancz$url_parser$UrlParser_ops['</>'], _lucamug$elm_style_framework$Framework$stateParser, _lucamug$elm_style_framework$Framework$stateParser))),
 			_1: {ctor: '[]'}
 		}

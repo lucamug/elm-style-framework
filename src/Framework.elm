@@ -130,11 +130,8 @@ emptyVariation =
 maybeSelected : Model -> Maybe ( Introspection, Variation )
 maybeSelected model =
     let
-        maybeRoute =
-            fromLocation model.location
-
         ( slug1, slug2 ) =
-            case maybeRoute of
+            case maybeRoute model.location of
                 Just route ->
                     case route of
                         RouteSubPage slug1 slug2 ->
@@ -819,13 +816,12 @@ subscriptions model =
        -> { init : flags -> Location -> (model, Cmd msg), update : msg -> model -> (model, Cmd msg), view : model -> Html msg, subscriptions : model -> Sub msg }
        -> Program flags model msg
 -}
--- fromLocation : Navigation.Location -> Maybe Route
+-- maybeRoute : Navigation.Location -> Maybe Route
 
 
 main : Program Flag Model Msg
 main =
     Navigation.programWithFlags MsgChangeLocation
-        -- Navigation.programWithFlags (\location -> MsgChangeRoute <| fromLocation location)
         { init = init
         , view = view
         , update = update
@@ -888,8 +884,8 @@ url route =
     routeToString route
 
 
-fromLocation : Navigation.Location -> Maybe Route
-fromLocation location =
+maybeRoute : Navigation.Location -> Maybe Route
+maybeRoute location =
     if String.isEmpty location.hash then
         Just RouteHome
     else
