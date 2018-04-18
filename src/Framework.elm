@@ -127,9 +127,12 @@ emptyVariation =
     )
 
 
-fromMaybeRouteToMaybeSelected : Model -> Maybe Route -> Maybe ( Introspection, Variation )
-fromMaybeRouteToMaybeSelected model maybeRoute =
+maybeSelected : Model -> Maybe ( Introspection, Variation )
+maybeSelected model =
     let
+        maybeRoute =
+            fromLocation model.location
+
         ( slug1, slug2 ) =
             case maybeRoute of
                 Just route ->
@@ -159,8 +162,7 @@ fromMaybeRouteToMaybeSelected model maybeRoute =
 
 {-| -}
 type alias Model =
-    { maybeSelected : Maybe ( Introspection, Variation )
-    , maybeWindowSize : Maybe Window.Size
+    { maybeWindowSize : Maybe Window.Size
     , modelStyleElementsInput : StyleElementsInput.Model
     , modelForm : Form.Model
     , modelCards : Cards.Model
@@ -169,7 +171,6 @@ type alias Model =
     , maybeWindowSize : Maybe Window.Size
     , password : String
     , conf : Conf Msg
-    , maybeRoute : Maybe Route
     }
 
 
@@ -178,7 +179,6 @@ initModel : Flag -> Navigation.Location -> Model
 initModel flag location =
     { location = location
     , password = ""
-    , maybeSelected = Nothing
     , modelStyleElementsInput = StyleElementsInput.initModel
     , modelForm = Form.initModel
     , modelCards = Cards.initModel
@@ -191,7 +191,6 @@ initModel flag location =
 
             False ->
                 introspectionsForDebuggin
-    , maybeRoute = fromLocation location
     }
 
 
@@ -221,21 +220,7 @@ introspections =
 init : Flag -> Navigation.Location -> ( Model, Cmd Msg )
 init flag location =
     ( initModel flag location
-      -- TODO fix this
-      -- FIX THIS, "send" SHOULD NOT BE NECESSARY
-      {- MsgChangeRoute maybeRoute ->
-         let
-             maybeSelected =
-                 fromMaybeRouteToMaybeSelected model maybeRoute
-         in
-         ( { model
-             | maybeRoute = maybeRoute
-             , maybeSelected = maybeSelected
-           }
-         , Cmd.none
-         )
-      -}
-    , Cmd.batch [ send <| MsgChangeRoute <| fromLocation location ]
+    , Cmd.batch []
     )
 
 
@@ -243,10 +228,6 @@ send : msg -> Cmd msg
 send msg =
     Task.succeed msg
         |> Task.perform identity
-
-
-
--- Route.modifyUrl Route.Home
 
 
 modifyUrl : Route -> Cmd msg
@@ -305,16 +286,13 @@ type alias SubSection =
 {-| -}
 type Msg
     = MsgToggleSection String
-    | MsgOpenAll
-    | MsgCloseAll
-    | MsgSelectThis ( Introspection, Variation )
-    | MsgGoTop
+    | MsgOpenAllSections
+    | MsgCloseAllSections
     | MsgChangeWindowSize Window.Size
     | MsgStyleElementsInput StyleElementsInput.Msg
     | MsgForm Form.Msg
     | MsgCards Cards.Msg
-    | MsgChangeUrl Navigation.Location
-    | MsgChangeRoute (Maybe Route)
+    | MsgChangeLocation Navigation.Location
     | MsgChangePassword String
 
 
@@ -322,35 +300,20 @@ type Msg
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        MsgChangeRoute maybeRoute ->
-            let
-                maybeSelected =
-                    fromMaybeRouteToMaybeSelected model maybeRoute
-            in
-            ( { model
-                | maybeRoute = maybeRoute
-                , maybeSelected = maybeSelected
-              }
-            , Cmd.none
-            )
+        MsgChangeLocation location ->
+            ( { model | location = location }, Cmd.none )
 
         MsgChangePassword password ->
             ( { model | password = password }, Cmd.none )
 
-        MsgGoTop ->
-            ( { model | maybeSelected = Nothing }, Cmd.none )
-
-        MsgSelectThis introspectionAndVariation ->
-            ( { model | maybeSelected = Just introspectionAndVariation }, Cmd.none )
-
-        MsgOpenAll ->
+        MsgOpenAllSections ->
             let
                 introspections =
                     List.map (\( data, show ) -> ( data, True )) model.introspections
             in
             ( { model | introspections = introspections }, Cmd.none )
 
-        MsgCloseAll ->
+        MsgCloseAllSections ->
             let
                 introspections =
                     List.map (\( data, show ) -> ( data, False )) model.introspections
@@ -393,9 +356,6 @@ update msg model =
                     Cards.update msg model.modelCards
             in
             ( { model | modelCards = newModel }, Cmd.none )
-
-        MsgChangeUrl location ->
-            ( { model | location = location }, Cmd.none )
 
 
 {-| This create the entire page of Html type.
@@ -543,8 +503,8 @@ viewMenuColumn model =
                 , Font.size 14
                 , Font.color <| conf.gray9
                 ]
-                [ el [ pointer, Events.onClick MsgOpenAll ] <| text "Expand All"
-                , el [ pointer, Events.onClick MsgCloseAll ] <| text "Close All"
+                [ el [ pointer, Events.onClick MsgOpenAllSections ] <| text "Expand All"
+                , el [ pointer, Events.onClick MsgCloseAllSections ] <| text "Close All"
                 ]
             ]
         , column [ spacing 30, height shrink, alignTop ] <| List.map (\( data, show ) -> viewIntrospectionForMenu conf data show) model.introspections
@@ -553,11 +513,7 @@ viewMenuColumn model =
 
 viewContentColumn : Model -> Element Msg
 viewContentColumn model =
-    let
-        conf =
-            model.conf
-    in
-    case model.maybeSelected of
+    case maybeSelected model of
         Just something ->
             viewSomething model something
 
@@ -569,9 +525,9 @@ viewContentColumn model =
                 ]
             <|
                 column []
-                    [ column [ padding <| conf.mainPadding + 100, spacing conf.mainPadding ]
-                        [ el [] <| viewLogo conf.title conf.subTitle conf.version
-                        , el [ Font.size 24 ] conf.introduction
+                    [ column [ padding <| model.conf.mainPadding + 100, spacing model.conf.mainPadding ]
+                        [ el [] <| viewLogo model.conf.title model.conf.subTitle model.conf.version
+                        , el [ Font.size 24 ] model.conf.introduction
                         , el [ centerX, alpha 0.2 ] <| Icon.icon Icon.ChevronDown 32
                         ]
                     , column [] <| List.map (\( introspection, show ) -> viewIntrospection model introspection) model.introspections
@@ -630,11 +586,15 @@ viewIntrospectionBody model title listSubSection =
 
 viewLogo : Element Msg -> String -> String -> Element Msg
 viewLogo title subTitle version =
-    column [ Events.onClick MsgGoTop, pointer, height shrink ]
-        [ el [ Font.size 60, Font.bold, Events.onClick MsgGoTop ] title
-        , el [ Font.size 16, Font.bold, Events.onClick MsgGoTop ] <| text subTitle
-        , el [ Font.size 16, Font.bold, Events.onClick MsgGoTop ] <| text <| "v" ++ version
-        ]
+    link []
+        { label =
+            column [ height shrink ]
+                [ el [ Font.size 60, Font.bold ] title
+                , el [ Font.size 16, Font.bold ] <| text subTitle
+                , el [ Font.size 16, Font.bold ] <| text <| "v" ++ version
+                ]
+        , url = url <| RouteHome
+        }
 
 
 viewIntrospectionForMenu : Conf msg -> Introspection -> Bool -> Element Msg
@@ -864,8 +824,8 @@ subscriptions model =
 
 main : Program Flag Model Msg
 main =
-    --Navigation.programWithFlags MsgChangeUrl
-    Navigation.programWithFlags (\location -> MsgChangeRoute <| fromLocation location)
+    Navigation.programWithFlags MsgChangeLocation
+        -- Navigation.programWithFlags (\location -> MsgChangeRoute <| fromLocation location)
         { init = init
         , view = view
         , update = update
