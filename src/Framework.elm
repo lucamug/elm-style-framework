@@ -842,11 +842,16 @@ type Route
     | RouteSubPage Slug Slug
 
 
+routeValues : { root : String }
+routeValues =
+    { root = "framework" }
+
+
 route : Parser (Route -> a) a
 route =
     oneOf
-        [ UrlParser.map RouteHome (s "")
-        , UrlParser.map RouteSubPage (s "framework" </> stateParser </> stateParser)
+        [ UrlParser.map RouteHome (s routeValues.root)
+        , UrlParser.map RouteSubPage (s routeValues.root </> stateParser </> stateParser)
         ]
 
 
@@ -870,10 +875,10 @@ routeToString page =
         pieces =
             case page of
                 RouteHome ->
-                    []
+                    [ routeValues.root ]
 
                 RouteSubPage slug1 slug2 ->
-                    [ "framework", slugToString slug1, slugToString slug2 ]
+                    [ routeValues.root, slugToString slug1, slugToString slug2 ]
     in
     "#/" ++ String.join "/" pieces
 
