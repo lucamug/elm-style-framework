@@ -31690,7 +31690,7 @@ var _lucamug$elm_style_framework$Framework$fromMaybeRouteToMaybeSelected = F2(
 						return _elm_lang$core$Native_Utils.eq(_p11._0, slug2);
 					},
 					introspection.variations)));
-		return _elm_lang$core$Maybe$Just(
+		return (_elm_lang$core$Native_Utils.eq(introspection, _lucamug$elm_style_framework$Framework$emptyIntrospection) || _elm_lang$core$Native_Utils.eq(variation, _lucamug$elm_style_framework$Framework$emptyVariation)) ? _elm_lang$core$Maybe$Nothing : _elm_lang$core$Maybe$Just(
 			{ctor: '_Tuple2', _0: introspection, _1: variation});
 	});
 var _lucamug$elm_style_framework$Framework$update = F2(

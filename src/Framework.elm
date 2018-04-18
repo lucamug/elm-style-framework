@@ -151,7 +151,10 @@ fromMaybeRouteToMaybeSelected model maybeRoute =
         variation =
             Maybe.withDefault emptyVariation <| List.head <| List.filter (\( name, _ ) -> name == slug2) introspection.variations
     in
-    Just ( introspection, variation )
+    if introspection == emptyIntrospection || variation == emptyVariation then
+        Nothing
+    else
+        Just ( introspection, variation )
 
 
 {-| -}
