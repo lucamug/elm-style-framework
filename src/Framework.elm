@@ -90,7 +90,7 @@ initConf =
                 ]
             ]
     , subTitle = "FRAMEWORK"
-    , version = "0.0.1"
+    , version = "6.0.0"
     , introduction = empty
     , mainPadding = 41
     , password = ""
