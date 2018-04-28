@@ -1,13 +1,6 @@
-module Framework.Form exposing (Model, Msg, example1, example2, initModel, inputText, introspection, update)
+module Framework.FormFieldsWithPattern exposing (..)
 
-{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Form%20Elements/Phone%20number%20USA)
-
-
-# Functions
-
-@docs Model, Msg, example1, example2, initModel, inputText, introspection, update
-
--}
+--import Element.Area as Area
 
 import Element exposing (..)
 import Element.Background as Background
@@ -20,75 +13,60 @@ import Html.Attributes
 import Regex
 
 
-{-| -}
 type alias Model =
-    { radio : Maybe String
-    , telephone : String
-    , creditCard : String
-    , checkbox : Bool
+    { fieldTelephone : String
+    , fieldCreditCard : String
+    , field4DigitCode : String
     , focus : Maybe Field
     }
 
 
-{-| -}
 initModel : Model
 initModel =
-    { radio = Just "A"
-    , telephone = ""
-    , creditCard = ""
-    , checkbox = False
+    { fieldTelephone = ""
+    , fieldCreditCard = ""
+    , field4DigitCode = ""
     , focus = Nothing
     }
 
 
-{-| -}
 type Field
     = FieldTelephone
     | FieldCreditCard
+    | Field4DigitCode
 
 
-{-| -}
 type Msg
-    = Radio String
-    | Button
-    | Input Field String String
-    | Checkbox Bool
+    = Input Field String String
     | OnFocus Field
     | OnLoseFocus Field
 
 
-{-| -}
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg |> Debug.log "Msg" of
-        Radio value ->
-            ( { model | radio = Just value }, Cmd.none )
-
-        Button ->
-            ( model, Cmd.none )
-
+    case msg of
         Input field pattern value ->
             let
                 onlyDigits =
                     Regex.replace Regex.All (Regex.regex "[^0-9]") (\_ -> "") value
 
                 withPattern =
-                    result pattern onlyDigits
+                    xxresult pattern onlyDigits
 
                 removeCharactedAtTheEndIfNotNumbers =
                     Regex.replace Regex.All (Regex.regex "[^0-9]*$") (\_ -> "") withPattern
             in
             ( case field of
                 FieldTelephone ->
-                    { model | telephone = removeCharactedAtTheEndIfNotNumbers }
+                    { model | fieldTelephone = removeCharactedAtTheEndIfNotNumbers }
 
                 FieldCreditCard ->
-                    { model | creditCard = removeCharactedAtTheEndIfNotNumbers }
+                    { model | fieldCreditCard = removeCharactedAtTheEndIfNotNumbers }
+
+                Field4DigitCode ->
+                    { model | field4DigitCode = removeCharactedAtTheEndIfNotNumbers }
             , Cmd.none
             )
-
-        Checkbox value ->
-            ( { model | checkbox = value }, Cmd.none )
 
         OnFocus field ->
             ( { model | focus = Just field }, Cmd.none )
@@ -97,7 +75,6 @@ update msg model =
             ( { model | focus = Nothing }, Cmd.none )
 
 
-{-| -}
 introspection :
     { boxed : Bool
     , description : String
@@ -108,20 +85,20 @@ introspection :
     , variations : List ( String, List ( Element msg1, String ) )
     }
 introspection =
-    { name = "Form Elements"
+    { name = "Fields With Patterns"
     , signature = ""
     , description = "List of elements for Web Forms"
     , usage = ""
     , usageResult = empty
     , boxed = True
     , variations =
-        [ ( "Phone number USA", [ ( text "special: Form.example1", "" ) ] )
-        , ( "Credit Card number", [ ( text "special: Form.example2", "" ) ] )
+        [ ( "Phone number USA", [ ( text "special: FormFieldsWithPattern.example1", "" ) ] )
+        , ( "Credit Card number", [ ( text "special: FormFieldsWithPattern.example2", "" ) ] )
+        , ( "4 Digit Code", [ ( text "special: FormFieldsWithPattern.example3", "" ) ] )
         ]
     }
 
 
-{-| -}
 hasFocus : Model -> Field -> Bool
 hasFocus model field =
     case model.focus of
@@ -132,13 +109,11 @@ hasFocus model field =
             False
 
 
-{-| -}
 hackInLineStyle : String -> String -> Attribute msg
 hackInLineStyle text1 text2 =
     Element.htmlAttribute (Html.Attributes.style [ ( text1, text2 ) ])
 
 
-{-| -}
 example1 : Model -> ( Element Msg, String )
 example1 model =
     ( inputText model
@@ -154,7 +129,6 @@ example1 model =
     )
 
 
-{-| -}
 example2 : Model -> ( Element Msg, String )
 example2 model =
     ( inputText model
@@ -170,7 +144,21 @@ example2 model =
     )
 
 
-{-| -}
+example3 : Model -> ( Element Msg, String )
+example3 model =
+    ( inputText model
+        { field = Field4DigitCode
+        , pattern = "_ _ _ _"
+        , label = "4 Digits Code"
+        }
+    , """inputText model
+    { field = Field4DigitCode
+    , pattern = "0-0-0-0"
+    , label = "4 Digits Code"
+    }"""
+    )
+
+
 inputText : Model -> { a | field : Field, label : String, pattern : String } -> Element Msg
 inputText model { field, pattern, label } =
     let
@@ -180,24 +168,51 @@ inputText model { field, pattern, label } =
         patternToShow =
             modelValue ++ String.right lengthDifference pattern
 
+        largeSize =
+            field == Field4DigitCode
+
+        font =
+            if largeSize then
+                [ Font.family
+                    [ Font.monospace
+                    ]
+                , Font.size 54
+                ]
+            else
+                []
+
+        moveDownPlaceHolder =
+            if largeSize then
+                30
+            else
+                32
+
         modelValue =
             case field of
                 FieldTelephone ->
-                    model.telephone
+                    model.fieldTelephone
 
                 FieldCreditCard ->
-                    model.creditCard
+                    model.fieldCreditCard
+
+                Field4DigitCode ->
+                    model.field4DigitCode
 
         labelIsAbove =
-            hasFocus model field || modelValue /= ""
+            hasFocus model field || modelValue /= "" || largeSize
     in
     el
         [ inFront <|
             el
-                [ Font.color <| color GrayLight
-                , moveDown 33
-                , hackInLineStyle "pointer-events" "none"
-                ]
+                ([ if hasFocus model field && largeSize then
+                    Font.color <| color Primary
+                   else
+                    Font.color <| color GrayLight
+                 , moveDown moveDownPlaceHolder
+                 , hackInLineStyle "pointer-events" "none"
+                 ]
+                    ++ font
+                )
             <|
                 text <|
                     if labelIsAbove then
@@ -210,13 +225,17 @@ inputText model { field, pattern, label } =
             ([ Events.onFocus <| OnFocus field
              , Events.onLoseFocus <| OnLoseFocus field
              , Background.color <| color Transparent
-             , Border.widthEach { bottom = 2, left = 0, right = 0, top = 0 }
+             , if largeSize then
+                Border.width 0
+               else
+                Border.widthEach { bottom = 2, left = 0, right = 0, top = 0 }
              , Border.rounded 0
              , paddingXY 0 8
              , width <| px 230
              , hackInLineStyle "transition" "all 0.15s"
              , hackInLineStyle "z-index" "10"
              ]
+                ++ font
                 ++ (if hasFocus model field then
                         [ Border.color <| color Primary ]
                     else
@@ -243,51 +262,49 @@ inputText model { field, pattern, label } =
             }
 
 
-{-| -}
+
+--
+
+
 type Token
     = Inputxxx
     | Other Char
 
 
-{-| -}
-parse : Char -> String -> List Token
-parse inputChar pattern =
+xxparse : Char -> String -> List Token
+xxparse inputChar pattern =
     String.toList pattern
-        |> List.map (tokenize inputChar)
+        |> List.map (xxtokenize inputChar)
 
 
-{-| -}
-tokenize : Char -> Char -> Token
-tokenize inputChar pattern =
-    if pattern == inputChar then
+xxtokenize : Char -> Char -> Token
+xxtokenize inputChar pattern =
+    if pattern == inputChar || pattern == '_' then
         Inputxxx
     else
         Other pattern
 
 
-{-| -}
-format : List Token -> String -> String
-format tokens input =
+xxformat : List Token -> String -> String
+xxformat tokens input =
     if String.isEmpty input then
         input
     else
-        append tokens (String.toList input) ""
+        xxappend tokens (String.toList input) ""
 
 
-{-| -}
-result : String -> String -> String
-result template string =
-    format (parse '0' template) string
+xxresult : String -> String -> String
+xxresult template string =
+    xxformat (xxparse '0' template) string
 
 
-{-| -}
-append : List Token -> List Char -> String -> String
-append tokens input formatted =
+xxappend : List Token -> List Char -> String -> String
+xxappend tokens input formatted =
     let
         appendInput =
             List.head input
                 |> Maybe.map (\char -> formatted ++ String.fromChar char)
-                |> Maybe.map (append (Maybe.withDefault [] (List.tail tokens)) (Maybe.withDefault [] (List.tail input)))
+                |> Maybe.map (xxappend (Maybe.withDefault [] (List.tail tokens)) (Maybe.withDefault [] (List.tail input)))
                 |> Maybe.withDefault formatted
 
         maybeToken =
@@ -303,4 +320,12 @@ append tokens input formatted =
                     appendInput
 
                 Other char ->
-                    append (Maybe.withDefault [] <| List.tail tokens) input (formatted ++ String.fromChar char)
+                    xxappend (Maybe.withDefault [] <| List.tail tokens) input (formatted ++ String.fromChar char)
+
+
+
+{-
+   main : Html msg
+   main =
+       text <| toString <| result "(000)-0000-0000" "1234566666666666"
+-}

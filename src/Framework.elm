@@ -1,4 +1,4 @@
-module Framework exposing (Conf, Introspection, Model, Msg, initConf, initModel, update, view, viewPage)
+module Framework exposing (Conf, Flag, Introspection, Model, Msg(..), init, initConf, initModel, main, subscriptions, update, view, viewPage)
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/)
 
@@ -13,7 +13,7 @@ For more info about the idea, see [this post](https://medium.com/@l.mugnaini/zer
 
 # Functions
 
-@docs Conf, Introspection, Model, Msg, initConf, initModel, update, view, viewPage
+@docs Conf, Flag, Introspection, Model, Msg, init, initConf, initModel, main, subscriptions, update, view, viewPage
 
 -}
 
@@ -29,7 +29,8 @@ import Element.Input as Input
 import Framework.Button as Button
 import Framework.Cards as Cards
 import Framework.Color exposing (Color(..), color)
-import Framework.Form as Form
+import Framework.FormFields as FormFields
+import Framework.FormFieldsWithPattern as FormFieldsWithPattern
 import Framework.Icon as Icon
 import Framework.Logo as Logo
 import Framework.Spinner as Spinner
@@ -40,7 +41,6 @@ import Html
 import Html.Attributes
 import Http
 import Navigation
-import Task
 import UrlParser exposing ((</>), Parser, oneOf, parseHash, s, string)
 import Window
 
@@ -161,7 +161,8 @@ maybeSelected model =
 type alias Model =
     { maybeWindowSize : Maybe Window.Size
     , modelStyleElementsInput : StyleElementsInput.Model
-    , modelForm : Form.Model
+    , modelFormFields : FormFields.Model
+    , modelFormFieldsWithPattern : FormFieldsWithPattern.Model
     , modelCards : Cards.Model
     , introspections : List ( Introspection, Bool )
     , location : Navigation.Location
@@ -177,7 +178,8 @@ initModel flag location =
     { location = location
     , password = ""
     , modelStyleElementsInput = StyleElementsInput.initModel
-    , modelForm = Form.initModel
+    , modelFormFields = FormFields.initModel
+    , modelFormFieldsWithPattern = FormFieldsWithPattern.initModel
     , modelCards = Cards.initModel
     , maybeWindowSize = Just <| Window.Size flag.width flag.height
     , conf = initConf
@@ -202,7 +204,8 @@ introspectionsForDebuggin =
 introspections : List ( Introspection, Bool )
 introspections =
     [ ( Framework.Color.introspection, True )
-    , ( Form.introspection, True )
+    , ( FormFields.introspection, True )
+    , ( FormFieldsWithPattern.introspection, True )
     , ( Typography.introspection, True )
     , ( Cards.introspection, True )
     , ( Button.introspection, True )
@@ -214,6 +217,7 @@ introspections =
     ]
 
 
+{-| -}
 init : Flag -> Navigation.Location -> ( Model, Cmd Msg )
 init flag location =
     ( initModel flag location
@@ -221,17 +225,7 @@ init flag location =
     )
 
 
-send : msg -> Cmd msg
-send msg =
-    Task.succeed msg
-        |> Task.perform identity
-
-
-modifyUrl : Route -> Cmd msg
-modifyUrl =
-    routeToString >> Navigation.modifyUrl
-
-
+{-| -}
 type alias Flag =
     { width : Int
     , height : Int
@@ -287,7 +281,8 @@ type Msg
     | MsgCloseAllSections
     | MsgChangeWindowSize Window.Size
     | MsgStyleElementsInput StyleElementsInput.Msg
-    | MsgForm Form.Msg
+    | MsgFormFields FormFields.Msg
+    | MsgFormFieldsWithPattern FormFieldsWithPattern.Msg
     | MsgCards Cards.Msg
     | MsgChangeLocation Navigation.Location
     | MsgChangePassword String
@@ -340,12 +335,19 @@ update msg model =
             in
             ( { model | modelStyleElementsInput = newModel }, Cmd.none )
 
-        MsgForm msg ->
+        MsgFormFields msg ->
             let
                 ( newModel, newCmd ) =
-                    Form.update msg model.modelForm
+                    FormFields.update msg model.modelFormFields
             in
-            ( { model | modelForm = newModel }, Cmd.none )
+            ( { model | modelFormFields = newModel }, Cmd.none )
+
+        MsgFormFieldsWithPattern msg ->
+            let
+                ( newModel, newCmd ) =
+                    FormFieldsWithPattern.update msg model.modelFormFieldsWithPattern
+            in
+            ( { model | modelFormFieldsWithPattern = newModel }, Cmd.none )
 
         MsgCards msg ->
             let
@@ -590,7 +592,7 @@ viewLogo title subTitle version =
                 , el [ Font.size 16, Font.bold ] <| text subTitle
                 , el [ Font.size 16, Font.bold ] <| text <| "v" ++ version
                 ]
-        , url = url <| RouteHome
+        , url = routeToString RouteHome
         }
 
 
@@ -648,7 +650,7 @@ viewListVariationForMenu introspection variations =
         (\( title, variation ) ->
             link []
                 { label = text title
-                , url = url <| RouteSubPage (Slug introspection.name) (Slug title)
+                , url = routeToString <| RouteSubPage (Slug introspection.name) (Slug title)
                 }
         )
         variations
@@ -681,16 +683,30 @@ specialComponent model component =
     )
 
 
-specialComponentForm :
+specialComponentFormFieldsWithPattern :
     Model
-    -> (Form.Model -> ( Element Form.Msg, c ))
+    -> (FormFieldsWithPattern.Model -> ( Element FormFieldsWithPattern.Msg, c ))
     -> ( Element Msg, c )
-specialComponentForm model component =
+specialComponentFormFieldsWithPattern model component =
     let
         componentTuplet =
-            component model.modelForm
+            component model.modelFormFieldsWithPattern
     in
-    ( Element.map MsgForm (Tuple.first <| componentTuplet)
+    ( Element.map MsgFormFieldsWithPattern (Tuple.first <| componentTuplet)
+    , Tuple.second <| componentTuplet
+    )
+
+
+specialComponentFormFields :
+    Model
+    -> (FormFields.Model -> ( Element FormFields.Msg, c ))
+    -> ( Element Msg, c )
+specialComponentFormFields model component =
+    let
+        componentTuplet =
+            component model.modelFormFields
+    in
+    ( Element.map MsgFormFields (Tuple.first <| componentTuplet)
     , Tuple.second <| componentTuplet
     )
 
@@ -714,9 +730,13 @@ viewSubSection model ( componentExample, componentExampleSourceCode ) boxed =
     let
         ( componentExampleToDisplay, componentExampleSourceCodeToDisplay ) =
             if componentExample == text "special: Form.example1" then
-                specialComponentForm model Form.example1
-            else if componentExample == text "special: Form.example2" then
-                specialComponentForm model Form.example2
+                specialComponentFormFields model FormFields.example1
+            else if componentExample == text "special: FormFieldsWithPattern.example1" then
+                specialComponentFormFieldsWithPattern model FormFieldsWithPattern.example1
+            else if componentExample == text "special: FormFieldsWithPattern.example2" then
+                specialComponentFormFieldsWithPattern model FormFieldsWithPattern.example2
+            else if componentExample == text "special: FormFieldsWithPattern.example3" then
+                specialComponentFormFieldsWithPattern model FormFieldsWithPattern.example3
             else if componentExample == text "special: Cards.example1" then
                 specialComponentCards model Cards.example1
             else if componentExample == text "special: example0" then
@@ -802,6 +822,7 @@ introspectionExample id =
     }
 
 
+{-| -}
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
@@ -819,6 +840,7 @@ subscriptions model =
 -- maybeRoute : Navigation.Location -> Maybe Route
 
 
+{-| -}
 main : Program Flag Model Msg
 main =
     Navigation.programWithFlags MsgChangeLocation
@@ -865,6 +887,11 @@ stateParser =
     UrlParser.custom "SLUG" (Ok << Slug)
 
 
+routeRoot : String
+routeRoot =
+    "#/"
+
+
 routeToString : Route -> String
 routeToString page =
     let
@@ -876,12 +903,7 @@ routeToString page =
                 RouteSubPage slug1 slug2 ->
                     [ routeValues.root, slugToString slug1, slugToString slug2 ]
     in
-    "#/" ++ String.join "/" pieces
-
-
-url : Route -> String
-url route =
-    routeToString route
+    routeRoot ++ String.join "/" pieces
 
 
 maybeRoute : Navigation.Location -> Maybe Route
