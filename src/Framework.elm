@@ -19,8 +19,8 @@ For more info about the idea, see [this post](https://medium.com/@l.mugnaini/zer
 
 --import Element.Input as Input
 
-import Color exposing (gray, rgba)
-import Element exposing (..)
+import Color
+import Element exposing (Attribute, Element, alignLeft, alignRight, alignTop, alpha, centerX, centerY, clip, clipX, column, el, empty, fill, focusStyle, height, html, htmlAttribute, image, layoutWith, link, moveLeft, padding, paddingEach, paddingXY, paragraph, pointer, px, rotate, row, scrollbarY, scrollbars, shrink, spacing, text, width)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Events as Events
@@ -41,7 +41,7 @@ import Html
 import Html.Attributes
 import Http
 import Navigation
-import UrlParser exposing ((</>), Parser, oneOf, parseHash, s, string)
+import UrlParser exposing ((</>))
 import Window
 
 
@@ -134,9 +134,9 @@ maybeSelected model =
             case maybeRoute model.location of
                 Just route ->
                     case route of
-                        RouteSubPage slug1 slug2 ->
-                            ( Maybe.withDefault "" <| Http.decodeUri (slugToString slug1)
-                            , Maybe.withDefault "" <| Http.decodeUri (slugToString slug2)
+                        RouteSubPage slug3 slug4 ->
+                            ( Maybe.withDefault "" <| Http.decodeUri (slugToString slug3)
+                            , Maybe.withDefault "" <| Http.decodeUri (slugToString slug4)
                             )
 
                         _ ->
@@ -145,8 +145,8 @@ maybeSelected model =
                 Nothing ->
                     ( "", "" )
 
-        ( introspection, view ) =
-            Maybe.withDefault ( emptyIntrospection, False ) <| List.head <| List.filter (\( introspection, _ ) -> introspection.name == slug1) model.introspections
+        ( introspection, _ ) =
+            Maybe.withDefault ( emptyIntrospection, False ) <| List.head <| List.filter (\( introspection2, _ ) -> introspection2.name == slug1) model.introspections
 
         variation =
             Maybe.withDefault emptyVariation <| List.head <| List.filter (\( name, _ ) -> name == slug2) introspection.variations
@@ -184,12 +184,10 @@ initModel flag location =
     , maybeWindowSize = Just <| Window.Size flag.width flag.height
     , conf = initConf
     , introspections =
-        case debug of
-            True ->
-                introspections
-
-            False ->
-                introspectionsForDebuggin
+        if debug then
+            introspections
+        else
+            introspectionsForDebuggin
     }
 
 
@@ -301,14 +299,14 @@ update msg model =
         MsgOpenAllSections ->
             let
                 introspections =
-                    List.map (\( data, show ) -> ( data, True )) model.introspections
+                    List.map (\( data, _ ) -> ( data, True )) model.introspections
             in
             ( { model | introspections = introspections }, Cmd.none )
 
         MsgCloseAllSections ->
             let
                 introspections =
-                    List.map (\( data, show ) -> ( data, False )) model.introspections
+                    List.map (\( data, _ ) -> ( data, False )) model.introspections
             in
             ( { model | introspections = introspections }, Cmd.none )
 
@@ -328,31 +326,31 @@ update msg model =
         MsgChangeWindowSize windowSize ->
             ( { model | maybeWindowSize = Just windowSize }, Cmd.none )
 
-        MsgStyleElementsInput msg ->
+        MsgStyleElementsInput msg2 ->
             let
-                ( newModel, newCmd ) =
-                    StyleElementsInput.update msg model.modelStyleElementsInput
+                ( newModel, _ ) =
+                    StyleElementsInput.update msg2 model.modelStyleElementsInput
             in
             ( { model | modelStyleElementsInput = newModel }, Cmd.none )
 
-        MsgFormFields msg ->
+        MsgFormFields msg2 ->
             let
-                ( newModel, newCmd ) =
-                    FormFields.update msg model.modelFormFields
+                ( newModel, _ ) =
+                    FormFields.update msg2 model.modelFormFields
             in
             ( { model | modelFormFields = newModel }, Cmd.none )
 
-        MsgFormFieldsWithPattern msg ->
+        MsgFormFieldsWithPattern msg2 ->
             let
-                ( newModel, newCmd ) =
-                    FormFieldsWithPattern.update msg model.modelFormFieldsWithPattern
+                ( newModel, _ ) =
+                    FormFieldsWithPattern.update msg2 model.modelFormFieldsWithPattern
             in
             ( { model | modelFormFieldsWithPattern = newModel }, Cmd.none )
 
-        MsgCards msg ->
+        MsgCards msg2 ->
             let
-                ( newModel, newCmd ) =
-                    Cards.update msg model.modelCards
+                ( newModel, _ ) =
+                    Cards.update msg2 model.modelCards
             in
             ( { model | modelCards = newModel }, Cmd.none )
 
@@ -460,10 +458,6 @@ Example, in your Style Guide page:
 -}
 viewPage : Maybe Window.Size -> Model -> Element Msg
 viewPage maybeWindowSize model =
-    let
-        conf =
-            model.conf
-    in
     row
         [ height <|
             case maybeWindowSize of
@@ -529,16 +523,15 @@ viewContentColumn model =
                         , el [ Font.size 24 ] model.conf.introduction
                         , el [ centerX, alpha 0.2 ] <| Icon.icon Icon.ChevronDown 32
                         ]
-                    , column [] <| List.map (\( introspection, show ) -> viewIntrospection model introspection) model.introspections
+                    , column [] <| List.map (\( introspection, _ ) -> viewIntrospection model introspection) model.introspections
                     ]
 
 
 viewIntrospection : Model -> Introspection -> Element Msg
 viewIntrospection model introspection =
     column []
-        ([ viewIntrospectionTitle model.conf introspection
-         ]
-            ++ List.map
+        (viewIntrospectionTitle model.conf introspection
+            :: List.map
                 (\( string, listSubSections ) ->
                     viewIntrospectionBody model string listSubSections
                 )
@@ -579,7 +572,7 @@ viewIntrospectionBody model title listSubSection =
         , Background.color <| Color.white
         ]
         [ el [ Font.size 28 ] (text <| title)
-        , column [ spacing 10 ] (List.map (\( part, name ) -> viewSubSection model ( part, name ) False) listSubSection)
+        , column [ spacing 10 ] (List.map (\( part, name ) -> viewSubSection model ( part, name )) listSubSection)
         ]
 
 
@@ -647,7 +640,7 @@ viewIntrospectionForMenu conf introspection open =
 viewListVariationForMenu : Introspection -> List Variation -> List (Element Msg)
 viewListVariationForMenu introspection variations =
     List.map
-        (\( title, variation ) ->
+        (\( title, _ ) ->
             link []
                 { label = text title
                 , url = routeToString <| RouteSubPage (Slug introspection.name) (Slug title)
@@ -669,10 +662,7 @@ viewTitleAndSubTitle conf title subTitle =
         ]
 
 
-specialComponent :
-    Model
-    -> (StyleElementsInput.Model -> ( Element StyleElementsInput.Msg, c ))
-    -> ( Element Msg, c )
+specialComponent : Model -> (StyleElementsInput.Model -> ( Element StyleElementsInput.Msg, c )) -> ( Element Msg, c )
 specialComponent model component =
     let
         componentTuplet =
@@ -683,10 +673,7 @@ specialComponent model component =
     )
 
 
-specialComponentFormFieldsWithPattern :
-    Model
-    -> (FormFieldsWithPattern.Model -> ( Element FormFieldsWithPattern.Msg, c ))
-    -> ( Element Msg, c )
+specialComponentFormFieldsWithPattern : Model -> (FormFieldsWithPattern.Model -> ( Element FormFieldsWithPattern.Msg, c )) -> ( Element Msg, c )
 specialComponentFormFieldsWithPattern model component =
     let
         componentTuplet =
@@ -697,10 +684,7 @@ specialComponentFormFieldsWithPattern model component =
     )
 
 
-specialComponentFormFields :
-    Model
-    -> (FormFields.Model -> ( Element FormFields.Msg, c ))
-    -> ( Element Msg, c )
+specialComponentFormFields : Model -> (FormFields.Model -> ( Element FormFields.Msg, c )) -> ( Element Msg, c )
 specialComponentFormFields model component =
     let
         componentTuplet =
@@ -711,10 +695,7 @@ specialComponentFormFields model component =
     )
 
 
-specialComponentCards :
-    Model
-    -> (Cards.Model -> ( Element Cards.Msg, c ))
-    -> ( Element Msg, c )
+specialComponentCards : Model -> (Cards.Model -> ( Element Cards.Msg, c )) -> ( Element Msg, c )
 specialComponentCards model component =
     let
         componentTuplet =
@@ -725,8 +706,8 @@ specialComponentCards model component =
     )
 
 
-viewSubSection : Model -> SubSection -> Bool -> Element Msg
-viewSubSection model ( componentExample, componentExampleSourceCode ) boxed =
+viewSubSection : Model -> SubSection -> Element Msg
+viewSubSection model ( componentExample, componentExampleSourceCode ) =
     let
         ( componentExampleToDisplay, componentExampleSourceCodeToDisplay ) =
             if componentExample == text "special: Form.example1" then
@@ -824,7 +805,7 @@ introspectionExample id =
 
 {-| -}
 subscriptions : Model -> Sub Msg
-subscriptions model =
+subscriptions _ =
     Sub.batch
         [ Window.resizes MsgChangeWindowSize
         ]
@@ -860,16 +841,16 @@ type Route
     | RouteSubPage Slug Slug
 
 
-routeValues : { root : String }
-routeValues =
-    { root = "framework" }
+rootRoute : String
+rootRoute =
+    "framework"
 
 
-route : Parser (Route -> a) a
+route : UrlParser.Parser (Route -> a) a
 route =
-    oneOf
-        [ UrlParser.map RouteHome (s routeValues.root)
-        , UrlParser.map RouteSubPage (s routeValues.root </> stateParser </> stateParser)
+    UrlParser.oneOf
+        [ UrlParser.map RouteHome (UrlParser.s rootRoute)
+        , UrlParser.map RouteSubPage (UrlParser.s rootRoute </> stateParser </> stateParser)
         ]
 
 
@@ -898,10 +879,10 @@ routeToString page =
         pieces =
             case page of
                 RouteHome ->
-                    [ routeValues.root ]
+                    [ rootRoute ]
 
                 RouteSubPage slug1 slug2 ->
-                    [ routeValues.root, slugToString slug1, slugToString slug2 ]
+                    [ rootRoute, slugToString slug1, slugToString slug2 ]
     in
     routeRoot ++ String.join "/" pieces
 
@@ -911,4 +892,4 @@ maybeRoute location =
     if String.isEmpty location.hash then
         Just RouteHome
     else
-        parseHash route location
+        UrlParser.parseHash route location

@@ -9,14 +9,11 @@ module Framework.Icon exposing (Icon(..), icon, introspection)
 
 -}
 
-import Color
 import Element
-import Element.Background
-import Element.Border
 import Html exposing (Html)
 import Html.Attributes
-import Svg exposing (..)
-import Svg.Attributes as SA exposing (..)
+import Svg
+import Svg.Attributes as SA
 
 
 {-| -}
@@ -53,17 +50,6 @@ introspection =
           )
         ]
     }
-
-
-usageWrapper : Element.Element msg -> Element.Element msg
-usageWrapper item =
-    Element.el
-        [ Element.Background.color <| Color.rgb 0xBB 0xBB 0xBB
-        , Element.padding 10
-        , Element.Border.rounded 5
-        ]
-    <|
-        item
 
 
 {-| SVG Logo
@@ -124,37 +110,37 @@ type Icon
 
 home : Int -> Html.Html msg
 home size =
-    Svg.svg [ Html.Attributes.style [ ( "height", toString size ++ "px" ) ], viewBox "0 0 34.94 32.63" ]
-        [ Svg.path [ d "M34.94 15.58L17.24 0 0 15.65l1.5 1.66 2.14-1.92v17.25h27.68V15.38l2.14 1.88zM14.8 29.93V21.6h5.35v8.34zm14.27.45H22.4v-11h-9.84v11H5.88v-17L17.25 3l11.82 10.4z", fill "#262626", id "_01" ] []
+    Svg.svg [ Html.Attributes.style [ ( "height", toString size ++ "px" ) ], SA.viewBox "0 0 34.94 32.63" ]
+        [ Svg.path [ SA.d "M34.94 15.58L17.24 0 0 15.65l1.5 1.66 2.14-1.92v17.25h27.68V15.38l2.14 1.88zM14.8 29.93V21.6h5.35v8.34zm14.27.45H22.4v-11h-9.84v11H5.88v-17L17.25 3l11.82 10.4z", SA.fill "#262626", SA.id "_01" ] []
         ]
 
 
 points : Int -> Html.Html msg
 points size =
-    Svg.svg [ Html.Attributes.style [ ( "height", toString size ++ "px" ) ], viewBox "0 0 36.88 36.88" ]
-        [ Svg.path [ fill "#040000", d "M0 18.44A18.44 18.44 0 0 1 18.44 0a18.44 18.44 0 0 1 18.44 18.44 18.44 18.44 0 0 1-18.44 18.44A18.44 18.44 0 0 1 0 18.44zm2.66 0A15.8 15.8 0 0 0 18.44 34.2 15.8 15.8 0 0 0 34.2 18.45 15.8 15.8 0 0 0 18.45 2.67 15.8 15.8 0 0 0 2.66 18.44z" ] []
-        , Svg.path [ fill "#040000", d "M19.43 8.5a6.5 6.5 0 0 0-3.9 1.3v-.16a1.33 1.33 0 1 0-2.67 0V27.8a1.33 1.33 0 1 0 2.66 0v-7.5a6.56 6.56 0 1 0 3.9-11.8zm0 10.45a3.9 3.9 0 1 1 3.9-3.9 3.9 3.9 0 0 1-3.9 3.9z" ] []
+    Svg.svg [ Html.Attributes.style [ ( "height", toString size ++ "px" ) ], SA.viewBox "0 0 36.88 36.88" ]
+        [ Svg.path [ SA.fill "#040000", SA.d "M0 18.44A18.44 18.44 0 0 1 18.44 0a18.44 18.44 0 0 1 18.44 18.44 18.44 18.44 0 0 1-18.44 18.44A18.44 18.44 0 0 1 0 18.44zm2.66 0A15.8 15.8 0 0 0 18.44 34.2 15.8 15.8 0 0 0 34.2 18.45 15.8 15.8 0 0 0 18.45 2.67 15.8 15.8 0 0 0 2.66 18.44z" ] []
+        , Svg.path [ SA.fill "#040000", SA.d "M19.43 8.5a6.5 6.5 0 0 0-3.9 1.3v-.16a1.33 1.33 0 1 0-2.67 0V27.8a1.33 1.33 0 1 0 2.66 0v-7.5a6.56 6.56 0 1 0 3.9-11.8zm0 10.45a3.9 3.9 0 1 1 3.9-3.9 3.9 3.9 0 0 1-3.9 3.9z" ] []
         ]
 
 
 pencil : Int -> Html.Html msg
 pencil size =
-    Svg.svg [ Html.Attributes.style [ ( "height", toString size ++ "px" ) ], viewBox "0 0 529 529" ]
-        [ Svg.path [ d "M329 89l107 108-272 272L57 361 329 89zm189-26l-48-48a48 48 0 0 0-67 0l-46 46 108 108 53-54c14-14 14-37 0-52zM0 513c-2 9 6 16 15 14l120-29L27 391 0 513z" ] []
+    Svg.svg [ Html.Attributes.style [ ( "height", toString size ++ "px" ) ], SA.viewBox "0 0 529 529" ]
+        [ Svg.path [ SA.d "M329 89l107 108-272 272L57 361 329 89zm189-26l-48-48a48 48 0 0 0-67 0l-46 46 108 108 53-54c14-14 14-37 0-52zM0 513c-2 9 6 16 15 14l120-29L27 391 0 513z" ] []
         ]
 
 
 exitFullscreen : Int -> Html.Html msg
 exitFullscreen size =
-    Svg.svg [ Html.Attributes.style [ ( "height", toString size ++ "px" ) ], viewBox "0 0 32 32" ]
-        [ Svg.path [ fill "#030104", d "M25 27l4 5 3-3-5-4 5-5H20v12zM0 12h12V0L7 5 3 0 0 3l5 4zm0 17l3 3 4-5 5 5V20H0l5 5zm20-17h12l-5-5 5-4-3-3-4 5-5-5z" ] []
+    Svg.svg [ Html.Attributes.style [ ( "height", toString size ++ "px" ) ], SA.viewBox "0 0 32 32" ]
+        [ Svg.path [ SA.fill "#030104", SA.d "M25 27l4 5 3-3-5-4 5-5H20v12zM0 12h12V0L7 5 3 0 0 3l5 4zm0 17l3 3 4-5 5 5V20H0l5 5zm20-17h12l-5-5 5-4-3-3-4 5-5-5z" ] []
         ]
 
 
 fullscreen : Int -> Html.Html msg
 fullscreen size =
-    Svg.svg [ Html.Attributes.style [ ( "height", toString size ++ "px" ) ], viewBox "0 0 533 533" ]
-        [ Svg.path [ d "M533 0v217l-83-84-100 100-50-50L400 83 317 0h216zM233 350L133 450l84 83H0V317l83 83 100-100 50 50z" ] []
+    Svg.svg [ Html.Attributes.style [ ( "height", toString size ++ "px" ) ], SA.viewBox "0 0 533 533" ]
+        [ Svg.path [ SA.d "M533 0v217l-83-84-100 100-50-50L400 83 317 0h216zM233 350L133 450l84 83H0V317l83 83 100-100 50 50z" ] []
         ]
 
 
@@ -222,7 +208,7 @@ mobileNotification size color =
 
 
 chevronDown : Int -> String -> Html msg
-chevronDown size color =
+chevronDown size _ =
     Svg.svg [ SA.viewBox "0 0 256 256", SA.height <| toString size ]
         [ Svg.path
             [ SA.d "M225.81 48.9L128 146.73 30.19 48.91 0 79.09l128 128 128-128z"

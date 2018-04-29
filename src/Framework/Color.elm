@@ -9,27 +9,9 @@ module Framework.Color exposing (Color(..), color, colorToHex, introspection, li
 
 -}
 
-{- TODO
-   Work directly with hue, saturation, lightness
-
-   { hue, saturation, lightness } =
-       baseColor
-           |> Color.toHsl
-
-   headingColor =
-       Color.hsl hue saturation (lightness * 0.7)
-
-   detailsColor =
-       Color.hsl hue (saturation * 0.8) (lightness * 0.5 + 0.3)
-
-   backgroundColor =
-       Color.hsl hue (saturation * 1.2) (lightness * 0.05 + 0.93)
--}
---import Color.Convert
-
 import Char
 import Color
-import Element exposing (..)
+import Element exposing (Element, column, text)
 import Element.Background
 import Element.Border
 import Element.Font
@@ -135,11 +117,10 @@ usageWrapper colorType =
 maximumContrast : Color.Color -> Color.Color
 maximumContrast c =
     let
-        { hue, saturation, lightness } =
-            c
-                |> Color.toHsl
+        hsl =
+            Color.toHsl c
     in
-    if lightness < 0.7 then
+    if hsl.lightness < 0.7 then
         color White
     else
         color Black
@@ -170,11 +151,6 @@ type Color
     | Danger
 
 
-norm : Float -> Int
-norm value =
-    round (value * 255)
-
-
 norm100 : Float -> Int
 norm100 value =
     round (value * 100)
@@ -189,11 +165,10 @@ norm57 value =
 colorToHex : Color.Color -> String
 colorToHex cl =
     let
-        { red, green, blue, alpha } =
+        rgba =
             Color.toRgb cl
     in
-    -- List.map toHex [ red, green, blue, floor (alpha * 255) ]
-    List.map toHex [ red, green, blue ]
+    List.map toHex [ rgba.red, rgba.green, rgba.blue ]
         |> (::) "#"
         |> String.join ""
 

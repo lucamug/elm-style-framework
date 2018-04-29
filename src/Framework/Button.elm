@@ -11,13 +11,13 @@ module Framework.Button exposing (button, buttonAttr, introspection)
 
 --import Color.Manipulate
 
-import Element exposing (..)
+import Element exposing (Attribute, Element, centerX, centerY, column, el, inFront, link, mouseOver, paddingXY, row, spacing, text)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
 import Framework.Color as Color
-import Framework.Modifiers as Modifiers exposing (..)
+import Framework.Modifiers exposing (Modifier(..))
 import Framework.Spinner as Spinner
 
 

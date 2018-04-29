@@ -1,18 +1,26 @@
-module Framework.FormFieldsWithPattern exposing (..)
+module Framework.FormFieldsWithPattern exposing (Model, Msg, example1, example2, example3, initModel, introspection, update)
 
---import Element.Area as Area
+{-|
 
-import Element exposing (..)
+
+# Functions
+
+@docs Model, Msg, example1, example2, example3, initModel, introspection, update
+
+-}
+
+import Element exposing (Attribute, Element, el, empty, inFront, moveDown, moveLeft, paddingXY, px, scale, text, width)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Events as Events
 import Element.Font as Font
 import Element.Input as Input
-import Framework.Color as Color exposing (Color(..), color)
+import Framework.Color exposing (Color(..), color)
 import Html.Attributes
 import Regex
 
 
+{-| -}
 type alias Model =
     { fieldTelephone : String
     , fieldCreditCard : String
@@ -21,6 +29,7 @@ type alias Model =
     }
 
 
+{-| -}
 initModel : Model
 initModel =
     { fieldTelephone = ""
@@ -36,12 +45,14 @@ type Field
     | Field4DigitCode
 
 
+{-| -}
 type Msg
     = Input Field String String
     | OnFocus Field
     | OnLoseFocus Field
 
 
+{-| -}
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
@@ -71,10 +82,11 @@ update msg model =
         OnFocus field ->
             ( { model | focus = Just field }, Cmd.none )
 
-        OnLoseFocus field ->
+        OnLoseFocus _ ->
             ( { model | focus = Nothing }, Cmd.none )
 
 
+{-| -}
 introspection :
     { boxed : Bool
     , description : String
@@ -114,6 +126,7 @@ hackInLineStyle text1 text2 =
     Element.htmlAttribute (Html.Attributes.style [ ( text1, text2 ) ])
 
 
+{-| -}
 example1 : Model -> ( Element Msg, String )
 example1 model =
     ( inputText model
@@ -129,6 +142,7 @@ example1 model =
     )
 
 
+{-| -}
 example2 : Model -> ( Element Msg, String )
 example2 model =
     ( inputText model
@@ -144,6 +158,7 @@ example2 model =
     )
 
 
+{-| -}
 example3 : Model -> ( Element Msg, String )
 example3 model =
     ( inputText model
@@ -153,7 +168,7 @@ example3 model =
         }
     , """inputText model
     { field = Field4DigitCode
-    , pattern = "0-0-0-0"
+    , pattern = "_ _ _ _"
     , label = "4 Digits Code"
     }"""
     )

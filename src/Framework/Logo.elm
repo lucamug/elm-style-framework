@@ -9,13 +9,10 @@ module Framework.Logo exposing (Color(..), Logo(..), LogoElmType(..), introspect
 
 -}
 
-import Color
 import Element
-import Element.Background
-import Element.Border
 import Html exposing (Html)
-import Svg exposing (..)
-import Svg.Attributes as SA exposing (..)
+import Svg
+import Svg.Attributes as SA
 
 
 {-| -}
@@ -49,17 +46,6 @@ introspection =
           )
         ]
     }
-
-
-usageWrapper : Element.Element msg -> Element.Element msg
-usageWrapper item =
-    Element.el
-        [ Element.Background.color <| Color.rgb 0xBB 0xBB 0xBB
-        , Element.padding 10
-        , Element.Border.rounded 5
-        ]
-    <|
-        item
 
 
 {-| SVG Logo
@@ -151,11 +137,11 @@ elmLogo type_ height =
                     , c4 = cssRgb Blue
                     }
 
-                ElmColor c ->
-                    { c1 = cssRgb c
-                    , c2 = cssRgb c
-                    , c3 = cssRgb c
-                    , c4 = cssRgb c
+                ElmColor cl ->
+                    { c1 = cssRgb cl
+                    , c2 = cssRgb cl
+                    , c3 = cssRgb cl
+                    , c4 = cssRgb cl
                     }
     in
     Svg.svg

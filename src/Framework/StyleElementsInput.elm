@@ -11,7 +11,7 @@ Style-elements Input (Alpha version) Examples
 
 -}
 
-import Element exposing (..)
+import Element exposing (Element, empty, text)
 import Element.Input as Input
 
 
@@ -34,7 +34,7 @@ type Msg
 {-| -}
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg |> Debug.log "Msg" of
+    case msg of
         Radio value ->
             ( { model | radio = Just value }, Cmd.none )
 
@@ -93,7 +93,7 @@ introspection =
 
 {-| -}
 example0 : a -> ( Element Msg, String )
-example0 model =
+example0 _ =
     ( Input.button []
         { label = text "Label"
         , onPress = Just Button

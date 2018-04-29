@@ -11,7 +11,7 @@ Style-elements (Alpha version) Examples
 
 -}
 
-import Element exposing (..)
+import Element exposing (Element, column, decorativeImage, download, downloadAs, el, empty, image, link, newTabLink, row, spacing, text)
 
 
 {-| Used to generate the [Style Guide](https://lucamug.github.io/elm-style-framework/)

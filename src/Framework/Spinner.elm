@@ -13,8 +13,8 @@ import Color
 import Element
 import Framework.Color
 import Html
-import Svg exposing (..)
-import Svg.Attributes as SA exposing (..)
+import Svg
+import Svg.Attributes as SA
 
 
 {-| -}
@@ -68,60 +68,54 @@ type Spinner
 
 
 spinnerThreeCirclesHtml : Int -> Color.Color -> Html.Html msg
-spinnerThreeCirclesHtml size color =
+spinnerThreeCirclesHtml _ color =
     let
         colorString =
             Framework.Color.colorToHex color
 
-        idElement =
-            "id" ++ String.dropLeft 1 colorString
-
-        speed =
-            "0.6s"
-
         size =
             32
     in
-    svg
-        [ viewBox "0 0 64 64"
-        , xmlSpace "http://www.w3.org/2000/svg"
-        , width <| toString size
-        , height <| toString size
+    Svg.svg
+        [ SA.viewBox "0 0 64 64"
+        , SA.xmlSpace "http://www.w3.org/2000/svg"
+        , SA.width <| toString size
+        , SA.height <| toString size
         ]
-        [ g
+        [ Svg.g
             []
-            [ circle
-                [ cx "16", cy "32", strokeWidth "0", r "4.26701", fill colorString ]
-                [ animate
-                    [ attributeName "fill-opacity"
-                    , dur "750ms"
-                    , values ".5;.6;.8;1;.8;.6;.5;.5"
-                    , repeatCount "indefinite"
+            [ Svg.circle
+                [ SA.cx "16", SA.cy "32", SA.strokeWidth "0", SA.r "4.26701", SA.fill colorString ]
+                [ Svg.animate
+                    [ SA.attributeName "fill-opacity"
+                    , SA.dur "750ms"
+                    , SA.values ".5;.6;.8;1;.8;.6;.5;.5"
+                    , SA.repeatCount "indefinite"
                     ]
                     []
-                , animate [ attributeName "r", dur "750ms", values "3;3;4;5;6;5;4;3", repeatCount "indefinite" ] []
+                , Svg.animate [ SA.attributeName "r", SA.dur "750ms", SA.values "3;3;4;5;6;5;4;3", SA.repeatCount "indefinite" ] []
                 ]
-            , circle
-                [ cx "32", cy "32", strokeWidth "0", r "5.26701", fill colorString ]
-                [ animate
-                    [ attributeName "fill-opacity"
-                    , dur "750ms"
-                    , values ".5;.5;.6;.8;1;.8;.6;.5"
-                    , repeatCount "indefinite"
+            , Svg.circle
+                [ SA.cx "32", SA.cy "32", SA.strokeWidth "0", SA.r "5.26701", SA.fill colorString ]
+                [ Svg.animate
+                    [ SA.attributeName "fill-opacity"
+                    , SA.dur "750ms"
+                    , SA.values ".5;.5;.6;.8;1;.8;.6;.5"
+                    , SA.repeatCount "indefinite"
                     ]
                     []
-                , animate [ attributeName "r", dur "750ms", values "4;3;3;4;5;6;5;4", repeatCount "indefinite" ] []
+                , Svg.animate [ SA.attributeName "r", SA.dur "750ms", SA.values "4;3;3;4;5;6;5;4", SA.repeatCount "indefinite" ] []
                 ]
-            , circle
-                [ cx "48", cy "32", strokeWidth "0", r "5.73299", fill colorString ]
-                [ animate
-                    [ attributeName "fill-opacity"
-                    , dur "750ms"
-                    , values ".6;.5;.5;.6;.8;1;.8;.6"
-                    , repeatCount "indefinite"
+            , Svg.circle
+                [ SA.cx "48", SA.cy "32", SA.strokeWidth "0", SA.r "5.73299", SA.fill colorString ]
+                [ Svg.animate
+                    [ SA.attributeName "fill-opacity"
+                    , SA.dur "750ms"
+                    , SA.values ".6;.5;.5;.6;.8;1;.8;.6"
+                    , SA.repeatCount "indefinite"
                     ]
                     []
-                , animate [ attributeName "r", dur "750ms", values "5;4;3;3;4;5;6;5", repeatCount "indefinite" ] []
+                , Svg.animate [ SA.attributeName "r", SA.dur "750ms", SA.values "5;4;3;3;4;5;6;5", SA.repeatCount "indefinite" ] []
                 ]
             ]
         ]
@@ -140,49 +134,49 @@ spinnerRotationHtml size color =
             "0.6s"
     in
     Svg.svg
-        [ viewBox "0 0 38 38"
-        , xmlSpace "http://www.w3.org/2000/svg"
-        , width <| toString size
-        , height <| toString size
+        [ SA.viewBox "0 0 38 38"
+        , SA.xmlSpace "http://www.w3.org/2000/svg"
+        , SA.width <| toString size
+        , SA.height <| toString size
         ]
         [ Svg.defs []
             [ Svg.linearGradient
-                [ id idElement, x1 "8%", x2 "65.7%", y1 "0%", y2 "23.9%" ]
+                [ SA.id idElement, SA.x1 "8%", SA.x2 "65.7%", SA.y1 "0%", SA.y2 "23.9%" ]
                 [ Svg.stop
-                    [ offset "0%", stopColor colorString, stopOpacity "0" ]
+                    [ SA.offset "0%", SA.stopColor colorString, SA.stopOpacity "0" ]
                     []
                 , Svg.stop
-                    [ offset "63.1%", stopColor colorString, stopOpacity ".6" ]
+                    [ SA.offset "63.1%", SA.stopColor colorString, SA.stopOpacity ".6" ]
                     []
                 , Svg.stop
-                    [ offset "100%", stopColor colorString ]
+                    [ SA.offset "100%", SA.stopColor colorString ]
                     []
                 ]
             ]
-        , Svg.g [ fill "none", fillRule "evenodd", transform "translate(1 1)" ]
+        , Svg.g [ SA.fill "none", SA.fillRule "evenodd", SA.transform "translate(1 1)" ]
             [ Svg.path
-                [ d "M36 18C36 8 28 0 18 0"
-                , stroke <| "url(#" ++ idElement ++ ")"
-                , strokeWidth "2"
+                [ SA.d "M36 18C36 8 28 0 18 0"
+                , SA.stroke <| "url(#" ++ idElement ++ ")"
+                , SA.strokeWidth "2"
                 ]
                 [ Svg.animateTransform
-                    [ attributeName "transform"
-                    , dur speed
-                    , from "0 18 18"
-                    , repeatCount "indefinite"
-                    , to "360 18 18"
-                    , type_ "rotate"
+                    [ SA.attributeName "transform"
+                    , SA.dur speed
+                    , SA.from "0 18 18"
+                    , SA.repeatCount "indefinite"
+                    , SA.to "360 18 18"
+                    , SA.type_ "rotate"
                     ]
                     []
                 ]
-            , Svg.circle [ cx "36", cy "18", fill colorString, r "1" ]
+            , Svg.circle [ SA.cx "36", SA.cy "18", SA.fill colorString, SA.r "1" ]
                 [ Svg.animateTransform
-                    [ attributeName "transform"
-                    , dur speed
-                    , from "0 18 18"
-                    , repeatCount "indefinite"
-                    , to "360 18 18"
-                    , type_ "rotate"
+                    [ SA.attributeName "transform"
+                    , SA.dur speed
+                    , SA.from "0 18 18"
+                    , SA.repeatCount "indefinite"
+                    , SA.to "360 18 18"
+                    , SA.type_ "rotate"
                     ]
                     []
                 ]

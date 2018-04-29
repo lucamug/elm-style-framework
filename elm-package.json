@@ -12,7 +12,8 @@
         "Framework.Cards",
         "Framework.Color",
         "Framework.Configuration",
-        "Framework.Form",
+        "Framework.FormFields",
+        "Framework.FormFieldsWithPattern",
         "Framework.Icon",
         "Framework.Logo",
         "Framework.Modifiers",
@@ -22,18 +23,14 @@
         "Framework.Typography"
     ],
     "dependencies": {
-        "NoRedInk/elm-decode-pipeline": "3.0.0 <= v < 4.0.0",
         "elm-lang/core": "5.0.0 <= v < 6.0.0",
         "elm-lang/html": "2.0.0 <= v < 3.0.0",
         "elm-lang/http": "1.0.0 <= v < 2.0.0",
         "elm-lang/navigation": "2.1.0 <= v < 3.0.0",
         "elm-lang/svg": "2.0.0 <= v < 3.0.0",
         "elm-lang/window": "1.0.1 <= v < 2.0.0",
-        "eskimoblood/elm-color-extra": "5.0.0 <= v < 6.0.0",
         "evancz/url-parser": "2.0.1 <= v < 3.0.0",
-        "gampleman/elm-visualization": "1.6.1 <= v < 2.0.0",
-        "mdgriffith/stylish-elephants": "5.0.0 <= v < 6.0.0",
-        "rtfeldman/elm-validate": "1.1.3 <= v < 2.0.0"
+        "mdgriffith/stylish-elephants": "5.0.0 <= v < 6.0.0"
     },
     "elm-version": "0.18.0 <= v < 0.19.0"
 }

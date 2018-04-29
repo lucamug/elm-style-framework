@@ -12,7 +12,7 @@ Wrapper for content
 -}
 
 import Color
-import Element exposing (..)
+import Element exposing (Attribute, Element, alignTop, centerX, centerY, column, el, fill, height, html, htmlAttribute, padding, paragraph, pointer, px, shrink, spacing, text, width)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Events as Events
@@ -20,20 +20,17 @@ import Element.Font as Font
 import Framework.Color exposing (Color(..), color)
 import Html
 import Html.Attributes
-import Regex
 
 
 {-| -}
 type alias Model =
-    { flip : Bool
-    }
+    Bool
 
 
 {-| -}
 initModel : Model
 initModel =
-    { flip = True
-    }
+    True
 
 
 {-| -}
@@ -46,7 +43,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Flip ->
-            ( { model | flip = not model.flip }, Cmd.none )
+            ( not model, Cmd.none )
 
 
 {-| -}
@@ -87,7 +84,7 @@ cardCommonAttr =
 
 
 {-| -}
-example1 : { a | flip : Bool } -> ( Element Msg, String )
+example1 : Bool -> ( Element Msg, String )
 example1 model =
     let
         commonAttr =
@@ -107,7 +104,7 @@ example1 model =
     ( flipping
         { width = 200
         , height = 300
-        , activeFront = model.flip
+        , activeFront = model
         , front =
             el commonAttr <|
                 column contentAttr
@@ -217,12 +214,10 @@ flipping data =
             , height <| y
             , style "transition" "0.4s"
             , style "transform-style" "preserve-3d"
-            , case data.activeFront of
-                True ->
-                    style "transform" "rotateY(0deg)"
-
-                False ->
-                    style "transform" "rotateY(180deg)"
+            , if data.activeFront then
+                style "transform" "rotateY(0deg)"
+              else
+                style "transform" "rotateY(180deg)"
             ]
             [ -- The  "alignbottom {pointer-events:none}" is needed otherwise the right half
               -- is covered by alignbottom
@@ -248,7 +243,18 @@ flipping data =
 {-| -}
 style : String -> String -> Attribute msg
 style key value =
-    if Regex.contains (Regex.regex <| "|" ++ key ++ "|") "|backface-visibility|perspective|transition|transform-style|transform|" then
+    if
+        key
+            == "backface-visibility"
+            || key
+            == "perspective"
+            || key
+            == "transition"
+            || key
+            == "transform-style"
+            || key
+            == "transform"
+    then
         htmlAttribute <|
             Html.Attributes.style
                 [ ( "-webkit-" ++ key, value )

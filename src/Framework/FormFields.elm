@@ -1,24 +1,31 @@
-module Framework.FormFields exposing (..)
+module Framework.FormFields exposing (Model, Msg, example1, initModel, introspection, update)
 
---import Element.Area as Area
---import Element.Font as Font
+{-|
 
-import Element exposing (..)
+
+# Functions
+
+@docs Model, Msg, example1, initModel, introspection, update
+
+-}
+
+import Element exposing (Attribute, Element, alpha, empty, fill, moveDown, moveLeft, paddingXY, scale, text, width)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Events as Events
 import Element.Input as Input
-import Framework.Color as Color exposing (Color(..), color)
+import Framework.Color exposing (Color(..), color)
 import Html.Attributes
-import Regex
 
 
+{-| -}
 type alias Model =
     { valueEmail : String
     , focus : Maybe Field
     }
 
 
+{-| -}
 initModel : Model
 initModel =
     { valueEmail = ""
@@ -30,16 +37,18 @@ type Field
     = FieldEmail
 
 
+{-| -}
 type Msg
-    = Input Field Regex.Regex String
+    = Input Field String
     | OnFocus Field
     | OnLoseFocus Field
 
 
+{-| -}
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg |> Debug.log "Msg" of
-        Input field pattern value ->
+    case msg of
+        Input field value ->
             ( case field of
                 FieldEmail ->
                     { model | valueEmail = value }
@@ -49,10 +58,11 @@ update msg model =
         OnFocus field ->
             ( { model | focus = Just field }, Cmd.none )
 
-        OnLoseFocus field ->
+        OnLoseFocus _ ->
             ( { model | focus = Nothing }, Cmd.none )
 
 
+{-| -}
 introspection :
     { boxed : Bool
     , description : String
@@ -90,23 +100,22 @@ hackInLineStyle text1 text2 =
     Element.htmlAttribute (Html.Attributes.style [ ( text1, text2 ) ])
 
 
+{-| -}
 example1 : Model -> ( Element Msg, String )
 example1 model =
     ( inputText model
         { field = FieldEmail
-        , pattern = Regex.regex "@"
         , label = "E-mail address"
         }
     , """inputText model
     { field = FieldEmail
-    , pattern = Regex.regex "@"
     , label = "E-mail address"
     }"""
     )
 
 
-inputText : Model -> { a | field : Field, label : String, pattern : Regex.Regex } -> Element Msg
-inputText model { field, pattern, label } =
+inputText : Model -> { a | field : Field, label : String } -> Element Msg
+inputText model { field, label } =
     let
         modelValue =
             case field of
@@ -149,76 +158,7 @@ inputText model { field, pattern, label } =
                 )
             <|
                 text label
-        , onChange = Just <| Input field pattern
+        , onChange = Just <| Input field
         , placeholder = Nothing
         , text = modelValue
         }
-
-
-
---
-
-
-type Token
-    = Inputxxx
-    | Other Char
-
-
-parse : Char -> String -> List Token
-parse inputChar pattern =
-    String.toList pattern
-        |> List.map (tokenize inputChar)
-
-
-tokenize : Char -> Char -> Token
-tokenize inputChar pattern =
-    if pattern == inputChar then
-        Inputxxx
-    else
-        Other pattern
-
-
-format : List Token -> String -> String
-format tokens input =
-    if String.isEmpty input then
-        input
-    else
-        append tokens (String.toList input) ""
-
-
-result : String -> String -> String
-result template string =
-    format (parse '0' template) string
-
-
-append : List Token -> List Char -> String -> String
-append tokens input formatted =
-    let
-        appendInput =
-            List.head input
-                |> Maybe.map (\char -> formatted ++ String.fromChar char)
-                |> Maybe.map (append (Maybe.withDefault [] (List.tail tokens)) (Maybe.withDefault [] (List.tail input)))
-                |> Maybe.withDefault formatted
-
-        maybeToken =
-            List.head tokens
-    in
-    case maybeToken of
-        Nothing ->
-            formatted
-
-        Just token ->
-            case token of
-                Inputxxx ->
-                    appendInput
-
-                Other char ->
-                    append (Maybe.withDefault [] <| List.tail tokens) input (formatted ++ String.fromChar char)
-
-
-
-{-
-   main : Html msg
-   main =
-       text <| toString <| result "(000)-0000-0000" "1234566666666666"
--}

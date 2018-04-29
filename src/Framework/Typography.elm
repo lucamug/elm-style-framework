@@ -9,7 +9,7 @@ module Framework.Typography exposing (h1, h2, h3, h4, h5, h6, introspection)
 
 -}
 
-import Element exposing (..)
+import Element exposing (Element, alignLeft, paddingEach, text)
 import Element.Font as Font
 import Element.Region as Region
 
@@ -39,6 +39,9 @@ introspection =
             , ( h4 [] <| text "h4. Heading", """h4 [] <| text "h4. Heading\"""" )
             , ( h5 [] <| text "h5. Heading", """h5 [] <| text "h5. Heading\"""" )
             , ( h6 [] <| text "h6. Heading", """h6 [] <| text "h6. Heading\"""" )
+            , ( textLead [] <| text "textLead", """textLead [] <| text "textLead\"""" )
+            , ( textSmall [] <| text "textSmall", """textSmall [] <| text "textSmall\"""" )
+            , ( textExtraSmall [] <| text "textExtraSmall", """textExtraSmall [] <| text "textExtraSmall\"""" )
             ]
           )
         ]
@@ -81,6 +84,34 @@ h6 =
     heading SizeH6
 
 
+textLead : List (Element.Attribute msg) -> Element.Element msg -> Element.Element msg
+textLead =
+    textSection SizeLead
+
+
+textSmall : List (Element.Attribute msg) -> Element.Element msg -> Element.Element msg
+textSmall =
+    textSection SizeSmall
+
+
+textExtraSmall : List (Element.Attribute msg) -> Element.Element msg -> Element.Element msg
+textExtraSmall =
+    textSection SizeExtraSmall
+
+
+textSection :
+    FontLevel
+    -> List (Element.Attr () msg)
+    -> Element msg
+    -> Element msg
+textSection level attributes child =
+    Element.el
+        ((Font.size <| fontSize level)
+            :: attributes
+        )
+        child
+
+
 heading :
     FontLevel
     -> List (Element.Attribute msg)
@@ -97,16 +128,6 @@ heading level attributes child =
             ++ attributes
         )
         child
-
-
-genericRatio : Float
-genericRatio =
-    1.4
-
-
-scaledFontLevel : Int -> Int
-scaledFontLevel n =
-    round (16 * (genericRatio ^ toFloat n))
 
 
 type FontLevel
