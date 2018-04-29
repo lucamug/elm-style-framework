@@ -28001,11 +28001,85 @@ var _lucamug$elm_style_framework$Framework_Button$button = F3(
 				label: _mdgriffith$stylish_elephants$Element$text(label)
 			});
 	});
+var _lucamug$elm_style_framework$Framework_Button$buttonWidth = F4(
+	function (modifiers, onPress, label, minWidth) {
+		return A2(
+			_mdgriffith$stylish_elephants$Element_Input$button,
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				_lucamug$elm_style_framework$Framework_Button$buttonAttr(modifiers),
+				{
+					ctor: '::',
+					_0: _mdgriffith$stylish_elephants$Element$htmlAttribute(
+						_elm_lang$html$Html_Attributes$style(
+							{
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: 'min-width',
+									_1: A2(
+										_elm_lang$core$Basics_ops['++'],
+										_elm_lang$core$Basics$toString(minWidth),
+										'px')
+								},
+								_1: {ctor: '[]'}
+							})),
+					_1: {ctor: '[]'}
+				}),
+			{
+				onPress: onPress,
+				label: _mdgriffith$stylish_elephants$Element$text(label)
+			});
+	});
 var _lucamug$elm_style_framework$Framework_Button$buttonLink = F3(
 	function (modifiers, url, label) {
 		return A2(
 			_mdgriffith$stylish_elephants$Element$link,
 			_lucamug$elm_style_framework$Framework_Button$buttonAttr(modifiers),
+			{
+				url: url,
+				label: _mdgriffith$stylish_elephants$Element$text(label)
+			});
+	});
+var _lucamug$elm_style_framework$Framework_Button$buttonLinkWidth = F4(
+	function (modifiers, url, label, minWidth) {
+		return A2(
+			_mdgriffith$stylish_elephants$Element$link,
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				_lucamug$elm_style_framework$Framework_Button$buttonAttr(modifiers),
+				{
+					ctor: '::',
+					_0: _mdgriffith$stylish_elephants$Element$htmlAttribute(
+						_elm_lang$html$Html_Attributes$style(
+							{
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'width', _1: '100%'},
+								_1: {ctor: '[]'}
+							})),
+					_1: {
+						ctor: '::',
+						_0: _mdgriffith$stylish_elephants$Element$htmlAttribute(
+							_elm_lang$html$Html_Attributes$style(
+								{
+									ctor: '::',
+									_0: {
+										ctor: '_Tuple2',
+										_0: 'max-width',
+										_1: A2(
+											_elm_lang$core$Basics_ops['++'],
+											_elm_lang$core$Basics$toString(minWidth),
+											'px')
+									},
+									_1: {ctor: '[]'}
+								})),
+						_1: {
+							ctor: '::',
+							_0: _mdgriffith$stylish_elephants$Element_Font$center,
+							_1: {ctor: '[]'}
+						}
+					}
+				}),
 			{
 				url: url,
 				label: _mdgriffith$stylish_elephants$Element$text(label)
@@ -28569,11 +28643,7 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 										ctor: '_Tuple2',
 										_0: A3(
 											_lucamug$elm_style_framework$Framework_Button$buttonLink,
-											{
-												ctor: '::',
-												_0: _lucamug$elm_style_framework$Framework_Modifiers$Small,
-												_1: {ctor: '[]'}
-											},
+											{ctor: '[]'},
 											'http://example.com',
 											'Button Link'),
 										_1: '( buttonLink [ Small ] \"http://example.com\" \"Button Link\" '
@@ -28581,7 +28651,79 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 									_1: {ctor: '[]'}
 								}
 							},
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: 'Button Width',
+									_1: {
+										ctor: '::',
+										_0: {
+											ctor: '_Tuple2',
+											_0: A3(
+												_lucamug$elm_style_framework$Framework_Button$button,
+												{ctor: '[]'},
+												_elm_lang$core$Maybe$Nothing,
+												'Button'),
+											_1: 'button [] Nothing \"Button\" '
+										},
+										_1: {
+											ctor: '::',
+											_0: {
+												ctor: '_Tuple2',
+												_0: A4(
+													_lucamug$elm_style_framework$Framework_Button$buttonWidth,
+													{ctor: '[]'},
+													_elm_lang$core$Maybe$Nothing,
+													'ButtonWidth 200',
+													200),
+												_1: 'buttonWidth [] Nothing \"ButtonWidth 200\" 200'
+											},
+											_1: {
+												ctor: '::',
+												_0: {
+													ctor: '_Tuple2',
+													_0: A4(
+														_lucamug$elm_style_framework$Framework_Button$buttonWidth,
+														{ctor: '[]'},
+														_elm_lang$core$Maybe$Nothing,
+														'ButtonWidth 300',
+														300),
+													_1: 'buttonWidth [] Nothing \"ButtonWidth 300\" 300'
+												},
+												_1: {
+													ctor: '::',
+													_0: {
+														ctor: '_Tuple2',
+														_0: A4(
+															_lucamug$elm_style_framework$Framework_Button$buttonWidth,
+															{ctor: '[]'},
+															_elm_lang$core$Maybe$Nothing,
+															'ButtonWidth of 200px with very long text',
+															200),
+														_1: 'buttonWidth [] Nothing \"ButtonWidth of 200px with very long text\" 200'
+													},
+													_1: {
+														ctor: '::',
+														_0: {
+															ctor: '_Tuple2',
+															_0: A4(
+																_lucamug$elm_style_framework$Framework_Button$buttonLinkWidth,
+																{ctor: '[]'},
+																'http://example.com',
+																'ButtonWidthLink 300',
+																300),
+															_1: 'buttonLinkWidth [] \"http://example.com\" \"ButtonWidthLink 300\" 300'
+														},
+														_1: {ctor: '[]'}
+													}
+												}
+											}
+										}
+									}
+								},
+								_1: {ctor: '[]'}
+							}
 						}
 					}
 				}

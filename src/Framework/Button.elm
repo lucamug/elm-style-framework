@@ -1,11 +1,11 @@
-module Framework.Button exposing (button, buttonAttr, buttonLink, introspection)
+module Framework.Button exposing (button, buttonAttr, buttonLink, buttonLinkWidth, buttonWidth, introspection)
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Buttons/States)
 
 
 # Functions
 
-@docs button, buttonAttr, buttonLink, introspection
+@docs button, buttonAttr, buttonLink, buttonLinkWidth, buttonWidth, introspection
 
 -}
 
@@ -19,6 +19,7 @@ import Element.Input as Input
 import Framework.Color as Color
 import Framework.Modifiers exposing (Modifier(..))
 import Framework.Spinner as Spinner
+import Html.Attributes
 
 
 {-| -}
@@ -101,7 +102,15 @@ Input.button (buttonAttr [ Primary, Danger ]) <|
             ]
           )
         , ( "Button Link"
-          , [ ( buttonLink [ Small ] "http://example.com" "Button Link", """( buttonLink [ Small ] "http://example.com" "Button Link" """ )
+          , [ ( buttonLink [] "http://example.com" "Button Link", """( buttonLink [ Small ] "http://example.com" "Button Link" """ )
+            ]
+          )
+        , ( "Button Width"
+          , [ ( button [] Nothing "Button", """button [] Nothing "Button" """ )
+            , ( buttonWidth [] Nothing "ButtonWidth 200" 200, """buttonWidth [] Nothing "ButtonWidth 200" 200""" )
+            , ( buttonWidth [] Nothing "ButtonWidth 300" 300, """buttonWidth [] Nothing "ButtonWidth 300" 300""" )
+            , ( buttonWidth [] Nothing "ButtonWidth of 200px with very long text" 200, """buttonWidth [] Nothing "ButtonWidth of 200px with very long text" 200""" )
+            , ( buttonLinkWidth [] "http://example.com" "ButtonWidthLink 300" 300, """buttonLinkWidth [] "http://example.com" "ButtonWidthLink 300" 300""" )
             ]
           )
         ]
@@ -223,10 +232,35 @@ button modifiers onPress label =
 
 
 {-| -}
+buttonWidth : List Modifier -> Maybe msg -> String -> Int -> Element msg
+buttonWidth modifiers onPress label minWidth =
+    Input.button
+        (buttonAttr modifiers ++ [ Element.htmlAttribute (Html.Attributes.style [ ( "min-width", toString minWidth ++ "px" ) ]) ])
+        { onPress = onPress
+        , label = text label
+        }
+
+
+{-| -}
 buttonLink : List Modifier -> String -> String -> Element msg
 buttonLink modifiers url label =
     link
         (buttonAttr modifiers)
+        { url = url
+        , label = text label
+        }
+
+
+{-| -}
+buttonLinkWidth : List Modifier -> String -> String -> Int -> Element msg
+buttonLinkWidth modifiers url label minWidth =
+    link
+        (buttonAttr modifiers
+            ++ [ Element.htmlAttribute (Html.Attributes.style [ ( "width", "100%" ) ])
+               , Element.htmlAttribute (Html.Attributes.style [ ( "max-width", toString minWidth ++ "px" ) ])
+               , Font.center
+               ]
+        )
         { url = url
         , label = text label
         }
