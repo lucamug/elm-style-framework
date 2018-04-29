@@ -28002,7 +28002,7 @@ var _lucamug$elm_style_framework$Framework_Button$button = F3(
 			});
 	});
 var _lucamug$elm_style_framework$Framework_Button$buttonWidth = F4(
-	function (modifiers, onPress, label, minWidth) {
+	function (modifiers, onPress, label, buttonWidth) {
 		return A2(
 			_mdgriffith$stylish_elephants$Element_Input$button,
 			A2(
@@ -28014,17 +28014,35 @@ var _lucamug$elm_style_framework$Framework_Button$buttonWidth = F4(
 						_elm_lang$html$Html_Attributes$style(
 							{
 								ctor: '::',
-								_0: {
-									ctor: '_Tuple2',
-									_0: 'min-width',
-									_1: A2(
-										_elm_lang$core$Basics_ops['++'],
-										_elm_lang$core$Basics$toString(minWidth),
-										'px')
-								},
+								_0: {ctor: '_Tuple2', _0: 'width', _1: '100%'},
 								_1: {ctor: '[]'}
 							})),
-					_1: {ctor: '[]'}
+					_1: {
+						ctor: '::',
+						_0: _mdgriffith$stylish_elephants$Element$htmlAttribute(
+							_elm_lang$html$Html_Attributes$style(
+								{
+									ctor: '::',
+									_0: {
+										ctor: '_Tuple2',
+										_0: 'max-width',
+										_1: A2(
+											_elm_lang$core$Basics_ops['++'],
+											_elm_lang$core$Basics$toString(buttonWidth),
+											'px')
+									},
+									_1: {ctor: '[]'}
+								})),
+						_1: {
+							ctor: '::',
+							_0: _mdgriffith$stylish_elephants$Element_Font$center,
+							_1: {
+								ctor: '::',
+								_0: _mdgriffith$stylish_elephants$Element$centerX,
+								_1: {ctor: '[]'}
+							}
+						}
+					}
 				}),
 			{
 				onPress: onPress,
@@ -28042,7 +28060,7 @@ var _lucamug$elm_style_framework$Framework_Button$buttonLink = F3(
 			});
 	});
 var _lucamug$elm_style_framework$Framework_Button$buttonLinkWidth = F4(
-	function (modifiers, url, label, minWidth) {
+	function (modifiers, url, label, buttonWidth) {
 		return A2(
 			_mdgriffith$stylish_elephants$Element$link,
 			A2(
@@ -28068,7 +28086,7 @@ var _lucamug$elm_style_framework$Framework_Button$buttonLinkWidth = F4(
 										_0: 'max-width',
 										_1: A2(
 											_elm_lang$core$Basics_ops['++'],
-											_elm_lang$core$Basics$toString(minWidth),
+											_elm_lang$core$Basics$toString(buttonWidth),
 											'px')
 									},
 									_1: {ctor: '[]'}
@@ -28076,7 +28094,11 @@ var _lucamug$elm_style_framework$Framework_Button$buttonLinkWidth = F4(
 						_1: {
 							ctor: '::',
 							_0: _mdgriffith$stylish_elephants$Element_Font$center,
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: _mdgriffith$stylish_elephants$Element$centerX,
+								_1: {ctor: '[]'}
+							}
 						}
 					}
 				}),
@@ -30360,14 +30382,39 @@ var _lucamug$elm_style_framework$Framework_Icon$home = function (size) {
 			_1: {ctor: '[]'}
 		});
 };
+var _lucamug$elm_style_framework$Framework_Icon$arrows = F2(
+	function (size, color) {
+		return A2(
+			_elm_lang$svg$Svg$svg,
+			{
+				ctor: '::',
+				_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 490 490'),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$svg$Svg_Attributes$height(
+						_elm_lang$core$Basics$toString(size)),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$svg$Svg$path,
+					{
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$d('M112 97c72-65 181-66 254-7l-58 3c-8 0-13 6-13 14 0 7 6 13 13 13h1l89-4c7 0 13-6 13-13v-2l-3-88a14 14 0 0 0-27 1l2 55c-36-29-81-47-129-49A222 222 0 0 0 27 294a13 13 0 0 0 17 10c7-2 11-9 9-16-16-70 6-143 59-191zm350 99a14 14 0 0 0-26 6 195 195 0 0 1-314 196l59-5a13 13 0 1 0-3-27l-88 8c-8 1-13 7-13 15l8 88c1 7 7 13 14 13h1c7-1 13-8 12-15l-5-54a221 221 0 0 0 289-8c60-55 86-138 66-217z'),
+						_1: {ctor: '[]'}
+					},
+					{ctor: '[]'}),
+				_1: {ctor: '[]'}
+			});
+	});
 var _lucamug$elm_style_framework$Framework_Icon$icon = F2(
 	function (logo, size) {
 		return _mdgriffith$stylish_elephants$Element$html(
 			function () {
 				var _p1 = logo;
 				switch (_p1.ctor) {
-					case 'Points':
-						return _lucamug$elm_style_framework$Framework_Icon$points(size);
 					case 'Hide':
 						return A2(_lucamug$elm_style_framework$Framework_Icon$hide, size, '#999');
 					case 'Show':
@@ -30386,11 +30433,14 @@ var _lucamug$elm_style_framework$Framework_Icon$icon = F2(
 						return _lucamug$elm_style_framework$Framework_Icon$exitFullscreen(size);
 					case 'Fullscreen':
 						return _lucamug$elm_style_framework$Framework_Icon$fullscreen(size);
-					default:
+					case 'ChevronDown':
 						return A2(_lucamug$elm_style_framework$Framework_Icon$chevronDown, size, '#333');
+					default:
+						return A2(_lucamug$elm_style_framework$Framework_Icon$arrows, size, '#333');
 				}
 			}());
 	});
+var _lucamug$elm_style_framework$Framework_Icon$Arrows = {ctor: 'Arrows'};
 var _lucamug$elm_style_framework$Framework_Icon$ChevronDown = {ctor: 'ChevronDown'};
 var _lucamug$elm_style_framework$Framework_Icon$MobileNotification2 = {ctor: 'MobileNotification2'};
 var _lucamug$elm_style_framework$Framework_Icon$MobileNotification = {ctor: 'MobileNotification'};
@@ -30398,7 +30448,6 @@ var _lucamug$elm_style_framework$Framework_Icon$MobileRinging = {ctor: 'MobileRi
 var _lucamug$elm_style_framework$Framework_Icon$Show = {ctor: 'Show'};
 var _lucamug$elm_style_framework$Framework_Icon$Hide = {ctor: 'Hide'};
 var _lucamug$elm_style_framework$Framework_Icon$Home = {ctor: 'Home'};
-var _lucamug$elm_style_framework$Framework_Icon$Points = {ctor: 'Points'};
 var _lucamug$elm_style_framework$Framework_Icon$Fullscreen = {ctor: 'Fullscreen'};
 var _lucamug$elm_style_framework$Framework_Icon$ExitFullscreen = {ctor: 'ExitFullscreen'};
 var _lucamug$elm_style_framework$Framework_Icon$Pencil = {ctor: 'Pencil'};
@@ -30439,57 +30488,57 @@ var _lucamug$elm_style_framework$Framework_Icon$introspection = {
 							ctor: '::',
 							_0: {
 								ctor: '_Tuple2',
-								_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$Points, 32),
-								_1: 'icon Points 32'
+								_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$Home, 32),
+								_1: 'icon Home 32'
 							},
 							_1: {
 								ctor: '::',
 								_0: {
 									ctor: '_Tuple2',
-									_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$Home, 32),
-									_1: 'icon Home 32'
+									_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$Hide, 32),
+									_1: 'icon Hide 32'
 								},
 								_1: {
 									ctor: '::',
 									_0: {
 										ctor: '_Tuple2',
-										_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$Hide, 32),
-										_1: 'icon Hide 32'
+										_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$Show, 32),
+										_1: 'icon Show 32'
 									},
 									_1: {
 										ctor: '::',
 										_0: {
 											ctor: '_Tuple2',
-											_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$Show, 32),
-											_1: 'icon Hide 32'
+											_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$MobileRinging, 32),
+											_1: 'icon MobileRinging 32'
 										},
 										_1: {
 											ctor: '::',
 											_0: {
 												ctor: '_Tuple2',
-												_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$MobileRinging, 32),
-												_1: 'icon MobileRinging 32'
+												_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$MobileNotification, 32),
+												_1: 'icon MobileNotification 32'
 											},
 											_1: {
 												ctor: '::',
 												_0: {
 													ctor: '_Tuple2',
-													_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$MobileNotification, 32),
-													_1: 'icon MobileNotification 32'
+													_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$MobileNotification2, 32),
+													_1: 'icon MobileNotification2 32'
 												},
 												_1: {
 													ctor: '::',
 													_0: {
 														ctor: '_Tuple2',
-														_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$MobileNotification2, 32),
-														_1: 'icon MobileNotification2 32'
+														_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$ChevronDown, 32),
+														_1: 'icon ChevronDown 32'
 													},
 													_1: {
 														ctor: '::',
 														_0: {
 															ctor: '_Tuple2',
-															_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$ChevronDown, 32),
-															_1: 'icon ChevronDown 32'
+															_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$Arrows, 32),
+															_1: 'icon Arrows 32'
 														},
 														_1: {ctor: '[]'}
 													}

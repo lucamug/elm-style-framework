@@ -38,14 +38,14 @@ introspection =
           , [ ( icon Pencil 32, "icon Pencil 32" )
             , ( icon ExitFullscreen 32, "icon ExitFullscreen 32" )
             , ( icon Fullscreen 32, "icon Fullscreen 32" )
-            , ( icon Points 32, "icon Points 32" )
             , ( icon Home 32, "icon Home 32" )
             , ( icon Hide 32, "icon Hide 32" )
-            , ( icon Show 32, "icon Hide 32" )
+            , ( icon Show 32, "icon Show 32" )
             , ( icon MobileRinging 32, "icon MobileRinging 32" )
             , ( icon MobileNotification 32, "icon MobileNotification 32" )
             , ( icon MobileNotification2 32, "icon MobileNotification2 32" )
             , ( icon ChevronDown 32, "icon ChevronDown 32" )
+            , ( icon Arrows 32, "icon Arrows 32" )
             ]
           )
         ]
@@ -58,9 +58,6 @@ icon : Icon -> Int -> Element.Element msg
 icon logo size =
     Element.html <|
         case logo of
-            Points ->
-                points size
-
             Hide ->
                 hide size "#999"
 
@@ -91,6 +88,9 @@ icon logo size =
             ChevronDown ->
                 chevronDown size "#333"
 
+            Arrows ->
+                arrows size "#333"
+
 
 {-| Type of logos
 -}
@@ -98,7 +98,6 @@ type Icon
     = Pencil
     | ExitFullscreen
     | Fullscreen
-    | Points
     | Home
     | Hide
     | Show
@@ -106,6 +105,14 @@ type Icon
     | MobileNotification
     | MobileNotification2
     | ChevronDown
+    | Arrows
+
+
+arrows : Int -> String -> Html msg
+arrows size color =
+    Svg.svg [ SA.viewBox "0 0 490 490", SA.height <| toString size ]
+        [ Svg.path [ SA.d "M112 97c72-65 181-66 254-7l-58 3c-8 0-13 6-13 14 0 7 6 13 13 13h1l89-4c7 0 13-6 13-13v-2l-3-88a14 14 0 0 0-27 1l2 55c-36-29-81-47-129-49A222 222 0 0 0 27 294a13 13 0 0 0 17 10c7-2 11-9 9-16-16-70 6-143 59-191zm350 99a14 14 0 0 0-26 6 195 195 0 0 1-314 196l59-5a13 13 0 1 0-3-27l-88 8c-8 1-13 7-13 15l8 88c1 7 7 13 14 13h1c7-1 13-8 12-15l-5-54a221 221 0 0 0 289-8c60-55 86-138 66-217z" ] []
+        ]
 
 
 home : Int -> Html.Html msg
