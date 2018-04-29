@@ -28844,14 +28844,7 @@ var _lucamug$elm_style_framework$Framework_Cards$flipping = function (data) {
 									_0: A2(_lucamug$elm_style_framework$Framework_Cards$style, 'transform-style', 'preserve-3d'),
 									_1: {
 										ctor: '::',
-										_0: function () {
-											var _p0 = data.activeFront;
-											if (_p0 === true) {
-												return A2(_lucamug$elm_style_framework$Framework_Cards$style, 'transform', 'rotateY(0deg)');
-											} else {
-												return A2(_lucamug$elm_style_framework$Framework_Cards$style, 'transform', 'rotateY(180deg)');
-											}
-										}(),
+										_0: data.activeFront ? A2(_lucamug$elm_style_framework$Framework_Cards$style, 'transform', 'rotateY(0deg)') : A2(_lucamug$elm_style_framework$Framework_Cards$style, 'transform', 'rotateY(180deg)'),
 										_1: {ctor: '[]'}
 									}
 								}
@@ -28963,7 +28956,7 @@ var _lucamug$elm_style_framework$Framework_Cards$introspection = {
 };
 var _lucamug$elm_style_framework$Framework_Cards$update = F2(
 	function (msg, model) {
-		var _p1 = msg;
+		var _p0 = msg;
 		return {ctor: '_Tuple2', _0: !model, _1: _elm_lang$core$Platform_Cmd$none};
 	});
 var _lucamug$elm_style_framework$Framework_Cards$initModel = true;
@@ -29426,6 +29419,8 @@ var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$introspection =
 		}
 	}
 };
+var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$regexNotDigitsAtTheEnd = _elm_lang$core$Regex$regex('[^0-9]*$');
+var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$regexNotDigit = _elm_lang$core$Regex$regex('[^0-9]');
 var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$initModel = {fieldTelephone: '', fieldCreditCard: '', field4DigitCode: '', focus: _elm_lang$core$Maybe$Nothing};
 var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$Model = F4(
 	function (a, b, c, d) {
@@ -29669,7 +29664,7 @@ var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$update = F2(
 				var onlyDigits = A4(
 					_elm_lang$core$Regex$replace,
 					_elm_lang$core$Regex$All,
-					_elm_lang$core$Regex$regex('[^0-9]'),
+					_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$regexNotDigit,
 					function (_p9) {
 						return '';
 					},
@@ -29678,7 +29673,7 @@ var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$update = F2(
 				var removeCharactedAtTheEndIfNotNumbers = A4(
 					_elm_lang$core$Regex$replace,
 					_elm_lang$core$Regex$All,
-					_elm_lang$core$Regex$regex('[^0-9]*$'),
+					_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$regexNotDigitsAtTheEnd,
 					function (_p10) {
 						return '';
 					},

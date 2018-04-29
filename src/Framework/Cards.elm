@@ -218,12 +218,10 @@ flipping data =
             , height <| y
             , style "transition" "all 0.7s cubic-bezier(0.365, 1.440, 0.430, 0.965)"
             , style "transform-style" "preserve-3d"
-            , case data.activeFront of
-                True ->
-                    style "transform" "rotateY(0deg)"
-
-                False ->
-                    style "transform" "rotateY(180deg)"
+            , if data.activeFront then
+                style "transform" "rotateY(0deg)"
+              else
+                style "transform" "rotateY(180deg)"
             ]
             [ -- The  "alignbottom {pointer-events:none}" is needed otherwise the right half
               -- is covered by alignbottom

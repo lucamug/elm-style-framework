@@ -1,3 +1,7 @@
+* Fix button Sizes
+* Create a Jumbo  button
+* Overwrite the Primary
+
 Work directly with hue, saturation, lightness
 
 { hue, saturation, lightness } =

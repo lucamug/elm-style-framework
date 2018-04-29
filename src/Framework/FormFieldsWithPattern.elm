@@ -53,6 +53,16 @@ type Msg
     | OnLoseFocus Field
 
 
+regexNotDigit : Regex.Regex
+regexNotDigit =
+    Regex.regex "[^0-9]"
+
+
+regexNotDigitsAtTheEnd : Regex.Regex
+regexNotDigitsAtTheEnd =
+    Regex.regex "[^0-9]*$"
+
+
 {-| -}
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
@@ -60,13 +70,13 @@ update msg model =
         Input field pattern value ->
             let
                 onlyDigits =
-                    Regex.replace Regex.All (Regex.regex "[^0-9]") (\_ -> "") value
+                    Regex.replace Regex.All regexNotDigit (\_ -> "") value
 
                 withPattern =
                     xxresult pattern onlyDigits
 
                 removeCharactedAtTheEndIfNotNumbers =
-                    Regex.replace Regex.All (Regex.regex "[^0-9]*$") (\_ -> "") withPattern
+                    Regex.replace Regex.All regexNotDigitsAtTheEnd (\_ -> "") withPattern
             in
             ( case field of
                 FieldTelephone ->
