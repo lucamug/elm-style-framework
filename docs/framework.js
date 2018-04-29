@@ -27692,13 +27692,13 @@ var _lucamug$elm_style_framework$Framework_Button$toButtonPadding = function (si
 	var _p0 = size;
 	switch (_p0.ctor) {
 		case 'SizeSmall':
-			return {ctor: '_Tuple2', _0: 10, _1: 4};
+			return {ctor: '_Tuple2', _0: 9, _1: 3};
 		case 'SizeDefault':
-			return {ctor: '_Tuple2', _0: 40, _1: 8};
+			return {ctor: '_Tuple2', _0: 12, _1: 5};
 		case 'SizeMedium':
-			return {ctor: '_Tuple2', _0: 40, _1: 20};
+			return {ctor: '_Tuple2', _0: 15, _1: 7};
 		default:
-			return {ctor: '_Tuple2', _0: 18, _1: 7};
+			return {ctor: '_Tuple2', _0: 18, _1: 9};
 	}
 };
 var _lucamug$elm_style_framework$Framework_Button$toPx = function (size) {

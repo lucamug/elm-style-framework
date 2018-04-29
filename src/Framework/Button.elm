@@ -150,16 +150,16 @@ toButtonPadding : Size -> ( Int, Int )
 toButtonPadding size =
     case size of
         SizeSmall ->
-            ( 10, 4 )
+            ( 9, 3 )
 
         SizeDefault ->
-            ( 40, 8 )
+            ( 12, 5 )
 
         SizeMedium ->
-            ( 40, 20 )
+            ( 15, 7 )
 
         SizeLarge ->
-            ( 18, 7 )
+            ( 18, 9 )
 
 
 processConf : Modifier -> Conf -> Conf
