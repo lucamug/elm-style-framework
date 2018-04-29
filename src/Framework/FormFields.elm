@@ -1,11 +1,11 @@
-module Framework.FormFields exposing (Model, Msg, example1, initModel, introspection, update)
+module Framework.FormFields exposing (Field(..), Model, Msg, example1, initModel, inputText, introspection, update)
 
 {-|
 
 
 # Functions
 
-@docs Model, Msg, example1, initModel, introspection, update
+@docs Field, Model, Msg, example1, initModel, inputText, introspection, update
 
 -}
 
@@ -33,6 +33,7 @@ initModel =
     }
 
 
+{-| -}
 type Field
     = FieldEmail
 
@@ -114,6 +115,7 @@ example1 model =
     )
 
 
+{-| -}
 inputText : Model -> { a | field : Field, label : String } -> Element Msg
 inputText model { field, label } =
     let

@@ -1,11 +1,11 @@
-module Framework.FormFieldsWithPattern exposing (Model, Msg, example1, example2, example3, initModel, introspection, update)
+module Framework.FormFieldsWithPattern exposing (Field(..), Model, Msg, example1, example2, example3, initModel, inputText, introspection, update)
 
 {-|
 
 
 # Functions
 
-@docs Model, Msg, example1, example2, example3, initModel, introspection, update
+@docs Field, Model, Msg, example1, example2, example3, initModel, inputText, introspection, update
 
 -}
 
@@ -39,6 +39,7 @@ initModel =
     }
 
 
+{-| -}
 type Field
     = FieldTelephone
     | FieldCreditCard
@@ -174,6 +175,7 @@ example3 model =
     )
 
 
+{-| -}
 inputText : Model -> { a | field : Field, label : String, pattern : String } -> Element Msg
 inputText model { field, pattern, label } =
     let

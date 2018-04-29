@@ -1,4 +1,4 @@
-module Framework exposing (Conf, Flag, Introspection, Model, Msg(..), init, initConf, initModel, main, subscriptions, update, view, viewPage)
+module Framework exposing (Conf, Flag, Introspection, Model, Msg(..), init, initConf, initModel, introspections, main, subscriptions, update, view, viewPage)
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/)
 
@@ -13,7 +13,7 @@ For more info about the idea, see [this post](https://medium.com/@l.mugnaini/zer
 
 # Functions
 
-@docs Conf, Flag, Introspection, Model, Msg, init, initConf, initModel, main, subscriptions, update, view, viewPage
+@docs Conf, Flag, Introspection, Model, Msg, init, initConf, initModel, introspections, main, subscriptions, update, view, viewPage
 
 -}
 
@@ -187,18 +187,19 @@ initModel flag location =
         if debug then
             introspections
         else
-            introspectionsForDebuggin
+            introspectionsForDebugging
     }
 
 
-introspectionsForDebuggin : List ( Introspection, Bool )
-introspectionsForDebuggin =
+introspectionsForDebugging : List ( Introspection, Bool )
+introspectionsForDebugging =
     [ ( introspectionExample "ID 1", True )
     , ( introspectionExample "ID 2", True )
     , ( introspectionExample "ID 3", True )
     ]
 
 
+{-| -}
 introspections : List ( Introspection, Bool )
 introspections =
     [ ( Framework.Color.introspection, True )

@@ -1,11 +1,11 @@
-module Framework.Button exposing (button, buttonAttr, introspection)
+module Framework.Button exposing (button, buttonAttr, buttonLink, introspection)
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Buttons/States)
 
 
 # Functions
 
-@docs button, buttonAttr, introspection
+@docs button, buttonAttr, buttonLink, introspection
 
 -}
 
@@ -222,6 +222,7 @@ button modifiers onPress label =
         }
 
 
+{-| -}
 buttonLink : List Modifier -> String -> String -> Element msg
 buttonLink modifiers url label =
     link

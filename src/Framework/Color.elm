@@ -1,11 +1,11 @@
-module Framework.Color exposing (Color(..), color, colorToHex, introspection, lighten, maximumContrast, saturate)
+module Framework.Color exposing (Color(..), color, colorToHex, introspection, lighten, maximumContrast, saturate, usageWrapper)
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Colors/Gray%20Scale)
 
 
 # Functions
 
-@docs Color, color, colorToHex, introspection, lighten, maximumContrast, saturate
+@docs Color, color, colorToHex, introspection, lighten, maximumContrast, saturate, usageWrapper
 
 -}
 
@@ -53,46 +53,43 @@ introspection =
     , signature = "color : Color -> Color.Color"
     , description = ""
     , usage = "color ColorPrimary"
-    , usageResult = usageWrapper Primary
+    , usageResult = usageWrapper <| color Primary
     , boxed = False
     , variations =
         [ ( "Gray Scale"
-          , [ ( usageWrapper GrayLightest, "color GrayLightest" )
-            , ( usageWrapper GrayLighter, "color GrayLighter" )
-            , ( usageWrapper GrayLight, "color GrayLight" )
-            , ( usageWrapper GrayMediumLight, "color GrayMediumLight" )
-            , ( usageWrapper GrayMedium, "color GrayMedium" )
-            , ( usageWrapper Gray, "color Gray" )
-            , ( usageWrapper GrayDark, "color GrayDark" )
-            , ( usageWrapper GrayDarker, "color GrayDarker" )
-            , ( usageWrapper GrayDarkest, "color GrayDarkest" )
+          , [ ( usageWrapper <| color GrayLightest, "color GrayLightest" )
+            , ( usageWrapper <| color GrayLighter, "color GrayLighter" )
+            , ( usageWrapper <| color GrayLight, "color GrayLight" )
+            , ( usageWrapper <| color GrayMediumLight, "color GrayMediumLight" )
+            , ( usageWrapper <| color GrayMedium, "color GrayMedium" )
+            , ( usageWrapper <| color Gray, "color Gray" )
+            , ( usageWrapper <| color GrayDark, "color GrayDark" )
+            , ( usageWrapper <| color GrayDarker, "color GrayDarker" )
+            , ( usageWrapper <| color GrayDarkest, "color GrayDarkest" )
             ]
           )
         , ( "Colors"
-          , [ ( usageWrapper Muted, "color Muted" )
-            , ( usageWrapper Primary, "color Primary" )
-            , ( usageWrapper Success, "color Success" )
-            , ( usageWrapper Info, "color Info" )
-            , ( usageWrapper Warning, "color Warning" )
-            , ( usageWrapper Danger, "color Danger" )
+          , [ ( usageWrapper <| color Muted, "color Muted" )
+            , ( usageWrapper <| color Primary, "color Primary" )
+            , ( usageWrapper <| color Success, "color Success" )
+            , ( usageWrapper <| color Info, "color Info" )
+            , ( usageWrapper <| color Warning, "color Warning" )
+            , ( usageWrapper <| color Danger, "color Danger" )
             ]
           )
         , ( "Base"
-          , [ ( usageWrapper Black, "color Black" )
-            , ( usageWrapper White, "color White" )
-            , ( usageWrapper Transparent, "color Transparent" )
+          , [ ( usageWrapper <| color Black, "color Black" )
+            , ( usageWrapper <| color White, "color White" )
+            , ( usageWrapper <| color Transparent, "color Transparent" )
             ]
           )
         ]
     }
 
 
-usageWrapper : Color -> Element.Element msg
-usageWrapper colorType =
-    let
-        cl =
-            color colorType
-    in
+{-| -}
+usageWrapper : Color.Color -> Element.Element msg
+usageWrapper cl =
     Element.el
         [ Element.Background.color cl
         , Element.width <| Element.px 200

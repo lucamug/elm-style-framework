@@ -12,7 +12,7 @@ Wrapper for content
 -}
 
 import Color
-import Element exposing (Attribute, Element, alignTop, centerX, centerY, column, el, fill, height, html, htmlAttribute, padding, paragraph, pointer, px, shrink, spacing, text, width)
+import Element exposing (Attribute, Element, alignTop, centerX, centerY, column, el, fill, height, html, htmlAttribute, padding, paragraph, pointer, px, row, shrink, spacing, text, width)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Events as Events
@@ -200,29 +200,34 @@ flipping data =
             cardCommonAttr
                 ++ [ width x
                    , height y
+
+                   -- Chrome has a bug during flipping from back to Front
+                   -- maybe this could be used as hint? https://stackoverflow.com/questions/34062061/css-flip-card-bug-in-chrome
                    , style "backface-visibility" "hidden"
                    , style "position" "absolute"
                    ]
     in
-    el
-        [ style "perspective" "500px"
+    column
+        [ -- width 500 -> 2000px
+          style "perspective" "1500px"
         , alignTop
         ]
-    <|
-        column
+        [ html <| Html.node "style" [] [ Html.text "alignbottom, alignright {pointer-events:none}" ]
+        , row
             [ width <| x
             , height <| y
-            , style "transition" "0.4s"
+            , style "transition" "all 0.7s cubic-bezier(0.365, 1.440, 0.430, 0.965)"
             , style "transform-style" "preserve-3d"
-            , if data.activeFront then
-                style "transform" "rotateY(0deg)"
-              else
-                style "transform" "rotateY(180deg)"
+            , case data.activeFront of
+                True ->
+                    style "transform" "rotateY(0deg)"
+
+                False ->
+                    style "transform" "rotateY(180deg)"
             ]
             [ -- The  "alignbottom {pointer-events:none}" is needed otherwise the right half
               -- is covered by alignbottom
-              html <| Html.node "style" [] [ Html.text "alignbottom {pointer-events:none}" ]
-            , el
+              el
                 (commonAttr
                     ++ [ style "transform" "rotateY(0deg)"
                        , style "z-index" "2"
@@ -238,6 +243,7 @@ flipping data =
               <|
                 data.back
             ]
+        ]
 
 
 {-| -}
