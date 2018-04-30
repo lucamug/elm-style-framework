@@ -1,22 +1,9 @@
-module FrameworkConfiguration exposing (confColor, confFloat, confString)
+module FrameworkConfiguration exposing (configuration)
 
-import Color
 import Dict
 
 
-confFloat : Dict.Dict String Float
-confFloat =
-    Dict.fromList
-        []
-
-
-confColor : Dict.Dict String Color.Color
-confColor =
-    Dict.fromList
-        []
-
-
-confString : Dict.Dict String String
-confString =
+configuration : Dict.Dict String String
+configuration =
     Dict.fromList
         []
