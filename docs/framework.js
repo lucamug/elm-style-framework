@@ -26697,24 +26697,383 @@ var _mdgriffith$stylish_elephants$Element_Input$radio = _mdgriffith$stylish_elep
 var _mdgriffith$stylish_elephants$Element_Input$Row = {ctor: 'Row'};
 var _mdgriffith$stylish_elephants$Element_Input$radioRow = _mdgriffith$stylish_elephants$Element_Input$radioHelper(_mdgriffith$stylish_elephants$Element_Input$Row);
 
+var _lucamug$elm_style_framework$FrameworkConfiguration$confColors = _elm_lang$core$Dict$fromList(
+	{ctor: '[]'});
+var _lucamug$elm_style_framework$FrameworkConfiguration$confSizes = _elm_lang$core$Dict$fromList(
+	{ctor: '[]'});
+
+var _lucamug$elm_style_framework$Framework_Configuration$hsl2 = F3(
+	function (a, b, c) {
+		return A3(
+			_elm_lang$core$Color$hsl,
+			_elm_lang$core$Basics$degrees(a),
+			b / 100,
+			c / 100);
+	});
+var _lucamug$elm_style_framework$Framework_Configuration$confColors = _elm_lang$core$Dict$fromList(
+	{
+		ctor: '::',
+		_0: {
+			ctor: '_Tuple2',
+			_0: 'grayLightest',
+			_1: A3(_elm_lang$core$Color$rgb, 247, 247, 247)
+		},
+		_1: {
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: 'grayLighter',
+				_1: A3(_elm_lang$core$Color$rgb, 235, 235, 235)
+			},
+			_1: {
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'grayLight',
+					_1: A3(_elm_lang$core$Color$rgb, 209, 209, 209)
+				},
+				_1: {
+					ctor: '::',
+					_0: {
+						ctor: '_Tuple2',
+						_0: 'grayMediumLight',
+						_1: A3(_elm_lang$core$Color$rgb, 182, 182, 182)
+					},
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 'grayMedium',
+							_1: A3(_elm_lang$core$Color$rgb, 156, 156, 156)
+						},
+						_1: {
+							ctor: '::',
+							_0: {
+								ctor: '_Tuple2',
+								_0: 'gray',
+								_1: A3(_elm_lang$core$Color$rgb, 130, 130, 130)
+							},
+							_1: {
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: 'grayDark',
+									_1: A3(_elm_lang$core$Color$rgb, 104, 104, 104)
+								},
+								_1: {
+									ctor: '::',
+									_0: {
+										ctor: '_Tuple2',
+										_0: 'grayDarker',
+										_1: A3(_elm_lang$core$Color$rgb, 77, 77, 77)
+									},
+									_1: {
+										ctor: '::',
+										_0: {
+											ctor: '_Tuple2',
+											_0: 'grayDarkest',
+											_1: A3(_elm_lang$core$Color$rgb, 51, 51, 51)
+										},
+										_1: {
+											ctor: '::',
+											_0: {
+												ctor: '_Tuple2',
+												_0: 'muted',
+												_1: A3(_elm_lang$core$Color$rgb, 209, 209, 209)
+											},
+											_1: {
+												ctor: '::',
+												_0: {
+													ctor: '_Tuple2',
+													_0: 'primary',
+													_1: A3(_lucamug$elm_style_framework$Framework_Configuration$hsl2, 171, 100, 41)
+												},
+												_1: {
+													ctor: '::',
+													_0: {
+														ctor: '_Tuple2',
+														_0: 'success',
+														_1: A3(_elm_lang$core$Color$rgb, 35, 209, 96)
+													},
+													_1: {
+														ctor: '::',
+														_0: {
+															ctor: '_Tuple2',
+															_0: 'info',
+															_1: A3(_elm_lang$core$Color$rgb, 32, 156, 238)
+														},
+														_1: {
+															ctor: '::',
+															_0: {
+																ctor: '_Tuple2',
+																_0: 'warning',
+																_1: A3(_elm_lang$core$Color$rgb, 255, 221, 87)
+															},
+															_1: {
+																ctor: '::',
+																_0: {
+																	ctor: '_Tuple2',
+																	_0: 'danger',
+																	_1: A3(_elm_lang$core$Color$rgb, 255, 56, 96)
+																},
+																_1: {
+																	ctor: '::',
+																	_0: {
+																		ctor: '_Tuple2',
+																		_0: 'black',
+																		_1: A3(_lucamug$elm_style_framework$Framework_Configuration$hsl2, 0, 0, 4)
+																	},
+																	_1: {
+																		ctor: '::',
+																		_0: {
+																			ctor: '_Tuple2',
+																			_0: 'black-bis',
+																			_1: A3(_lucamug$elm_style_framework$Framework_Configuration$hsl2, 0, 0, 7)
+																		},
+																		_1: {
+																			ctor: '::',
+																			_0: {
+																				ctor: '_Tuple2',
+																				_0: 'black-ter',
+																				_1: A3(_lucamug$elm_style_framework$Framework_Configuration$hsl2, 0, 0, 14)
+																			},
+																			_1: {
+																				ctor: '::',
+																				_0: {
+																					ctor: '_Tuple2',
+																					_0: 'grey-darker',
+																					_1: A3(_lucamug$elm_style_framework$Framework_Configuration$hsl2, 0, 0, 21)
+																				},
+																				_1: {
+																					ctor: '::',
+																					_0: {
+																						ctor: '_Tuple2',
+																						_0: 'grey-dark',
+																						_1: A3(_lucamug$elm_style_framework$Framework_Configuration$hsl2, 0, 0, 29)
+																					},
+																					_1: {
+																						ctor: '::',
+																						_0: {
+																							ctor: '_Tuple2',
+																							_0: 'grey',
+																							_1: A3(_lucamug$elm_style_framework$Framework_Configuration$hsl2, 0, 0, 48)
+																						},
+																						_1: {
+																							ctor: '::',
+																							_0: {
+																								ctor: '_Tuple2',
+																								_0: 'grey-light',
+																								_1: A3(_lucamug$elm_style_framework$Framework_Configuration$hsl2, 0, 0, 71)
+																							},
+																							_1: {
+																								ctor: '::',
+																								_0: {
+																									ctor: '_Tuple2',
+																									_0: 'grey-lighter',
+																									_1: A3(_lucamug$elm_style_framework$Framework_Configuration$hsl2, 0, 0, 86)
+																								},
+																								_1: {
+																									ctor: '::',
+																									_0: {
+																										ctor: '_Tuple2',
+																										_0: 'white-ter',
+																										_1: A3(_lucamug$elm_style_framework$Framework_Configuration$hsl2, 0, 0, 96)
+																									},
+																									_1: {
+																										ctor: '::',
+																										_0: {
+																											ctor: '_Tuple2',
+																											_0: 'white-bis',
+																											_1: A3(_lucamug$elm_style_framework$Framework_Configuration$hsl2, 0, 0, 98)
+																										},
+																										_1: {
+																											ctor: '::',
+																											_0: {
+																												ctor: '_Tuple2',
+																												_0: 'white',
+																												_1: A3(_lucamug$elm_style_framework$Framework_Configuration$hsl2, 0, 0, 100)
+																											},
+																											_1: {
+																												ctor: '::',
+																												_0: {
+																													ctor: '_Tuple2',
+																													_0: 'orange',
+																													_1: A3(_lucamug$elm_style_framework$Framework_Configuration$hsl2, 14, 100, 53)
+																												},
+																												_1: {
+																													ctor: '::',
+																													_0: {
+																														ctor: '_Tuple2',
+																														_0: 'yellow',
+																														_1: A3(_lucamug$elm_style_framework$Framework_Configuration$hsl2, 48, 100, 67)
+																													},
+																													_1: {
+																														ctor: '::',
+																														_0: {
+																															ctor: '_Tuple2',
+																															_0: 'green',
+																															_1: A3(_lucamug$elm_style_framework$Framework_Configuration$hsl2, 141, 71, 48)
+																														},
+																														_1: {
+																															ctor: '::',
+																															_0: {
+																																ctor: '_Tuple2',
+																																_0: 'turquoise',
+																																_1: A3(_lucamug$elm_style_framework$Framework_Configuration$hsl2, 171, 100, 41)
+																															},
+																															_1: {
+																																ctor: '::',
+																																_0: {
+																																	ctor: '_Tuple2',
+																																	_0: 'cyan',
+																																	_1: A3(_lucamug$elm_style_framework$Framework_Configuration$hsl2, 204, 86, 53)
+																																},
+																																_1: {
+																																	ctor: '::',
+																																	_0: {
+																																		ctor: '_Tuple2',
+																																		_0: 'blue',
+																																		_1: A3(_lucamug$elm_style_framework$Framework_Configuration$hsl2, 217, 71, 53)
+																																	},
+																																	_1: {
+																																		ctor: '::',
+																																		_0: {
+																																			ctor: '_Tuple2',
+																																			_0: 'purple',
+																																			_1: A3(_lucamug$elm_style_framework$Framework_Configuration$hsl2, 271, 100, 71)
+																																		},
+																																		_1: {
+																																			ctor: '::',
+																																			_0: {
+																																				ctor: '_Tuple2',
+																																				_0: 'red',
+																																				_1: A3(_lucamug$elm_style_framework$Framework_Configuration$hsl2, 348, 100, 61)
+																																			},
+																																			_1: {ctor: '[]'}
+																																		}
+																																	}
+																																}
+																															}
+																														}
+																													}
+																												}
+																											}
+																										}
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	});
+var _lucamug$elm_style_framework$Framework_Configuration$confSizes = _elm_lang$core$Dict$fromList(
+	{
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'size1', _1: 3.0},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'size2', _1: 2.5},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'size3', _1: 2.0},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'size4', _1: 1.5},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'size5', _1: 1.25},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'size6', _1: 1.0},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'size7', _1: 0.75},
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				}
+			}
+		}
+	});
+var _lucamug$elm_style_framework$Framework_Configuration$getValue = F3(
+	function (key, original, replacement) {
+		var orig = A2(_elm_lang$core$Dict$get, key, original);
+		var repl = A2(_elm_lang$core$Dict$get, key, replacement);
+		var _p0 = repl;
+		if (_p0.ctor === 'Just') {
+			return _elm_lang$core$Maybe$Just(_p0._0);
+		} else {
+			var _p1 = orig;
+			if (_p1.ctor === 'Just') {
+				return _elm_lang$core$Maybe$Just(_p1._0);
+			} else {
+				return _elm_lang$core$Maybe$Nothing;
+			}
+		}
+	});
+var _lucamug$elm_style_framework$Framework_Configuration$defaultColor = A3(_elm_lang$core$Color$rgb, 0, 0, 0);
+var _lucamug$elm_style_framework$Framework_Configuration$getColor = function (key) {
+	var _p2 = A3(_lucamug$elm_style_framework$Framework_Configuration$getValue, key, _lucamug$elm_style_framework$Framework_Configuration$confColors, _lucamug$elm_style_framework$FrameworkConfiguration$confColors);
+	if (_p2.ctor === 'Just') {
+		return _p2._0;
+	} else {
+		return _lucamug$elm_style_framework$Framework_Configuration$defaultColor;
+	}
+};
+var _lucamug$elm_style_framework$Framework_Configuration$defaultSize = 1;
+var _lucamug$elm_style_framework$Framework_Configuration$getSize = function (key) {
+	var _p3 = A3(_lucamug$elm_style_framework$Framework_Configuration$getValue, key, _lucamug$elm_style_framework$Framework_Configuration$confSizes, _lucamug$elm_style_framework$FrameworkConfiguration$confSizes);
+	if (_p3.ctor === 'Just') {
+		return _p3._0;
+	} else {
+		return _lucamug$elm_style_framework$Framework_Configuration$defaultSize;
+	}
+};
 var _lucamug$elm_style_framework$Framework_Configuration$conf = {
-	sizes: {size1: 3.0, size2: 2.5, size3: 2.0, size4: 1.5, size5: 1.25, size6: 1.0, size7: 0.75},
+	sizes: {
+		size1: _lucamug$elm_style_framework$Framework_Configuration$getSize('size1'),
+		size2: _lucamug$elm_style_framework$Framework_Configuration$getSize('size2'),
+		size3: _lucamug$elm_style_framework$Framework_Configuration$getSize('size3'),
+		size4: _lucamug$elm_style_framework$Framework_Configuration$getSize('size4'),
+		size5: _lucamug$elm_style_framework$Framework_Configuration$getSize('size5'),
+		size6: _lucamug$elm_style_framework$Framework_Configuration$getSize('size6'),
+		size7: _lucamug$elm_style_framework$Framework_Configuration$getSize('size7')
+	},
 	colors: {
-		grayLightest: A3(_elm_lang$core$Color$rgb, 247, 247, 247),
-		grayLighter: A3(_elm_lang$core$Color$rgb, 235, 235, 235),
-		grayLight: A3(_elm_lang$core$Color$rgb, 209, 209, 209),
-		grayMediumLight: A3(_elm_lang$core$Color$rgb, 182, 182, 182),
-		grayMedium: A3(_elm_lang$core$Color$rgb, 156, 156, 156),
-		gray: A3(_elm_lang$core$Color$rgb, 130, 130, 130),
-		grayDark: A3(_elm_lang$core$Color$rgb, 104, 104, 104),
-		grayDarker: A3(_elm_lang$core$Color$rgb, 77, 77, 77),
-		grayDarkest: A3(_elm_lang$core$Color$rgb, 51, 51, 51),
-		muted: A3(_elm_lang$core$Color$rgb, 209, 209, 209),
-		primary: A3(_elm_lang$core$Color$rgb, 0, 209, 178),
-		success: A3(_elm_lang$core$Color$rgb, 35, 209, 96),
-		info: A3(_elm_lang$core$Color$rgb, 32, 156, 238),
-		warning: A3(_elm_lang$core$Color$rgb, 255, 221, 87),
-		danger: A3(_elm_lang$core$Color$rgb, 255, 56, 96)
+		grayLightest: _lucamug$elm_style_framework$Framework_Configuration$getColor('grayLightest'),
+		grayLighter: _lucamug$elm_style_framework$Framework_Configuration$getColor('grayLighter'),
+		grayLight: _lucamug$elm_style_framework$Framework_Configuration$getColor('grayLight'),
+		grayMediumLight: _lucamug$elm_style_framework$Framework_Configuration$getColor('grayMediumLight'),
+		grayMedium: _lucamug$elm_style_framework$Framework_Configuration$getColor('grayMedium'),
+		gray: _lucamug$elm_style_framework$Framework_Configuration$getColor('gray'),
+		grayDark: _lucamug$elm_style_framework$Framework_Configuration$getColor('grayDark'),
+		grayDarker: _lucamug$elm_style_framework$Framework_Configuration$getColor('grayDarker'),
+		grayDarkest: _lucamug$elm_style_framework$Framework_Configuration$getColor('grayDarkest'),
+		muted: _lucamug$elm_style_framework$Framework_Configuration$getColor('muted'),
+		primary: _lucamug$elm_style_framework$Framework_Configuration$getColor('primary'),
+		success: _lucamug$elm_style_framework$Framework_Configuration$getColor('success'),
+		info: _lucamug$elm_style_framework$Framework_Configuration$getColor('info'),
+		warning: _lucamug$elm_style_framework$Framework_Configuration$getColor('warning'),
+		danger: _lucamug$elm_style_framework$Framework_Configuration$getColor('danger')
 	}
 };
 
@@ -27688,6 +28047,44 @@ var _lucamug$elm_style_framework$Framework_Spinner$introspection = {
 
 var _lucamug$elm_style_framework$Framework_Button$colorBorderDefault = _lucamug$elm_style_framework$Framework_Color$GrayLighter;
 var _lucamug$elm_style_framework$Framework_Button$colorDefault = _lucamug$elm_style_framework$Framework_Color$White;
+var _lucamug$elm_style_framework$Framework_Button$extraAttrForButtonWidth = function (buttonWidth) {
+	return {
+		ctor: '::',
+		_0: _mdgriffith$stylish_elephants$Element$htmlAttribute(
+			_elm_lang$html$Html_Attributes$style(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'width', _1: '100%'},
+					_1: {ctor: '[]'}
+				})),
+		_1: {
+			ctor: '::',
+			_0: _mdgriffith$stylish_elephants$Element$htmlAttribute(
+				_elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 'max-width',
+							_1: A2(
+								_elm_lang$core$Basics_ops['++'],
+								_elm_lang$core$Basics$toString(buttonWidth),
+								'px')
+						},
+						_1: {ctor: '[]'}
+					})),
+			_1: {
+				ctor: '::',
+				_0: _mdgriffith$stylish_elephants$Element_Font$center,
+				_1: {
+					ctor: '::',
+					_0: _mdgriffith$stylish_elephants$Element$centerX,
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	};
+};
 var _lucamug$elm_style_framework$Framework_Button$toButtonPadding = function (size) {
 	var _p0 = size;
 	switch (_p0.ctor) {
@@ -28008,42 +28405,7 @@ var _lucamug$elm_style_framework$Framework_Button$buttonWidth = F4(
 			A2(
 				_elm_lang$core$Basics_ops['++'],
 				_lucamug$elm_style_framework$Framework_Button$buttonAttr(modifiers),
-				{
-					ctor: '::',
-					_0: _mdgriffith$stylish_elephants$Element$htmlAttribute(
-						_elm_lang$html$Html_Attributes$style(
-							{
-								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 'width', _1: '100%'},
-								_1: {ctor: '[]'}
-							})),
-					_1: {
-						ctor: '::',
-						_0: _mdgriffith$stylish_elephants$Element$htmlAttribute(
-							_elm_lang$html$Html_Attributes$style(
-								{
-									ctor: '::',
-									_0: {
-										ctor: '_Tuple2',
-										_0: 'max-width',
-										_1: A2(
-											_elm_lang$core$Basics_ops['++'],
-											_elm_lang$core$Basics$toString(buttonWidth),
-											'px')
-									},
-									_1: {ctor: '[]'}
-								})),
-						_1: {
-							ctor: '::',
-							_0: _mdgriffith$stylish_elephants$Element_Font$center,
-							_1: {
-								ctor: '::',
-								_0: _mdgriffith$stylish_elephants$Element$centerX,
-								_1: {ctor: '[]'}
-							}
-						}
-					}
-				}),
+				_lucamug$elm_style_framework$Framework_Button$extraAttrForButtonWidth(buttonWidth)),
 			{
 				onPress: onPress,
 				label: _mdgriffith$stylish_elephants$Element$text(label)
@@ -28066,42 +28428,7 @@ var _lucamug$elm_style_framework$Framework_Button$buttonLinkWidth = F4(
 			A2(
 				_elm_lang$core$Basics_ops['++'],
 				_lucamug$elm_style_framework$Framework_Button$buttonAttr(modifiers),
-				{
-					ctor: '::',
-					_0: _mdgriffith$stylish_elephants$Element$htmlAttribute(
-						_elm_lang$html$Html_Attributes$style(
-							{
-								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 'width', _1: '100%'},
-								_1: {ctor: '[]'}
-							})),
-					_1: {
-						ctor: '::',
-						_0: _mdgriffith$stylish_elephants$Element$htmlAttribute(
-							_elm_lang$html$Html_Attributes$style(
-								{
-									ctor: '::',
-									_0: {
-										ctor: '_Tuple2',
-										_0: 'max-width',
-										_1: A2(
-											_elm_lang$core$Basics_ops['++'],
-											_elm_lang$core$Basics$toString(buttonWidth),
-											'px')
-									},
-									_1: {ctor: '[]'}
-								})),
-						_1: {
-							ctor: '::',
-							_0: _mdgriffith$stylish_elephants$Element_Font$center,
-							_1: {
-								ctor: '::',
-								_0: _mdgriffith$stylish_elephants$Element$centerX,
-								_1: {ctor: '[]'}
-							}
-						}
-					}
-				}),
+				_lucamug$elm_style_framework$Framework_Button$extraAttrForButtonWidth(buttonWidth)),
 			{
 				url: url,
 				label: _mdgriffith$stylish_elephants$Element$text(label)
@@ -30281,62 +30608,6 @@ var _lucamug$elm_style_framework$Framework_Icon$pencil = function (size) {
 			_1: {ctor: '[]'}
 		});
 };
-var _lucamug$elm_style_framework$Framework_Icon$points = function (size) {
-	return A2(
-		_elm_lang$svg$Svg$svg,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$style(
-				{
-					ctor: '::',
-					_0: {
-						ctor: '_Tuple2',
-						_0: 'height',
-						_1: A2(
-							_elm_lang$core$Basics_ops['++'],
-							_elm_lang$core$Basics$toString(size),
-							'px')
-					},
-					_1: {ctor: '[]'}
-				}),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 36.88 36.88'),
-				_1: {ctor: '[]'}
-			}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$svg$Svg$path,
-				{
-					ctor: '::',
-					_0: _elm_lang$svg$Svg_Attributes$fill('#040000'),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$svg$Svg_Attributes$d('M0 18.44A18.44 18.44 0 0 1 18.44 0a18.44 18.44 0 0 1 18.44 18.44 18.44 18.44 0 0 1-18.44 18.44A18.44 18.44 0 0 1 0 18.44zm2.66 0A15.8 15.8 0 0 0 18.44 34.2 15.8 15.8 0 0 0 34.2 18.45 15.8 15.8 0 0 0 18.45 2.67 15.8 15.8 0 0 0 2.66 18.44z'),
-						_1: {ctor: '[]'}
-					}
-				},
-				{ctor: '[]'}),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$svg$Svg$path,
-					{
-						ctor: '::',
-						_0: _elm_lang$svg$Svg_Attributes$fill('#040000'),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$svg$Svg_Attributes$d('M19.43 8.5a6.5 6.5 0 0 0-3.9 1.3v-.16a1.33 1.33 0 1 0-2.67 0V27.8a1.33 1.33 0 1 0 2.66 0v-7.5a6.56 6.56 0 1 0 3.9-11.8zm0 10.45a3.9 3.9 0 1 1 3.9-3.9 3.9 3.9 0 0 1-3.9 3.9z'),
-							_1: {ctor: '[]'}
-						}
-					},
-					{ctor: '[]'}),
-				_1: {ctor: '[]'}
-			}
-		});
-};
 var _lucamug$elm_style_framework$Framework_Icon$home = function (size) {
 	return A2(
 		_elm_lang$svg$Svg$svg,
@@ -30383,7 +30654,7 @@ var _lucamug$elm_style_framework$Framework_Icon$home = function (size) {
 		});
 };
 var _lucamug$elm_style_framework$Framework_Icon$arrows = F2(
-	function (size, color) {
+	function (size, _p1) {
 		return A2(
 			_elm_lang$svg$Svg$svg,
 			{
@@ -30413,8 +30684,8 @@ var _lucamug$elm_style_framework$Framework_Icon$icon = F2(
 	function (logo, size) {
 		return _mdgriffith$stylish_elephants$Element$html(
 			function () {
-				var _p1 = logo;
-				switch (_p1.ctor) {
+				var _p2 = logo;
+				switch (_p2.ctor) {
 					case 'Hide':
 						return A2(_lucamug$elm_style_framework$Framework_Icon$hide, size, '#999');
 					case 'Show':

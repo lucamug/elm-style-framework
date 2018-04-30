@@ -231,16 +231,21 @@ button modifiers onPress label =
         }
 
 
+extraAttrForButtonWidth : Int -> List (Attribute msg)
+extraAttrForButtonWidth buttonWidth =
+    [ Element.htmlAttribute (Html.Attributes.style [ ( "width", "100%" ) ])
+    , Element.htmlAttribute (Html.Attributes.style [ ( "max-width", toString buttonWidth ++ "px" ) ])
+    , Font.center
+    , centerX
+    ]
+
+
 {-| -}
 buttonWidth : List Modifier -> Maybe msg -> String -> Int -> Element msg
 buttonWidth modifiers onPress label buttonWidth =
     Input.button
         (buttonAttr modifiers
-            ++ [ Element.htmlAttribute (Html.Attributes.style [ ( "width", "100%" ) ])
-               , Element.htmlAttribute (Html.Attributes.style [ ( "max-width", toString buttonWidth ++ "px" ) ])
-               , Font.center
-               , centerX
-               ]
+            ++ extraAttrForButtonWidth buttonWidth
         )
         { onPress = onPress
         , label = text label
@@ -262,11 +267,7 @@ buttonLinkWidth : List Modifier -> String -> String -> Int -> Element msg
 buttonLinkWidth modifiers url label buttonWidth =
     link
         (buttonAttr modifiers
-            ++ [ Element.htmlAttribute (Html.Attributes.style [ ( "width", "100%" ) ])
-               , Element.htmlAttribute (Html.Attributes.style [ ( "max-width", toString buttonWidth ++ "px" ) ])
-               , Font.center
-               , centerX
-               ]
+            ++ extraAttrForButtonWidth buttonWidth
         )
         { url = url
         , label = text label
