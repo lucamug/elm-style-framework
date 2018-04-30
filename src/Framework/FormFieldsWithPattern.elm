@@ -16,6 +16,7 @@ import Element.Events as Events
 import Element.Font as Font
 import Element.Input as Input
 import Framework.Color exposing (Color(..), color)
+import Framework.Configuration exposing (conf)
 import Html.Attributes
 import Regex
 
@@ -210,9 +211,9 @@ inputText model { field, pattern, label } =
 
         moveDownPlaceHolder =
             if largeSize then
-                30
+                conf.moveDownPlaceHolder.large
             else
-                32
+                conf.moveDownPlaceHolder.small
 
         modelValue =
             case field of

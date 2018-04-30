@@ -1,3 +1,4 @@
+* Make all conf as string and use http://package.elm-lang.org/packages/eskimoblood/elm-color-extra/latest/Color-Convert#colorToHex to convert
 * Fix button Sizes
 * Create a Jumbo  button
 * Overwrite the Primary

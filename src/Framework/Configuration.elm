@@ -2,6 +2,8 @@ module Framework.Configuration exposing (conf)
 
 {-| List of values that you can change to costumize the aspect of the framwork
 
+This list is inspired by Bulma framework: <https://bulma.io/documentation/overview/variables/>
+
 
 # Functions
 
@@ -33,6 +35,7 @@ conf :
         , success : Color.Color
         , warning : Color.Color
         }
+    , moveDownPlaceHolder : { large : Float, small : Float }
     , sizes :
         { size1 : Float
         , size2 : Float
@@ -44,18 +47,15 @@ conf :
         }
     }
 conf =
-    { --https://bulma.io/documentation/modifiers/typography-helpers/
-      sizes =
-        { size1 = getSize "size1"
-        , size2 = getSize "size2"
-        , size3 = getSize "size3"
-        , size4 = getSize "size4"
-        , size5 = getSize "size5"
-        , size6 = getSize "size6"
-        , size7 = getSize "size7"
+    { sizes =
+        { size1 = getFloat "size1"
+        , size2 = getFloat "size2"
+        , size3 = getFloat "size3"
+        , size4 = getFloat "size4"
+        , size5 = getFloat "size5"
+        , size6 = getFloat "size6"
+        , size7 = getFloat "size7"
         }
-
-    -- https://bulma.io/documentation/modifiers/typography-helpers/
     , colors =
         { -- GRAY SCALE
           grayLightest = getColor "grayLightest"
@@ -76,37 +76,26 @@ conf =
         , warning = getColor "warning"
         , danger = getColor "danger"
         }
+    , moveDownPlaceHolder =
+        { large = getFloat "moveDownPlaceHolderLarge"
+        , small = getFloat "moveDownPlaceHolderSmall"
+        }
     }
 
 
-defaultSize : Float
-defaultSize =
-    1
+getFloat : String -> Float
+getFloat key =
+    Maybe.withDefault 1 (getValue key confFloat FrameworkConfiguration.confFloat)
 
 
-defaultColor : Color.Color
-defaultColor =
-    Color.rgb 0x00 0x00 0x00
-
-
-getSize : String -> Float
-getSize key =
-    case getValue key confSizes FrameworkConfiguration.confSizes of
-        Just value ->
-            value
-
-        Nothing ->
-            defaultSize
+getString : String -> String
+getString key =
+    Maybe.withDefault "" (getValue key confString FrameworkConfiguration.confString)
 
 
 getColor : String -> Color.Color
 getColor key =
-    case getValue key confColors FrameworkConfiguration.confColors of
-        Just value ->
-            value
-
-        Nothing ->
-            defaultColor
+    Maybe.withDefault (Color.rgb 0x00 0x00 0x00) (getValue key confColor FrameworkConfiguration.confColor)
 
 
 getValue :
@@ -135,8 +124,13 @@ getValue key original replacement =
                     Nothing
 
 
-confSizes : Dict.Dict String Float
-confSizes =
+hsl2 : Float -> Float -> Float -> Color.Color
+hsl2 a b c =
+    Color.hsl (degrees a) (b / 100) (c / 100)
+
+
+confFloat : Dict.Dict String Float
+confFloat =
     Dict.fromList
         [ -- Bulma sizes
           ( "size1", 3.0 )
@@ -146,16 +140,21 @@ confSizes =
         , ( "size5", 1.25 )
         , ( "size6", 1.0 )
         , ( "size7", 0.75 )
+
+        --
+        , ( "moveDownPlaceHolderLarge", 29 )
+        , ( "moveDownPlaceHolderSmall", 33 )
         ]
 
 
-hsl2 : Float -> Float -> Float -> Color.Color
-hsl2 a b c =
-    Color.hsl (degrees a) (b / 100) (c / 100)
+confString : Dict.Dict String String
+confString =
+    Dict.fromList
+        []
 
 
-confColors : Dict.Dict String Color.Color
-confColors =
+confColor : Dict.Dict String Color.Color
+confColor =
     Dict.fromList
         [ -- GRAY SCALE
           ( "grayLightest", Color.rgb 0xF7 0xF7 0xF7 )

@@ -26697,11 +26697,53 @@ var _mdgriffith$stylish_elephants$Element_Input$radio = _mdgriffith$stylish_elep
 var _mdgriffith$stylish_elephants$Element_Input$Row = {ctor: 'Row'};
 var _mdgriffith$stylish_elephants$Element_Input$radioRow = _mdgriffith$stylish_elephants$Element_Input$radioHelper(_mdgriffith$stylish_elephants$Element_Input$Row);
 
-var _lucamug$elm_style_framework$FrameworkConfiguration$confColors = _elm_lang$core$Dict$fromList(
+var _lucamug$elm_style_framework$FrameworkConfiguration$confString = _elm_lang$core$Dict$fromList(
 	{ctor: '[]'});
-var _lucamug$elm_style_framework$FrameworkConfiguration$confSizes = _elm_lang$core$Dict$fromList(
+var _lucamug$elm_style_framework$FrameworkConfiguration$confColor = _elm_lang$core$Dict$fromList(
+	{ctor: '[]'});
+var _lucamug$elm_style_framework$FrameworkConfiguration$confFloat = _elm_lang$core$Dict$fromList(
 	{ctor: '[]'});
 
+var _lucamug$elm_style_framework$Framework_Configuration$confString = _elm_lang$core$Dict$fromList(
+	{ctor: '[]'});
+var _lucamug$elm_style_framework$Framework_Configuration$confFloat = _elm_lang$core$Dict$fromList(
+	{
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'size1', _1: 3.0},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'size2', _1: 2.5},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'size3', _1: 2.0},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'size4', _1: 1.5},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'size5', _1: 1.25},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'size6', _1: 1.0},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'size7', _1: 0.75},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'moveDownPlaceHolderLarge', _1: 29},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'moveDownPlaceHolderSmall', _1: 33},
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	});
 var _lucamug$elm_style_framework$Framework_Configuration$hsl2 = F3(
 	function (a, b, c) {
 		return A3(
@@ -26710,7 +26752,7 @@ var _lucamug$elm_style_framework$Framework_Configuration$hsl2 = F3(
 			b / 100,
 			c / 100);
 	});
-var _lucamug$elm_style_framework$Framework_Configuration$confColors = _elm_lang$core$Dict$fromList(
+var _lucamug$elm_style_framework$Framework_Configuration$confColor = _elm_lang$core$Dict$fromList(
 	{
 		ctor: '::',
 		_0: {
@@ -26984,36 +27026,6 @@ var _lucamug$elm_style_framework$Framework_Configuration$confColors = _elm_lang$
 			}
 		}
 	});
-var _lucamug$elm_style_framework$Framework_Configuration$confSizes = _elm_lang$core$Dict$fromList(
-	{
-		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'size1', _1: 3.0},
-		_1: {
-			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'size2', _1: 2.5},
-			_1: {
-				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'size3', _1: 2.0},
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'size4', _1: 1.5},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'size5', _1: 1.25},
-						_1: {
-							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 'size6', _1: 1.0},
-							_1: {
-								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 'size7', _1: 0.75},
-								_1: {ctor: '[]'}
-							}
-						}
-					}
-				}
-			}
-		}
-	});
 var _lucamug$elm_style_framework$Framework_Configuration$getValue = F3(
 	function (key, original, replacement) {
 		var orig = A2(_elm_lang$core$Dict$get, key, original);
@@ -27030,33 +27042,33 @@ var _lucamug$elm_style_framework$Framework_Configuration$getValue = F3(
 			}
 		}
 	});
-var _lucamug$elm_style_framework$Framework_Configuration$defaultColor = A3(_elm_lang$core$Color$rgb, 0, 0, 0);
 var _lucamug$elm_style_framework$Framework_Configuration$getColor = function (key) {
-	var _p2 = A3(_lucamug$elm_style_framework$Framework_Configuration$getValue, key, _lucamug$elm_style_framework$Framework_Configuration$confColors, _lucamug$elm_style_framework$FrameworkConfiguration$confColors);
-	if (_p2.ctor === 'Just') {
-		return _p2._0;
-	} else {
-		return _lucamug$elm_style_framework$Framework_Configuration$defaultColor;
-	}
+	return A2(
+		_elm_lang$core$Maybe$withDefault,
+		A3(_elm_lang$core$Color$rgb, 0, 0, 0),
+		A3(_lucamug$elm_style_framework$Framework_Configuration$getValue, key, _lucamug$elm_style_framework$Framework_Configuration$confColor, _lucamug$elm_style_framework$FrameworkConfiguration$confColor));
 };
-var _lucamug$elm_style_framework$Framework_Configuration$defaultSize = 1;
-var _lucamug$elm_style_framework$Framework_Configuration$getSize = function (key) {
-	var _p3 = A3(_lucamug$elm_style_framework$Framework_Configuration$getValue, key, _lucamug$elm_style_framework$Framework_Configuration$confSizes, _lucamug$elm_style_framework$FrameworkConfiguration$confSizes);
-	if (_p3.ctor === 'Just') {
-		return _p3._0;
-	} else {
-		return _lucamug$elm_style_framework$Framework_Configuration$defaultSize;
-	}
+var _lucamug$elm_style_framework$Framework_Configuration$getString = function (key) {
+	return A2(
+		_elm_lang$core$Maybe$withDefault,
+		'',
+		A3(_lucamug$elm_style_framework$Framework_Configuration$getValue, key, _lucamug$elm_style_framework$Framework_Configuration$confString, _lucamug$elm_style_framework$FrameworkConfiguration$confString));
+};
+var _lucamug$elm_style_framework$Framework_Configuration$getFloat = function (key) {
+	return A2(
+		_elm_lang$core$Maybe$withDefault,
+		1,
+		A3(_lucamug$elm_style_framework$Framework_Configuration$getValue, key, _lucamug$elm_style_framework$Framework_Configuration$confFloat, _lucamug$elm_style_framework$FrameworkConfiguration$confFloat));
 };
 var _lucamug$elm_style_framework$Framework_Configuration$conf = {
 	sizes: {
-		size1: _lucamug$elm_style_framework$Framework_Configuration$getSize('size1'),
-		size2: _lucamug$elm_style_framework$Framework_Configuration$getSize('size2'),
-		size3: _lucamug$elm_style_framework$Framework_Configuration$getSize('size3'),
-		size4: _lucamug$elm_style_framework$Framework_Configuration$getSize('size4'),
-		size5: _lucamug$elm_style_framework$Framework_Configuration$getSize('size5'),
-		size6: _lucamug$elm_style_framework$Framework_Configuration$getSize('size6'),
-		size7: _lucamug$elm_style_framework$Framework_Configuration$getSize('size7')
+		size1: _lucamug$elm_style_framework$Framework_Configuration$getFloat('size1'),
+		size2: _lucamug$elm_style_framework$Framework_Configuration$getFloat('size2'),
+		size3: _lucamug$elm_style_framework$Framework_Configuration$getFloat('size3'),
+		size4: _lucamug$elm_style_framework$Framework_Configuration$getFloat('size4'),
+		size5: _lucamug$elm_style_framework$Framework_Configuration$getFloat('size5'),
+		size6: _lucamug$elm_style_framework$Framework_Configuration$getFloat('size6'),
+		size7: _lucamug$elm_style_framework$Framework_Configuration$getFloat('size7')
 	},
 	colors: {
 		grayLightest: _lucamug$elm_style_framework$Framework_Configuration$getColor('grayLightest'),
@@ -27074,6 +27086,10 @@ var _lucamug$elm_style_framework$Framework_Configuration$conf = {
 		info: _lucamug$elm_style_framework$Framework_Configuration$getColor('info'),
 		warning: _lucamug$elm_style_framework$Framework_Configuration$getColor('warning'),
 		danger: _lucamug$elm_style_framework$Framework_Configuration$getColor('danger')
+	},
+	moveDownPlaceHolder: {
+		large: _lucamug$elm_style_framework$Framework_Configuration$getFloat('moveDownPlaceHolderLarge'),
+		small: _lucamug$elm_style_framework$Framework_Configuration$getFloat('moveDownPlaceHolderSmall')
 	}
 };
 
@@ -29961,7 +29977,7 @@ var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$inputText = F2(
 				_1: {ctor: '[]'}
 			}
 		} : {ctor: '[]'};
-		var moveDownPlaceHolder = largeSize ? 30 : 32;
+		var moveDownPlaceHolder = largeSize ? _lucamug$elm_style_framework$Framework_Configuration$conf.moveDownPlaceHolder.large : _lucamug$elm_style_framework$Framework_Configuration$conf.moveDownPlaceHolder.small;
 		var labelIsAbove = A2(_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$hasFocus, model, _p6) || ((!_elm_lang$core$Native_Utils.eq(modelValue, '')) || largeSize);
 		var lengthDifference = _elm_lang$core$String$length(_p7) - _elm_lang$core$String$length(modelValue);
 		var patternToShow = A2(
