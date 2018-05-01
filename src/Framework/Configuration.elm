@@ -13,7 +13,6 @@ This list is inspired by Bulma framework: <https://bulma.io/documentation/overvi
 
 import Color
 import ColorMath.Hex8
-import ColorMath.Scaling
 import Dict
 import FrameworkConfiguration
 
@@ -159,7 +158,7 @@ conf =
         , link_active_border = getColor "link_active_border"
 
         -- Transparent
-        , transparent = getColor "link_active_border"
+        , transparent = getColor "transparent"
         , muted = getColor "muted"
         }
     , moveDownPlaceHolder =
@@ -194,7 +193,16 @@ getFloat key =
 
 hexToColor : String -> Color.Color
 hexToColor hex =
-    case ColorMath.Hex8.toColor <| hex of
+    let
+        newHex =
+            if String.length hex == 6 || String.length hex == 7 then
+                hex ++ "ff"
+            else if String.length hex == 3 || String.length hex == 4 then
+                hex ++ "f"
+            else
+                hex
+    in
+    case ColorMath.Hex8.toColor <| newHex of
         Ok value ->
             value
 
@@ -308,7 +316,8 @@ findColorInvert : String -> String
 findColorInvert color =
     color
         |> hexToColor
-        |> ColorMath.Scaling.rotateHue 0.5
+        |> Color.complement
+        -- |> ColorMath.Scaling.rotateHue 0.5
         |> ColorMath.Hex8.fromColor
 
 
@@ -437,6 +446,6 @@ configuration =
         , ( "moveDownPlaceHolderSmall", "33" )
 
         -- Transparent
-        , ( "transparent", hsl2ToString 0 0 0 )
+        , ( "transparent", "#ffffff00" )
         , ( "muted", bulmaColor.grey_light )
         ]

@@ -3168,15 +3168,6 @@ var _elm_lang$core$Platform$Task = {ctor: 'Task'};
 var _elm_lang$core$Platform$ProcessId = {ctor: 'ProcessId'};
 var _elm_lang$core$Platform$Router = {ctor: 'Router'};
 
-var _danielnarey$elm_color_math$ColorMath$Rgba = F4(
-	function (a, b, c, d) {
-		return {red: a, green: b, blue: c, alpha: d};
-	});
-var _danielnarey$elm_color_math$ColorMath$Hsla = F4(
-	function (a, b, c, d) {
-		return {hue: a, saturation: b, lightness: c, alpha: d};
-	});
-
 var _danielnarey$elm_toolkit$Toolkit_Function$uncurry4 = F2(
 	function (f, _p0) {
 		var _p1 = _p0;
@@ -6379,451 +6370,6 @@ var _danielnarey$elm_color_math$ColorMath_Hex8$fromColor = function (_p12) {
 					}
 				},
 				_elm_lang$core$Color$toRgb(_p12))));
-};
-
-var _danielnarey$elm_color_math$ColorMath_Hsla$getAlpha = function (_p0) {
-	return function (_) {
-		return _.alpha;
-	}(
-		_elm_lang$core$Color$toHsl(_p0));
-};
-var _danielnarey$elm_color_math$ColorMath_Hsla$getLightness = function (_p1) {
-	return function (_) {
-		return _.lightness;
-	}(
-		_elm_lang$core$Color$toHsl(_p1));
-};
-var _danielnarey$elm_color_math$ColorMath_Hsla$checkForNaN = function (value) {
-	var _p2 = _elm_lang$core$Basics$isNaN(value);
-	if (_p2 === true) {
-		return 0;
-	} else {
-		return value;
-	}
-};
-var _danielnarey$elm_color_math$ColorMath_Hsla$getHue = function (_p3) {
-	return A2(
-		F2(
-			function (x, y) {
-				return x * y;
-			}),
-		180 / _elm_lang$core$Basics$pi,
-		_danielnarey$elm_color_math$ColorMath_Hsla$checkForNaN(
-			function (_) {
-				return _.hue;
-			}(
-				_elm_lang$core$Color$toHsl(_p3))));
-};
-var _danielnarey$elm_color_math$ColorMath_Hsla$getSaturation = function (_p4) {
-	return _danielnarey$elm_color_math$ColorMath_Hsla$checkForNaN(
-		function (_) {
-			return _.saturation;
-		}(
-			_elm_lang$core$Color$toHsl(_p4)));
-};
-var _danielnarey$elm_color_math$ColorMath_Hsla$toColor = function (_p5) {
-	return A2(
-		_danielnarey$elm_toolkit$Toolkit_Function$uncurry4,
-		_elm_lang$core$Color$hsla,
-		A2(
-			_danielnarey$elm_toolkit$Toolkit_Function$apply4,
-			{
-				ctor: '_Tuple4',
-				_0: function (_p6) {
-					return A3(
-						_elm_lang$core$Basics$clamp,
-						_elm_lang$core$Basics$degrees(0),
-						_elm_lang$core$Basics$degrees(360),
-						_danielnarey$elm_color_math$ColorMath_Hsla$checkForNaN(
-							function (_) {
-								return _.hue;
-							}(_p6)));
-				},
-				_1: function (_p7) {
-					return A3(
-						_elm_lang$core$Basics$clamp,
-						0,
-						1,
-						_danielnarey$elm_color_math$ColorMath_Hsla$checkForNaN(
-							function (_) {
-								return _.saturation;
-							}(_p7)));
-				},
-				_2: function (_p8) {
-					return A3(
-						_elm_lang$core$Basics$clamp,
-						0,
-						1,
-						function (_) {
-							return _.lightness;
-						}(_p8));
-				},
-				_3: function (_p9) {
-					return A3(
-						_elm_lang$core$Basics$clamp,
-						0,
-						1,
-						function (_) {
-							return _.alpha;
-						}(_p9));
-				}
-			},
-			_p5));
-};
-var _danielnarey$elm_color_math$ColorMath_Hsla$setHue = function (value) {
-	var updateHue = F2(
-		function (h, hsla) {
-			return _elm_lang$core$Native_Utils.update(
-				hsla,
-				{hue: h});
-		});
-	return function (_p10) {
-		return _danielnarey$elm_color_math$ColorMath_Hsla$toColor(
-			A2(
-				updateHue,
-				_elm_lang$core$Basics$degrees(
-					A3(_elm_lang$core$Basics$clamp, 0, 360, value)),
-				_elm_lang$core$Color$toHsl(_p10)));
-	};
-};
-var _danielnarey$elm_color_math$ColorMath_Hsla$setSaturation = function (value) {
-	var updateSaturation = F2(
-		function (s, hsla) {
-			return _elm_lang$core$Native_Utils.update(
-				hsla,
-				{saturation: s});
-		});
-	return function (_p11) {
-		return _danielnarey$elm_color_math$ColorMath_Hsla$toColor(
-			A2(
-				updateSaturation,
-				A3(_elm_lang$core$Basics$clamp, 0, 1, value),
-				_elm_lang$core$Color$toHsl(_p11)));
-	};
-};
-var _danielnarey$elm_color_math$ColorMath_Hsla$setLightness = function (value) {
-	var updateLightness = F2(
-		function (l, hsla) {
-			return _elm_lang$core$Native_Utils.update(
-				hsla,
-				{lightness: l});
-		});
-	return function (_p12) {
-		return _danielnarey$elm_color_math$ColorMath_Hsla$toColor(
-			A2(
-				updateLightness,
-				A3(_elm_lang$core$Basics$clamp, 0, 1, value),
-				_elm_lang$core$Color$toHsl(_p12)));
-	};
-};
-var _danielnarey$elm_color_math$ColorMath_Hsla$setAlpha = function (value) {
-	var updateAlpha = F2(
-		function (a, hsla) {
-			return _elm_lang$core$Native_Utils.update(
-				hsla,
-				{alpha: a});
-		});
-	return function (_p13) {
-		return _danielnarey$elm_color_math$ColorMath_Hsla$toColor(
-			A2(
-				updateAlpha,
-				A3(_elm_lang$core$Basics$clamp, 0, 1, value),
-				_elm_lang$core$Color$toHsl(_p13)));
-	};
-};
-
-var _danielnarey$elm_color_math$ColorMath_Scaling$scaleToAqua = function (amount) {
-	var scaleFunction = F2(
-		function (amount, hsl) {
-			return _elm_lang$core$Native_Utils.update(
-				hsl,
-				{
-					hue: (_elm_lang$core$Native_Utils.cmp(
-						hsl.hue,
-						_elm_lang$core$Basics$degrees(180)) < 1) ? A2(
-						F2(
-							function (x, y) {
-								return x + y;
-							}),
-						hsl.hue,
-						A2(
-							F2(
-								function (x, y) {
-									return x * y;
-								}),
-							amount,
-							_elm_lang$core$Basics$degrees(180) - hsl.hue)) : A2(
-						F2(
-							function (x, y) {
-								return x - y;
-							}),
-						hsl.hue,
-						A2(
-							F2(
-								function (x, y) {
-									return x * y;
-								}),
-							amount,
-							hsl.hue - _elm_lang$core$Basics$degrees(180)))
-				});
-		});
-	return function (_p0) {
-		return _danielnarey$elm_color_math$ColorMath_Hsla$toColor(
-			A2(
-				scaleFunction,
-				A3(_elm_lang$core$Basics$clamp, 0, 1, amount),
-				_elm_lang$core$Color$toHsl(_p0)));
-	};
-};
-var _danielnarey$elm_color_math$ColorMath_Scaling$scaleToRed = function (amount) {
-	var scaleFunction = F2(
-		function (amount, hsl) {
-			return _elm_lang$core$Native_Utils.update(
-				hsl,
-				{
-					hue: (_elm_lang$core$Native_Utils.cmp(
-						hsl.hue,
-						_elm_lang$core$Basics$degrees(180)) > -1) ? A2(
-						F2(
-							function (x, y) {
-								return x + y;
-							}),
-						hsl.hue,
-						A2(
-							F2(
-								function (x, y) {
-									return x * y;
-								}),
-							amount,
-							_elm_lang$core$Basics$degrees(360) - hsl.hue)) : A2(
-						F2(
-							function (x, y) {
-								return x - y;
-							}),
-						hsl.hue,
-						A2(
-							F2(
-								function (x, y) {
-									return x * y;
-								}),
-							amount,
-							hsl.hue))
-				});
-		});
-	return function (_p1) {
-		return _danielnarey$elm_color_math$ColorMath_Hsla$toColor(
-			A2(
-				scaleFunction,
-				A3(_elm_lang$core$Basics$clamp, 0, 1, amount),
-				_elm_lang$core$Color$toHsl(_p1)));
-	};
-};
-var _danielnarey$elm_color_math$ColorMath_Scaling$rotateHue = function (amount) {
-	var shiftHue = F2(
-		function (amount, hsl) {
-			return _elm_lang$core$Native_Utils.update(
-				hsl,
-				{
-					hue: (_elm_lang$core$Native_Utils.cmp(hsl.hue + amount, 0) < 0) ? A2(
-						F2(
-							function (x, y) {
-								return x + y;
-							}),
-						_elm_lang$core$Basics$degrees(360),
-						hsl.hue + amount) : ((_elm_lang$core$Native_Utils.cmp(
-						hsl.hue + amount,
-						_elm_lang$core$Basics$degrees(360)) > 0) ? A3(
-						_elm_lang$core$Basics$flip,
-						F2(
-							function (x, y) {
-								return x - y;
-							}),
-						_elm_lang$core$Basics$degrees(360),
-						hsl.hue + amount) : (hsl.hue + amount))
-				});
-		});
-	return function (_p2) {
-		return _danielnarey$elm_color_math$ColorMath_Hsla$toColor(
-			A2(
-				shiftHue,
-				_elm_lang$core$Basics$turns(
-					A3(_elm_lang$core$Basics$clamp, -1, 1, amount)),
-				_elm_lang$core$Color$toHsl(_p2)));
-	};
-};
-var _danielnarey$elm_color_math$ColorMath_Scaling$moreTransparent = function (amount) {
-	var scaleFunction = F2(
-		function (amount, hsl) {
-			return _elm_lang$core$Native_Utils.update(
-				hsl,
-				{
-					alpha: A2(
-						F2(
-							function (x, y) {
-								return x - y;
-							}),
-						hsl.alpha,
-						A2(
-							F2(
-								function (x, y) {
-									return x * y;
-								}),
-							amount,
-							hsl.alpha))
-				});
-		});
-	return function (_p3) {
-		return _danielnarey$elm_color_math$ColorMath_Hsla$toColor(
-			A2(
-				scaleFunction,
-				A3(_elm_lang$core$Basics$clamp, 0, 1, amount),
-				_elm_lang$core$Color$toHsl(_p3)));
-	};
-};
-var _danielnarey$elm_color_math$ColorMath_Scaling$moreOpaque = function (amount) {
-	var scaleFunction = F2(
-		function (amount, hsl) {
-			return _elm_lang$core$Native_Utils.update(
-				hsl,
-				{
-					alpha: A2(
-						F2(
-							function (x, y) {
-								return x + y;
-							}),
-						hsl.alpha,
-						A2(
-							F2(
-								function (x, y) {
-									return x * y;
-								}),
-							amount,
-							1 - hsl.alpha))
-				});
-		});
-	return function (_p4) {
-		return _danielnarey$elm_color_math$ColorMath_Hsla$toColor(
-			A2(
-				scaleFunction,
-				A3(_elm_lang$core$Basics$clamp, 0, 1, amount),
-				_elm_lang$core$Color$toHsl(_p4)));
-	};
-};
-var _danielnarey$elm_color_math$ColorMath_Scaling$desaturate = function (amount) {
-	var scaleFunction = F2(
-		function (amount, hsl) {
-			return _elm_lang$core$Native_Utils.update(
-				hsl,
-				{
-					saturation: A2(
-						F2(
-							function (x, y) {
-								return x - y;
-							}),
-						hsl.saturation,
-						A2(
-							F2(
-								function (x, y) {
-									return x * y;
-								}),
-							amount,
-							hsl.saturation))
-				});
-		});
-	return function (_p5) {
-		return _danielnarey$elm_color_math$ColorMath_Hsla$toColor(
-			A2(
-				scaleFunction,
-				A3(_elm_lang$core$Basics$clamp, 0, 1, amount),
-				_elm_lang$core$Color$toHsl(_p5)));
-	};
-};
-var _danielnarey$elm_color_math$ColorMath_Scaling$saturate = function (amount) {
-	var scaleFunction = F2(
-		function (amount, hsl) {
-			return _elm_lang$core$Native_Utils.update(
-				hsl,
-				{
-					saturation: A2(
-						F2(
-							function (x, y) {
-								return x + y;
-							}),
-						hsl.saturation,
-						A2(
-							F2(
-								function (x, y) {
-									return x * y;
-								}),
-							amount,
-							1 - hsl.saturation))
-				});
-		});
-	return function (_p6) {
-		return _danielnarey$elm_color_math$ColorMath_Hsla$toColor(
-			A2(
-				scaleFunction,
-				A3(_elm_lang$core$Basics$clamp, 0, 1, amount),
-				_elm_lang$core$Color$toHsl(_p6)));
-	};
-};
-var _danielnarey$elm_color_math$ColorMath_Scaling$darken = function (amount) {
-	var scaleFunction = F2(
-		function (amount, hsl) {
-			return _elm_lang$core$Native_Utils.update(
-				hsl,
-				{
-					lightness: A2(
-						F2(
-							function (x, y) {
-								return x - y;
-							}),
-						hsl.lightness,
-						A2(
-							F2(
-								function (x, y) {
-									return x * y;
-								}),
-							amount,
-							hsl.lightness))
-				});
-		});
-	return function (_p7) {
-		return _danielnarey$elm_color_math$ColorMath_Hsla$toColor(
-			A2(
-				scaleFunction,
-				A3(_elm_lang$core$Basics$clamp, 0, 1, amount),
-				_elm_lang$core$Color$toHsl(_p7)));
-	};
-};
-var _danielnarey$elm_color_math$ColorMath_Scaling$lighten = function (amount) {
-	var scaleFunction = F2(
-		function (amount, hsl) {
-			return _elm_lang$core$Native_Utils.update(
-				hsl,
-				{
-					lightness: A2(
-						F2(
-							function (x, y) {
-								return x + y;
-							}),
-						hsl.lightness,
-						A2(
-							F2(
-								function (x, y) {
-									return x * y;
-								}),
-							amount,
-							1 - hsl.lightness))
-				});
-		});
-	return function (_p8) {
-		return _danielnarey$elm_color_math$ColorMath_Hsla$toColor(
-			A2(
-				scaleFunction,
-				A3(_elm_lang$core$Basics$clamp, 0, 1, amount),
-				_elm_lang$core$Color$toHsl(_p8)));
-	};
 };
 
 var _elm_lang$core$Task$onError = _elm_lang$core$Native_Scheduler.onError;
@@ -28120,7 +27666,11 @@ var _mdgriffith$stylish_elephants$Element_Input$Row = {ctor: 'Row'};
 var _mdgriffith$stylish_elephants$Element_Input$radioRow = _mdgriffith$stylish_elephants$Element_Input$radioHelper(_mdgriffith$stylish_elephants$Element_Input$Row);
 
 var _lucamug$elm_style_framework$FrameworkConfiguration$configuration = _elm_lang$core$Dict$fromList(
-	{ctor: '[]'});
+	{
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'primary', _1: '#00d1b2'},
+		_1: {ctor: '[]'}
+	});
 
 var _lucamug$elm_style_framework$Framework_Configuration$bulmaSizes = {size1: '3.00', size2: '2.50', size3: '2.00', size4: '1.50', size5: '1.25', size6: '1.00', size7: '0.75'};
 var _lucamug$elm_style_framework$Framework_Configuration$hsl2ToString = F3(
@@ -28170,7 +27720,16 @@ var _lucamug$elm_style_framework$Framework_Configuration$getValue = F3(
 		}
 	});
 var _lucamug$elm_style_framework$Framework_Configuration$hexToColor = function (hex) {
-	var _p2 = _danielnarey$elm_color_math$ColorMath_Hex8$toColor(hex);
+	var newHex = (_elm_lang$core$Native_Utils.eq(
+		_elm_lang$core$String$length(hex),
+		6) || _elm_lang$core$Native_Utils.eq(
+		_elm_lang$core$String$length(hex),
+		7)) ? A2(_elm_lang$core$Basics_ops['++'], hex, 'ff') : ((_elm_lang$core$Native_Utils.eq(
+		_elm_lang$core$String$length(hex),
+		3) || _elm_lang$core$Native_Utils.eq(
+		_elm_lang$core$String$length(hex),
+		4)) ? A2(_elm_lang$core$Basics_ops['++'], hex, 'f') : hex);
+	var _p2 = _danielnarey$elm_color_math$ColorMath_Hex8$toColor(newHex);
 	if (_p2.ctor === 'Ok') {
 		return _p2._0;
 	} else {
@@ -28179,9 +27738,7 @@ var _lucamug$elm_style_framework$Framework_Configuration$hexToColor = function (
 };
 var _lucamug$elm_style_framework$Framework_Configuration$findColorInvert = function (color) {
 	return _danielnarey$elm_color_math$ColorMath_Hex8$fromColor(
-		A2(
-			_danielnarey$elm_color_math$ColorMath_Scaling$rotateHue,
-			0.5,
+		_elm_lang$core$Color$complement(
 			_lucamug$elm_style_framework$Framework_Configuration$hexToColor(color)));
 };
 var _lucamug$elm_style_framework$Framework_Configuration$configuration = _elm_lang$core$Dict$fromList(
@@ -28440,11 +27997,7 @@ var _lucamug$elm_style_framework$Framework_Configuration$configuration = _elm_la
 																																																																_0: {ctor: '_Tuple2', _0: 'moveDownPlaceHolderSmall', _1: '33'},
 																																																																_1: {
 																																																																	ctor: '::',
-																																																																	_0: {
-																																																																		ctor: '_Tuple2',
-																																																																		_0: 'transparent',
-																																																																		_1: A3(_lucamug$elm_style_framework$Framework_Configuration$hsl2ToString, 0, 0, 0)
-																																																																	},
+																																																																	_0: {ctor: '_Tuple2', _0: 'transparent', _1: '#ffffff00'},
 																																																																	_1: {
 																																																																		ctor: '::',
 																																																																		_0: {ctor: '_Tuple2', _0: 'muted', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.grey_light},
@@ -28594,7 +28147,7 @@ var _lucamug$elm_style_framework$Framework_Configuration$conf = {
 		link_focus_border: _lucamug$elm_style_framework$Framework_Configuration$getColor('link_focus_border'),
 		link_active: _lucamug$elm_style_framework$Framework_Configuration$getColor('link_active'),
 		link_active_border: _lucamug$elm_style_framework$Framework_Configuration$getColor('link_active_border'),
-		transparent: _lucamug$elm_style_framework$Framework_Configuration$getColor('link_active_border'),
+		transparent: _lucamug$elm_style_framework$Framework_Configuration$getColor('transparent'),
 		muted: _lucamug$elm_style_framework$Framework_Configuration$getColor('muted')
 	},
 	moveDownPlaceHolder: {
@@ -28655,7 +28208,7 @@ var _lucamug$elm_style_framework$Framework_Color$norm57 = function (value) {
 var _lucamug$elm_style_framework$Framework_Color$norm100 = function (value) {
 	return _elm_lang$core$Basics$round(value * 100);
 };
-var _lucamug$elm_style_framework$Framework_Color$colorToHsl = function (cl) {
+var _lucamug$elm_style_framework$Framework_Color$colorToHsl2 = function (cl) {
 	var _p1 = _elm_lang$core$Color$toHsl(cl);
 	var hue = _p1.hue;
 	var saturation = _p1.saturation;
@@ -28665,34 +28218,46 @@ var _lucamug$elm_style_framework$Framework_Color$colorToHsl = function (cl) {
 		_elm_lang$core$Basics$toString(hue),
 		'NaN') ? 0 : hue;
 	return A2(
-		F2(
-			function (x, y) {
-				return A2(_elm_lang$core$Basics_ops['++'], x, y);
-			}),
-		'Hsl ',
+		_elm_lang$core$Basics_ops['++'],
+		'hsla(',
 		A2(
-			_elm_lang$core$String$join,
-			'-',
+			_elm_lang$core$Basics_ops['++'],
 			A2(
-				_elm_lang$core$List$map,
-				_elm_lang$core$Basics$toString,
+				_elm_lang$core$String$join,
+				', ',
 				{
 					ctor: '::',
-					_0: _lucamug$elm_style_framework$Framework_Color$norm57(hue2),
+					_0: _elm_lang$core$Basics$toString(
+						_lucamug$elm_style_framework$Framework_Color$norm57(hue2)),
 					_1: {
 						ctor: '::',
-						_0: _lucamug$elm_style_framework$Framework_Color$norm100(saturation),
+						_0: A2(
+							_elm_lang$core$Basics_ops['++'],
+							_elm_lang$core$Basics$toString(
+								_lucamug$elm_style_framework$Framework_Color$norm100(saturation)),
+							'%'),
 						_1: {
 							ctor: '::',
-							_0: _lucamug$elm_style_framework$Framework_Color$norm100(lightness),
+							_0: A2(
+								_elm_lang$core$Basics_ops['++'],
+								_elm_lang$core$Basics$toString(
+									_lucamug$elm_style_framework$Framework_Color$norm100(lightness)),
+								'%'),
 							_1: {
 								ctor: '::',
-								_0: _lucamug$elm_style_framework$Framework_Color$norm100(alpha),
+								_0: _elm_lang$core$Basics$toString(
+									_elm_lang$core$Basics$toFloat(
+										_lucamug$elm_style_framework$Framework_Color$norm100(alpha)) / 100),
 								_1: {ctor: '[]'}
 							}
 						}
 					}
-				})));
+				}),
+			')'));
+};
+var _lucamug$elm_style_framework$Framework_Color$intensity = function (c) {
+	var rgb = _elm_lang$core$Color$toRgb(c);
+	return ((_elm_lang$core$Basics$toFloat(rgb.red) * 0.299) + (_elm_lang$core$Basics$toFloat(rgb.green) * 0.587)) + (_elm_lang$core$Basics$toFloat(rgb.blue) * 0.114);
 };
 var _lucamug$elm_style_framework$Framework_Color$saturate = F2(
 	function (quantity, cl) {
@@ -28712,8 +28277,9 @@ var _lucamug$elm_style_framework$Framework_Color$lighten = F2(
 	});
 var _lucamug$elm_style_framework$Framework_Color$color = _lucamug$elm_style_framework$Framework_Configuration$conf.colors;
 var _lucamug$elm_style_framework$Framework_Color$maximumContrast = function (c) {
-	var hsl = _elm_lang$core$Color$toHsl(c);
-	return (_elm_lang$core$Native_Utils.cmp(hsl.lightness, 0.7) < 0) ? _lucamug$elm_style_framework$Framework_Color$color.white : _lucamug$elm_style_framework$Framework_Color$color.black;
+	return (_elm_lang$core$Native_Utils.cmp(
+		_lucamug$elm_style_framework$Framework_Color$intensity(c),
+		186) < 0) ? _lucamug$elm_style_framework$Framework_Color$color.white : _lucamug$elm_style_framework$Framework_Color$color.black;
 };
 var _lucamug$elm_style_framework$Framework_Color$usageWrapper = function (cl) {
 	return A2(
@@ -28751,7 +28317,7 @@ var _lucamug$elm_style_framework$Framework_Color$usageWrapper = function (cl) {
 				_1: {
 					ctor: '::',
 					_0: _mdgriffith$stylish_elephants$Element$text(
-						_lucamug$elm_style_framework$Framework_Color$colorToHsl(cl)),
+						_lucamug$elm_style_framework$Framework_Color$colorToHsl2(cl)),
 					_1: {ctor: '[]'}
 				}
 			}));
@@ -29205,7 +28771,31 @@ var _lucamug$elm_style_framework$Framework_Color$introspection = {
 									}
 								}
 							},
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: 'Others',
+									_1: {
+										ctor: '::',
+										_0: {
+											ctor: '_Tuple2',
+											_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.transparent),
+											_1: 'color.transparent'
+										},
+										_1: {
+											ctor: '::',
+											_0: {
+												ctor: '_Tuple2',
+												_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.muted),
+												_1: 'color.muted'
+											},
+											_1: {ctor: '[]'}
+										}
+									}
+								},
+								_1: {ctor: '[]'}
+							}
 						}
 					}
 				}
@@ -29214,19 +28804,19 @@ var _lucamug$elm_style_framework$Framework_Color$introspection = {
 	}
 };
 
-var _lucamug$elm_style_framework$Framework_Modifiers$Disabled = {ctor: 'Disabled'};
-var _lucamug$elm_style_framework$Framework_Modifiers$Waiting = {ctor: 'Waiting'};
-var _lucamug$elm_style_framework$Framework_Modifiers$Loading = {ctor: 'Loading'};
-var _lucamug$elm_style_framework$Framework_Modifiers$Outlined = {ctor: 'Outlined'};
-var _lucamug$elm_style_framework$Framework_Modifiers$Large = {ctor: 'Large'};
-var _lucamug$elm_style_framework$Framework_Modifiers$Medium = {ctor: 'Medium'};
-var _lucamug$elm_style_framework$Framework_Modifiers$Small = {ctor: 'Small'};
-var _lucamug$elm_style_framework$Framework_Modifiers$Danger = {ctor: 'Danger'};
-var _lucamug$elm_style_framework$Framework_Modifiers$Warning = {ctor: 'Warning'};
-var _lucamug$elm_style_framework$Framework_Modifiers$Info = {ctor: 'Info'};
-var _lucamug$elm_style_framework$Framework_Modifiers$Success = {ctor: 'Success'};
-var _lucamug$elm_style_framework$Framework_Modifiers$Primary = {ctor: 'Primary'};
-var _lucamug$elm_style_framework$Framework_Modifiers$Muted = {ctor: 'Muted'};
+var _lucamug$elm_style_framework$Framework_Modifier$Disabled = {ctor: 'Disabled'};
+var _lucamug$elm_style_framework$Framework_Modifier$Waiting = {ctor: 'Waiting'};
+var _lucamug$elm_style_framework$Framework_Modifier$Loading = {ctor: 'Loading'};
+var _lucamug$elm_style_framework$Framework_Modifier$Outlined = {ctor: 'Outlined'};
+var _lucamug$elm_style_framework$Framework_Modifier$Large = {ctor: 'Large'};
+var _lucamug$elm_style_framework$Framework_Modifier$Medium = {ctor: 'Medium'};
+var _lucamug$elm_style_framework$Framework_Modifier$Small = {ctor: 'Small'};
+var _lucamug$elm_style_framework$Framework_Modifier$Danger = {ctor: 'Danger'};
+var _lucamug$elm_style_framework$Framework_Modifier$Warning = {ctor: 'Warning'};
+var _lucamug$elm_style_framework$Framework_Modifier$Info = {ctor: 'Info'};
+var _lucamug$elm_style_framework$Framework_Modifier$Success = {ctor: 'Success'};
+var _lucamug$elm_style_framework$Framework_Modifier$Primary = {ctor: 'Primary'};
+var _lucamug$elm_style_framework$Framework_Modifier$Muted = {ctor: 'Muted'};
 
 var _lucamug$elm_style_framework$Framework_Spinner$spinnerRotationHtml = F2(
 	function (size, color) {
@@ -30159,13 +29749,13 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 			_lucamug$elm_style_framework$Framework_Button$button,
 			{
 				ctor: '::',
-				_0: _lucamug$elm_style_framework$Framework_Modifiers$Medium,
+				_0: _lucamug$elm_style_framework$Framework_Modifier$Medium,
 				_1: {
 					ctor: '::',
-					_0: _lucamug$elm_style_framework$Framework_Modifiers$Success,
+					_0: _lucamug$elm_style_framework$Framework_Modifier$Success,
 					_1: {
 						ctor: '::',
-						_0: _lucamug$elm_style_framework$Framework_Modifiers$Outlined,
+						_0: _lucamug$elm_style_framework$Framework_Modifier$Outlined,
 						_1: {ctor: '[]'}
 					}
 				}
@@ -30186,7 +29776,7 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 							_lucamug$elm_style_framework$Framework_Button$button,
 							{
 								ctor: '::',
-								_0: _lucamug$elm_style_framework$Framework_Modifiers$Primary,
+								_0: _lucamug$elm_style_framework$Framework_Modifier$Primary,
 								_1: {ctor: '[]'}
 							},
 							_elm_lang$core$Maybe$Nothing,
@@ -30204,10 +29794,10 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 								_lucamug$elm_style_framework$Framework_Button$button,
 								{
 									ctor: '::',
-									_0: _lucamug$elm_style_framework$Framework_Modifiers$Primary,
+									_0: _lucamug$elm_style_framework$Framework_Modifier$Primary,
 									_1: {
 										ctor: '::',
-										_0: _lucamug$elm_style_framework$Framework_Modifiers$Outlined,
+										_0: _lucamug$elm_style_framework$Framework_Modifier$Outlined,
 										_1: {ctor: '[]'}
 									}
 								},
@@ -30226,10 +29816,10 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 									_lucamug$elm_style_framework$Framework_Button$button,
 									{
 										ctor: '::',
-										_0: _lucamug$elm_style_framework$Framework_Modifiers$Primary,
+										_0: _lucamug$elm_style_framework$Framework_Modifier$Primary,
 										_1: {
 											ctor: '::',
-											_0: _lucamug$elm_style_framework$Framework_Modifiers$Loading,
+											_0: _lucamug$elm_style_framework$Framework_Modifier$Loading,
 											_1: {ctor: '[]'}
 										}
 									},
@@ -30248,10 +29838,10 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 										_lucamug$elm_style_framework$Framework_Button$button,
 										{
 											ctor: '::',
-											_0: _lucamug$elm_style_framework$Framework_Modifiers$Primary,
+											_0: _lucamug$elm_style_framework$Framework_Modifier$Primary,
 											_1: {
 												ctor: '::',
-												_0: _lucamug$elm_style_framework$Framework_Modifiers$Waiting,
+												_0: _lucamug$elm_style_framework$Framework_Modifier$Waiting,
 												_1: {ctor: '[]'}
 											}
 										},
@@ -30270,10 +29860,10 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 											_lucamug$elm_style_framework$Framework_Button$button,
 											{
 												ctor: '::',
-												_0: _lucamug$elm_style_framework$Framework_Modifiers$Primary,
+												_0: _lucamug$elm_style_framework$Framework_Modifier$Primary,
 												_1: {
 													ctor: '::',
-													_0: _lucamug$elm_style_framework$Framework_Modifiers$Disabled,
+													_0: _lucamug$elm_style_framework$Framework_Modifier$Disabled,
 													_1: {ctor: '[]'}
 												}
 											},
@@ -30304,7 +29894,7 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 								_lucamug$elm_style_framework$Framework_Button$button,
 								{
 									ctor: '::',
-									_0: _lucamug$elm_style_framework$Framework_Modifiers$Muted,
+									_0: _lucamug$elm_style_framework$Framework_Modifier$Muted,
 									_1: {ctor: '[]'}
 								},
 								_elm_lang$core$Maybe$Nothing,
@@ -30322,7 +29912,7 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 									_lucamug$elm_style_framework$Framework_Button$button,
 									{
 										ctor: '::',
-										_0: _lucamug$elm_style_framework$Framework_Modifiers$Primary,
+										_0: _lucamug$elm_style_framework$Framework_Modifier$Primary,
 										_1: {ctor: '[]'}
 									},
 									_elm_lang$core$Maybe$Nothing,
@@ -30340,7 +29930,7 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 										_lucamug$elm_style_framework$Framework_Button$button,
 										{
 											ctor: '::',
-											_0: _lucamug$elm_style_framework$Framework_Modifiers$Success,
+											_0: _lucamug$elm_style_framework$Framework_Modifier$Success,
 											_1: {ctor: '[]'}
 										},
 										_elm_lang$core$Maybe$Nothing,
@@ -30358,7 +29948,7 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 											_lucamug$elm_style_framework$Framework_Button$button,
 											{
 												ctor: '::',
-												_0: _lucamug$elm_style_framework$Framework_Modifiers$Info,
+												_0: _lucamug$elm_style_framework$Framework_Modifier$Info,
 												_1: {ctor: '[]'}
 											},
 											_elm_lang$core$Maybe$Nothing,
@@ -30376,7 +29966,7 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 												_lucamug$elm_style_framework$Framework_Button$button,
 												{
 													ctor: '::',
-													_0: _lucamug$elm_style_framework$Framework_Modifiers$Warning,
+													_0: _lucamug$elm_style_framework$Framework_Modifier$Warning,
 													_1: {ctor: '[]'}
 												},
 												_elm_lang$core$Maybe$Nothing,
@@ -30394,7 +29984,7 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 													_lucamug$elm_style_framework$Framework_Button$button,
 													{
 														ctor: '::',
-														_0: _lucamug$elm_style_framework$Framework_Modifiers$Danger,
+														_0: _lucamug$elm_style_framework$Framework_Modifier$Danger,
 														_1: {ctor: '[]'}
 													},
 													_elm_lang$core$Maybe$Nothing,
@@ -30440,7 +30030,7 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 									_lucamug$elm_style_framework$Framework_Button$button,
 									{
 										ctor: '::',
-										_0: _lucamug$elm_style_framework$Framework_Modifiers$Small,
+										_0: _lucamug$elm_style_framework$Framework_Modifier$Small,
 										_1: {ctor: '[]'}
 									},
 									_elm_lang$core$Maybe$Nothing,
@@ -30472,7 +30062,7 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 											_lucamug$elm_style_framework$Framework_Button$button,
 											{
 												ctor: '::',
-												_0: _lucamug$elm_style_framework$Framework_Modifiers$Medium,
+												_0: _lucamug$elm_style_framework$Framework_Modifier$Medium,
 												_1: {ctor: '[]'}
 											},
 											_elm_lang$core$Maybe$Nothing,
@@ -30490,7 +30080,7 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 												_lucamug$elm_style_framework$Framework_Button$button,
 												{
 													ctor: '::',
-													_0: _lucamug$elm_style_framework$Framework_Modifiers$Large,
+													_0: _lucamug$elm_style_framework$Framework_Modifier$Large,
 													_1: {ctor: '[]'}
 												},
 												_elm_lang$core$Maybe$Nothing,
@@ -30520,7 +30110,7 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 										_lucamug$elm_style_framework$Framework_Button$buttonAttr(
 											{
 												ctor: '::',
-												_0: _lucamug$elm_style_framework$Framework_Modifiers$Primary,
+												_0: _lucamug$elm_style_framework$Framework_Modifier$Primary,
 												_1: {ctor: '[]'}
 											}),
 										{
@@ -30538,7 +30128,7 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 											_lucamug$elm_style_framework$Framework_Button$buttonAttr(
 												{
 													ctor: '::',
-													_0: _lucamug$elm_style_framework$Framework_Modifiers$Primary,
+													_0: _lucamug$elm_style_framework$Framework_Modifier$Primary,
 													_1: {ctor: '[]'}
 												}),
 											_mdgriffith$stylish_elephants$Element$text('Button')),
@@ -30553,13 +30143,13 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 												_lucamug$elm_style_framework$Framework_Button$buttonAttr(
 													{
 														ctor: '::',
-														_0: _lucamug$elm_style_framework$Framework_Modifiers$Danger,
+														_0: _lucamug$elm_style_framework$Framework_Modifier$Danger,
 														_1: {
 															ctor: '::',
-															_0: _lucamug$elm_style_framework$Framework_Modifiers$Outlined,
+															_0: _lucamug$elm_style_framework$Framework_Modifier$Outlined,
 															_1: {
 																ctor: '::',
-																_0: _lucamug$elm_style_framework$Framework_Modifiers$Medium,
+																_0: _lucamug$elm_style_framework$Framework_Modifier$Medium,
 																_1: {ctor: '[]'}
 															}
 														}
@@ -30578,7 +30168,7 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 														_lucamug$elm_style_framework$Framework_Button$buttonAttr(
 															{
 																ctor: '::',
-																_0: _lucamug$elm_style_framework$Framework_Modifiers$Warning,
+																_0: _lucamug$elm_style_framework$Framework_Modifier$Warning,
 																_1: {ctor: '[]'}
 															}),
 														{
@@ -30608,10 +30198,10 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 															_lucamug$elm_style_framework$Framework_Button$buttonAttr(
 																{
 																	ctor: '::',
-																	_0: _lucamug$elm_style_framework$Framework_Modifiers$Warning,
+																	_0: _lucamug$elm_style_framework$Framework_Modifier$Warning,
 																	_1: {
 																		ctor: '::',
-																		_0: _lucamug$elm_style_framework$Framework_Modifiers$Waiting,
+																		_0: _lucamug$elm_style_framework$Framework_Modifier$Waiting,
 																		_1: {ctor: '[]'}
 																	}
 																}),
@@ -30642,7 +30232,7 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 																_lucamug$elm_style_framework$Framework_Button$buttonAttr(
 																	{
 																		ctor: '::',
-																		_0: _lucamug$elm_style_framework$Framework_Modifiers$Info,
+																		_0: _lucamug$elm_style_framework$Framework_Modifier$Info,
 																		_1: {ctor: '[]'}
 																	}),
 																{
@@ -30670,10 +30260,10 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 																_lucamug$elm_style_framework$Framework_Button$buttonAttr(
 																	{
 																		ctor: '::',
-																		_0: _lucamug$elm_style_framework$Framework_Modifiers$Primary,
+																		_0: _lucamug$elm_style_framework$Framework_Modifier$Primary,
 																		_1: {
 																			ctor: '::',
-																			_0: _lucamug$elm_style_framework$Framework_Modifiers$Danger,
+																			_0: _lucamug$elm_style_framework$Framework_Modifier$Danger,
 																			_1: {ctor: '[]'}
 																		}
 																	}),
@@ -30792,7 +30382,7 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 	};
 }();
 
-var _lucamug$elm_style_framework$Framework_Cards$style = F2(
+var _lucamug$elm_style_framework$Framework_Card$style = F2(
 	function (key, value) {
 		return (_elm_lang$core$Native_Utils.eq(key, 'backface-visibility') || (_elm_lang$core$Native_Utils.eq(key, 'perspective') || (_elm_lang$core$Native_Utils.eq(key, 'transition') || (_elm_lang$core$Native_Utils.eq(key, 'transform-style') || _elm_lang$core$Native_Utils.eq(key, 'transform'))))) ? _mdgriffith$stylish_elephants$Element$htmlAttribute(
 			_elm_lang$html$Html_Attributes$style(
@@ -30840,7 +30430,7 @@ var _lucamug$elm_style_framework$Framework_Cards$style = F2(
 					_1: {ctor: '[]'}
 				}));
 	});
-var _lucamug$elm_style_framework$Framework_Cards$cardCommonAttr = {
+var _lucamug$elm_style_framework$Framework_Card$cardCommonAttr = {
 	ctor: '::',
 	_0: _mdgriffith$stylish_elephants$Element_Border$shadow(
 		{
@@ -30867,13 +30457,13 @@ var _lucamug$elm_style_framework$Framework_Cards$cardCommonAttr = {
 		}
 	}
 };
-var _lucamug$elm_style_framework$Framework_Cards$simpleWithTitle = F3(
+var _lucamug$elm_style_framework$Framework_Card$simpleWithTitle = F3(
 	function (title, subTitle, content) {
 		return A2(
 			_mdgriffith$stylish_elephants$Element$column,
 			A2(
 				_elm_lang$core$Basics_ops['++'],
-				_lucamug$elm_style_framework$Framework_Cards$cardCommonAttr,
+				_lucamug$elm_style_framework$Framework_Card$cardCommonAttr,
 				{
 					ctor: '::',
 					_0: _mdgriffith$stylish_elephants$Element_Border$width(1),
@@ -30957,12 +30547,12 @@ var _lucamug$elm_style_framework$Framework_Cards$simpleWithTitle = F3(
 				}
 			});
 	});
-var _lucamug$elm_style_framework$Framework_Cards$simple = function (content) {
+var _lucamug$elm_style_framework$Framework_Card$simple = function (content) {
 	return A2(
 		_mdgriffith$stylish_elephants$Element$el,
 		A2(
 			_elm_lang$core$Basics_ops['++'],
-			_lucamug$elm_style_framework$Framework_Cards$cardCommonAttr,
+			_lucamug$elm_style_framework$Framework_Card$cardCommonAttr,
 			{
 				ctor: '::',
 				_0: _mdgriffith$stylish_elephants$Element$padding(20),
@@ -30978,12 +30568,12 @@ var _lucamug$elm_style_framework$Framework_Cards$simple = function (content) {
 			}),
 		content);
 };
-var _lucamug$elm_style_framework$Framework_Cards$flipping = function (data) {
+var _lucamug$elm_style_framework$Framework_Card$flipping = function (data) {
 	var y = _mdgriffith$stylish_elephants$Element$px(data.height);
 	var x = _mdgriffith$stylish_elephants$Element$px(data.width);
 	var commonAttr = A2(
 		_elm_lang$core$Basics_ops['++'],
-		_lucamug$elm_style_framework$Framework_Cards$cardCommonAttr,
+		_lucamug$elm_style_framework$Framework_Card$cardCommonAttr,
 		{
 			ctor: '::',
 			_0: _mdgriffith$stylish_elephants$Element$width(x),
@@ -30992,10 +30582,10 @@ var _lucamug$elm_style_framework$Framework_Cards$flipping = function (data) {
 				_0: _mdgriffith$stylish_elephants$Element$height(y),
 				_1: {
 					ctor: '::',
-					_0: A2(_lucamug$elm_style_framework$Framework_Cards$style, 'backface-visibility', 'hidden'),
+					_0: A2(_lucamug$elm_style_framework$Framework_Card$style, 'backface-visibility', 'hidden'),
 					_1: {
 						ctor: '::',
-						_0: A2(_lucamug$elm_style_framework$Framework_Cards$style, 'position', 'absolute'),
+						_0: A2(_lucamug$elm_style_framework$Framework_Card$style, 'position', 'absolute'),
 						_1: {ctor: '[]'}
 					}
 				}
@@ -31005,7 +30595,7 @@ var _lucamug$elm_style_framework$Framework_Cards$flipping = function (data) {
 		_mdgriffith$stylish_elephants$Element$column,
 		{
 			ctor: '::',
-			_0: A2(_lucamug$elm_style_framework$Framework_Cards$style, 'perspective', '1500px'),
+			_0: A2(_lucamug$elm_style_framework$Framework_Card$style, 'perspective', '1500px'),
 			_1: {
 				ctor: '::',
 				_0: _mdgriffith$stylish_elephants$Element$alignTop,
@@ -31036,13 +30626,13 @@ var _lucamug$elm_style_framework$Framework_Cards$flipping = function (data) {
 							_0: _mdgriffith$stylish_elephants$Element$height(y),
 							_1: {
 								ctor: '::',
-								_0: A2(_lucamug$elm_style_framework$Framework_Cards$style, 'transition', 'all 0.7s cubic-bezier(0.365, 1.440, 0.430, 0.965)'),
+								_0: A2(_lucamug$elm_style_framework$Framework_Card$style, 'transition', 'all 0.7s cubic-bezier(0.365, 1.440, 0.430, 0.965)'),
 								_1: {
 									ctor: '::',
-									_0: A2(_lucamug$elm_style_framework$Framework_Cards$style, 'transform-style', 'preserve-3d'),
+									_0: A2(_lucamug$elm_style_framework$Framework_Card$style, 'transform-style', 'preserve-3d'),
 									_1: {
 										ctor: '::',
-										_0: data.activeFront ? A2(_lucamug$elm_style_framework$Framework_Cards$style, 'transform', 'rotateY(0deg)') : A2(_lucamug$elm_style_framework$Framework_Cards$style, 'transform', 'rotateY(180deg)'),
+										_0: data.activeFront ? A2(_lucamug$elm_style_framework$Framework_Card$style, 'transform', 'rotateY(0deg)') : A2(_lucamug$elm_style_framework$Framework_Card$style, 'transform', 'rotateY(180deg)'),
 										_1: {ctor: '[]'}
 									}
 								}
@@ -31058,10 +30648,10 @@ var _lucamug$elm_style_framework$Framework_Cards$flipping = function (data) {
 								commonAttr,
 								{
 									ctor: '::',
-									_0: A2(_lucamug$elm_style_framework$Framework_Cards$style, 'transform', 'rotateY(0deg)'),
+									_0: A2(_lucamug$elm_style_framework$Framework_Card$style, 'transform', 'rotateY(0deg)'),
 									_1: {
 										ctor: '::',
-										_0: A2(_lucamug$elm_style_framework$Framework_Cards$style, 'z-index', '2'),
+										_0: A2(_lucamug$elm_style_framework$Framework_Card$style, 'z-index', '2'),
 										_1: {ctor: '[]'}
 									}
 								}),
@@ -31075,7 +30665,7 @@ var _lucamug$elm_style_framework$Framework_Cards$flipping = function (data) {
 									commonAttr,
 									{
 										ctor: '::',
-										_0: A2(_lucamug$elm_style_framework$Framework_Cards$style, 'transform', 'rotateY(180deg)'),
+										_0: A2(_lucamug$elm_style_framework$Framework_Card$style, 'transform', 'rotateY(180deg)'),
 										_1: {ctor: '[]'}
 									}),
 								data.back),
@@ -31086,13 +30676,13 @@ var _lucamug$elm_style_framework$Framework_Cards$flipping = function (data) {
 			}
 		});
 };
-var _lucamug$elm_style_framework$Framework_Cards$introspection = {
+var _lucamug$elm_style_framework$Framework_Card$introspection = {
 	name: 'Cards',
 	signature: 'simpleWithTitle : String -> String -> Element msg -> Element msg',
 	description: 'Wrapper for content',
 	usage: 'simpleWithTitle \"Simple\" \"with Title\" (text \"Content\")',
 	usageResult: A3(
-		_lucamug$elm_style_framework$Framework_Cards$simpleWithTitle,
+		_lucamug$elm_style_framework$Framework_Card$simpleWithTitle,
 		'Simple',
 		'with Title',
 		_mdgriffith$stylish_elephants$Element$text('Content')),
@@ -31122,7 +30712,7 @@ var _lucamug$elm_style_framework$Framework_Cards$introspection = {
 					_0: {
 						ctor: '_Tuple2',
 						_0: A3(
-							_lucamug$elm_style_framework$Framework_Cards$simpleWithTitle,
+							_lucamug$elm_style_framework$Framework_Card$simpleWithTitle,
 							'Simple',
 							'with Title',
 							_mdgriffith$stylish_elephants$Element$text('Content')),
@@ -31140,7 +30730,7 @@ var _lucamug$elm_style_framework$Framework_Cards$introspection = {
 						ctor: '::',
 						_0: {
 							ctor: '_Tuple2',
-							_0: _lucamug$elm_style_framework$Framework_Cards$simple(
+							_0: _lucamug$elm_style_framework$Framework_Card$simple(
 								_mdgriffith$stylish_elephants$Element$text('Content')),
 							_1: 'simple <| text \"Content\"'
 						},
@@ -31152,14 +30742,14 @@ var _lucamug$elm_style_framework$Framework_Cards$introspection = {
 		}
 	}
 };
-var _lucamug$elm_style_framework$Framework_Cards$update = F2(
+var _lucamug$elm_style_framework$Framework_Card$update = F2(
 	function (msg, model) {
 		var _p0 = msg;
 		return {ctor: '_Tuple2', _0: !model, _1: _elm_lang$core$Platform_Cmd$none};
 	});
-var _lucamug$elm_style_framework$Framework_Cards$initModel = true;
-var _lucamug$elm_style_framework$Framework_Cards$Flip = {ctor: 'Flip'};
-var _lucamug$elm_style_framework$Framework_Cards$example1 = function (model) {
+var _lucamug$elm_style_framework$Framework_Card$initModel = true;
+var _lucamug$elm_style_framework$Framework_Card$Flip = {ctor: 'Flip'};
+var _lucamug$elm_style_framework$Framework_Card$example1 = function (model) {
 	var contentAttr = {
 		ctor: '::',
 		_0: _mdgriffith$stylish_elephants$Element$width(_mdgriffith$stylish_elephants$Element$shrink),
@@ -31186,17 +30776,21 @@ var _lucamug$elm_style_framework$Framework_Cards$example1 = function (model) {
 		_0: _mdgriffith$stylish_elephants$Element$height(_mdgriffith$stylish_elephants$Element$fill),
 		_1: {
 			ctor: '::',
-			_0: _mdgriffith$stylish_elephants$Element$pointer,
+			_0: _mdgriffith$stylish_elephants$Element$width(_mdgriffith$stylish_elephants$Element$fill),
 			_1: {
 				ctor: '::',
-				_0: _mdgriffith$stylish_elephants$Element_Events$onClick(_lucamug$elm_style_framework$Framework_Cards$Flip),
-				_1: {ctor: '[]'}
+				_0: _mdgriffith$stylish_elephants$Element$pointer,
+				_1: {
+					ctor: '::',
+					_0: _mdgriffith$stylish_elephants$Element_Events$onClick(_lucamug$elm_style_framework$Framework_Card$Flip),
+					_1: {ctor: '[]'}
+				}
 			}
 		}
 	};
 	return {
 		ctor: '_Tuple2',
-		_0: _lucamug$elm_style_framework$Framework_Cards$flipping(
+		_0: _lucamug$elm_style_framework$Framework_Card$flipping(
 			{
 				width: 200,
 				height: 300,
@@ -34156,7 +33750,7 @@ var _lucamug$elm_style_framework$Framework$update = F2(
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			default:
-				var _p15 = A2(_lucamug$elm_style_framework$Framework_Cards$update, _p3._0, model.modelCards);
+				var _p15 = A2(_lucamug$elm_style_framework$Framework_Card$update, _p3._0, model.modelCards);
 				var newModel = _p15._0;
 				return {
 					ctor: '_Tuple2',
@@ -34181,7 +33775,7 @@ var _lucamug$elm_style_framework$Framework$introspections = {
 				_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Typography$introspection, _1: true},
 				_1: {
 					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Cards$introspection, _1: true},
+					_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Card$introspection, _1: true},
 					_1: {
 						ctor: '::',
 						_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Button$introspection, _1: true},
@@ -34311,7 +33905,7 @@ var _lucamug$elm_style_framework$Framework$initConf = {
 			}
 		}),
 	subTitle: 'FRAMEWORK',
-	version: '6.0.0',
+	version: '7.0.0',
 	introduction: _mdgriffith$stylish_elephants$Element$empty,
 	mainPadding: 41,
 	password: '',
@@ -34356,7 +33950,7 @@ var _lucamug$elm_style_framework$Framework$initModel = F2(
 			modelStyleElementsInput: _lucamug$elm_style_framework$Framework_StyleElementsInput$initModel,
 			modelFormFields: _lucamug$elm_style_framework$Framework_FormFields$initModel,
 			modelFormFieldsWithPattern: _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$initModel,
-			modelCards: _lucamug$elm_style_framework$Framework_Cards$initModel,
+			modelCards: _lucamug$elm_style_framework$Framework_Card$initModel,
 			maybeWindowSize: _elm_lang$core$Maybe$Just(
 				A2(_elm_lang$window$Window$Size, flag.width, flag.height)),
 			conf: _lucamug$elm_style_framework$Framework$initConf,
@@ -34508,7 +34102,7 @@ var _lucamug$elm_style_framework$Framework$viewSubSection = F2(
 			_p19,
 			_mdgriffith$stylish_elephants$Element$text('special: FormFieldsWithPattern.example3')) ? A2(_lucamug$elm_style_framework$Framework$specialComponentFormFieldsWithPattern, model, _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$example3) : (_elm_lang$core$Native_Utils.eq(
 			_p19,
-			_mdgriffith$stylish_elephants$Element$text('special: Cards.example1')) ? A2(_lucamug$elm_style_framework$Framework$specialComponentCards, model, _lucamug$elm_style_framework$Framework_Cards$example1) : (_elm_lang$core$Native_Utils.eq(
+			_mdgriffith$stylish_elephants$Element$text('special: Cards.example1')) ? A2(_lucamug$elm_style_framework$Framework$specialComponentCards, model, _lucamug$elm_style_framework$Framework_Card$example1) : (_elm_lang$core$Native_Utils.eq(
 			_p19,
 			_mdgriffith$stylish_elephants$Element$text('special: example0')) ? A2(_lucamug$elm_style_framework$Framework$specialComponent, model, _lucamug$elm_style_framework$Framework_StyleElementsInput$example0) : (_elm_lang$core$Native_Utils.eq(
 			_p19,
@@ -35387,7 +34981,7 @@ var _lucamug$elm_style_framework$Framework$main = A2(
 var Elm = {};
 Elm['Framework'] = Elm['Framework'] || {};
 if (typeof _lucamug$elm_style_framework$Framework$main !== 'undefined') {
-    _lucamug$elm_style_framework$Framework$main(Elm['Framework'], 'Framework', {"types":{"unions":{"Framework.FormFieldsWithPattern.Msg":{"args":[],"tags":{"OnFocus":["Framework.FormFieldsWithPattern.Field"],"Input":["Framework.FormFieldsWithPattern.Field","String","String"],"OnLoseFocus":["Framework.FormFieldsWithPattern.Field"]}},"Framework.FormFieldsWithPattern.Field":{"args":[],"tags":{"Field4DigitCode":[],"FieldTelephone":[],"FieldCreditCard":[]}},"Framework.StyleElementsInput.Msg":{"args":[],"tags":{"Input":["String"],"Button":[],"Radio":["String"],"Checkbox":["Bool"]}},"Framework.Cards.Msg":{"args":[],"tags":{"Flip":[]}},"Framework.FormFields.Msg":{"args":[],"tags":{"OnFocus":["Framework.FormFields.Field"],"Input":["Framework.FormFields.Field","String"],"OnLoseFocus":["Framework.FormFields.Field"]}},"Framework.Msg":{"args":[],"tags":{"MsgCloseAllSections":[],"MsgToggleSection":["String"],"MsgStyleElementsInput":["Framework.StyleElementsInput.Msg"],"MsgChangePassword":["String"],"MsgChangeWindowSize":["Window.Size"],"MsgOpenAllSections":[],"MsgFormFields":["Framework.FormFields.Msg"],"MsgFormFieldsWithPattern":["Framework.FormFieldsWithPattern.Msg"],"MsgChangeLocation":["Navigation.Location"],"MsgCards":["Framework.Cards.Msg"]}},"Framework.FormFields.Field":{"args":[],"tags":{"FieldEmail":[]}}},"aliases":{"Window.Size":{"args":[],"type":"{ width : Int, height : Int }"},"Navigation.Location":{"args":[],"type":"{ href : String , host : String , hostname : String , protocol : String , origin : String , port_ : String , pathname : String , search : String , hash : String , username : String , password : String }"}},"message":"Framework.Msg"},"versions":{"elm":"0.18.0"}});
+    _lucamug$elm_style_framework$Framework$main(Elm['Framework'], 'Framework', {"types":{"unions":{"Framework.FormFieldsWithPattern.Msg":{"args":[],"tags":{"OnFocus":["Framework.FormFieldsWithPattern.Field"],"Input":["Framework.FormFieldsWithPattern.Field","String","String"],"OnLoseFocus":["Framework.FormFieldsWithPattern.Field"]}},"Framework.FormFieldsWithPattern.Field":{"args":[],"tags":{"Field4DigitCode":[],"FieldTelephone":[],"FieldCreditCard":[]}},"Framework.StyleElementsInput.Msg":{"args":[],"tags":{"Input":["String"],"Button":[],"Radio":["String"],"Checkbox":["Bool"]}},"Framework.Card.Msg":{"args":[],"tags":{"Flip":[]}},"Framework.FormFields.Msg":{"args":[],"tags":{"OnFocus":["Framework.FormFields.Field"],"Input":["Framework.FormFields.Field","String"],"OnLoseFocus":["Framework.FormFields.Field"]}},"Framework.Msg":{"args":[],"tags":{"MsgCloseAllSections":[],"MsgToggleSection":["String"],"MsgStyleElementsInput":["Framework.StyleElementsInput.Msg"],"MsgChangePassword":["String"],"MsgChangeWindowSize":["Window.Size"],"MsgOpenAllSections":[],"MsgFormFields":["Framework.FormFields.Msg"],"MsgFormFieldsWithPattern":["Framework.FormFieldsWithPattern.Msg"],"MsgChangeLocation":["Navigation.Location"],"MsgCards":["Framework.Card.Msg"]}},"Framework.FormFields.Field":{"args":[],"tags":{"FieldEmail":[]}}},"aliases":{"Window.Size":{"args":[],"type":"{ width : Int, height : Int }"},"Navigation.Location":{"args":[],"type":"{ href : String , host : String , hostname : String , protocol : String , origin : String , port_ : String , pathname : String , search : String , hash : String , username : String , password : String }"}},"message":"Framework.Msg"},"versions":{"elm":"0.18.0"}});
 }
 
 if (typeof define === "function" && define['amd'])

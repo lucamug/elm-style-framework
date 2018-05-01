@@ -10,6 +10,22 @@ updated with no maintenance.
 
 For more info about the idea, see [this post](https://medium.com/@l.mugnaini/zero-maintenance-always-up-to-date-living-style-guide-in-elm-dbf236d07522).
 
+There are three way to configure/customize this package.
+
+1.  To change the variables (mainly colors), as defined inside `Configuration.elm` pass the new value as a flag...
+
+To change some of the variables, add a file named `FrameworkConfiguration.elm`
+in the root of your soruce folder with this code inside:
+
+    import Dict
+
+    configuration : Dict.Dict String String
+    configuration =
+        Dict.fromList [ ( "primary", "#909" ) ]
+
+ALso add `module FrameworkConfiguration exposing (configuration)` at the very top.
+In this example we are replacing the primary color with#909.
+
 
 # Functions
 
@@ -27,7 +43,7 @@ import Element.Events as Events
 import Element.Font as Font
 import Element.Input as Input
 import Framework.Button as Button
-import Framework.Cards as Cards
+import Framework.Card as Card
 import Framework.Color exposing (color)
 import Framework.FormFields as FormFields
 import Framework.FormFieldsWithPattern as FormFieldsWithPattern
@@ -90,7 +106,7 @@ initConf =
                 ]
             ]
     , subTitle = "FRAMEWORK"
-    , version = "6.0.0"
+    , version = "7.0.0"
     , introduction = empty
     , mainPadding = 41
     , password = ""
@@ -163,7 +179,7 @@ type alias Model =
     , modelStyleElementsInput : StyleElementsInput.Model
     , modelFormFields : FormFields.Model
     , modelFormFieldsWithPattern : FormFieldsWithPattern.Model
-    , modelCards : Cards.Model
+    , modelCards : Card.Model
     , introspections : List ( Introspection, Bool )
     , location : Navigation.Location
     , maybeWindowSize : Maybe Window.Size
@@ -180,7 +196,7 @@ initModel flag location =
     , modelStyleElementsInput = StyleElementsInput.initModel
     , modelFormFields = FormFields.initModel
     , modelFormFieldsWithPattern = FormFieldsWithPattern.initModel
-    , modelCards = Cards.initModel
+    , modelCards = Card.initModel
     , maybeWindowSize = Just <| Window.Size flag.width flag.height
     , conf = initConf
     , introspections =
@@ -206,7 +222,7 @@ introspections =
     , ( FormFields.introspection, True )
     , ( FormFieldsWithPattern.introspection, True )
     , ( Typography.introspection, True )
-    , ( Cards.introspection, True )
+    , ( Card.introspection, True )
     , ( Button.introspection, True )
     , ( Spinner.introspection, True )
     , ( Logo.introspection, True )
@@ -282,7 +298,7 @@ type Msg
     | MsgStyleElementsInput StyleElementsInput.Msg
     | MsgFormFields FormFields.Msg
     | MsgFormFieldsWithPattern FormFieldsWithPattern.Msg
-    | MsgCards Cards.Msg
+    | MsgCards Card.Msg
     | MsgChangeLocation Navigation.Location
     | MsgChangePassword String
 
@@ -351,7 +367,7 @@ update msg model =
         MsgCards msg2 ->
             let
                 ( newModel, _ ) =
-                    Cards.update msg2 model.modelCards
+                    Card.update msg2 model.modelCards
             in
             ( { model | modelCards = newModel }, Cmd.none )
 
@@ -696,7 +712,7 @@ specialComponentFormFields model component =
     )
 
 
-specialComponentCards : Model -> (Cards.Model -> ( Element Cards.Msg, c )) -> ( Element Msg, c )
+specialComponentCards : Model -> (Card.Model -> ( Element Card.Msg, c )) -> ( Element Msg, c )
 specialComponentCards model component =
     let
         componentTuplet =
@@ -720,7 +736,7 @@ viewSubSection model ( componentExample, componentExampleSourceCode ) =
             else if componentExample == text "special: FormFieldsWithPattern.example3" then
                 specialComponentFormFieldsWithPattern model FormFieldsWithPattern.example3
             else if componentExample == text "special: Cards.example1" then
-                specialComponentCards model Cards.example1
+                specialComponentCards model Card.example1
             else if componentExample == text "special: example0" then
                 specialComponent model StyleElementsInput.example0
             else if componentExample == text "special: example1" then

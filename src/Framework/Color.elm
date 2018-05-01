@@ -183,6 +183,11 @@ introspection =
             , ( usageWrapper <| color.link_active_border, "color.link_active_border" )
             ]
           )
+        , ( "Others"
+          , [ ( usageWrapper <| color.transparent, "color.transparent" )
+            , ( usageWrapper <| color.muted, "color.muted" )
+            ]
+          )
         ]
     }
 
@@ -193,8 +198,6 @@ usageWrapper cl =
     Element.el
         [ Element.Background.color cl
         , Element.width <| Element.px 200
-
-        -- , Element.height <| Element.px 100
         , Element.padding 10
         , Element.Border.rounded 5
         , Element.Font.color <| maximumContrast cl
@@ -202,7 +205,7 @@ usageWrapper cl =
     <|
         column []
             [ text <| colorToHex cl
-            , text <| colorToHsl cl
+            , text <| colorToHsl2 cl
             ]
 
 
@@ -213,14 +216,22 @@ usageWrapper cl =
 -}
 maximumContrast : Color.Color -> Color.Color
 maximumContrast c =
-    let
-        hsl =
-            Color.toHsl c
-    in
-    if hsl.lightness < 0.7 then
+    -- From https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
+    if intensity c < 186 then
         color.white
     else
         color.black
+
+
+intensity : Color.Color -> Float
+intensity c =
+    -- From https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
+    let
+        rgb =
+            Color.toRgb c
+    in
+    -- From https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
+    toFloat rgb.red * 0.299 + toFloat rgb.green * 0.587 + toFloat rgb.blue * 0.114
 
 
 norm100 : Float -> Int
@@ -245,8 +256,8 @@ colorToHex cl =
         |> String.join ""
 
 
-colorToHsl : Color.Color -> String
-colorToHsl cl =
+colorToHsl2 : Color.Color -> String
+colorToHsl2 cl =
     let
         { hue, saturation, lightness, alpha } =
             Color.toHsl cl
@@ -257,9 +268,14 @@ colorToHsl cl =
             else
                 hue
     in
-    List.map toString [ norm57 hue2, norm100 saturation, norm100 lightness, norm100 alpha ]
-        |> String.join "-"
-        |> (++) "Hsl "
+    "hsla("
+        ++ String.join ", "
+            [ toString <| norm57 hue2
+            , toString (norm100 saturation) ++ "%"
+            , toString (norm100 lightness) ++ "%"
+            , toString <| toFloat (norm100 alpha) / 100
+            ]
+        ++ ")"
 
 
 toHex : Int -> String

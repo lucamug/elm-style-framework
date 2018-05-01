@@ -1,4 +1,4 @@
-module Framework.Modifiers exposing (Modifier(..))
+module Framework.Modifier exposing (Modifier(..))
 
 {-|
 

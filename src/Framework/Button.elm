@@ -9,8 +9,6 @@ module Framework.Button exposing (button, buttonAttr, buttonLink, buttonLinkWidt
 
 -}
 
---import Color.Manipulate
-
 import Color
 import Element exposing (Attribute, Element, centerX, centerY, column, el, inFront, link, mouseOver, paddingXY, row, spacing, text)
 import Element.Background as Background
@@ -18,7 +16,7 @@ import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
 import Framework.Color exposing (color)
-import Framework.Modifiers exposing (Modifier(..))
+import Framework.Modifier exposing (Modifier(..))
 import Framework.Spinner as Spinner
 import Html.Attributes
 

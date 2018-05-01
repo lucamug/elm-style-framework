@@ -1,4 +1,4 @@
-module Framework.Cards exposing (Model, Msg, example1, flipping, initModel, introspection, simple, simpleWithTitle, update)
+module Framework.Card exposing (Model, Msg, example1, flipping, initModel, introspection, simple, simpleWithTitle, update)
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Cards/Flipping)
 
@@ -89,6 +89,7 @@ example1 model =
     let
         commonAttr =
             [ height fill
+            , width fill
             , pointer
             , Events.onClick Flip
             ]

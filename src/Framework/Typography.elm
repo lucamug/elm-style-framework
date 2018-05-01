@@ -1,11 +1,11 @@
-module Framework.Typography exposing (h1, h2, h3, h4, h5, h6, introspection)
+module Framework.Typography exposing (h1, h2, h3, h4, h5, h6, introspection, textExtraSmall, textLead, textSmall)
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Typography/Heading)
 
 
 # Functions
 
-@docs h1, h2, h3, h4, h5, h6, introspection
+@docs h1, h2, h3, h4, h5, h6, introspection, textExtraSmall, textLead, textSmall
 
 -}
 
@@ -84,16 +84,19 @@ h6 =
     heading SizeH6
 
 
+{-| -}
 textLead : List (Element.Attribute msg) -> Element.Element msg -> Element.Element msg
 textLead =
     textSection SizeLead
 
 
+{-| -}
 textSmall : List (Element.Attribute msg) -> Element.Element msg -> Element.Element msg
 textSmall =
     textSection SizeSmall
 
 
+{-| -}
 textExtraSmall : List (Element.Attribute msg) -> Element.Element msg -> Element.Element msg
 textExtraSmall =
     textSection SizeExtraSmall
