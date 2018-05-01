@@ -17,7 +17,7 @@ import Element.Background as Background
 import Element.Border as Border
 import Element.Events as Events
 import Element.Font as Font
-import Framework.Color exposing (Color(..), color)
+import Framework.Color exposing (color)
 import Html
 import Html.Attributes
 
@@ -77,8 +77,8 @@ cardCommonAttr : List (Attribute msg)
 cardCommonAttr =
     [ Border.shadow { blur = 10, color = Color.rgba 0 0 0 0.05, offset = ( 0, 2 ), size = 1 }
     , Border.width 1
-    , Border.color <| color GrayLighter
-    , Background.color <| color White
+    , Border.color <| color.grey_lighter
+    , Background.color <| color.white
     , Border.rounded 4
     ]
 
@@ -152,12 +152,12 @@ simpleWithTitle title subTitle content =
         [ el
             [ padding 10
             , Border.widthEach { bottom = 1, left = 0, right = 0, top = 0 }
-            , Border.color <| color GrayLight
+            , Border.color <| color.grey_light
             , width fill
             ]
             (paragraph [ spacing 10 ]
                 [ el [ Font.bold ] <| text title
-                , el [ Font.color <| color GrayMedium ] <| text subTitle
+                , el [ Font.color <| color.grey ] <| text subTitle
                 ]
             )
         , el [ padding 20, width fill ] content

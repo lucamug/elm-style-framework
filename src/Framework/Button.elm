@@ -11,12 +11,13 @@ module Framework.Button exposing (button, buttonAttr, buttonLink, buttonLinkWidt
 
 --import Color.Manipulate
 
+import Color
 import Element exposing (Attribute, Element, centerX, centerY, column, el, inFront, link, mouseOver, paddingXY, row, spacing, text)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
-import Framework.Color as Color
+import Framework.Color exposing (color)
 import Framework.Modifiers exposing (Modifier(..))
 import Framework.Spinner as Spinner
 import Html.Attributes
@@ -176,22 +177,22 @@ processConf modifier conf =
     case modifier of
         -- Colors
         Muted ->
-            { conf | color = Color.Muted }
+            { conf | color = color.muted }
 
         Primary ->
-            { conf | color = Color.Primary }
+            { conf | color = color.primary }
 
         Success ->
-            { conf | color = Color.Success }
+            { conf | color = color.success }
 
         Info ->
-            { conf | color = Color.Info }
+            { conf | color = color.info }
 
         Warning ->
-            { conf | color = Color.Warning }
+            { conf | color = color.warning }
 
         Danger ->
-            { conf | color = Color.Danger }
+            { conf | color = color.danger }
 
         -- SIZES
         Small ->
@@ -276,12 +277,12 @@ buttonLinkWidth modifiers url label buttonWidth =
 
 colorDefault : Color.Color
 colorDefault =
-    Color.White
+    color.white
 
 
 colorBorderDefault : Color.Color
 colorBorderDefault =
-    Color.GrayLighter
+    color.grey_lighter
 
 
 {-| Generate a list of attributes that can be attached to any element
@@ -300,8 +301,8 @@ buttonAttr modifiers =
                 }
                 modifiers
 
-        color =
-            Color.color conf.color
+        cc =
+            conf.color
 
         fontSize =
             toPx conf.size
@@ -312,57 +313,55 @@ buttonAttr modifiers =
         backgroundMouseOverColor =
             case conf.state of
                 StateOutlined ->
-                    color
+                    cc
 
                 _ ->
                     backgroundColor
-                        |> Color.lighten 0.8
-                        |> Color.saturate 0.9
+                        |> Framework.Color.lighten 0.8
+                        |> Framework.Color.saturate 0.9
 
         borderMouseOverColor =
             borderColor
-                |> Color.lighten 0.8
-                |> Color.saturate 0.9
+                |> Framework.Color.lighten 0.8
+                |> Framework.Color.saturate 0.9
 
         fontMouseOverColor =
             case conf.state of
                 StateLoading ->
-                    Color.color Color.Transparent
+                    color.transparent
 
                 StateWaiting ->
-                    Color.color Color.Transparent
+                    color.transparent
 
                 StateOutlined ->
-                    Color.color Color.White
+                    color.white
 
                 _ ->
                     fontColor
-                        |> Color.lighten 0.8
-                        |> Color.saturate 0.9
+                        |> Framework.Color.lighten 0.8
+                        |> Framework.Color.saturate 0.9
 
         backgroundColor =
             case conf.state of
                 StateDefault ->
-                    color
+                    cc
 
                 StateOutlined ->
-                    case conf.color of
-                        Color.White ->
-                            Color.color colorBorderDefault
-
-                        _ ->
-                            Color.color Color.Transparent
+                    if conf.color == color.white then
+                        colorBorderDefault
+                    else
+                        color.transparent
 
                 StateLoading ->
-                    color
+                    cc
 
                 StateWaiting ->
-                    color
+                    cc
 
                 StateDisabled ->
-                    color
-                        |> Color.lighten 1.2
-                        |> Color.saturate 0.9
+                    cc
+                        |> Framework.Color.lighten 1.2
+                        |> Framework.Color.saturate 0.9
 
         borderRounded =
             case conf.size of
@@ -373,44 +372,38 @@ buttonAttr modifiers =
                     3
 
         borderColor =
-            case conf.color of
-                Color.White ->
-                    Color.color colorBorderDefault
+            if conf.color == color.white then
+                colorBorderDefault
+            else
+                case conf.state of
+                    StateOutlined ->
+                        cc
 
-                _ ->
-                    case conf.state of
-                        StateOutlined ->
-                            color
-
-                        _ ->
-                            backgroundColor
+                    _ ->
+                        backgroundColor
 
         spinnerColor =
-            case conf.color of
-                Color.White ->
-                    Color.color Color.GrayDark
-
-                _ ->
-                    Color.color Color.White
+            if conf.color == color.white then
+                color.grey_dark
+            else
+                color.white
 
         fontColor =
             case conf.state of
                 StateOutlined ->
-                    color
+                    cc
 
                 StateLoading ->
-                    Color.color Color.Transparent
+                    color.transparent
 
                 StateWaiting ->
-                    Color.color Color.Transparent
+                    color.transparent
 
                 _ ->
-                    case conf.color of
-                        Color.White ->
-                            Color.color Color.GrayDark
-
-                        _ ->
-                            Color.color Color.White
+                    if conf.color == color.white then
+                        color.grey_dark
+                    else
+                        color.white
 
         inFrontAddon =
             case conf.state of

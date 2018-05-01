@@ -15,7 +15,7 @@ import Element.Border as Border
 import Element.Events as Events
 import Element.Font as Font
 import Element.Input as Input
-import Framework.Color exposing (Color(..), color)
+import Framework.Color exposing (color)
 import Framework.Configuration exposing (conf)
 import Html.Attributes
 import Regex
@@ -233,9 +233,9 @@ inputText model { field, pattern, label } =
         [ inFront <|
             el
                 ([ if hasFocus model field && largeSize then
-                    Font.color <| color Primary
+                    Font.color <| color.primary
                    else
-                    Font.color <| color GrayLight
+                    Font.color <| color.grey_light
                  , moveDown moveDownPlaceHolder
                  , hackInLineStyle "pointer-events" "none"
                  ]
@@ -252,7 +252,7 @@ inputText model { field, pattern, label } =
         Input.text
             ([ Events.onFocus <| OnFocus field
              , Events.onLoseFocus <| OnLoseFocus field
-             , Background.color <| color Transparent
+             , Background.color <| color.transparent
              , if largeSize then
                 Border.width 0
                else
@@ -265,7 +265,7 @@ inputText model { field, pattern, label } =
              ]
                 ++ font
                 ++ (if hasFocus model field then
-                        [ Border.color <| color Primary ]
+                        [ Border.color <| color.primary ]
                     else
                         []
                    )

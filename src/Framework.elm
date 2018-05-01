@@ -28,7 +28,7 @@ import Element.Font as Font
 import Element.Input as Input
 import Framework.Button as Button
 import Framework.Cards as Cards
-import Framework.Color exposing (Color(..), color)
+import Framework.Color exposing (color)
 import Framework.FormFields as FormFields
 import Framework.FormFieldsWithPattern as FormFieldsWithPattern
 import Framework.Icon as Icon
@@ -98,7 +98,7 @@ initConf =
         Element.inFront <|
             link
                 [ alignRight
-                , Font.color <| color Primary
+                , Font.color <| color.primary
                 ]
                 { label = image [ width <| px 60, alpha 0.5 ] { src = "images/github.png", description = "Fork me on Github" }
                 , url = "https://github.com/lucamug/elm-style-framework"
@@ -377,7 +377,7 @@ view model =
     layoutWith
         { options =
             [ focusStyle
-                { borderColor = Just <| color Primary
+                { borderColor = Just <| color.primary
                 , backgroundColor = Nothing
                 , shadow = Nothing
                 }
@@ -406,7 +406,7 @@ view model =
                     [ width <| px 200
                     , centerX
                     , centerY
-                    , Border.color <| color GrayLight
+                    , Border.color <| color.grey_light
                     ]
                     { onChange = Just MsgChangePassword
                     , text = model.password
