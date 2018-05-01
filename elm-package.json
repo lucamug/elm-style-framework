@@ -8,15 +8,16 @@
     ],
     "exposed-modules": [
         "Framework",
+        "FrameworkConfiguration",
         "Framework.Button",
-        "Framework.Cards",
+        "Framework.Card",
         "Framework.Color",
         "Framework.Configuration",
-        "Framework.FormFields",
-        "Framework.FormFieldsWithPattern",
+        "Framework.FormField",
+        "Framework.FormFieldWithPattern",
         "Framework.Icon",
         "Framework.Logo",
-        "Framework.Modifiers",
+        "Framework.Modifier",
         "Framework.Spinner",
         "Framework.StyleElements",
         "Framework.StyleElementsInput",
@@ -31,7 +32,7 @@
         "elm-lang/svg": "2.0.0 <= v < 3.0.0",
         "elm-lang/window": "1.0.1 <= v < 2.0.0",
         "evancz/url-parser": "2.0.1 <= v < 3.0.0",
-        "mdgriffith/stylish-elephants": "5.0.0 <= v < 6.0.0"
+        "mdgriffith/stylish-elephants": "5.0.1 <= v < 6.0.0"
     },
     "elm-version": "0.18.0 <= v < 0.19.0"
 }

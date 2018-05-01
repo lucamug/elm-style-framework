@@ -1,4 +1,4 @@
-module Framework.FormFieldsWithPattern exposing (Field(..), Model, Msg, example1, example2, example3, initModel, inputText, introspection, update)
+module Framework.FormFieldWithPattern exposing (Field(..), Model, Msg, example1, example2, example3, initModel, inputText, introspection, update)
 
 {-|
 

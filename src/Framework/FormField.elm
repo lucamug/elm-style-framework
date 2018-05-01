@@ -1,4 +1,4 @@
-module Framework.FormFields exposing (Field(..), Model, Msg, example1, initModel, inputText, introspection, update)
+module Framework.FormField exposing (Field(..), Model, Msg, example1, initModel, inputText, introspection, update)
 
 {-|
 

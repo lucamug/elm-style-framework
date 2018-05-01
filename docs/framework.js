@@ -30865,7 +30865,7 @@ var _lucamug$elm_style_framework$Framework_Card$example1 = function (model) {
 	};
 };
 
-var _lucamug$elm_style_framework$Framework_FormFields$hackInLineStyle = F2(
+var _lucamug$elm_style_framework$Framework_FormField$hackInLineStyle = F2(
 	function (text1, text2) {
 		return _mdgriffith$stylish_elephants$Element$htmlAttribute(
 			_elm_lang$html$Html_Attributes$style(
@@ -30875,7 +30875,7 @@ var _lucamug$elm_style_framework$Framework_FormFields$hackInLineStyle = F2(
 					_1: {ctor: '[]'}
 				}));
 	});
-var _lucamug$elm_style_framework$Framework_FormFields$hasFocus = F2(
+var _lucamug$elm_style_framework$Framework_FormField$hasFocus = F2(
 	function (model, field) {
 		var _p0 = model.focus;
 		if (_p0.ctor === 'Just') {
@@ -30884,7 +30884,7 @@ var _lucamug$elm_style_framework$Framework_FormFields$hasFocus = F2(
 			return false;
 		}
 	});
-var _lucamug$elm_style_framework$Framework_FormFields$introspection = {
+var _lucamug$elm_style_framework$Framework_FormField$introspection = {
 	name: 'Fields',
 	signature: '',
 	description: 'List of elements for Web Forms',
@@ -30909,7 +30909,7 @@ var _lucamug$elm_style_framework$Framework_FormFields$introspection = {
 		_1: {ctor: '[]'}
 	}
 };
-var _lucamug$elm_style_framework$Framework_FormFields$update = F2(
+var _lucamug$elm_style_framework$Framework_FormField$update = F2(
 	function (msg, model) {
 		var _p1 = msg;
 		switch (_p1.ctor) {
@@ -30944,23 +30944,23 @@ var _lucamug$elm_style_framework$Framework_FormFields$update = F2(
 				};
 		}
 	});
-var _lucamug$elm_style_framework$Framework_FormFields$initModel = {valueEmail: '', focus: _elm_lang$core$Maybe$Nothing};
-var _lucamug$elm_style_framework$Framework_FormFields$Model = F2(
+var _lucamug$elm_style_framework$Framework_FormField$initModel = {valueEmail: '', focus: _elm_lang$core$Maybe$Nothing};
+var _lucamug$elm_style_framework$Framework_FormField$Model = F2(
 	function (a, b) {
 		return {valueEmail: a, focus: b};
 	});
-var _lucamug$elm_style_framework$Framework_FormFields$FieldEmail = {ctor: 'FieldEmail'};
-var _lucamug$elm_style_framework$Framework_FormFields$OnLoseFocus = function (a) {
+var _lucamug$elm_style_framework$Framework_FormField$FieldEmail = {ctor: 'FieldEmail'};
+var _lucamug$elm_style_framework$Framework_FormField$OnLoseFocus = function (a) {
 	return {ctor: 'OnLoseFocus', _0: a};
 };
-var _lucamug$elm_style_framework$Framework_FormFields$OnFocus = function (a) {
+var _lucamug$elm_style_framework$Framework_FormField$OnFocus = function (a) {
 	return {ctor: 'OnFocus', _0: a};
 };
-var _lucamug$elm_style_framework$Framework_FormFields$Input = F2(
+var _lucamug$elm_style_framework$Framework_FormField$Input = F2(
 	function (a, b) {
 		return {ctor: 'Input', _0: a, _1: b};
 	});
-var _lucamug$elm_style_framework$Framework_FormFields$inputText = F2(
+var _lucamug$elm_style_framework$Framework_FormField$inputText = F2(
 	function (model, _p3) {
 		var _p4 = _p3;
 		var _p6 = _p4.field;
@@ -30968,7 +30968,7 @@ var _lucamug$elm_style_framework$Framework_FormFields$inputText = F2(
 			var _p5 = _p6;
 			return model.valueEmail;
 		}();
-		var labelIsAbove = A2(_lucamug$elm_style_framework$Framework_FormFields$hasFocus, model, _p6) || (!_elm_lang$core$Native_Utils.eq(modelValue, ''));
+		var labelIsAbove = A2(_lucamug$elm_style_framework$Framework_FormField$hasFocus, model, _p6) || (!_elm_lang$core$Native_Utils.eq(modelValue, ''));
 		return A2(
 			_mdgriffith$stylish_elephants$Element_Input$email,
 			A2(
@@ -30976,11 +30976,11 @@ var _lucamug$elm_style_framework$Framework_FormFields$inputText = F2(
 				{
 					ctor: '::',
 					_0: _mdgriffith$stylish_elephants$Element_Events$onFocus(
-						_lucamug$elm_style_framework$Framework_FormFields$OnFocus(_p6)),
+						_lucamug$elm_style_framework$Framework_FormField$OnFocus(_p6)),
 					_1: {
 						ctor: '::',
 						_0: _mdgriffith$stylish_elephants$Element_Events$onLoseFocus(
-							_lucamug$elm_style_framework$Framework_FormFields$OnLoseFocus(_p6)),
+							_lucamug$elm_style_framework$Framework_FormField$OnLoseFocus(_p6)),
 						_1: {
 							ctor: '::',
 							_0: _mdgriffith$stylish_elephants$Element_Background$color(_lucamug$elm_style_framework$Framework_Color$color.transparent),
@@ -30999,10 +30999,10 @@ var _lucamug$elm_style_framework$Framework_FormFields$inputText = F2(
 											_0: _mdgriffith$stylish_elephants$Element$width(_mdgriffith$stylish_elephants$Element$fill),
 											_1: {
 												ctor: '::',
-												_0: A2(_lucamug$elm_style_framework$Framework_FormFields$hackInLineStyle, 'transition', 'all 0.15s'),
+												_0: A2(_lucamug$elm_style_framework$Framework_FormField$hackInLineStyle, 'transition', 'all 0.15s'),
 												_1: {
 													ctor: '::',
-													_0: A2(_lucamug$elm_style_framework$Framework_FormFields$hackInLineStyle, 'z-index', '10'),
+													_0: A2(_lucamug$elm_style_framework$Framework_FormField$hackInLineStyle, 'z-index', '10'),
 													_1: {ctor: '[]'}
 												}
 											}
@@ -31013,7 +31013,7 @@ var _lucamug$elm_style_framework$Framework_FormFields$inputText = F2(
 						}
 					}
 				},
-				A2(_lucamug$elm_style_framework$Framework_FormFields$hasFocus, model, _p6) ? {
+				A2(_lucamug$elm_style_framework$Framework_FormField$hasFocus, model, _p6) ? {
 					ctor: '::',
 					_0: _mdgriffith$stylish_elephants$Element_Border$color(_lucamug$elm_style_framework$Framework_Color$color.primary),
 					_1: {ctor: '[]'}
@@ -31025,13 +31025,13 @@ var _lucamug$elm_style_framework$Framework_FormFields$inputText = F2(
 						_elm_lang$core$Basics_ops['++'],
 						{
 							ctor: '::',
-							_0: A2(_lucamug$elm_style_framework$Framework_FormFields$hackInLineStyle, 'transition', 'all 0.15s'),
+							_0: A2(_lucamug$elm_style_framework$Framework_FormField$hackInLineStyle, 'transition', 'all 0.15s'),
 							_1: {
 								ctor: '::',
-								_0: A2(_lucamug$elm_style_framework$Framework_FormFields$hackInLineStyle, 'z-index', '10'),
+								_0: A2(_lucamug$elm_style_framework$Framework_FormField$hackInLineStyle, 'z-index', '10'),
 								_1: {
 									ctor: '::',
-									_0: A2(_lucamug$elm_style_framework$Framework_FormFields$hackInLineStyle, 'pointer-events', 'none'),
+									_0: A2(_lucamug$elm_style_framework$Framework_FormField$hackInLineStyle, 'pointer-events', 'none'),
 									_1: {ctor: '[]'}
 								}
 							}
@@ -31055,23 +31055,23 @@ var _lucamug$elm_style_framework$Framework_FormFields$inputText = F2(
 						}),
 					_mdgriffith$stylish_elephants$Element$text(_p4.label)),
 				onChange: _elm_lang$core$Maybe$Just(
-					_lucamug$elm_style_framework$Framework_FormFields$Input(_p6)),
+					_lucamug$elm_style_framework$Framework_FormField$Input(_p6)),
 				placeholder: _elm_lang$core$Maybe$Nothing,
 				text: modelValue
 			});
 	});
-var _lucamug$elm_style_framework$Framework_FormFields$example1 = function (model) {
+var _lucamug$elm_style_framework$Framework_FormField$example1 = function (model) {
 	return {
 		ctor: '_Tuple2',
 		_0: A2(
-			_lucamug$elm_style_framework$Framework_FormFields$inputText,
+			_lucamug$elm_style_framework$Framework_FormField$inputText,
 			model,
-			{field: _lucamug$elm_style_framework$Framework_FormFields$FieldEmail, label: 'E-mail address'}),
+			{field: _lucamug$elm_style_framework$Framework_FormField$FieldEmail, label: 'E-mail address'}),
 		_1: 'inputText model\n    { field = FieldEmail\n    , label = \"E-mail address\"\n    }'
 	};
 };
 
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$xxappend = F3(
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$xxappend = F3(
 	function (tokens, input, formatted) {
 		xxappend:
 		while (true) {
@@ -31082,7 +31082,7 @@ var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$xxappend = F3(
 				A2(
 					_elm_lang$core$Maybe$map,
 					A2(
-						_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$xxappend,
+						_lucamug$elm_style_framework$Framework_FormFieldWithPattern$xxappend,
 						A2(
 							_elm_lang$core$Maybe$withDefault,
 							{ctor: '[]'},
@@ -31125,15 +31125,15 @@ var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$xxappend = F3(
 			}
 		}
 	});
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$xxformat = F2(
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$xxformat = F2(
 	function (tokens, input) {
 		return _elm_lang$core$String$isEmpty(input) ? input : A3(
-			_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$xxappend,
+			_lucamug$elm_style_framework$Framework_FormFieldWithPattern$xxappend,
 			tokens,
 			_elm_lang$core$String$toList(input),
 			'');
 	});
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$hackInLineStyle = F2(
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$hackInLineStyle = F2(
 	function (text1, text2) {
 		return _mdgriffith$stylish_elephants$Element$htmlAttribute(
 			_elm_lang$html$Html_Attributes$style(
@@ -31143,7 +31143,7 @@ var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$hackInLineStyle
 					_1: {ctor: '[]'}
 				}));
 	});
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$hasFocus = F2(
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$hasFocus = F2(
 	function (model, field) {
 		var _p2 = model.focus;
 		if (_p2.ctor === 'Just') {
@@ -31152,7 +31152,7 @@ var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$hasFocus = F2(
 			return false;
 		}
 	});
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$introspection = {
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$introspection = {
 	name: 'Fields With Patterns',
 	signature: '',
 	description: 'List of elements for Web Forms',
@@ -31209,27 +31209,27 @@ var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$introspection =
 		}
 	}
 };
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$regexNotDigitsAtTheEnd = _elm_lang$core$Regex$regex('[^0-9]*$');
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$regexNotDigit = _elm_lang$core$Regex$regex('[^0-9]');
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$initModel = {fieldTelephone: '', fieldCreditCard: '', field4DigitCode: '', focus: _elm_lang$core$Maybe$Nothing};
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$Model = F4(
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$regexNotDigitsAtTheEnd = _elm_lang$core$Regex$regex('[^0-9]*$');
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$regexNotDigit = _elm_lang$core$Regex$regex('[^0-9]');
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$initModel = {fieldTelephone: '', fieldCreditCard: '', field4DigitCode: '', focus: _elm_lang$core$Maybe$Nothing};
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$Model = F4(
 	function (a, b, c, d) {
 		return {fieldTelephone: a, fieldCreditCard: b, field4DigitCode: c, focus: d};
 	});
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$Field4DigitCode = {ctor: 'Field4DigitCode'};
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$FieldCreditCard = {ctor: 'FieldCreditCard'};
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$FieldTelephone = {ctor: 'FieldTelephone'};
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$OnLoseFocus = function (a) {
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$Field4DigitCode = {ctor: 'Field4DigitCode'};
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$FieldCreditCard = {ctor: 'FieldCreditCard'};
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$FieldTelephone = {ctor: 'FieldTelephone'};
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$OnLoseFocus = function (a) {
 	return {ctor: 'OnLoseFocus', _0: a};
 };
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$OnFocus = function (a) {
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$OnFocus = function (a) {
 	return {ctor: 'OnFocus', _0: a};
 };
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$Input = F3(
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$Input = F3(
 	function (a, b, c) {
 		return {ctor: 'Input', _0: a, _1: b, _2: c};
 	});
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$inputText = F2(
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$inputText = F2(
 	function (model, _p3) {
 		var _p4 = _p3;
 		var _p7 = _p4.pattern;
@@ -31245,7 +31245,7 @@ var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$inputText = F2(
 					return model.field4DigitCode;
 			}
 		}();
-		var largeSize = _elm_lang$core$Native_Utils.eq(_p6, _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$Field4DigitCode);
+		var largeSize = _elm_lang$core$Native_Utils.eq(_p6, _lucamug$elm_style_framework$Framework_FormFieldWithPattern$Field4DigitCode);
 		var font = largeSize ? {
 			ctor: '::',
 			_0: _mdgriffith$stylish_elephants$Element_Font$family(
@@ -31261,7 +31261,7 @@ var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$inputText = F2(
 			}
 		} : {ctor: '[]'};
 		var moveDownPlaceHolder = largeSize ? _lucamug$elm_style_framework$Framework_Configuration$conf.moveDownPlaceHolder.large : _lucamug$elm_style_framework$Framework_Configuration$conf.moveDownPlaceHolder.small;
-		var labelIsAbove = A2(_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$hasFocus, model, _p6) || ((!_elm_lang$core$Native_Utils.eq(modelValue, '')) || largeSize);
+		var labelIsAbove = A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$hasFocus, model, _p6) || ((!_elm_lang$core$Native_Utils.eq(modelValue, '')) || largeSize);
 		var lengthDifference = _elm_lang$core$String$length(_p7) - _elm_lang$core$String$length(modelValue);
 		var patternToShow = A2(
 			_elm_lang$core$Basics_ops['++'],
@@ -31278,13 +31278,13 @@ var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$inputText = F2(
 							_elm_lang$core$Basics_ops['++'],
 							{
 								ctor: '::',
-								_0: (A2(_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$hasFocus, model, _p6) && largeSize) ? _mdgriffith$stylish_elephants$Element_Font$color(_lucamug$elm_style_framework$Framework_Color$color.primary) : _mdgriffith$stylish_elephants$Element_Font$color(_lucamug$elm_style_framework$Framework_Color$color.grey_light),
+								_0: (A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$hasFocus, model, _p6) && largeSize) ? _mdgriffith$stylish_elephants$Element_Font$color(_lucamug$elm_style_framework$Framework_Color$color.primary) : _mdgriffith$stylish_elephants$Element_Font$color(_lucamug$elm_style_framework$Framework_Color$color.grey_light),
 								_1: {
 									ctor: '::',
 									_0: _mdgriffith$stylish_elephants$Element$moveDown(moveDownPlaceHolder),
 									_1: {
 										ctor: '::',
-										_0: A2(_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$hackInLineStyle, 'pointer-events', 'none'),
+										_0: A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$hackInLineStyle, 'pointer-events', 'none'),
 										_1: {ctor: '[]'}
 									}
 								}
@@ -31301,11 +31301,11 @@ var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$inputText = F2(
 					{
 						ctor: '::',
 						_0: _mdgriffith$stylish_elephants$Element_Events$onFocus(
-							_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$OnFocus(_p6)),
+							_lucamug$elm_style_framework$Framework_FormFieldWithPattern$OnFocus(_p6)),
 						_1: {
 							ctor: '::',
 							_0: _mdgriffith$stylish_elephants$Element_Events$onLoseFocus(
-								_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$OnLoseFocus(_p6)),
+								_lucamug$elm_style_framework$Framework_FormFieldWithPattern$OnLoseFocus(_p6)),
 							_1: {
 								ctor: '::',
 								_0: _mdgriffith$stylish_elephants$Element_Background$color(_lucamug$elm_style_framework$Framework_Color$color.transparent),
@@ -31325,10 +31325,10 @@ var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$inputText = F2(
 													_mdgriffith$stylish_elephants$Element$px(230)),
 												_1: {
 													ctor: '::',
-													_0: A2(_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$hackInLineStyle, 'transition', 'all 0.15s'),
+													_0: A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$hackInLineStyle, 'transition', 'all 0.15s'),
 													_1: {
 														ctor: '::',
-														_0: A2(_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$hackInLineStyle, 'z-index', '10'),
+														_0: A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$hackInLineStyle, 'z-index', '10'),
 														_1: {ctor: '[]'}
 													}
 												}
@@ -31342,7 +31342,7 @@ var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$inputText = F2(
 					A2(
 						_elm_lang$core$Basics_ops['++'],
 						font,
-						A2(_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$hasFocus, model, _p6) ? {
+						A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$hasFocus, model, _p6) ? {
 							ctor: '::',
 							_0: _mdgriffith$stylish_elephants$Element_Border$color(_lucamug$elm_style_framework$Framework_Color$color.primary),
 							_1: {ctor: '[]'}
@@ -31354,13 +31354,13 @@ var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$inputText = F2(
 							_elm_lang$core$Basics_ops['++'],
 							{
 								ctor: '::',
-								_0: A2(_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$hackInLineStyle, 'transition', 'all 0.15s'),
+								_0: A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$hackInLineStyle, 'transition', 'all 0.15s'),
 								_1: {
 									ctor: '::',
-									_0: A2(_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$hackInLineStyle, 'z-index', '10'),
+									_0: A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$hackInLineStyle, 'z-index', '10'),
 									_1: {
 										ctor: '::',
-										_0: A2(_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$hackInLineStyle, 'pointer-events', 'none'),
+										_0: A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$hackInLineStyle, 'pointer-events', 'none'),
 										_1: {ctor: '[]'}
 									}
 								}
@@ -31380,69 +31380,69 @@ var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$inputText = F2(
 							}),
 						_mdgriffith$stylish_elephants$Element$text(_p4.label)),
 					onChange: _elm_lang$core$Maybe$Just(
-						A2(_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$Input, _p6, _p7)),
+						A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$Input, _p6, _p7)),
 					placeholder: _elm_lang$core$Maybe$Nothing,
 					text: modelValue
 				}));
 	});
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$example1 = function (model) {
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$example1 = function (model) {
 	return {
 		ctor: '_Tuple2',
 		_0: A2(
-			_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$inputText,
+			_lucamug$elm_style_framework$Framework_FormFieldWithPattern$inputText,
 			model,
-			{field: _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$FieldTelephone, pattern: '(000) 000 - 0000', label: 'Phone number USA'}),
+			{field: _lucamug$elm_style_framework$Framework_FormFieldWithPattern$FieldTelephone, pattern: '(000) 000 - 0000', label: 'Phone number USA'}),
 		_1: 'inputText model\n    { field = FieldTelephone\n    , pattern = \"(000) 000 - 0000\"\n    , label = \"Phone number USA\"\n    }'
 	};
 };
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$example2 = function (model) {
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$example2 = function (model) {
 	return {
 		ctor: '_Tuple2',
 		_0: A2(
-			_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$inputText,
+			_lucamug$elm_style_framework$Framework_FormFieldWithPattern$inputText,
 			model,
-			{field: _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$FieldCreditCard, pattern: '0000 - 0000 - 0000 - 0000', label: 'Credit Card number'}),
+			{field: _lucamug$elm_style_framework$Framework_FormFieldWithPattern$FieldCreditCard, pattern: '0000 - 0000 - 0000 - 0000', label: 'Credit Card number'}),
 		_1: 'inputText model\n    { field = FieldCreditCard\n    , pattern = \"0000 - 0000 - 0000 - 0000\"\n    , label = \"Credit Card number\"\n    }'
 	};
 };
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$example3 = function (model) {
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$example3 = function (model) {
 	return {
 		ctor: '_Tuple2',
 		_0: A2(
-			_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$inputText,
+			_lucamug$elm_style_framework$Framework_FormFieldWithPattern$inputText,
 			model,
-			{field: _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$Field4DigitCode, pattern: '_ _ _ _', label: '4 Digits Code'}),
+			{field: _lucamug$elm_style_framework$Framework_FormFieldWithPattern$Field4DigitCode, pattern: '_ _ _ _', label: '4 Digits Code'}),
 		_1: 'inputText model\n    { field = Field4DigitCode\n    , pattern = \"_ _ _ _\"\n    , label = \"4 Digits Code\"\n    }'
 	};
 };
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$Other = function (a) {
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$Other = function (a) {
 	return {ctor: 'Other', _0: a};
 };
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$Inputxxx = {ctor: 'Inputxxx'};
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$xxtokenize = F2(
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$Inputxxx = {ctor: 'Inputxxx'};
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$xxtokenize = F2(
 	function (inputChar, pattern) {
 		return (_elm_lang$core$Native_Utils.eq(pattern, inputChar) || _elm_lang$core$Native_Utils.eq(
 			pattern,
-			_elm_lang$core$Native_Utils.chr('_'))) ? _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$Inputxxx : _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$Other(pattern);
+			_elm_lang$core$Native_Utils.chr('_'))) ? _lucamug$elm_style_framework$Framework_FormFieldWithPattern$Inputxxx : _lucamug$elm_style_framework$Framework_FormFieldWithPattern$Other(pattern);
 	});
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$xxparse = F2(
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$xxparse = F2(
 	function (inputChar, pattern) {
 		return A2(
 			_elm_lang$core$List$map,
-			_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$xxtokenize(inputChar),
+			_lucamug$elm_style_framework$Framework_FormFieldWithPattern$xxtokenize(inputChar),
 			_elm_lang$core$String$toList(pattern));
 	});
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$xxresult = F2(
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$xxresult = F2(
 	function (template, string) {
 		return A2(
-			_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$xxformat,
+			_lucamug$elm_style_framework$Framework_FormFieldWithPattern$xxformat,
 			A2(
-				_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$xxparse,
+				_lucamug$elm_style_framework$Framework_FormFieldWithPattern$xxparse,
 				_elm_lang$core$Native_Utils.chr('0'),
 				template),
 			string);
 	});
-var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$update = F2(
+var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$update = F2(
 	function (msg, model) {
 		var _p8 = msg;
 		switch (_p8.ctor) {
@@ -31450,16 +31450,16 @@ var _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$update = F2(
 				var onlyDigits = A4(
 					_elm_lang$core$Regex$replace,
 					_elm_lang$core$Regex$All,
-					_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$regexNotDigit,
+					_lucamug$elm_style_framework$Framework_FormFieldWithPattern$regexNotDigit,
 					function (_p9) {
 						return '';
 					},
 					_p8._2);
-				var withPattern = A2(_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$xxresult, _p8._1, onlyDigits);
+				var withPattern = A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$xxresult, _p8._1, onlyDigits);
 				var removeCharactedAtTheEndIfNotNumbers = A4(
 					_elm_lang$core$Regex$replace,
 					_elm_lang$core$Regex$All,
-					_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$regexNotDigitsAtTheEnd,
+					_lucamug$elm_style_framework$Framework_FormFieldWithPattern$regexNotDigitsAtTheEnd,
 					function (_p10) {
 						return '';
 					},
@@ -33729,24 +33729,24 @@ var _lucamug$elm_style_framework$Framework$update = F2(
 						{modelStyleElementsInput: newModel}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
-			case 'MsgFormFields':
-				var _p13 = A2(_lucamug$elm_style_framework$Framework_FormFields$update, _p3._0, model.modelFormFields);
+			case 'MsgFormField':
+				var _p13 = A2(_lucamug$elm_style_framework$Framework_FormField$update, _p3._0, model.modelFormField);
 				var newModel = _p13._0;
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{modelFormFields: newModel}),
+						{modelFormField: newModel}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
-			case 'MsgFormFieldsWithPattern':
-				var _p14 = A2(_lucamug$elm_style_framework$Framework_FormFieldsWithPattern$update, _p3._0, model.modelFormFieldsWithPattern);
+			case 'MsgFormFieldWithPattern':
+				var _p14 = A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$update, _p3._0, model.modelFormFieldWithPattern);
 				var newModel = _p14._0;
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{modelFormFieldsWithPattern: newModel}),
+						{modelFormFieldWithPattern: newModel}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			default:
@@ -33766,10 +33766,10 @@ var _lucamug$elm_style_framework$Framework$introspections = {
 	_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Color$introspection, _1: true},
 	_1: {
 		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_FormFields$introspection, _1: true},
+		_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_FormField$introspection, _1: true},
 		_1: {
 			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$introspection, _1: true},
+			_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_FormFieldWithPattern$introspection, _1: true},
 			_1: {
 				ctor: '::',
 				_0: {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Typography$introspection, _1: true},
@@ -33948,8 +33948,8 @@ var _lucamug$elm_style_framework$Framework$initModel = F2(
 			location: location,
 			password: '',
 			modelStyleElementsInput: _lucamug$elm_style_framework$Framework_StyleElementsInput$initModel,
-			modelFormFields: _lucamug$elm_style_framework$Framework_FormFields$initModel,
-			modelFormFieldsWithPattern: _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$initModel,
+			modelFormField: _lucamug$elm_style_framework$Framework_FormField$initModel,
+			modelFormFieldWithPattern: _lucamug$elm_style_framework$Framework_FormFieldWithPattern$initModel,
 			modelCards: _lucamug$elm_style_framework$Framework_Card$initModel,
 			maybeWindowSize: _elm_lang$core$Maybe$Just(
 				A2(_elm_lang$window$Window$Size, flag.width, flag.height)),
@@ -34003,7 +34003,7 @@ var _lucamug$elm_style_framework$Framework$Model = function (a) {
 							return function (h) {
 								return function (i) {
 									return function (j) {
-										return {maybeWindowSize: a, modelStyleElementsInput: b, modelFormFields: c, modelFormFieldsWithPattern: d, modelCards: e, introspections: f, location: g, maybeWindowSize: h, password: i, conf: j};
+										return {maybeWindowSize: a, modelStyleElementsInput: b, modelFormField: c, modelFormFieldWithPattern: d, modelCards: e, introspections: f, location: g, maybeWindowSize: h, password: i, conf: j};
 									};
 								};
 							};
@@ -34043,32 +34043,32 @@ var _lucamug$elm_style_framework$Framework$specialComponentCards = F2(
 			_1: _elm_lang$core$Tuple$second(componentTuplet)
 		};
 	});
-var _lucamug$elm_style_framework$Framework$MsgFormFieldsWithPattern = function (a) {
-	return {ctor: 'MsgFormFieldsWithPattern', _0: a};
+var _lucamug$elm_style_framework$Framework$MsgFormFieldWithPattern = function (a) {
+	return {ctor: 'MsgFormFieldWithPattern', _0: a};
 };
-var _lucamug$elm_style_framework$Framework$specialComponentFormFieldsWithPattern = F2(
+var _lucamug$elm_style_framework$Framework$specialComponentFormFieldWithPattern = F2(
 	function (model, component) {
-		var componentTuplet = component(model.modelFormFieldsWithPattern);
+		var componentTuplet = component(model.modelFormFieldWithPattern);
 		return {
 			ctor: '_Tuple2',
 			_0: A2(
 				_mdgriffith$stylish_elephants$Element$map,
-				_lucamug$elm_style_framework$Framework$MsgFormFieldsWithPattern,
+				_lucamug$elm_style_framework$Framework$MsgFormFieldWithPattern,
 				_elm_lang$core$Tuple$first(componentTuplet)),
 			_1: _elm_lang$core$Tuple$second(componentTuplet)
 		};
 	});
-var _lucamug$elm_style_framework$Framework$MsgFormFields = function (a) {
-	return {ctor: 'MsgFormFields', _0: a};
+var _lucamug$elm_style_framework$Framework$MsgFormField = function (a) {
+	return {ctor: 'MsgFormField', _0: a};
 };
-var _lucamug$elm_style_framework$Framework$specialComponentFormFields = F2(
+var _lucamug$elm_style_framework$Framework$specialComponentFormField = F2(
 	function (model, component) {
-		var componentTuplet = component(model.modelFormFields);
+		var componentTuplet = component(model.modelFormField);
 		return {
 			ctor: '_Tuple2',
 			_0: A2(
 				_mdgriffith$stylish_elephants$Element$map,
-				_lucamug$elm_style_framework$Framework$MsgFormFields,
+				_lucamug$elm_style_framework$Framework$MsgFormField,
 				_elm_lang$core$Tuple$first(componentTuplet)),
 			_1: _elm_lang$core$Tuple$second(componentTuplet)
 		};
@@ -34094,13 +34094,13 @@ var _lucamug$elm_style_framework$Framework$viewSubSection = F2(
 		var _p19 = _p17._0;
 		var _p18 = _elm_lang$core$Native_Utils.eq(
 			_p19,
-			_mdgriffith$stylish_elephants$Element$text('special: Form.example1')) ? A2(_lucamug$elm_style_framework$Framework$specialComponentFormFields, model, _lucamug$elm_style_framework$Framework_FormFields$example1) : (_elm_lang$core$Native_Utils.eq(
+			_mdgriffith$stylish_elephants$Element$text('special: Form.example1')) ? A2(_lucamug$elm_style_framework$Framework$specialComponentFormField, model, _lucamug$elm_style_framework$Framework_FormField$example1) : (_elm_lang$core$Native_Utils.eq(
 			_p19,
-			_mdgriffith$stylish_elephants$Element$text('special: FormFieldsWithPattern.example1')) ? A2(_lucamug$elm_style_framework$Framework$specialComponentFormFieldsWithPattern, model, _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$example1) : (_elm_lang$core$Native_Utils.eq(
+			_mdgriffith$stylish_elephants$Element$text('special: FormFieldWithPattern.example1')) ? A2(_lucamug$elm_style_framework$Framework$specialComponentFormFieldWithPattern, model, _lucamug$elm_style_framework$Framework_FormFieldWithPattern$example1) : (_elm_lang$core$Native_Utils.eq(
 			_p19,
-			_mdgriffith$stylish_elephants$Element$text('special: FormFieldsWithPattern.example2')) ? A2(_lucamug$elm_style_framework$Framework$specialComponentFormFieldsWithPattern, model, _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$example2) : (_elm_lang$core$Native_Utils.eq(
+			_mdgriffith$stylish_elephants$Element$text('special: FormFieldWithPattern.example2')) ? A2(_lucamug$elm_style_framework$Framework$specialComponentFormFieldWithPattern, model, _lucamug$elm_style_framework$Framework_FormFieldWithPattern$example2) : (_elm_lang$core$Native_Utils.eq(
 			_p19,
-			_mdgriffith$stylish_elephants$Element$text('special: FormFieldsWithPattern.example3')) ? A2(_lucamug$elm_style_framework$Framework$specialComponentFormFieldsWithPattern, model, _lucamug$elm_style_framework$Framework_FormFieldsWithPattern$example3) : (_elm_lang$core$Native_Utils.eq(
+			_mdgriffith$stylish_elephants$Element$text('special: FormFieldWithPattern.example3')) ? A2(_lucamug$elm_style_framework$Framework$specialComponentFormFieldWithPattern, model, _lucamug$elm_style_framework$Framework_FormFieldWithPattern$example3) : (_elm_lang$core$Native_Utils.eq(
 			_p19,
 			_mdgriffith$stylish_elephants$Element$text('special: Cards.example1')) ? A2(_lucamug$elm_style_framework$Framework$specialComponentCards, model, _lucamug$elm_style_framework$Framework_Card$example1) : (_elm_lang$core$Native_Utils.eq(
 			_p19,
@@ -34981,7 +34981,7 @@ var _lucamug$elm_style_framework$Framework$main = A2(
 var Elm = {};
 Elm['Framework'] = Elm['Framework'] || {};
 if (typeof _lucamug$elm_style_framework$Framework$main !== 'undefined') {
-    _lucamug$elm_style_framework$Framework$main(Elm['Framework'], 'Framework', {"types":{"unions":{"Framework.FormFieldsWithPattern.Msg":{"args":[],"tags":{"OnFocus":["Framework.FormFieldsWithPattern.Field"],"Input":["Framework.FormFieldsWithPattern.Field","String","String"],"OnLoseFocus":["Framework.FormFieldsWithPattern.Field"]}},"Framework.FormFieldsWithPattern.Field":{"args":[],"tags":{"Field4DigitCode":[],"FieldTelephone":[],"FieldCreditCard":[]}},"Framework.StyleElementsInput.Msg":{"args":[],"tags":{"Input":["String"],"Button":[],"Radio":["String"],"Checkbox":["Bool"]}},"Framework.Card.Msg":{"args":[],"tags":{"Flip":[]}},"Framework.FormFields.Msg":{"args":[],"tags":{"OnFocus":["Framework.FormFields.Field"],"Input":["Framework.FormFields.Field","String"],"OnLoseFocus":["Framework.FormFields.Field"]}},"Framework.Msg":{"args":[],"tags":{"MsgCloseAllSections":[],"MsgToggleSection":["String"],"MsgStyleElementsInput":["Framework.StyleElementsInput.Msg"],"MsgChangePassword":["String"],"MsgChangeWindowSize":["Window.Size"],"MsgOpenAllSections":[],"MsgFormFields":["Framework.FormFields.Msg"],"MsgFormFieldsWithPattern":["Framework.FormFieldsWithPattern.Msg"],"MsgChangeLocation":["Navigation.Location"],"MsgCards":["Framework.Card.Msg"]}},"Framework.FormFields.Field":{"args":[],"tags":{"FieldEmail":[]}}},"aliases":{"Window.Size":{"args":[],"type":"{ width : Int, height : Int }"},"Navigation.Location":{"args":[],"type":"{ href : String , host : String , hostname : String , protocol : String , origin : String , port_ : String , pathname : String , search : String , hash : String , username : String , password : String }"}},"message":"Framework.Msg"},"versions":{"elm":"0.18.0"}});
+    _lucamug$elm_style_framework$Framework$main(Elm['Framework'], 'Framework', {"types":{"unions":{"Framework.FormField.Field":{"args":[],"tags":{"FieldEmail":[]}},"Framework.FormFieldWithPattern.Field":{"args":[],"tags":{"Field4DigitCode":[],"FieldTelephone":[],"FieldCreditCard":[]}},"Framework.FormFieldWithPattern.Msg":{"args":[],"tags":{"OnFocus":["Framework.FormFieldWithPattern.Field"],"Input":["Framework.FormFieldWithPattern.Field","String","String"],"OnLoseFocus":["Framework.FormFieldWithPattern.Field"]}},"Framework.StyleElementsInput.Msg":{"args":[],"tags":{"Input":["String"],"Button":[],"Radio":["String"],"Checkbox":["Bool"]}},"Framework.FormField.Msg":{"args":[],"tags":{"OnFocus":["Framework.FormField.Field"],"Input":["Framework.FormField.Field","String"],"OnLoseFocus":["Framework.FormField.Field"]}},"Framework.Card.Msg":{"args":[],"tags":{"Flip":[]}},"Framework.Msg":{"args":[],"tags":{"MsgCloseAllSections":[],"MsgFormFieldWithPattern":["Framework.FormFieldWithPattern.Msg"],"MsgToggleSection":["String"],"MsgStyleElementsInput":["Framework.StyleElementsInput.Msg"],"MsgChangePassword":["String"],"MsgChangeWindowSize":["Window.Size"],"MsgOpenAllSections":[],"MsgChangeLocation":["Navigation.Location"],"MsgFormField":["Framework.FormField.Msg"],"MsgCards":["Framework.Card.Msg"]}}},"aliases":{"Window.Size":{"args":[],"type":"{ width : Int, height : Int }"},"Navigation.Location":{"args":[],"type":"{ href : String , host : String , hostname : String , protocol : String , origin : String , port_ : String , pathname : String , search : String , hash : String , username : String , password : String }"}},"message":"Framework.Msg"},"versions":{"elm":"0.18.0"}});
 }
 
 if (typeof define === "function" && define['amd'])

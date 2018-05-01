@@ -12,19 +12,84 @@ For more info about the idea, see [this post](https://medium.com/@l.mugnaini/zer
 
 There are three way to configure/customize this package.
 
-1.  To change the variables (mainly colors), as defined inside `Configuration.elm` pass the new value as a flag...
 
-To change some of the variables, add a file named `FrameworkConfiguration.elm`
-in the root of your soruce folder with this code inside:
+## Overwrite variables
 
-    import Dict
+  - To change the variables (mainly colors), as defined inside `Configuration.elm` use the file `FrameworkConfiguration.elm`. You can create such file in the root folder of your project or better you should copy the entire framework inside your repository. The file should contain
 
-    configuration : Dict.Dict String String
-    configuration =
-        Dict.fromList [ ( "primary", "#909" ) ]
+```
+import Dict
+
+configuration : Dict.Dict String String
+configuration =
+    Dict.fromList [ ( "primary", "#909" ) ]
+```
 
 ALso add `module FrameworkConfiguration exposing (configuration)` at the very top.
 In this example we are replacing the primary color with#909.
+
+
+## Chnage the automatically-generated-styleguide
+
+  - To change the automatically-generated-styleguide logo, title and description you need to pass a new configuration file. SOmething like:
+
+```
+view : Framework.Model -> Html.Html Framework.Msg
+view model =
+    Framework.view
+        { model
+            | conf = initConf
+        }
+
+initConf : Framework.Conf msg
+initConf =
+    let
+        confData =
+            Framework.initConf
+    in
+    { confData
+        | title = text "New Title"
+        , subTitle = "New Subtitle"
+    }
+```
+
+
+## Add completely new features
+
+  - To add new feature and have them showing up in the style guide just
+    remember to output the `introspection` and add them into the configurations
+
+```
+view : Framework.Model -> Html.Html Framework.Msg
+view model =
+    Framework.view
+        { model
+            | introspections = introspections
+        }
+
+introspections : List ( Framework.Introspection, Bool )
+introspections =
+    [ ( Color.introspection, True )
+    , ( Logo.introspection, True )
+    , ( Icon.introspection, True )
+    ]
+        ++ Framework.introspections
+```
+
+You can combine the latest two points with
+
+    view : Framework.Model -> Html.Html Framework.Msg
+    view model =
+        Framework.view
+            { model
+                | conf = initConf
+                | introspections = introspections
+            }
+
+If you believe that your new feature is something that everybody should have
+please add it to the package and contribute to the opensource!
+
+For any issue or to get in touch with the authors, refer to the github page.
 
 
 # Functions
@@ -45,8 +110,8 @@ import Element.Input as Input
 import Framework.Button as Button
 import Framework.Card as Card
 import Framework.Color exposing (color)
-import Framework.FormFields as FormFields
-import Framework.FormFieldsWithPattern as FormFieldsWithPattern
+import Framework.FormField as FormField
+import Framework.FormFieldWithPattern as FormFieldWithPattern
 import Framework.Icon as Icon
 import Framework.Logo as Logo
 import Framework.Spinner as Spinner
@@ -177,8 +242,8 @@ maybeSelected model =
 type alias Model =
     { maybeWindowSize : Maybe Window.Size
     , modelStyleElementsInput : StyleElementsInput.Model
-    , modelFormFields : FormFields.Model
-    , modelFormFieldsWithPattern : FormFieldsWithPattern.Model
+    , modelFormField : FormField.Model
+    , modelFormFieldWithPattern : FormFieldWithPattern.Model
     , modelCards : Card.Model
     , introspections : List ( Introspection, Bool )
     , location : Navigation.Location
@@ -194,8 +259,8 @@ initModel flag location =
     { location = location
     , password = ""
     , modelStyleElementsInput = StyleElementsInput.initModel
-    , modelFormFields = FormFields.initModel
-    , modelFormFieldsWithPattern = FormFieldsWithPattern.initModel
+    , modelFormField = FormField.initModel
+    , modelFormFieldWithPattern = FormFieldWithPattern.initModel
     , modelCards = Card.initModel
     , maybeWindowSize = Just <| Window.Size flag.width flag.height
     , conf = initConf
@@ -219,8 +284,8 @@ introspectionsForDebugging =
 introspections : List ( Introspection, Bool )
 introspections =
     [ ( Framework.Color.introspection, True )
-    , ( FormFields.introspection, True )
-    , ( FormFieldsWithPattern.introspection, True )
+    , ( FormField.introspection, True )
+    , ( FormFieldWithPattern.introspection, True )
     , ( Typography.introspection, True )
     , ( Card.introspection, True )
     , ( Button.introspection, True )
@@ -296,8 +361,8 @@ type Msg
     | MsgCloseAllSections
     | MsgChangeWindowSize Window.Size
     | MsgStyleElementsInput StyleElementsInput.Msg
-    | MsgFormFields FormFields.Msg
-    | MsgFormFieldsWithPattern FormFieldsWithPattern.Msg
+    | MsgFormField FormField.Msg
+    | MsgFormFieldWithPattern FormFieldWithPattern.Msg
     | MsgCards Card.Msg
     | MsgChangeLocation Navigation.Location
     | MsgChangePassword String
@@ -350,19 +415,19 @@ update msg model =
             in
             ( { model | modelStyleElementsInput = newModel }, Cmd.none )
 
-        MsgFormFields msg2 ->
+        MsgFormField msg2 ->
             let
                 ( newModel, _ ) =
-                    FormFields.update msg2 model.modelFormFields
+                    FormField.update msg2 model.modelFormField
             in
-            ( { model | modelFormFields = newModel }, Cmd.none )
+            ( { model | modelFormField = newModel }, Cmd.none )
 
-        MsgFormFieldsWithPattern msg2 ->
+        MsgFormFieldWithPattern msg2 ->
             let
                 ( newModel, _ ) =
-                    FormFieldsWithPattern.update msg2 model.modelFormFieldsWithPattern
+                    FormFieldWithPattern.update msg2 model.modelFormFieldWithPattern
             in
-            ( { model | modelFormFieldsWithPattern = newModel }, Cmd.none )
+            ( { model | modelFormFieldWithPattern = newModel }, Cmd.none )
 
         MsgCards msg2 ->
             let
@@ -690,24 +755,24 @@ specialComponent model component =
     )
 
 
-specialComponentFormFieldsWithPattern : Model -> (FormFieldsWithPattern.Model -> ( Element FormFieldsWithPattern.Msg, c )) -> ( Element Msg, c )
-specialComponentFormFieldsWithPattern model component =
+specialComponentFormFieldWithPattern : Model -> (FormFieldWithPattern.Model -> ( Element FormFieldWithPattern.Msg, c )) -> ( Element Msg, c )
+specialComponentFormFieldWithPattern model component =
     let
         componentTuplet =
-            component model.modelFormFieldsWithPattern
+            component model.modelFormFieldWithPattern
     in
-    ( Element.map MsgFormFieldsWithPattern (Tuple.first <| componentTuplet)
+    ( Element.map MsgFormFieldWithPattern (Tuple.first <| componentTuplet)
     , Tuple.second <| componentTuplet
     )
 
 
-specialComponentFormFields : Model -> (FormFields.Model -> ( Element FormFields.Msg, c )) -> ( Element Msg, c )
-specialComponentFormFields model component =
+specialComponentFormField : Model -> (FormField.Model -> ( Element FormField.Msg, c )) -> ( Element Msg, c )
+specialComponentFormField model component =
     let
         componentTuplet =
-            component model.modelFormFields
+            component model.modelFormField
     in
-    ( Element.map MsgFormFields (Tuple.first <| componentTuplet)
+    ( Element.map MsgFormField (Tuple.first <| componentTuplet)
     , Tuple.second <| componentTuplet
     )
 
@@ -728,13 +793,13 @@ viewSubSection model ( componentExample, componentExampleSourceCode ) =
     let
         ( componentExampleToDisplay, componentExampleSourceCodeToDisplay ) =
             if componentExample == text "special: Form.example1" then
-                specialComponentFormFields model FormFields.example1
-            else if componentExample == text "special: FormFieldsWithPattern.example1" then
-                specialComponentFormFieldsWithPattern model FormFieldsWithPattern.example1
-            else if componentExample == text "special: FormFieldsWithPattern.example2" then
-                specialComponentFormFieldsWithPattern model FormFieldsWithPattern.example2
-            else if componentExample == text "special: FormFieldsWithPattern.example3" then
-                specialComponentFormFieldsWithPattern model FormFieldsWithPattern.example3
+                specialComponentFormField model FormField.example1
+            else if componentExample == text "special: FormFieldWithPattern.example1" then
+                specialComponentFormFieldWithPattern model FormFieldWithPattern.example1
+            else if componentExample == text "special: FormFieldWithPattern.example2" then
+                specialComponentFormFieldWithPattern model FormFieldWithPattern.example2
+            else if componentExample == text "special: FormFieldWithPattern.example3" then
+                specialComponentFormFieldWithPattern model FormFieldWithPattern.example3
             else if componentExample == text "special: Cards.example1" then
                 specialComponentCards model Card.example1
             else if componentExample == text "special: example0" then
