@@ -27682,10 +27682,10 @@ var _lucamug$elm_style_framework$Framework_Configuration$configuration = _elm_la
 																																																		_0: {ctor: '_Tuple2', _0: 'size_large', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaSizes.size4},
 																																																		_1: {
 																																																			ctor: '::',
-																																																			_0: {ctor: '_Tuple2', _0: 'moveDownPlaceHolderLarge', _1: '33'},
+																																																			_0: {ctor: '_Tuple2', _0: 'moveDownPlaceHolderLarge', _1: '69'},
 																																																			_1: {
 																																																				ctor: '::',
-																																																				_0: {ctor: '_Tuple2', _0: 'moveDownPlaceHolderSmall', _1: '33'},
+																																																				_0: {ctor: '_Tuple2', _0: 'moveDownPlaceHolderSmall', _1: '30'},
 																																																				_1: {
 																																																					ctor: '::',
 																																																					_0: {ctor: '_Tuple2', _0: 'transparent', _1: '#ffffff00'},
@@ -33870,7 +33870,7 @@ var _lucamug$elm_style_framework$Framework$viewSubSection = F2(
 			{
 				ctor: '::',
 				_0: A2(
-					_mdgriffith$stylish_elephants$Element$paragraph,
+					_mdgriffith$stylish_elephants$Element$column,
 					{
 						ctor: '::',
 						_0: _mdgriffith$stylish_elephants$Element$width(_mdgriffith$stylish_elephants$Element$fill),
@@ -34174,11 +34174,11 @@ var _lucamug$elm_style_framework$Framework$viewIntrospectionForMenu = F3(
 											_0: _mdgriffith$stylish_elephants$Element_Font$color(conf.grayD),
 											_1: {
 												ctor: '::',
-												_0: _mdgriffith$stylish_elephants$Element$spacing(2),
+												_0: _mdgriffith$stylish_elephants$Element$spacing(12),
 												_1: {
 													ctor: '::',
 													_0: _mdgriffith$stylish_elephants$Element$paddingEach(
-														{bottom: 0, left: 26, right: 0, top: 0}),
+														{bottom: 0, left: 26, right: 0, top: 12}),
 													_1: {ctor: '[]'}
 												}
 											}
@@ -34260,7 +34260,11 @@ var _lucamug$elm_style_framework$Framework$viewMenuColumn = function (model) {
 									_1: {
 										ctor: '::',
 										_0: _mdgriffith$stylish_elephants$Element_Font$color(conf.gray9),
-										_1: {ctor: '[]'}
+										_1: {
+											ctor: '::',
+											_0: A2(_mdgriffith$stylish_elephants$Element$paddingXY, 0, 20),
+											_1: {ctor: '[]'}
+										}
 									}
 								}
 							},

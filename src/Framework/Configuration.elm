@@ -417,8 +417,8 @@ configuration =
 
         -- OTHERS
         -- Position of the Placeholder
-        , ( "moveDownPlaceHolderLarge", "33" )
-        , ( "moveDownPlaceHolderSmall", "33" )
+        , ( "moveDownPlaceHolderLarge", "69" )
+        , ( "moveDownPlaceHolderSmall", "30" )
 
         -- Transparent
         , ( "transparent", "#ffffff00" )

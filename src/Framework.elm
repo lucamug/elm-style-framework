@@ -577,6 +577,7 @@ viewMenuColumn model =
                 [ spacing 10
                 , Font.size 14
                 , Font.color <| conf.gray9
+                , paddingXY 0 20
                 ]
                 [ el [ pointer, Events.onClick MsgOpenAllSections ] <| text "Expand All"
                 , el [ pointer, Events.onClick MsgCloseAllSections ] <| text "Close All"
@@ -706,8 +707,8 @@ viewIntrospectionForMenu conf introspection open =
              , height shrink
              , Font.size 16
              , Font.color <| conf.grayD
-             , spacing 2
-             , paddingEach { bottom = 0, left = 26, right = 0, top = 0 }
+             , spacing 12
+             , paddingEach { bottom = 0, left = 26, right = 0, top = 12 }
              ]
                 ++ (if open then
                         [ htmlAttribute <| Html.Attributes.class "elmStyleguideGenerator-open" ]
@@ -833,7 +834,7 @@ viewSubSection model ( componentExample, componentExampleSourceCode ) =
     in
     row
         []
-        [ paragraph
+        [ column
             [ width fill
             , alignTop
             ]
