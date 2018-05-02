@@ -11,7 +11,7 @@ Style-elements Input (Alpha version) Examples
 
 -}
 
-import Element exposing (Element, empty, text)
+import Element exposing (Element, none, text)
 import Element.Input as Input
 
 
@@ -72,7 +72,7 @@ introspection =
     , signature = ""
     , description = "This is a raw list of all elements of style-elements as they are"
     , usage = ""
-    , usageResult = empty
+    , usageResult = none
     , boxed = True
     , variations =
         [ ( "Button", [ ( text "special: example0", "" ) ] )

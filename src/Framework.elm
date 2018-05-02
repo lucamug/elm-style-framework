@@ -101,7 +101,7 @@ For any issue or to get in touch with the authors, refer to the github page.
 --import Element.Input as Input
 
 import Color
-import Element exposing (Attribute, Element, alignLeft, alignRight, alignTop, alpha, centerX, centerY, clip, clipX, column, el, empty, fill, focusStyle, height, html, htmlAttribute, image, layoutWith, link, moveLeft, padding, paddingEach, paddingXY, paragraph, pointer, px, rotate, row, scrollbarY, scrollbars, shrink, spacing, text, width)
+import Element exposing (Attribute, Element, alignLeft, alignRight, alignTop, alpha, centerX, centerY, clip, clipX, column, el, fill, focusStyle, height, html, htmlAttribute, image, layoutWith, link, moveLeft, none, padding, paddingEach, paddingXY, paragraph, pointer, px, rotate, row, scrollbarY, scrollbars, shrink, spacing, text, width)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Events as Events
@@ -172,7 +172,7 @@ initConf =
             ]
     , subTitle = "FRAMEWORK"
     , version = "7.0.0"
-    , introduction = empty
+    , introduction = none
     , mainPadding = 41
     , password = ""
     , forkMe =
@@ -194,7 +194,7 @@ emptyIntrospection =
     , signature = ""
     , description = ""
     , usage = ""
-    , usageResult = empty
+    , usageResult = none
     , boxed = True
     , variations =
         []

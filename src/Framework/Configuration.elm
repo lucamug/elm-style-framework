@@ -14,7 +14,8 @@ This list is inspired by Bulma framework: <https://bulma.io/documentation/overvi
 import Color
 import ColorMath.Hex8
 import Dict
-import FrameworkConfiguration
+import Element.Font as Font
+import MyStyle
 
 
 {-| -}
@@ -24,24 +25,17 @@ conf :
         , black_bis : Color.Color
         , black_ter : Color.Color
         , blue : Color.Color
-        , blue_invert : Color.Color
         , cyan : Color.Color
-        , cyan_invert : Color.Color
         , danger : Color.Color
-        , danger_invert : Color.Color
         , dark : Color.Color
-        , dark_invert : Color.Color
         , green : Color.Color
-        , green_invert : Color.Color
         , grey : Color.Color
         , grey_dark : Color.Color
         , grey_darker : Color.Color
         , grey_light : Color.Color
         , grey_lighter : Color.Color
         , info : Color.Color
-        , info_invert : Color.Color
         , light : Color.Color
-        , light_invert : Color.Color
         , link : Color.Color
         , link_active : Color.Color
         , link_active_border : Color.Color
@@ -51,28 +45,21 @@ conf :
         , link_hover_border : Color.Color
         , link_invert : Color.Color
         , link_visited : Color.Color
+        , muted : Color.Color
         , orange : Color.Color
-        , orange_invert : Color.Color
         , primary : Color.Color
-        , primary_invert : Color.Color
         , purple : Color.Color
-        , purple_invert : Color.Color
         , red : Color.Color
-        , red_invert : Color.Color
         , success : Color.Color
-        , success_invert : Color.Color
+        , transparent : Color.Color
         , turquoise : Color.Color
-        , turquoise_invert : Color.Color
         , warning : Color.Color
-        , warning_invert : Color.Color
         , white : Color.Color
         , white_bis : Color.Color
         , white_ter : Color.Color
         , yellow : Color.Color
-        , yellow_invert : Color.Color
-        , transparent : Color.Color
-        , muted : Color.Color
         }
+    , font : { typeface : String, typefaceFallback : Font.Font, url : String }
     , moveDownPlaceHolder : { large : Float, small : Float }
     , sizes :
         { size1 : Float
@@ -127,25 +114,6 @@ conf =
         , light = getColor "light"
         , dark = getColor "dark"
 
-        -- Inverted Colors
-        , orange_invert = getColor "orange_invert"
-        , yellow_invert = getColor "yellow_invert"
-        , green_invert = getColor "green_invert"
-        , turquoise_invert = getColor "turquoise_invert"
-        , cyan_invert = getColor "cyan_invert"
-        , blue_invert = getColor "blue_invert"
-        , purple_invert = getColor "purple_invert"
-        , red_invert = getColor "red_invert"
-
-        -- Derived Inverted Colors
-        , primary_invert = getColor "primary_invert"
-        , info_invert = getColor "info_invert"
-        , success_invert = getColor "success_invert"
-        , warning_invert = getColor "warning_invert"
-        , danger_invert = getColor "danger_invert"
-        , light_invert = getColor "light_invert"
-        , dark_invert = getColor "dark_invert"
-
         -- Links
         , link = getColor "link"
         , link_invert = getColor "link_invert"
@@ -165,12 +133,34 @@ conf =
         { large = getFloat "moveDownPlaceHolderLarge"
         , small = getFloat "moveDownPlaceHolderSmall"
         }
+    , font =
+        { url = getString "font-url"
+        , typeface = getString "font-typeface"
+        , typefaceFallback = getTypeface "font-typeface-fallback"
+        }
     }
+
+
+getTypeface : String -> Font.Font
+getTypeface key =
+    let
+        value =
+            getString key
+    in
+    if value == "sans-serif" then
+        Font.sansSerif
+    else if value == "monospace" then
+        Font.monospace
+    else if value == "cursive" then
+        -- Font.cursive (still not implemented)
+        Font.serif
+    else
+        Font.serif
 
 
 getString : String -> String
 getString key =
-    Maybe.withDefault "" (getValue key configuration FrameworkConfiguration.configuration)
+    Maybe.withDefault "" (getValue key configuration MyStyle.configuration)
 
 
 getFloat : String -> Float
@@ -351,6 +341,10 @@ configuration =
         --, ( "family-sans-serif", "BlinkMacSystemFont, -apple-system, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", \"Helvetica\", \"Arial\", sans-serif" )
         --, ( "family-monospace", "monospace" )
         --, ( "render-mode", "optimizeLegibility" )
+        , ( "font-url", "https://fonts.googleapis.com/css?family=Noto+Sans" )
+        , ( "font-typeface", "Noto Sans" )
+        , ( "font-typeface-fallback", "sans-serif" )
+
         -- Sizes
         , ( "size1", bulmaSizes.size1 )
         , ( "size2", bulmaSizes.size2 )
@@ -389,25 +383,6 @@ configuration =
         , ( "light", bulmaColor.white_ter )
         , ( "dark", bulmaColor.grey_darker )
 
-        -- Colors Invert
-        , ( "orange_invert", findColorInvert bulmaColor.orange )
-        , ( "yellow_invert", findColorInvert bulmaColor.yellow )
-        , ( "green_invert", findColorInvert bulmaColor.green )
-        , ( "turquoise_invert", findColorInvert bulmaColor.turquoise )
-        , ( "cyan_invert", findColorInvert bulmaColor.cyan )
-        , ( "blue_invert", findColorInvert bulmaColor.blue )
-        , ( "purple_invert", findColorInvert bulmaColor.purple )
-        , ( "red_invert", findColorInvert bulmaColor.red )
-
-        -- Derived Colors Invert
-        , ( "primary_invert", findColorInvert bulmaColor.turquoise )
-        , ( "info_invert", findColorInvert bulmaColor.cyan )
-        , ( "success_invert", findColorInvert bulmaColor.green )
-        , ( "warning_invert", findColorInvert bulmaColor.yellow )
-        , ( "danger_invert", findColorInvert bulmaColor.red )
-        , ( "light_invert", findColorInvert bulmaColor.white_ter )
-        , ( "dark_invert", findColorInvert bulmaColor.grey_darker )
-
         --
         --, ( "background", bulmaColor.white_ter )
         --, ( "border", bulmaColor.grey_lighter )
@@ -442,7 +417,7 @@ configuration =
 
         -- OTHERS
         -- Position of the Placeholder
-        , ( "moveDownPlaceHolderLarge", "29" )
+        , ( "moveDownPlaceHolderLarge", "33" )
         , ( "moveDownPlaceHolderSmall", "33" )
 
         -- Transparent

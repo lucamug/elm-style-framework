@@ -9,7 +9,7 @@ module Framework.FormField exposing (Field(..), Model, Msg, example1, initModel,
 
 -}
 
-import Element exposing (Attribute, Element, alpha, empty, fill, moveDown, moveLeft, paddingXY, scale, text, width)
+import Element exposing (Attribute, Element, alpha, fill, moveDown, moveLeft, none, paddingXY, scale, text, width)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Events as Events
@@ -78,7 +78,7 @@ introspection =
     , signature = ""
     , description = "List of elements for Web Forms"
     , usage = ""
-    , usageResult = empty
+    , usageResult = none
     , boxed = True
     , variations =
         [ ( "Email", [ ( text "special: Form.example1", "" ) ] )

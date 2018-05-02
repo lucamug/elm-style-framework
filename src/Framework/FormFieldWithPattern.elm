@@ -9,7 +9,7 @@ module Framework.FormFieldWithPattern exposing (Field(..), Model, Msg, example1,
 
 -}
 
-import Element exposing (Attribute, Element, el, empty, inFront, moveDown, moveLeft, paddingXY, px, scale, text, width)
+import Element exposing (Attribute, Element, el, inFront, moveDown, moveLeft, none, paddingXY, px, scale, text, width)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Events as Events
@@ -113,12 +113,12 @@ introspection =
     , signature = ""
     , description = "List of elements for Web Forms"
     , usage = ""
-    , usageResult = empty
+    , usageResult = none
     , boxed = True
     , variations =
-        [ ( "Phone number USA", [ ( text "special: FormFieldsWithPattern.example1", "" ) ] )
-        , ( "Credit Card number", [ ( text "special: FormFieldsWithPattern.example2", "" ) ] )
-        , ( "4 Digit Code", [ ( text "special: FormFieldsWithPattern.example3", "" ) ] )
+        [ ( "Phone number USA", [ ( text "special: FormFieldWithPattern.example1", "" ) ] )
+        , ( "Credit Card number", [ ( text "special: FormFieldWithPattern.example2", "" ) ] )
+        , ( "4 Digit Code", [ ( text "special: FormFieldWithPattern.example3", "" ) ] )
         ]
     }
 
@@ -275,6 +275,7 @@ inputText model { field, pattern, label } =
                     ([ hackInLineStyle "transition" "all 0.15s"
                      , hackInLineStyle "z-index" "10"
                      , hackInLineStyle "pointer-events" "none"
+                     , Font.family [ Font.typeface conf.font.typeface, conf.font.typefaceFallback ]
                      ]
                         ++ (if labelIsAbove then
                                 [ scale 0.9, moveLeft 14 ]

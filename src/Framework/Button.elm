@@ -10,7 +10,7 @@ module Framework.Button exposing (button, buttonAttr, buttonLink, buttonLinkWidt
 -}
 
 import Color
-import Element exposing (Attribute, Element, centerX, centerY, column, el, inFront, link, mouseOver, paddingXY, row, spacing, text)
+import Element exposing (Attribute, Element, centerX, centerY, column, el, htmlAttribute, inFront, link, mouseOver, paddingXY, row, spacing, text)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
@@ -98,6 +98,16 @@ el (buttonAttr [ Primary ]) <|
 Input.button (buttonAttr [ Primary, Danger ]) <|
     { onPress = Nothing, label = text "button" }"""
               )
+            ]
+          )
+        , ( "Disabled"
+          , [ ( button [ Disabled, Muted ] Nothing buttonText, "button [ Muted ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Disabled, Primary ] Nothing buttonText, "button [ Primary ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Disabled, Success ] Nothing buttonText, "button [ Success ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Disabled, Info ] Nothing buttonText, "button [ Info ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Disabled, Warning ] Nothing buttonText, "button [ Warning ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Disabled, Danger ] Nothing buttonText, "button [ Danger ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Disabled ] Nothing buttonText, "button [] Nothing \"" ++ buttonText ++ "\"" )
             ]
           )
         , ( "Button Link"
@@ -358,8 +368,8 @@ buttonAttr modifiers =
 
                 StateDisabled ->
                     cc
-                        |> Framework.Color.lighten 1.2
-                        |> Framework.Color.saturate 0.9
+                        |> Framework.Color.lighten 1.1
+                        |> Framework.Color.saturate 0.4
 
         borderRounded =
             case conf.size of
@@ -424,15 +434,21 @@ buttonAttr modifiers =
     in
     [ Font.size fontSize
     , Font.color fontColor
-    , mouseOver
-        [ Font.color fontMouseOverColor
-        , Background.color backgroundMouseOverColor
-        , Border.color borderMouseOverColor
-        ]
     , Background.color backgroundColor
     , paddingXY (Tuple.first buttonPadding) (Tuple.second buttonPadding)
     , Border.rounded borderRounded
     , Border.width 1
     , Border.color borderColor
     ]
+        ++ (if conf.state == StateDisabled then
+                [ htmlAttribute <| Html.Attributes.style [ ( "cursor", "not-allowed" ) ]
+                ]
+            else
+                [ mouseOver
+                    [ Font.color fontMouseOverColor
+                    , Background.color backgroundMouseOverColor
+                    , Border.color borderMouseOverColor
+                    ]
+                ]
+           )
         ++ inFrontAddon

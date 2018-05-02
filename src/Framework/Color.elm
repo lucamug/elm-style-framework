@@ -24,24 +24,17 @@ color :
     , black_bis : Color.Color
     , black_ter : Color.Color
     , blue : Color.Color
-    , blue_invert : Color.Color
     , cyan : Color.Color
-    , cyan_invert : Color.Color
     , danger : Color.Color
-    , danger_invert : Color.Color
     , dark : Color.Color
-    , dark_invert : Color.Color
     , green : Color.Color
-    , green_invert : Color.Color
     , grey : Color.Color
     , grey_dark : Color.Color
     , grey_darker : Color.Color
     , grey_light : Color.Color
     , grey_lighter : Color.Color
     , info : Color.Color
-    , info_invert : Color.Color
     , light : Color.Color
-    , light_invert : Color.Color
     , link : Color.Color
     , link_active : Color.Color
     , link_active_border : Color.Color
@@ -51,26 +44,18 @@ color :
     , link_hover_border : Color.Color
     , link_invert : Color.Color
     , link_visited : Color.Color
-    , orange_invert : Color.Color
+    , orange : Color.Color
     , primary : Color.Color
-    , primary_invert : Color.Color
     , purple : Color.Color
-    , purple_invert : Color.Color
     , red : Color.Color
-    , red_invert : Color.Color
     , success : Color.Color
-    , success_invert : Color.Color
+    , transparent : Color.Color
     , turquoise : Color.Color
-    , turquoise_invert : Color.Color
     , warning : Color.Color
-    , warning_invert : Color.Color
     , white : Color.Color
     , white_bis : Color.Color
     , white_ter : Color.Color
     , yellow : Color.Color
-    , yellow_invert : Color.Color
-    , orange : Color.Color
-    , transparent : Color.Color
     , muted : Color.Color
     }
 color =
@@ -126,17 +111,6 @@ introspection =
             , ( usageWrapper <| color.red, "color.red" )
             ]
           )
-        , ( "Inverted"
-          , [ ( usageWrapper <| color.orange_invert, "color.orange_invert" )
-            , ( usageWrapper <| color.yellow_invert, "color.yellow_invert" )
-            , ( usageWrapper <| color.green_invert, "color.green_invert" )
-            , ( usageWrapper <| color.turquoise_invert, "color.turquoise_invert" )
-            , ( usageWrapper <| color.cyan_invert, "color.cyan_invert" )
-            , ( usageWrapper <| color.blue_invert, "color.blue_invert" )
-            , ( usageWrapper <| color.purple_invert, "color.purple_invert" )
-            , ( usageWrapper <| color.red_invert, "color.red_invert" )
-            ]
-          )
         , ( "Gray Scale"
           , [ ( usageWrapper <| color.black, "color.black" )
             , ( usageWrapper <| color.black_bis, "color.black_bis" )
@@ -159,16 +133,6 @@ introspection =
             , ( usageWrapper <| color.danger, "color.danger" )
             , ( usageWrapper <| color.light, "color.light" )
             , ( usageWrapper <| color.dark, "color.dark" )
-            ]
-          )
-        , ( "Derived Inverted"
-          , [ ( usageWrapper <| color.primary_invert, "color.primary_invert" )
-            , ( usageWrapper <| color.info_invert, "color.info_invert" )
-            , ( usageWrapper <| color.success_invert, "color.success_invert" )
-            , ( usageWrapper <| color.warning_invert, "color.warning_invert" )
-            , ( usageWrapper <| color.danger_invert, "color.danger_invert" )
-            , ( usageWrapper <| color.light_invert, "color.light_invert" )
-            , ( usageWrapper <| color.dark_invert, "color.dark_invert" )
             ]
           )
         , ( "Links"
@@ -256,23 +220,25 @@ colorToHex cl =
         |> String.join ""
 
 
+fromNaNtoZero : number -> number
+fromNaNtoZero value =
+    if toString value == "NaN" then
+        0
+    else
+        value
+
+
 colorToHsl2 : Color.Color -> String
 colorToHsl2 cl =
     let
         { hue, saturation, lightness, alpha } =
             Color.toHsl cl
-
-        hue2 =
-            if toString hue == "NaN" then
-                0
-            else
-                hue
     in
     "hsla("
         ++ String.join ", "
-            [ toString <| norm57 hue2
-            , toString (norm100 saturation) ++ "%"
-            , toString (norm100 lightness) ++ "%"
+            [ toString <| norm57 <| fromNaNtoZero hue
+            , toString (norm100 <| fromNaNtoZero saturation) ++ "%"
+            , toString (norm100 <| fromNaNtoZero lightness) ++ "%"
             , toString <| toFloat (norm100 alpha) / 100
             ]
         ++ ")"

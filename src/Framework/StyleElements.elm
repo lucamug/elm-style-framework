@@ -11,7 +11,7 @@ Style-elements (Alpha version) Examples
 
 -}
 
-import Element exposing (Element, column, decorativeImage, download, downloadAs, el, empty, image, link, newTabLink, row, spacing, text)
+import Element exposing (Element, column, decorativeImage, download, downloadAs, el, image, link, newTabLink, none, row, spacing, text)
 
 
 {-| Used to generate the [Style Guide](https://lucamug.github.io/elm-style-framework/)
@@ -30,11 +30,11 @@ introspection =
     , signature = ""
     , description = "This is a raw list of all elements of style-elements as they are"
     , usage = ""
-    , usageResult = empty
+    , usageResult = none
     , boxed = True
     , variations =
         [ ( "Basic Elements"
-          , [ ( empty, """empty""" )
+          , [ ( none, """none""" )
             , ( text "text", """text "text\"""" )
             , ( el [] <| text "el", """el [] <| text "el\"""" )
             ]
