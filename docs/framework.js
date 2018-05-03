@@ -27455,8 +27455,20 @@ var _mdgriffith$stylish_elephants$Element_Input$radioRow = _mdgriffith$stylish_e
 var _lucamug$elm_style_framework$MyStyle$configuration = _elm_lang$core$Dict$fromList(
 	{
 		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'primary', _1: '#bf0000'},
-		_1: {ctor: '[]'}
+		_0: {ctor: '_Tuple2', _0: 'primary', _1: '#ff00ff'},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'font_url', _1: 'https://fonts.googleapis.com/css?family=Gugi'},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'font_typeface', _1: 'Gugi'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'font_fallback', _1: 'sans-serif'},
+					_1: {ctor: '[]'}
+				}
+			}
+		}
 	});
 
 var _lucamug$elm_style_framework$Framework_Configuration$bulmaSizes = {size1: '3.00', size2: '2.50', size3: '2.00', size4: '1.50', size5: '1.25', size6: '1.00', size7: '0.75'};
@@ -27588,13 +27600,13 @@ var _lucamug$elm_style_framework$Framework_Configuration$configuration = _elm_la
 																				_0: {ctor: '_Tuple2', _0: 'red', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.red},
 																				_1: {
 																					ctor: '::',
-																					_0: {ctor: '_Tuple2', _0: 'font-url', _1: 'https://fonts.googleapis.com/css?family=Noto+Sans'},
+																					_0: {ctor: '_Tuple2', _0: 'font_url', _1: 'https://fonts.googleapis.com/css?family=Noto+Sans'},
 																					_1: {
 																						ctor: '::',
-																						_0: {ctor: '_Tuple2', _0: 'font-typeface', _1: 'Noto Sans'},
+																						_0: {ctor: '_Tuple2', _0: 'font_typeface', _1: 'Noto Sans'},
 																						_1: {
 																							ctor: '::',
-																							_0: {ctor: '_Tuple2', _0: 'font-typeface-fallback', _1: 'sans-serif'},
+																							_0: {ctor: '_Tuple2', _0: 'font_typeface_fallback', _1: 'sans-serif'},
 																							_1: {
 																								ctor: '::',
 																								_0: {ctor: '_Tuple2', _0: 'size1', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaSizes.size1},
@@ -27639,60 +27651,100 @@ var _lucamug$elm_style_framework$Framework_Configuration$configuration = _elm_la
 																																					_0: {ctor: '_Tuple2', _0: 'dark', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.grey_darker},
 																																					_1: {
 																																						ctor: '::',
-																																						_0: {ctor: '_Tuple2', _0: 'link', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.blue},
+																																						_0: {ctor: '_Tuple2', _0: 'background', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.white_ter},
 																																						_1: {
 																																							ctor: '::',
-																																							_0: {
-																																								ctor: '_Tuple2',
-																																								_0: 'link_invert',
-																																								_1: _lucamug$elm_style_framework$Framework_Configuration$findColorInvert(_lucamug$elm_style_framework$Framework_Configuration$bulmaColor.blue)
-																																							},
+																																							_0: {ctor: '_Tuple2', _0: 'border', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.grey_lighter},
 																																							_1: {
 																																								ctor: '::',
-																																								_0: {ctor: '_Tuple2', _0: 'link_visited', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.purple},
+																																								_0: {ctor: '_Tuple2', _0: 'border-hover', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.grey_light},
 																																								_1: {
 																																									ctor: '::',
-																																									_0: {ctor: '_Tuple2', _0: 'link_hover', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.grey_darker},
+																																									_0: {ctor: '_Tuple2', _0: 'text', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.grey_dark},
 																																									_1: {
 																																										ctor: '::',
-																																										_0: {ctor: '_Tuple2', _0: 'link_hover_border', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.grey_light},
+																																										_0: {ctor: '_Tuple2', _0: 'text-light', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.grey},
 																																										_1: {
 																																											ctor: '::',
-																																											_0: {ctor: '_Tuple2', _0: 'link_focus', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.grey_darker},
+																																											_0: {ctor: '_Tuple2', _0: 'text-strong', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.grey_darker},
 																																											_1: {
 																																												ctor: '::',
-																																												_0: {ctor: '_Tuple2', _0: 'link_focus_border', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.blue},
+																																												_0: {ctor: '_Tuple2', _0: 'code', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.red},
 																																												_1: {
 																																													ctor: '::',
-																																													_0: {ctor: '_Tuple2', _0: 'link_active', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.grey_darker},
+																																													_0: {ctor: '_Tuple2', _0: 'code-background', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.white_ter},
 																																													_1: {
 																																														ctor: '::',
-																																														_0: {ctor: '_Tuple2', _0: 'link_active_border', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.grey_dark},
+																																														_0: {ctor: '_Tuple2', _0: 'pre', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.grey_dark},
 																																														_1: {
 																																															ctor: '::',
-																																															_0: {ctor: '_Tuple2', _0: 'size_small', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaSizes.size7},
+																																															_0: {ctor: '_Tuple2', _0: 'pre-background', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.white_ter},
 																																															_1: {
 																																																ctor: '::',
-																																																_0: {ctor: '_Tuple2', _0: 'size_normal', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaSizes.size6},
+																																																_0: {ctor: '_Tuple2', _0: 'link', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.blue},
 																																																_1: {
 																																																	ctor: '::',
-																																																	_0: {ctor: '_Tuple2', _0: 'size_medium', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaSizes.size5},
+																																																	_0: {
+																																																		ctor: '_Tuple2',
+																																																		_0: 'link_invert',
+																																																		_1: _lucamug$elm_style_framework$Framework_Configuration$findColorInvert(_lucamug$elm_style_framework$Framework_Configuration$bulmaColor.blue)
+																																																	},
 																																																	_1: {
 																																																		ctor: '::',
-																																																		_0: {ctor: '_Tuple2', _0: 'size_large', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaSizes.size4},
+																																																		_0: {ctor: '_Tuple2', _0: 'link_visited', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.purple},
 																																																		_1: {
 																																																			ctor: '::',
-																																																			_0: {ctor: '_Tuple2', _0: 'moveDownPlaceHolderLarge', _1: '69'},
+																																																			_0: {ctor: '_Tuple2', _0: 'link_hover', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.grey_darker},
 																																																			_1: {
 																																																				ctor: '::',
-																																																				_0: {ctor: '_Tuple2', _0: 'moveDownPlaceHolderSmall', _1: '30'},
+																																																				_0: {ctor: '_Tuple2', _0: 'link_hover_border', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.grey_light},
 																																																				_1: {
 																																																					ctor: '::',
-																																																					_0: {ctor: '_Tuple2', _0: 'transparent', _1: '#ffffff00'},
+																																																					_0: {ctor: '_Tuple2', _0: 'link_focus', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.grey_darker},
 																																																					_1: {
 																																																						ctor: '::',
-																																																						_0: {ctor: '_Tuple2', _0: 'muted', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.grey_light},
-																																																						_1: {ctor: '[]'}
+																																																						_0: {ctor: '_Tuple2', _0: 'link_focus_border', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.blue},
+																																																						_1: {
+																																																							ctor: '::',
+																																																							_0: {ctor: '_Tuple2', _0: 'link_active', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.grey_darker},
+																																																							_1: {
+																																																								ctor: '::',
+																																																								_0: {ctor: '_Tuple2', _0: 'link_active_border', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.grey_dark},
+																																																								_1: {
+																																																									ctor: '::',
+																																																									_0: {ctor: '_Tuple2', _0: 'size_small', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaSizes.size7},
+																																																									_1: {
+																																																										ctor: '::',
+																																																										_0: {ctor: '_Tuple2', _0: 'size_normal', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaSizes.size6},
+																																																										_1: {
+																																																											ctor: '::',
+																																																											_0: {ctor: '_Tuple2', _0: 'size_medium', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaSizes.size5},
+																																																											_1: {
+																																																												ctor: '::',
+																																																												_0: {ctor: '_Tuple2', _0: 'size_large', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaSizes.size4},
+																																																												_1: {
+																																																													ctor: '::',
+																																																													_0: {ctor: '_Tuple2', _0: 'moveDownPlaceHolderLarge', _1: '31'},
+																																																													_1: {
+																																																														ctor: '::',
+																																																														_0: {ctor: '_Tuple2', _0: 'moveDownPlaceHolderSmall', _1: '30'},
+																																																														_1: {
+																																																															ctor: '::',
+																																																															_0: {ctor: '_Tuple2', _0: 'transparent', _1: '#ffffff00'},
+																																																															_1: {
+																																																																ctor: '::',
+																																																																_0: {ctor: '_Tuple2', _0: 'muted', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.grey_light},
+																																																																_1: {ctor: '[]'}
+																																																															}
+																																																														}
+																																																													}
+																																																												}
+																																																											}
+																																																										}
+																																																									}
+																																																								}
+																																																							}
+																																																						}
 																																																					}
 																																																				}
 																																																			}
@@ -27806,6 +27858,16 @@ var _lucamug$elm_style_framework$Framework_Configuration$conf = {
 		danger: _lucamug$elm_style_framework$Framework_Configuration$getColor('danger'),
 		light: _lucamug$elm_style_framework$Framework_Configuration$getColor('light'),
 		dark: _lucamug$elm_style_framework$Framework_Configuration$getColor('dark'),
+		background: _lucamug$elm_style_framework$Framework_Configuration$getColor('background'),
+		border: _lucamug$elm_style_framework$Framework_Configuration$getColor('border'),
+		border_hover: _lucamug$elm_style_framework$Framework_Configuration$getColor('border_hover'),
+		text: _lucamug$elm_style_framework$Framework_Configuration$getColor('text'),
+		text_light: _lucamug$elm_style_framework$Framework_Configuration$getColor('text_light'),
+		text_strong: _lucamug$elm_style_framework$Framework_Configuration$getColor('text_strong'),
+		code: _lucamug$elm_style_framework$Framework_Configuration$getColor('code'),
+		code_background: _lucamug$elm_style_framework$Framework_Configuration$getColor('code_background'),
+		pre: _lucamug$elm_style_framework$Framework_Configuration$getColor('pre'),
+		pre_background: _lucamug$elm_style_framework$Framework_Configuration$getColor('pre_background'),
 		link: _lucamug$elm_style_framework$Framework_Configuration$getColor('link'),
 		link_invert: _lucamug$elm_style_framework$Framework_Configuration$getColor('link_invert'),
 		link_visited: _lucamug$elm_style_framework$Framework_Configuration$getColor('link_visited'),
@@ -27823,9 +27885,9 @@ var _lucamug$elm_style_framework$Framework_Configuration$conf = {
 		small: _lucamug$elm_style_framework$Framework_Configuration$getFloat('moveDownPlaceHolderSmall')
 	},
 	font: {
-		url: _lucamug$elm_style_framework$Framework_Configuration$getString('font-url'),
-		typeface: _lucamug$elm_style_framework$Framework_Configuration$getString('font-typeface'),
-		typefaceFallback: _lucamug$elm_style_framework$Framework_Configuration$getTypeface('font-typeface-fallback')
+		url: _lucamug$elm_style_framework$Framework_Configuration$getString('font_url'),
+		typeface: _lucamug$elm_style_framework$Framework_Configuration$getString('font_typeface'),
+		typefaceFallback: _lucamug$elm_style_framework$Framework_Configuration$getTypeface('font_typeface_fallback')
 	}
 };
 
@@ -28240,73 +28302,57 @@ var _lucamug$elm_style_framework$Framework_Color$introspection = {
 					ctor: '::',
 					_0: {
 						ctor: '_Tuple2',
-						_0: 'Links',
+						_0: 'Fonts',
 						_1: {
 							ctor: '::',
 							_0: {
 								ctor: '_Tuple2',
-								_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.link),
-								_1: 'color.link'
+								_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.text),
+								_1: 'color.text'
 							},
 							_1: {
 								ctor: '::',
 								_0: {
 									ctor: '_Tuple2',
-									_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.link_invert),
-									_1: 'color.link_invert'
+									_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.text_light),
+									_1: 'color.text_light'
 								},
 								_1: {
 									ctor: '::',
 									_0: {
 										ctor: '_Tuple2',
-										_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.link_visited),
-										_1: 'color.link_visited'
+										_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.text_strong),
+										_1: 'color.text_strong'
 									},
 									_1: {
 										ctor: '::',
 										_0: {
 											ctor: '_Tuple2',
-											_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.link_hover),
-											_1: 'color.link_hover'
+											_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.code),
+											_1: 'color.code'
 										},
 										_1: {
 											ctor: '::',
 											_0: {
 												ctor: '_Tuple2',
-												_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.link_hover_border),
-												_1: 'color.link_hover_border'
+												_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.code_background),
+												_1: 'color.code_background'
 											},
 											_1: {
 												ctor: '::',
 												_0: {
 													ctor: '_Tuple2',
-													_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.link_focus),
-													_1: 'color.link_focus'
+													_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.pre),
+													_1: 'color.pre'
 												},
 												_1: {
 													ctor: '::',
 													_0: {
 														ctor: '_Tuple2',
-														_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.link_focus_border),
-														_1: 'color.link_focus_border'
+														_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.pre_background),
+														_1: 'color.pre_background'
 													},
-													_1: {
-														ctor: '::',
-														_0: {
-															ctor: '_Tuple2',
-															_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.link_active),
-															_1: 'color.link_active'
-														},
-														_1: {
-															ctor: '::',
-															_0: {
-																ctor: '_Tuple2',
-																_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.link_active_border),
-																_1: 'color.link_active_border'
-															},
-															_1: {ctor: '[]'}
-														}
-													}
+													_1: {ctor: '[]'}
 												}
 											}
 										}
@@ -28319,26 +28365,130 @@ var _lucamug$elm_style_framework$Framework_Color$introspection = {
 						ctor: '::',
 						_0: {
 							ctor: '_Tuple2',
-							_0: 'Others',
+							_0: 'Links',
 							_1: {
 								ctor: '::',
 								_0: {
 									ctor: '_Tuple2',
-									_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.transparent),
-									_1: 'color.transparent'
+									_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.link),
+									_1: 'color.link'
 								},
 								_1: {
 									ctor: '::',
 									_0: {
 										ctor: '_Tuple2',
-										_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.muted),
-										_1: 'color.muted'
+										_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.link_invert),
+										_1: 'color.link_invert'
 									},
-									_1: {ctor: '[]'}
+									_1: {
+										ctor: '::',
+										_0: {
+											ctor: '_Tuple2',
+											_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.link_visited),
+											_1: 'color.link_visited'
+										},
+										_1: {
+											ctor: '::',
+											_0: {
+												ctor: '_Tuple2',
+												_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.link_hover),
+												_1: 'color.link_hover'
+											},
+											_1: {
+												ctor: '::',
+												_0: {
+													ctor: '_Tuple2',
+													_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.link_hover_border),
+													_1: 'color.link_hover_border'
+												},
+												_1: {
+													ctor: '::',
+													_0: {
+														ctor: '_Tuple2',
+														_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.link_focus),
+														_1: 'color.link_focus'
+													},
+													_1: {
+														ctor: '::',
+														_0: {
+															ctor: '_Tuple2',
+															_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.link_focus_border),
+															_1: 'color.link_focus_border'
+														},
+														_1: {
+															ctor: '::',
+															_0: {
+																ctor: '_Tuple2',
+																_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.link_active),
+																_1: 'color.link_active'
+															},
+															_1: {
+																ctor: '::',
+																_0: {
+																	ctor: '_Tuple2',
+																	_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.link_active_border),
+																	_1: 'color.link_active_border'
+																},
+																_1: {ctor: '[]'}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
 								}
 							}
 						},
-						_1: {ctor: '[]'}
+						_1: {
+							ctor: '::',
+							_0: {
+								ctor: '_Tuple2',
+								_0: 'Others',
+								_1: {
+									ctor: '::',
+									_0: {
+										ctor: '_Tuple2',
+										_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.background),
+										_1: 'color.background'
+									},
+									_1: {
+										ctor: '::',
+										_0: {
+											ctor: '_Tuple2',
+											_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.border),
+											_1: 'color.border'
+										},
+										_1: {
+											ctor: '::',
+											_0: {
+												ctor: '_Tuple2',
+												_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.border_hover),
+												_1: 'color.border_hover'
+											},
+											_1: {
+												ctor: '::',
+												_0: {
+													ctor: '_Tuple2',
+													_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.transparent),
+													_1: 'color.transparent'
+												},
+												_1: {
+													ctor: '::',
+													_0: {
+														ctor: '_Tuple2',
+														_0: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$color.muted),
+														_1: 'color.muted'
+													},
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									}
+								}
+							},
+							_1: {ctor: '[]'}
+						}
 					}
 				}
 			}
@@ -31012,111 +31162,112 @@ var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$inputText = F2(
 							font),
 						_mdgriffith$stylish_elephants$Element$text(
 							labelIsAbove ? patternToShow : ''))),
-				_1: {ctor: '[]'}
-			},
-			A2(
-				_mdgriffith$stylish_elephants$Element_Input$text,
-				A2(
-					_elm_lang$core$Basics_ops['++'],
-					{
-						ctor: '::',
-						_0: _mdgriffith$stylish_elephants$Element_Events$onFocus(
-							_lucamug$elm_style_framework$Framework_FormFieldWithPattern$OnFocus(_p6)),
-						_1: {
-							ctor: '::',
-							_0: _mdgriffith$stylish_elephants$Element_Events$onLoseFocus(
-								_lucamug$elm_style_framework$Framework_FormFieldWithPattern$OnLoseFocus(_p6)),
-							_1: {
-								ctor: '::',
-								_0: _mdgriffith$stylish_elephants$Element_Background$color(_lucamug$elm_style_framework$Framework_Color$color.transparent),
-								_1: {
+				_1: {
+					ctor: '::',
+					_0: _mdgriffith$stylish_elephants$Element$inFront(
+						A2(
+							_mdgriffith$stylish_elephants$Element_Input$text,
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								{
 									ctor: '::',
-									_0: largeSize ? _mdgriffith$stylish_elephants$Element_Border$width(0) : _mdgriffith$stylish_elephants$Element_Border$widthEach(
-										{bottom: 2, left: 0, right: 0, top: 0}),
+									_0: _mdgriffith$stylish_elephants$Element_Events$onFocus(
+										_lucamug$elm_style_framework$Framework_FormFieldWithPattern$OnFocus(_p6)),
 									_1: {
 										ctor: '::',
-										_0: _mdgriffith$stylish_elephants$Element_Border$rounded(0),
+										_0: _mdgriffith$stylish_elephants$Element_Events$onLoseFocus(
+											_lucamug$elm_style_framework$Framework_FormFieldWithPattern$OnLoseFocus(_p6)),
 										_1: {
 											ctor: '::',
-											_0: A2(_mdgriffith$stylish_elephants$Element$paddingXY, 0, 8),
+											_0: _mdgriffith$stylish_elephants$Element_Background$color(_lucamug$elm_style_framework$Framework_Color$color.transparent),
 											_1: {
 												ctor: '::',
-												_0: _mdgriffith$stylish_elephants$Element$width(
-													_mdgriffith$stylish_elephants$Element$px(230)),
+												_0: largeSize ? _mdgriffith$stylish_elephants$Element_Border$width(0) : _mdgriffith$stylish_elephants$Element_Border$widthEach(
+													{bottom: 2, left: 0, right: 0, top: 0}),
 												_1: {
 													ctor: '::',
-													_0: A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$hackInLineStyle, 'transition', 'all 0.15s'),
+													_0: _mdgriffith$stylish_elephants$Element_Border$rounded(0),
 													_1: {
 														ctor: '::',
-														_0: A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$hackInLineStyle, 'z-index', '10'),
-														_1: {ctor: '[]'}
+														_0: A2(_mdgriffith$stylish_elephants$Element$paddingXY, 0, 8),
+														_1: {
+															ctor: '::',
+															_0: _mdgriffith$stylish_elephants$Element$width(
+																_mdgriffith$stylish_elephants$Element$px(230)),
+															_1: {
+																ctor: '::',
+																_0: A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$hackInLineStyle, 'transition', 'all 0.15s'),
+																_1: {ctor: '[]'}
+															}
+														}
 													}
 												}
 											}
 										}
 									}
-								}
-							}
-						}
-					},
-					A2(
-						_elm_lang$core$Basics_ops['++'],
-						font,
-						A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$hasFocus, model, _p6) ? {
-							ctor: '::',
-							_0: _mdgriffith$stylish_elephants$Element_Border$color(_lucamug$elm_style_framework$Framework_Color$color.primary),
-							_1: {ctor: '[]'}
-						} : {ctor: '[]'})),
-				{
-					label: A2(
-						_mdgriffith$stylish_elephants$Element_Input$labelAbove,
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							{
-								ctor: '::',
-								_0: A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$hackInLineStyle, 'transition', 'all 0.15s'),
-								_1: {
-									ctor: '::',
-									_0: A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$hackInLineStyle, 'z-index', '10'),
-									_1: {
+								},
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									font,
+									A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$hasFocus, model, _p6) ? {
 										ctor: '::',
-										_0: A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$hackInLineStyle, 'pointer-events', 'none'),
-										_1: {
+										_0: _mdgriffith$stylish_elephants$Element_Border$color(_lucamug$elm_style_framework$Framework_Color$color.primary),
+										_1: {ctor: '[]'}
+									} : {ctor: '[]'})),
+							{
+								label: A2(
+									_mdgriffith$stylish_elephants$Element_Input$labelAbove,
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										{
 											ctor: '::',
-											_0: _mdgriffith$stylish_elephants$Element_Font$family(
-												{
+											_0: A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$hackInLineStyle, 'transition', 'all 0.15s'),
+											_1: {
+												ctor: '::',
+												_0: A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$hackInLineStyle, 'pointer-events', 'none'),
+												_1: {
 													ctor: '::',
-													_0: _mdgriffith$stylish_elephants$Element_Font$typeface(_lucamug$elm_style_framework$Framework_Configuration$conf.font.typeface),
+													_0: _mdgriffith$stylish_elephants$Element_Font$family(
+														{
+															ctor: '::',
+															_0: _mdgriffith$stylish_elephants$Element_Font$typeface(_lucamug$elm_style_framework$Framework_Configuration$conf.font.typeface),
+															_1: {
+																ctor: '::',
+																_0: _lucamug$elm_style_framework$Framework_Configuration$conf.font.typefaceFallback,
+																_1: {ctor: '[]'}
+															}
+														}),
 													_1: {
 														ctor: '::',
-														_0: _lucamug$elm_style_framework$Framework_Configuration$conf.font.typefaceFallback,
+														_0: _mdgriffith$stylish_elephants$Element_Font$size(16),
 														_1: {ctor: '[]'}
 													}
-												}),
+												}
+											}
+										},
+										labelIsAbove ? {
+											ctor: '::',
+											_0: _mdgriffith$stylish_elephants$Element$scale(0.9),
+											_1: {
+												ctor: '::',
+												_0: _mdgriffith$stylish_elephants$Element$moveLeft(14),
+												_1: {ctor: '[]'}
+											}
+										} : {
+											ctor: '::',
+											_0: _mdgriffith$stylish_elephants$Element$moveDown(33),
 											_1: {ctor: '[]'}
-										}
-									}
-								}
-							},
-							labelIsAbove ? {
-								ctor: '::',
-								_0: _mdgriffith$stylish_elephants$Element$scale(0.9),
-								_1: {
-									ctor: '::',
-									_0: _mdgriffith$stylish_elephants$Element$moveLeft(14),
-									_1: {ctor: '[]'}
-								}
-							} : {
-								ctor: '::',
-								_0: _mdgriffith$stylish_elephants$Element$moveDown(33),
-								_1: {ctor: '[]'}
-							}),
-						_mdgriffith$stylish_elephants$Element$text(_p4.label)),
-					onChange: _elm_lang$core$Maybe$Just(
-						A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$Input, _p6, _p7)),
-					placeholder: _elm_lang$core$Maybe$Nothing,
-					text: modelValue
-				}));
+										}),
+									_mdgriffith$stylish_elephants$Element$text(_p4.label)),
+								onChange: _elm_lang$core$Maybe$Just(
+									A2(_lucamug$elm_style_framework$Framework_FormFieldWithPattern$Input, _p6, _p7)),
+								placeholder: _elm_lang$core$Maybe$Nothing,
+								text: modelValue
+							})),
+					_1: {ctor: '[]'}
+				}
+			},
+			_mdgriffith$stylish_elephants$Element$none);
 	});
 var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$example1 = function (model) {
 	return {
@@ -34203,15 +34354,14 @@ var _lucamug$elm_style_framework$Framework$viewIntrospectionForMenu = F3(
 			});
 	});
 var _lucamug$elm_style_framework$Framework$viewMenuColumn = function (model) {
-	var conf = model.conf;
 	return A2(
 		_mdgriffith$stylish_elephants$Element$column,
 		{
 			ctor: '::',
-			_0: _mdgriffith$stylish_elephants$Element_Background$color(conf.gray3),
+			_0: _mdgriffith$stylish_elephants$Element_Background$color(model.conf.gray3),
 			_1: {
 				ctor: '::',
-				_0: _mdgriffith$stylish_elephants$Element_Font$color(conf.grayB),
+				_0: _mdgriffith$stylish_elephants$Element_Font$color(model.conf.grayB),
 				_1: {
 					ctor: '::',
 					_0: _mdgriffith$stylish_elephants$Element$width(_mdgriffith$stylish_elephants$Element$fill),
@@ -34223,7 +34373,7 @@ var _lucamug$elm_style_framework$Framework$viewMenuColumn = function (model) {
 							_0: _mdgriffith$stylish_elephants$Element$spacing(30),
 							_1: {
 								ctor: '::',
-								_0: A2(_mdgriffith$stylish_elephants$Element$paddingXY, conf.mainPadding, conf.mainPadding),
+								_0: A2(_mdgriffith$stylish_elephants$Element$paddingXY, model.conf.mainPadding, model.conf.mainPadding),
 								_1: {
 									ctor: '::',
 									_0: _mdgriffith$stylish_elephants$Element$height(_mdgriffith$stylish_elephants$Element$fill),
@@ -34246,7 +34396,7 @@ var _lucamug$elm_style_framework$Framework$viewMenuColumn = function (model) {
 				},
 				{
 					ctor: '::',
-					_0: A3(_lucamug$elm_style_framework$Framework$viewLogo, conf.title, conf.subTitle, conf.version),
+					_0: A3(_lucamug$elm_style_framework$Framework$viewLogo, model.conf.title, model.conf.subTitle, model.conf.version),
 					_1: {
 						ctor: '::',
 						_0: A2(
@@ -34259,7 +34409,7 @@ var _lucamug$elm_style_framework$Framework$viewMenuColumn = function (model) {
 									_0: _mdgriffith$stylish_elephants$Element_Font$size(14),
 									_1: {
 										ctor: '::',
-										_0: _mdgriffith$stylish_elephants$Element_Font$color(conf.gray9),
+										_0: _mdgriffith$stylish_elephants$Element_Font$color(model.conf.gray9),
 										_1: {
 											ctor: '::',
 											_0: A2(_mdgriffith$stylish_elephants$Element$paddingXY, 0, 20),
@@ -34323,7 +34473,7 @@ var _lucamug$elm_style_framework$Framework$viewMenuColumn = function (model) {
 						_elm_lang$core$List$map,
 						function (_p30) {
 							var _p31 = _p30;
-							return A3(_lucamug$elm_style_framework$Framework$viewIntrospectionForMenu, conf, _p31._0, _p31._1);
+							return A3(_lucamug$elm_style_framework$Framework$viewIntrospectionForMenu, model.conf, _p31._0, _p31._1);
 						},
 						model.introspections)),
 				_1: {ctor: '[]'}
@@ -34584,7 +34734,6 @@ var _lucamug$elm_style_framework$Framework$viewPage = F2(
 			});
 	});
 var _lucamug$elm_style_framework$Framework$view = function (model) {
-	var conf = model.conf;
 	return A3(
 		_mdgriffith$stylish_elephants$Element$layoutWith,
 		{
@@ -34605,13 +34754,13 @@ var _lucamug$elm_style_framework$Framework$view = function (model) {
 				{
 					ctor: '::',
 					_0: _mdgriffith$stylish_elephants$Element_Font$external(
-						{name: 'Noto Sans', url: 'https://fonts.googleapis.com/css?family=Noto+Sans'}),
+						{name: _lucamug$elm_style_framework$Framework_Configuration$conf.font.typeface, url: _lucamug$elm_style_framework$Framework_Configuration$conf.font.url}),
 					_1: {
 						ctor: '::',
-						_0: _mdgriffith$stylish_elephants$Element_Font$typeface('Noto Sans'),
+						_0: _mdgriffith$stylish_elephants$Element_Font$typeface(_lucamug$elm_style_framework$Framework_Configuration$conf.font.typeface),
 						_1: {
 							ctor: '::',
-							_0: _mdgriffith$stylish_elephants$Element_Font$sansSerif,
+							_0: _lucamug$elm_style_framework$Framework_Configuration$conf.font.typefaceFallback,
 							_1: {ctor: '[]'}
 						}
 					}
@@ -34621,21 +34770,21 @@ var _lucamug$elm_style_framework$Framework$view = function (model) {
 				_0: _mdgriffith$stylish_elephants$Element_Font$size(16),
 				_1: {
 					ctor: '::',
-					_0: _mdgriffith$stylish_elephants$Element_Font$color(conf.gray3),
+					_0: _mdgriffith$stylish_elephants$Element_Font$color(model.conf.gray3),
 					_1: {
 						ctor: '::',
 						_0: _mdgriffith$stylish_elephants$Element_Background$color(_elm_lang$core$Color$white),
 						_1: {
 							ctor: '::',
-							_0: conf.forkMe,
+							_0: model.conf.forkMe,
 							_1: {ctor: '[]'}
 						}
 					}
 				}
 			}
 		},
-		(conf.hostnamesWithoutPassword(model.location.hostname) || (_elm_lang$core$Native_Utils.eq(model.password, conf.password) || _elm_lang$core$Native_Utils.eq(
-			_elm_lang$core$String$length(conf.password),
+		(model.conf.hostnamesWithoutPassword(model.location.hostname) || (_elm_lang$core$Native_Utils.eq(model.password, model.conf.password) || _elm_lang$core$Native_Utils.eq(
+			_elm_lang$core$String$length(model.conf.password),
 			0))) ? A2(_lucamug$elm_style_framework$Framework$viewPage, model.maybeWindowSize, model) : A2(
 			_mdgriffith$stylish_elephants$Element$column,
 			{

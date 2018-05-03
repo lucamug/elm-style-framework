@@ -18,8 +18,8 @@ As example here we overwrite `primary` with the color `#00d1b2`
 configuration : Dict.Dict String String
 configuration =
     Dict.fromList
-        [--( "primary", "#ff00ff" )
-         --, ( "font_url", "https://fonts.googleapis.com/css?family=Gugi" )
-         --, ( "font_typeface", "Gugi" )
-         --, ( "font_fallback", "sans-serif" )
+        [ ( "primary", "#9900aa" )
+        , ( "font_url", "https://fonts.googleapis.com/css?family=Alegreya" )
+        , ( "font_typeface", "Alegreya" )
+        , ( "font_fallback", "serif" )
         ]

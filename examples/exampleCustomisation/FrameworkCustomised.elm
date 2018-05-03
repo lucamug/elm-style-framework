@@ -1,12 +1,12 @@
 module Main exposing (main)
 
 import Framework
-import Html
+import Navigation
 
 
-main : Program Never Framework.Model Framework.Msg
+main : Program Framework.Flag Framework.Model Framework.Msg
 main =
-    Html.program
+    Navigation.programWithFlags Framework.MsgChangeLocation
         { init = Framework.init
         , view = Framework.view
         , update = Framework.update

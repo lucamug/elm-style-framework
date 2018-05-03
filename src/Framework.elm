@@ -110,6 +110,7 @@ import Element.Input as Input
 import Framework.Button as Button
 import Framework.Card as Card
 import Framework.Color exposing (color)
+import Framework.Configuration exposing (conf)
 import Framework.FormField as FormField
 import Framework.FormFieldWithPattern as FormFieldWithPattern
 import Framework.Icon as Icon
@@ -451,10 +452,6 @@ Example, in your Style Guide page:
 -}
 view : Model -> Html.Html Msg
 view model =
-    let
-        conf =
-            model.conf
-    in
     layoutWith
         { options =
             [ focusStyle
@@ -466,19 +463,19 @@ view model =
         }
         [ Font.family
             [ Font.external
-                { name = "Noto Sans"
-                , url = "https://fonts.googleapis.com/css?family=Noto+Sans"
+                { name = conf.font.typeface
+                , url = conf.font.url
                 }
-            , Font.typeface "Noto Sans"
-            , Font.sansSerif
+            , Font.typeface conf.font.typeface
+            , conf.font.typefaceFallback
             ]
         , Font.size 16
-        , Font.color <| conf.gray3
+        , Font.color <| model.conf.gray3
         , Background.color Color.white
-        , conf.forkMe
+        , model.conf.forkMe
         ]
     <|
-        if conf.hostnamesWithoutPassword model.location.hostname || model.password == conf.password || String.length conf.password == 0 then
+        if model.conf.hostnamesWithoutPassword model.location.hostname || model.password == model.conf.password || String.length model.conf.password == 0 then
             viewPage model.maybeWindowSize model
         else
             column [ width fill, height fill ]
@@ -558,32 +555,28 @@ viewPage maybeWindowSize model =
 
 viewMenuColumn : Model -> Element Msg
 viewMenuColumn model =
-    let
-        conf =
-            model.conf
-    in
     column
-        [ Background.color <| conf.gray3
-        , Font.color <| conf.grayB
+        [ Background.color <| model.conf.gray3
+        , Font.color <| model.conf.grayB
         , width fill
         , height shrink
         , spacing 30
-        , paddingXY conf.mainPadding conf.mainPadding
+        , paddingXY model.conf.mainPadding model.conf.mainPadding
         , height fill
         ]
         [ column [ height shrink ]
-            [ viewLogo conf.title conf.subTitle conf.version
+            [ viewLogo model.conf.title model.conf.subTitle model.conf.version
             , row
                 [ spacing 10
                 , Font.size 14
-                , Font.color <| conf.gray9
+                , Font.color <| model.conf.gray9
                 , paddingXY 0 20
                 ]
                 [ el [ pointer, Events.onClick MsgOpenAllSections ] <| text "Expand All"
                 , el [ pointer, Events.onClick MsgCloseAllSections ] <| text "Close All"
                 ]
             ]
-        , column [ spacing 30, height shrink, alignTop ] <| List.map (\( data, show ) -> viewIntrospectionForMenu conf data show) model.introspections
+        , column [ spacing 30, height shrink, alignTop ] <| List.map (\( data, show ) -> viewIntrospectionForMenu model.conf data show) model.introspections
         ]
 
 
@@ -639,19 +632,15 @@ viewSomething model ( introspection, ( title, listSubSection ) ) =
 
 
 viewIntrospectionTitle : Conf msg -> Introspection -> Element Msg
-viewIntrospectionTitle conf introspection =
-    viewTitleAndSubTitle conf introspection.name (text introspection.description)
+viewIntrospectionTitle configuration introspection =
+    viewTitleAndSubTitle configuration introspection.name (text introspection.description)
 
 
 viewIntrospectionBody : Model -> String -> List SubSection -> Element Msg
 viewIntrospectionBody model title listSubSection =
-    let
-        conf =
-            model.conf
-    in
     column
-        [ padding conf.mainPadding
-        , spacing conf.mainPadding
+        [ padding model.conf.mainPadding
+        , spacing model.conf.mainPadding
         , Background.color <| Color.white
         ]
         [ el [ Font.size 28 ] (text <| title)
@@ -673,9 +662,9 @@ viewLogo title subTitle version =
 
 
 viewIntrospectionForMenu : Conf msg -> Introspection -> Bool -> Element Msg
-viewIntrospectionForMenu conf introspection open =
+viewIntrospectionForMenu configuration introspection open =
     column
-        [ Font.color <| conf.gray9
+        [ Font.color <| configuration.gray9
         ]
         [ el
             [ pointer
@@ -706,7 +695,7 @@ viewIntrospectionForMenu conf introspection open =
             ([ clip
              , height shrink
              , Font.size 16
-             , Font.color <| conf.grayD
+             , Font.color <| configuration.grayD
              , spacing 12
              , paddingEach { bottom = 0, left = 26, right = 0, top = 12 }
              ]
@@ -733,10 +722,10 @@ viewListVariationForMenu introspection variations =
 
 
 viewTitleAndSubTitle : Conf msg -> String -> Element Msg -> Element Msg
-viewTitleAndSubTitle conf title subTitle =
+viewTitleAndSubTitle configuration title subTitle =
     column
-        [ Background.color <| conf.grayF
-        , padding conf.mainPadding
+        [ Background.color <| configuration.grayF
+        , padding configuration.mainPadding
         , spacing 10
         , height shrink
         ]
@@ -844,15 +833,15 @@ viewSubSection model ( componentExample, componentExampleSourceCode ) =
 
 
 sourceCodeWrapper : Conf msg -> String -> Element Msg
-sourceCodeWrapper conf sourceCode =
+sourceCodeWrapper configuration sourceCode =
     paragraph
         [ width fill
         , scrollbars
         , alignTop
-        , Font.color <| conf.gray9
+        , Font.color <| configuration.gray9
         , Font.family [ Font.monospace ]
         , Font.size 16
-        , Background.color <| conf.gray3
+        , Background.color <| configuration.gray3
         , padding 16
         , Border.rounded 8
         ]

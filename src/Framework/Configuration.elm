@@ -21,10 +21,15 @@ import MyStyle
 {-| -}
 conf :
     { colors :
-        { black : Color.Color
+        { background : Color.Color
+        , black : Color.Color
         , black_bis : Color.Color
         , black_ter : Color.Color
         , blue : Color.Color
+        , border : Color.Color
+        , border_hover : Color.Color
+        , code : Color.Color
+        , code_background : Color.Color
         , cyan : Color.Color
         , danger : Color.Color
         , dark : Color.Color
@@ -47,10 +52,15 @@ conf :
         , link_visited : Color.Color
         , muted : Color.Color
         , orange : Color.Color
+        , pre : Color.Color
+        , pre_background : Color.Color
         , primary : Color.Color
         , purple : Color.Color
         , red : Color.Color
         , success : Color.Color
+        , text : Color.Color
+        , text_light : Color.Color
+        , text_strong : Color.Color
         , transparent : Color.Color
         , turquoise : Color.Color
         , warning : Color.Color
@@ -114,6 +124,22 @@ conf =
         , light = getColor "light"
         , dark = getColor "dark"
 
+        -- Background
+        , background = getColor "background"
+
+        -- Border
+        , border = getColor "border"
+        , border_hover = getColor "border_hover"
+
+        -- Fonts
+        , text = getColor "text"
+        , text_light = getColor "text_light"
+        , text_strong = getColor "text_strong"
+        , code = getColor "code"
+        , code_background = getColor "code_background"
+        , pre = getColor "pre"
+        , pre_background = getColor "pre_background"
+
         -- Links
         , link = getColor "link"
         , link_invert = getColor "link_invert"
@@ -134,9 +160,9 @@ conf =
         , small = getFloat "moveDownPlaceHolderSmall"
         }
     , font =
-        { url = getString "font-url"
-        , typeface = getString "font-typeface"
-        , typefaceFallback = getTypeface "font-typeface-fallback"
+        { url = getString "font_url"
+        , typeface = getString "font_typeface"
+        , typefaceFallback = getTypeface "font_typeface_fallback"
         }
     }
 
@@ -341,9 +367,10 @@ configuration =
         --, ( "family-sans-serif", "BlinkMacSystemFont, -apple-system, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", \"Helvetica\", \"Arial\", sans-serif" )
         --, ( "family-monospace", "monospace" )
         --, ( "render-mode", "optimizeLegibility" )
-        , ( "font-url", "https://fonts.googleapis.com/css?family=Noto+Sans" )
-        , ( "font-typeface", "Noto Sans" )
-        , ( "font-typeface-fallback", "sans-serif" )
+        --
+        , ( "font_url", "https://fonts.googleapis.com/css?family=Noto+Sans" )
+        , ( "font_typeface", "Noto Sans" )
+        , ( "font_typeface_fallback", "sans-serif" )
 
         -- Sizes
         , ( "size1", bulmaSizes.size1 )
@@ -383,18 +410,22 @@ configuration =
         , ( "light", bulmaColor.white_ter )
         , ( "dark", bulmaColor.grey_darker )
 
-        --
-        --, ( "background", bulmaColor.white_ter )
-        --, ( "border", bulmaColor.grey_lighter )
-        --, ( "border-hover", bulmaColor.grey_light )
-        --, ( "text", bulmaColor.grey_dark )
-        --, ( "text-invert", findColorInvert bulmaColor.grey_dark )
-        --, ( "text-light", bulmaColor.grey )
-        --, ( "text-strong", bulmaColor.grey_darker )
-        --, ( "code", bulmaColor.red )
-        --, ( "code-background", bulmaColor.white_ter )
-        --, ( "pre", bulmaColor.grey_dark )
-        --, ( "pre-background", bulmaColor.white_ter )
+        -- Background
+        , ( "background", bulmaColor.white_ter )
+
+        -- Border
+        , ( "border", bulmaColor.grey_lighter )
+        , ( "border-hover", bulmaColor.grey_light )
+
+        -- Fonts
+        , ( "text", bulmaColor.grey_dark )
+        , ( "text-light", bulmaColor.grey )
+        , ( "text-strong", bulmaColor.grey_darker )
+        , ( "code", bulmaColor.red )
+        , ( "code-background", bulmaColor.white_ter )
+        , ( "pre", bulmaColor.grey_dark )
+        , ( "pre-background", bulmaColor.white_ter )
+
         -- Links
         , ( "link", bulmaColor.blue )
         , ( "link_invert", findColorInvert bulmaColor.blue )
@@ -417,7 +448,7 @@ configuration =
 
         -- OTHERS
         -- Position of the Placeholder
-        , ( "moveDownPlaceHolderLarge", "69" )
+        , ( "moveDownPlaceHolderLarge", "31" )
         , ( "moveDownPlaceHolderSmall", "30" )
 
         -- Transparent

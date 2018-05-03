@@ -4,16 +4,19 @@
     "repository": "https://github.com/lucamug/elm-style-framework.git",
     "license": "BSD3",
     "source-directories": [
-        "../src",
         "."
     ],
     "exposed-modules": [],
     "dependencies": {
-        "elm-lang/core": "5.1.1 <= v < 6.0.0",
+        "danielnarey/elm-color-math": "2.0.1 <= v < 3.0.0",
+        "elm-lang/core": "5.0.0 <= v < 6.0.0",
         "elm-lang/html": "2.0.0 <= v < 3.0.0",
+        "elm-lang/http": "1.0.0 <= v < 2.0.0",
+        "elm-lang/navigation": "2.1.0 <= v < 3.0.0",
         "elm-lang/svg": "2.0.0 <= v < 3.0.0",
-        "lucamug/elm-styleguide-generator": "3.0.0 <= v < 4.0.0",
-        "mdgriffith/stylish-elephants": "4.0.0 <= v < 5.0.0"
+        "elm-lang/window": "1.0.1 <= v < 2.0.0",
+        "evancz/url-parser": "2.0.1 <= v < 3.0.0",
+        "mdgriffith/stylish-elephants": "6.0.2 <= v < 7.0.0"
     },
     "elm-version": "0.18.0 <= v < 0.19.0"
 }

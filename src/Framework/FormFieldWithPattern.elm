@@ -247,48 +247,53 @@ inputText model { field, pattern, label } =
                         patternToShow
                     else
                         ""
+        , inFront <|
+            Input.text
+                ([ Events.onFocus <| OnFocus field
+                 , Events.onLoseFocus <| OnLoseFocus field
+                 , Background.color <| color.transparent
+                 , if largeSize then
+                    Border.width 0
+                   else
+                    Border.widthEach { bottom = 2, left = 0, right = 0, top = 0 }
+                 , Border.rounded 0
+                 , paddingXY 0 8
+                 , width <| px 230
+                 , hackInLineStyle "transition" "all 0.15s"
+
+                 --, hackInLineStyle "z-index" "10"
+                 ]
+                    ++ font
+                    ++ (if hasFocus model field then
+                            [ Border.color <| color.primary ]
+                        else
+                            []
+                       )
+                )
+                { label =
+                    Input.labelAbove
+                        ([ hackInLineStyle "transition" "all 0.15s"
+
+                         --, hackInLineStyle "z-index" "10"
+                         , hackInLineStyle "pointer-events" "none"
+                         , Font.family [ Font.typeface conf.font.typeface, conf.font.typefaceFallback ]
+                         , Font.size 16
+                         ]
+                            ++ (if labelIsAbove then
+                                    [ scale 0.9, moveLeft 14 ]
+                                else
+                                    [ moveDown 33 ]
+                               )
+                        )
+                    <|
+                        text label
+                , onChange = Just <| Input field pattern
+                , placeholder = Nothing
+                , text = modelValue
+                }
         ]
     <|
-        Input.text
-            ([ Events.onFocus <| OnFocus field
-             , Events.onLoseFocus <| OnLoseFocus field
-             , Background.color <| color.transparent
-             , if largeSize then
-                Border.width 0
-               else
-                Border.widthEach { bottom = 2, left = 0, right = 0, top = 0 }
-             , Border.rounded 0
-             , paddingXY 0 8
-             , width <| px 230
-             , hackInLineStyle "transition" "all 0.15s"
-             , hackInLineStyle "z-index" "10"
-             ]
-                ++ font
-                ++ (if hasFocus model field then
-                        [ Border.color <| color.primary ]
-                    else
-                        []
-                   )
-            )
-            { label =
-                Input.labelAbove
-                    ([ hackInLineStyle "transition" "all 0.15s"
-                     , hackInLineStyle "z-index" "10"
-                     , hackInLineStyle "pointer-events" "none"
-                     , Font.family [ Font.typeface conf.font.typeface, conf.font.typefaceFallback ]
-                     ]
-                        ++ (if labelIsAbove then
-                                [ scale 0.9, moveLeft 14 ]
-                            else
-                                [ moveDown 33 ]
-                           )
-                    )
-                <|
-                    text label
-            , onChange = Just <| Input field pattern
-            , placeholder = Nothing
-            , text = modelValue
-            }
+        none
 
 
 

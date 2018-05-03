@@ -20,10 +20,15 @@ import Framework.Configuration exposing (conf)
 
 {-| -}
 color :
-    { black : Color.Color
+    { background : Color.Color
+    , black : Color.Color
     , black_bis : Color.Color
     , black_ter : Color.Color
     , blue : Color.Color
+    , border : Color.Color
+    , border_hover : Color.Color
+    , code : Color.Color
+    , code_background : Color.Color
     , cyan : Color.Color
     , danger : Color.Color
     , dark : Color.Color
@@ -45,10 +50,15 @@ color :
     , link_invert : Color.Color
     , link_visited : Color.Color
     , orange : Color.Color
+    , pre : Color.Color
+    , pre_background : Color.Color
     , primary : Color.Color
     , purple : Color.Color
     , red : Color.Color
     , success : Color.Color
+    , text : Color.Color
+    , text_light : Color.Color
+    , text_strong : Color.Color
     , transparent : Color.Color
     , turquoise : Color.Color
     , warning : Color.Color
@@ -135,6 +145,16 @@ introspection =
             , ( usageWrapper <| color.dark, "color.dark" )
             ]
           )
+        , ( "Fonts"
+          , [ ( usageWrapper <| color.text, "color.text" )
+            , ( usageWrapper <| color.text_light, "color.text_light" )
+            , ( usageWrapper <| color.text_strong, "color.text_strong" )
+            , ( usageWrapper <| color.code, "color.code" )
+            , ( usageWrapper <| color.code_background, "color.code_background" )
+            , ( usageWrapper <| color.pre, "color.pre" )
+            , ( usageWrapper <| color.pre_background, "color.pre_background" )
+            ]
+          )
         , ( "Links"
           , [ ( usageWrapper <| color.link, "color.link" )
             , ( usageWrapper <| color.link_invert, "color.link_invert" )
@@ -148,7 +168,15 @@ introspection =
             ]
           )
         , ( "Others"
-          , [ ( usageWrapper <| color.transparent, "color.transparent" )
+          , [ -- Background
+              ( usageWrapper <| color.background, "color.background" )
+
+            -- Border
+            , ( usageWrapper <| color.border, "color.border" )
+            , ( usageWrapper <| color.border_hover, "color.border_hover" )
+
+            -- Others
+            , ( usageWrapper <| color.transparent, "color.transparent" )
             , ( usageWrapper <| color.muted, "color.muted" )
             ]
           )
