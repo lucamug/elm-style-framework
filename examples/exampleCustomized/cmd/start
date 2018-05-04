@@ -1,0 +1,2 @@
+#!/bin/bash
+elm-live src/FrameworkCustomized.elm --output=docs/exampleCustomized.js --dir=docs --debug

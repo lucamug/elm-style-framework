@@ -25,6 +25,7 @@ type
     | Small
     | Medium
     | Large
+    | Jumbo
       -- States
     | Outlined
     | Loading

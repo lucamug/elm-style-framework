@@ -5,31 +5,72 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Elm Style Framework</title>
+    <meta name="theme-color" content="#fb0000">
+    <title>elm-style-framework</title>
+    <meta name="description" content="elm-style-framework" />
+    <link rel="shortcut icon" href="http://guupa.com/elm-style-framework/images/favicon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <style>
+        body {
+            font-family: Source Sans Pro, sans-serif;
+            background-color: #fff;
+            color: #555;
+            margin: 3rem 3rem;
+        }
+
+        a {
+            color: #bf0000;
+            text-decoration: none;
+            opacity: 0.9;
+            transition: .2s;
+            display: inline-block;
+        }
+
+        img {
+            opacity: 0.9;
+            transition: .2s;
+        }
+
+        a:hover,
+        img:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        h1 {
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-family: Montserrat, sans-serif;
+            border-bottom: 0px solid #555;
+        }
+    </style>
 </head>
 
 <body>
-    <noscript>
-        You need to enable JavaScript to run this app.
-    </noscript>
-    <script src="framework.js"></script>
-    <script>
-        (function() {
-            "use strict";
-
-            function start_app() {
-                var local_storage_name = "framework";
-                var app = Elm.Framework.fullscreen({
-                    local_storage: String((localStorage.getItem(local_storage_name) || "")),
-                    width: window.innerWidth,
-                    height: window.innerHeight
-                });
-            }
-
-            start_app();
-
-        })();
-    </script>
+    <h1>elm-style-framework</h1>
+    <ul>
+        <li><a href="framework.html">framework.html</a></li>
+        <li><a href="exampleButton.html">exampleButton.html</a></li>
+        <li><a href="exampleCustomized.html">exampleCustomized.html</a></li>
+    </ul>
+    <h2>source code</h2>
+    <ul>
+        <li><a href="http://guupa.com/elm-style-framework/">http://guupa.com/elm-style-framework/</a></li>
+    </ul>
+    <h2>older versions</h2>
+    <ul>
+        <li><a href="framework.3.0.0.html">framework.3.0.0.html</a></li>
+    </ul>
 </body>
 
 </html>

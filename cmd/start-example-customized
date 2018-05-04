@@ -1,0 +1,3 @@
+#!/bin/bash
+# elm-live examples/exampleCustomized/FrameworkCustomized.elm --output=docs/exampleCustomized.js --dir=docs --debug
+elm-live FrameworkCustomized.elm --output=../../docs/exampleCustomized.js --dir=docs --debug

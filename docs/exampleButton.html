@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="http://guupa.com/elm-style-framework/images/favicon.png">
     <title>Elm Style Framework - Example Button</title>
 </head>
 
@@ -14,7 +15,17 @@
     </noscript>
     <script src="exampleButton.js"></script>
     <script type="text/javascript">
-        var app = Elm.Main.fullscreen();
+        (function() {
+            "use strict";
+
+            function start_app() {
+                var local_storage_name = "framework";
+                var app = Elm.Main.fullscreen();
+            }
+
+            start_app();
+
+        })();
     </script>
 </body>
 

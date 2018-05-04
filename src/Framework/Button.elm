@@ -66,6 +66,7 @@ introspection =
             , ( button [] Nothing buttonText, "button [] Nothing \"" ++ buttonText ++ "\"" )
             , ( button [ Medium ] Nothing buttonText, "button [ Medium ] Nothing \"" ++ buttonText ++ "\"" )
             , ( button [ Large ] Nothing buttonText, "button [ Large ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Jumbo ] Nothing buttonText, "button [ Jumbo ] Nothing \"" ++ buttonText ++ "\"" )
             ]
           )
         , ( "Composed"
@@ -131,6 +132,7 @@ type Size
     | SizeDefault
     | SizeMedium
     | SizeLarge
+    | SizeJumbo
 
 
 type State
@@ -163,6 +165,9 @@ toPx size =
         SizeLarge ->
             24
 
+        SizeJumbo ->
+            24
+
 
 toButtonPadding : Size -> ( Int, Int )
 toButtonPadding size =
@@ -178,6 +183,9 @@ toButtonPadding size =
 
         SizeLarge ->
             ( 18, 9 )
+
+        SizeJumbo ->
+            ( 48, 24 )
 
 
 processConf : Modifier -> Conf -> Conf
@@ -211,6 +219,9 @@ processConf modifier conf =
 
         Large ->
             { conf | size = SizeLarge }
+
+        Jumbo ->
+            { conf | size = SizeJumbo }
 
         -- STATES
         Outlined ->

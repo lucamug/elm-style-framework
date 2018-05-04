@@ -1,19 +1,4 @@
-* Make all conf as string and use http://package.elm-lang.org/packages/eskimoblood/elm-color-extra/latest/Color-Convert#colorToHex to convert
-* Fix button Sizes
-* Create a Jumbo  button
-* Overwrite the Primary
-
-Work directly with hue, saturation, lightness
-
-{ hue, saturation, lightness } =
-   baseColor
-       |> Color.toHsl
-
-headingColor =
-   Color.hsl hue saturation (lightness * 0.7)
-
-detailsColor =
-   Color.hsl hue (saturation * 0.8) (lightness * 0.5 + 0.3)
-
-backgroundColor =
-   Color.hsl hue (saturation * 1.2) (lightness * 0.05 + 0.93)
+* Add space between examples and source code
+* Fix examples in the docs folder
+* review button width, now they are centered
+* Move the info about menu open/close out of the introspections data

@@ -1,0 +1,2 @@
+#!/bin/bash
+elm-live examples/exampleButton/Main.elm --output=docs/exampleButton.js --dir=docs --debug

@@ -1,4 +1,4 @@
-module Framework exposing (Conf, Flag, Introspection, Model, Msg(..), init, initConf, initModel, introspections, main, subscriptions, update, view, viewPage)
+module Framework exposing (Conf, Flag, Introspection, Model, Msg(..), init, initCmd, initConf, initModel, introspections, main, subscriptions, update, view, viewPage)
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/)
 
@@ -94,7 +94,7 @@ For any issue or to get in touch with the authors, refer to the github page.
 
 # Functions
 
-@docs Conf, Flag, Introspection, Model, Msg, init, initConf, initModel, introspections, main, subscriptions, update, view, viewPage
+@docs Conf, Flag, Introspection, Model, Msg, init, initCmd, initConf, initModel, introspections, main, subscriptions, update, view, viewPage
 
 -}
 
@@ -273,6 +273,20 @@ initModel flag location =
     }
 
 
+{-| -}
+initCmd : Cmd msg
+initCmd =
+    Cmd.batch []
+
+
+{-| -}
+init : Flag -> Navigation.Location -> ( Model, Cmd Msg )
+init flag location =
+    ( initModel flag location
+    , initCmd
+    )
+
+
 introspectionsForDebugging : List ( Introspection, Bool )
 introspectionsForDebugging =
     [ ( introspectionExample "ID 1", True )
@@ -296,14 +310,6 @@ introspections =
     , ( StyleElements.introspection, True )
     , ( StyleElementsInput.introspection, True )
     ]
-
-
-{-| -}
-init : Flag -> Navigation.Location -> ( Model, Cmd Msg )
-init flag location =
-    ( initModel flag location
-    , Cmd.batch []
-    )
 
 
 {-| -}
@@ -652,10 +658,10 @@ viewLogo : Element Msg -> String -> String -> Element Msg
 viewLogo title subTitle version =
     link []
         { label =
-            column [ height shrink ]
+            column [ height shrink, spacing 10 ]
                 [ el [ Font.size 60, Font.bold ] title
                 , el [ Font.size 16, Font.bold ] <| text subTitle
-                , el [ Font.size 16, Font.bold ] <| text <| "v" ++ version
+                , el [ Font.size 12, Font.bold ] <| text <| "v" ++ version
                 ]
         , url = routeToString RouteHome
         }
