@@ -1,12 +1,12 @@
 module Main exposing (main)
 
-import Element exposing (..)
-import Framework.Button as Button exposing (button)
-import Framework.Modifier exposing (..)
+import Element exposing (layout)
+import Framework.Button as Button
+import Framework.Modifier exposing (Modifier(..))
 import Html
 
 
 main : Html.Html a
 main =
     layout [] <|
-        button [ Medium, Success, Outlined ] Nothing "Button"
+        Button.button [ Medium, Success, Outlined ] Nothing "Button"
