@@ -113,7 +113,7 @@ import Framework.Color exposing (color)
 import Framework.Configuration exposing (conf)
 import Framework.FormField as FormField
 import Framework.FormFieldWithPattern as FormFieldWithPattern
-import Framework.Icon as Icon
+import Framework.Icon as Icon exposing (icon)
 import Framework.Logo as Logo
 import Framework.Spinner as Spinner
 import Framework.StyleElements as StyleElements
@@ -603,7 +603,7 @@ viewContentColumn model =
                     [ column [ padding <| model.conf.mainPadding + 100, spacing model.conf.mainPadding ]
                         [ el [] <| viewLogo model.conf.title model.conf.subTitle model.conf.version
                         , el [ Font.size 24 ] model.conf.introduction
-                        , el [ centerX, alpha 0.2 ] <| Icon.icon Icon.ChevronDown 32
+                        , el [ centerX, alpha 0.2 ] <| icon.chevronDown color.grey 32
                         ]
                     , column [] <| List.map (\( introspection, _ ) -> viewIntrospection model introspection) model.introspections
                     ]
