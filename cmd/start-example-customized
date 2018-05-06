@@ -1,3 +1,4 @@
 #!/bin/bash
-# elm-live examples/exampleCustomized/FrameworkCustomized.elm --output=docs/exampleCustomized.js --dir=docs --debug
-elm-live FrameworkCustomized.elm --output=../../docs/exampleCustomized.js --dir=docs --debug
+echo ""
+echo "For the customized version, run the command cmd/start from the folder examples/exampleCustomized"
+echo ""

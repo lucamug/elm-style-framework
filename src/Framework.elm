@@ -161,7 +161,10 @@ initConf =
     , grayF = Color.rgba 0xF7 0xF7 0xF7 0xFF
     , title =
         column []
-            [ el [ alpha 0.3 ] <| Logo.logo (Logo.LogoElm <| Logo.ElmColor Logo.White) 60
+            [ link []
+                { label = el [ alpha 0.3 ] <| Logo.logo (Logo.LogoElm <| Logo.ElmColor Logo.White) 60
+                , url = ".."
+                }
             , paragraph
                 [ Font.size 55
                 , Font.bold
@@ -625,8 +628,8 @@ viewSomething : Model -> ( Introspection, ( String, List SubSection ) ) -> Eleme
 viewSomething model ( introspection, ( title, listSubSection ) ) =
     column
         []
-        ([ viewIntrospectionTitle model.conf introspection ]
-            ++ (if introspection.signature /= "" then
+        (viewIntrospectionTitle model.conf introspection
+            :: (if introspection.signature /= "" then
                     [ paragraph
                         [ Font.family [ Font.monospace ]
                         , paddingXY 40 20

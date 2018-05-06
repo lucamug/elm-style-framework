@@ -23,9 +23,7 @@ import Regex
 
 {-| -}
 type alias Model =
-    { fieldTelephone : String
-    , fieldCreditCard : String
-    , field4DigitCode : String
+    { value : String
     , focus : Maybe Field
     }
 
@@ -33,9 +31,7 @@ type alias Model =
 {-| -}
 initModel : Model
 initModel =
-    { fieldTelephone = ""
-    , fieldCreditCard = ""
-    , field4DigitCode = ""
+    { value = ""
     , focus = Nothing
     }
 
@@ -74,20 +70,20 @@ update msg model =
                     Regex.replace Regex.All regexNotDigit (\_ -> "") value
 
                 withPattern =
-                    xxresult pattern onlyDigits
+                    result pattern onlyDigits
 
                 removeCharactedAtTheEndIfNotNumbers =
                     Regex.replace Regex.All regexNotDigitsAtTheEnd (\_ -> "") withPattern
             in
             ( case field of
                 FieldTelephone ->
-                    { model | fieldTelephone = removeCharactedAtTheEndIfNotNumbers }
+                    { model | value = removeCharactedAtTheEndIfNotNumbers }
 
                 FieldCreditCard ->
-                    { model | fieldCreditCard = removeCharactedAtTheEndIfNotNumbers }
+                    { model | value = removeCharactedAtTheEndIfNotNumbers }
 
                 Field4DigitCode ->
-                    { model | field4DigitCode = removeCharactedAtTheEndIfNotNumbers }
+                    { model | value = removeCharactedAtTheEndIfNotNumbers }
             , Cmd.none
             )
 
@@ -218,13 +214,13 @@ inputText model { field, pattern, label } =
         modelValue =
             case field of
                 FieldTelephone ->
-                    model.fieldTelephone
+                    model.value
 
                 FieldCreditCard ->
-                    model.fieldCreditCard
+                    model.value
 
                 Field4DigitCode ->
-                    model.field4DigitCode
+                    model.value
 
         labelIsAbove =
             hasFocus model field || modelValue /= "" || largeSize
@@ -297,48 +293,48 @@ inputText model { field, pattern, label } =
 
 
 
---
+-- Internal
 
 
 type Token
-    = Inputxxx
+    = InputValue
     | Other Char
 
 
-xxparse : Char -> String -> List Token
-xxparse inputChar pattern =
+parse : Char -> String -> List Token
+parse inputChar pattern =
     String.toList pattern
-        |> List.map (xxtokenize inputChar)
+        |> List.map (tokenize inputChar)
 
 
-xxtokenize : Char -> Char -> Token
-xxtokenize inputChar pattern =
+tokenize : Char -> Char -> Token
+tokenize inputChar pattern =
     if pattern == inputChar || pattern == '_' then
-        Inputxxx
+        InputValue
     else
         Other pattern
 
 
-xxformat : List Token -> String -> String
-xxformat tokens input =
+format : List Token -> String -> String
+format tokens input =
     if String.isEmpty input then
         input
     else
-        xxappend tokens (String.toList input) ""
+        append tokens (String.toList input) ""
 
 
-xxresult : String -> String -> String
-xxresult template string =
-    xxformat (xxparse '0' template) string
+result : String -> String -> String
+result template string =
+    format (parse '0' template) string
 
 
-xxappend : List Token -> List Char -> String -> String
-xxappend tokens input formatted =
+append : List Token -> List Char -> String -> String
+append tokens input formatted =
     let
         appendInput =
             List.head input
                 |> Maybe.map (\char -> formatted ++ String.fromChar char)
-                |> Maybe.map (xxappend (Maybe.withDefault [] (List.tail tokens)) (Maybe.withDefault [] (List.tail input)))
+                |> Maybe.map (append (Maybe.withDefault [] (List.tail tokens)) (Maybe.withDefault [] (List.tail input)))
                 |> Maybe.withDefault formatted
 
         maybeToken =
@@ -350,16 +346,8 @@ xxappend tokens input formatted =
 
         Just token ->
             case token of
-                Inputxxx ->
+                InputValue ->
                     appendInput
 
                 Other char ->
-                    xxappend (Maybe.withDefault [] <| List.tail tokens) input (formatted ++ String.fromChar char)
-
-
-
-{-
-   main : Html msg
-   main =
-       text <| toString <| result "(000)-0000-0000" "1234566666666666"
--}
+                    append (Maybe.withDefault [] <| List.tail tokens) input (formatted ++ String.fromChar char)
