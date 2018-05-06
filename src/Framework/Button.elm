@@ -15,7 +15,8 @@ import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
-import Framework.Color exposing (color)
+import Framework.Color
+import Framework.ColorManipulation
 import Framework.Modifier exposing (Modifier(..))
 import Framework.Spinner as Spinner
 import Html.Attributes
@@ -37,7 +38,7 @@ introspection =
             "Button"
     in
     { name = "Buttons"
-    , signature = "button : List Modifier -> Maybe msg -> String -> Element msg"
+    , signature = "List Modifier -> Maybe msg -> String -> Element msg"
     , description = "Buttons accept a list of modifiers, a Maybe msg (for example: \"Just DoSomething\") and the text to display inside the button."
     , usage = "button [ Medium, Success, Outlined ] Nothing \"" ++ buttonText ++ "\""
     , usageResult = button [ Medium, Success, Outlined ] Nothing buttonText
@@ -193,22 +194,22 @@ processConf modifier conf =
     case modifier of
         -- Colors
         Muted ->
-            { conf | color = color.muted }
+            { conf | color = Framework.Color.muted }
 
         Primary ->
-            { conf | color = color.primary }
+            { conf | color = Framework.Color.primary }
 
         Success ->
-            { conf | color = color.success }
+            { conf | color = Framework.Color.success }
 
         Info ->
-            { conf | color = color.info }
+            { conf | color = Framework.Color.info }
 
         Warning ->
-            { conf | color = color.warning }
+            { conf | color = Framework.Color.warning }
 
         Danger ->
-            { conf | color = color.danger }
+            { conf | color = Framework.Color.danger }
 
         -- SIZES
         Small ->
@@ -296,12 +297,12 @@ buttonLinkWidth modifiers url label buttonWidth =
 
 colorDefault : Color.Color
 colorDefault =
-    color.white
+    Framework.Color.white
 
 
 colorBorderDefault : Color.Color
 colorBorderDefault =
-    color.grey_lighter
+    Framework.Color.grey_lighter
 
 
 {-| Generate a list of attributes that can be attached to any element
@@ -336,29 +337,29 @@ buttonAttr modifiers =
 
                 _ ->
                     backgroundColor
-                        |> Framework.Color.lighten 0.8
-                        |> Framework.Color.saturate 0.9
+                        |> Framework.ColorManipulation.lighten 0.8
+                        |> Framework.ColorManipulation.saturate 0.9
 
         borderMouseOverColor =
             borderColor
-                |> Framework.Color.lighten 0.8
-                |> Framework.Color.saturate 0.9
+                |> Framework.ColorManipulation.lighten 0.8
+                |> Framework.ColorManipulation.saturate 0.9
 
         fontMouseOverColor =
             case conf.state of
                 StateLoading ->
-                    color.transparent
+                    Framework.Color.transparent
 
                 StateWaiting ->
-                    color.transparent
+                    Framework.Color.transparent
 
                 StateOutlined ->
-                    color.white
+                    Framework.Color.white
 
                 _ ->
                     fontColor
-                        |> Framework.Color.lighten 0.8
-                        |> Framework.Color.saturate 0.9
+                        |> Framework.ColorManipulation.lighten 0.8
+                        |> Framework.ColorManipulation.saturate 0.9
 
         backgroundColor =
             case conf.state of
@@ -366,10 +367,10 @@ buttonAttr modifiers =
                     cc
 
                 StateOutlined ->
-                    if conf.color == color.white then
+                    if conf.color == Framework.Color.white then
                         colorBorderDefault
                     else
-                        color.transparent
+                        Framework.Color.transparent
 
                 StateLoading ->
                     cc
@@ -379,8 +380,8 @@ buttonAttr modifiers =
 
                 StateDisabled ->
                     cc
-                        |> Framework.Color.lighten 1.1
-                        |> Framework.Color.saturate 0.4
+                        |> Framework.ColorManipulation.lighten 1.1
+                        |> Framework.ColorManipulation.saturate 0.4
 
         borderRounded =
             case conf.size of
@@ -391,7 +392,7 @@ buttonAttr modifiers =
                     3
 
         borderColor =
-            if conf.color == color.white then
+            if conf.color == Framework.Color.white then
                 colorBorderDefault
             else
                 case conf.state of
@@ -402,10 +403,10 @@ buttonAttr modifiers =
                         backgroundColor
 
         spinnerColor =
-            if conf.color == color.white then
-                color.grey_dark
+            if conf.color == Framework.Color.white then
+                Framework.Color.grey_dark
             else
-                color.white
+                Framework.Color.white
 
         fontColor =
             case conf.state of
@@ -413,16 +414,16 @@ buttonAttr modifiers =
                     cc
 
                 StateLoading ->
-                    color.transparent
+                    Framework.Color.transparent
 
                 StateWaiting ->
-                    color.transparent
+                    Framework.Color.transparent
 
                 _ ->
-                    if conf.color == color.white then
-                        color.grey_dark
+                    if conf.color == Framework.Color.white then
+                        Framework.Color.grey_dark
                     else
-                        color.white
+                        Framework.Color.white
 
         inFrontAddon =
             case conf.state of

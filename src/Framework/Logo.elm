@@ -27,7 +27,7 @@ introspection :
     }
 introspection =
     { name = "Logos"
-    , signature = "logo : Logo -> Int -> Color.Color -> Element.Element msg"
+    , signature = ""
     , description = "List of SVG logos"
     , usage = "logo ElmColorful 48"
     , usageResult = logo (LogoElm ElmColorful) 48

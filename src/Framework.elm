@@ -109,11 +109,11 @@ import Element.Font as Font
 import Element.Input as Input
 import Framework.Button as Button
 import Framework.Card as Card
-import Framework.Color exposing (color)
+import Framework.Color
 import Framework.Configuration exposing (conf)
 import Framework.FormField as FormField
 import Framework.FormFieldWithPattern as FormFieldWithPattern
-import Framework.Icon as Icon exposing (icon)
+import Framework.Icon as Icon
 import Framework.Logo as Logo
 import Framework.Spinner as Spinner
 import Framework.StyleElements as StyleElements
@@ -180,7 +180,7 @@ initConf =
         Element.inFront <|
             link
                 [ alignRight
-                , Font.color <| color.primary
+                , Font.color <| Framework.Color.primary
                 ]
                 { label = image [ width <| px 60, alpha 0.5 ] { src = "images/github.png", description = "Fork me on Github" }
                 , url = "https://github.com/lucamug/elm-style-framework"
@@ -461,7 +461,7 @@ view model =
     layoutWith
         { options =
             [ focusStyle
-                { borderColor = Just <| color.primary
+                { borderColor = Just <| Framework.Color.primary
                 , backgroundColor = Nothing
                 , shadow = Nothing
                 }
@@ -490,7 +490,7 @@ view model =
                     [ width <| px 200
                     , centerX
                     , centerY
-                    , Border.color <| color.grey_light
+                    , Border.color <| Framework.Color.grey_light
                     ]
                     { onChange = Just MsgChangePassword
                     , text = model.password
@@ -603,7 +603,7 @@ viewContentColumn model =
                     [ column [ padding <| model.conf.mainPadding + 100, spacing model.conf.mainPadding ]
                         [ el [] <| viewLogo model.conf.title model.conf.subTitle model.conf.version
                         , el [ Font.size 24 ] model.conf.introduction
-                        , el [ centerX, alpha 0.2 ] <| icon.chevronDown color.grey 32
+                        , el [ centerX, alpha 0.2 ] <| Icon.chevronDown Framework.Color.grey 32
                         ]
                     , column [] <| List.map (\( introspection, _ ) -> viewIntrospection model introspection) model.introspections
                     ]
@@ -625,16 +625,21 @@ viewSomething : Model -> ( Introspection, ( String, List SubSection ) ) -> Eleme
 viewSomething model ( introspection, ( title, listSubSection ) ) =
     column
         []
-        [ viewIntrospectionTitle model.conf introspection
-
-        --, el [ Font.size 18 ] <| text "Signature"
-        --, paragraph codeAttributes [ text <| introspection.signature ]
-        --, el [ Font.size 18 ] <| text "Code Example"
-        --, paragraph codeAttributes [ text <| introspection.usage ]
-        --, el [ Font.size 18 ] <| text "Result"
-        --, paragraph [] [ introspection.usageResult ]
-        , viewIntrospectionBody model title listSubSection
-        ]
+        ([ viewIntrospectionTitle model.conf introspection ]
+            ++ (if introspection.signature /= "" then
+                    [ paragraph
+                        [ Font.family [ Font.monospace ]
+                        , paddingXY 40 20
+                        ]
+                        [ text <| String.join "⇾" <| String.split "->" introspection.signature
+                        ]
+                    ]
+                else
+                    []
+               )
+            ++ [ viewIntrospectionBody model title listSubSection
+               ]
+        )
 
 
 viewIntrospectionTitle : Conf msg -> Introspection -> Element Msg
@@ -828,7 +833,7 @@ viewSubSection model ( componentExample, componentExampleSourceCode ) =
                 ( componentExample, componentExampleSourceCode )
     in
     row
-        []
+        [ spacing 16 ]
         [ column
             [ width fill
             , alignTop
@@ -840,18 +845,22 @@ viewSubSection model ( componentExample, componentExampleSourceCode ) =
 
 sourceCodeWrapper : Conf msg -> String -> Element Msg
 sourceCodeWrapper configuration sourceCode =
-    paragraph
+    el
         [ width fill
-        , scrollbars
-        , alignTop
-        , Font.color <| configuration.gray9
-        , Font.family [ Font.monospace ]
-        , Font.size 16
+        , Element.scrollbarX
         , Background.color <| configuration.gray3
-        , padding 16
         , Border.rounded 8
         ]
-        [ html (Html.pre [] [ Html.text sourceCode ]) ]
+    <|
+        el
+            [ Font.family [ Font.monospace ]
+            , Font.color <| configuration.gray9
+            , Font.size 16
+            , padding 16
+            , htmlAttribute <| Html.Attributes.style [ ( "white-space", "pre" ) ]
+            ]
+        <|
+            text sourceCode
 
 
 

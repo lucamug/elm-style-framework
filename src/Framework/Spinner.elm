@@ -11,7 +11,7 @@ module Framework.Spinner exposing (Spinner(..), introspection, spinner)
 
 import Color
 import Element
-import Framework.Color
+import Framework.ColorManipulation
 import Html
 import Svg
 import Svg.Attributes as SA
@@ -29,7 +29,7 @@ introspection :
     }
 introspection =
     { name = "Spinners"
-    , signature = "spinner : Spinner -> Int -> Color.Color -> Element.Element msg"
+    , signature = ""
     , description = "List of SVG spinners"
     , usage = "spinner ThreeCircles 20 Color.black"
     , usageResult = spinner ThreeCircles 20 Color.black
@@ -71,7 +71,7 @@ spinnerThreeCirclesHtml : Int -> Color.Color -> Html.Html msg
 spinnerThreeCirclesHtml _ color =
     let
         colorString =
-            Framework.Color.colorToHex color
+            Framework.ColorManipulation.colorToHex color
 
         size =
             32
@@ -125,7 +125,7 @@ spinnerRotationHtml : Int -> Color.Color -> Html.Html msg
 spinnerRotationHtml size color =
     let
         colorString =
-            Framework.Color.colorToHex color
+            Framework.ColorManipulation.colorToHex color
 
         idElement =
             "id" ++ String.dropLeft 1 colorString

@@ -26,7 +26,7 @@ introspection :
     }
 introspection =
     { name = "Typography"
-    , signature = "h1 : List (Element.Attribute msg) -> Element.Element msg -> Element.Element msg"
+    , signature = "List (Element.Attribute msg) -> Element.Element msg -> Element.Element msg"
     , description = ""
     , usage = """h1 [] <| text "Content\""""
     , usageResult = h1 [] <| text "Content"

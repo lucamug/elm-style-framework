@@ -14,7 +14,7 @@ import Element.Background as Background
 import Element.Border as Border
 import Element.Events as Events
 import Element.Input as Input
-import Framework.Color exposing (color)
+import Framework.Color
 import Html.Attributes
 
 
@@ -130,7 +130,7 @@ inputText model { field, label } =
     Input.email
         ([ Events.onFocus <| OnFocus field
          , Events.onLoseFocus <| OnLoseFocus field
-         , Background.color <| color.transparent
+         , Background.color <| Framework.Color.transparent
          , Border.widthEach { bottom = 1, left = 0, right = 0, top = 0 }
          , Border.rounded 0
          , paddingXY 0 8
@@ -139,7 +139,7 @@ inputText model { field, label } =
          , hackInLineStyle "z-index" "10"
          ]
             ++ (if hasFocus model field then
-                    [ Border.color <| color.primary ]
+                    [ Border.color <| Framework.Color.primary ]
                 else
                     []
                )

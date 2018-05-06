@@ -30404,7 +30404,7 @@ var _lucamug$elm_style_framework$Framework_Card$simpleWithTitle = F3(
 						}
 					},
 					A2(
-						_mdgriffith$stylish_elephants$Element$paragraph,
+						_mdgriffith$stylish_elephants$Element$row,
 						{
 							ctor: '::',
 							_0: _mdgriffith$stylish_elephants$Element$spacing(10),
@@ -31425,7 +31425,7 @@ var _lucamug$elm_style_framework$Framework_FormFieldWithPattern$update = F2(
 	});
 
 var _lucamug$elm_style_framework$Framework_Icon$chevronDown = F2(
-	function (size, _p0) {
+	function (_p0, size) {
 		return A2(
 			_elm_lang$svg$Svg$svg,
 			{
@@ -31452,7 +31452,7 @@ var _lucamug$elm_style_framework$Framework_Icon$chevronDown = F2(
 			});
 	});
 var _lucamug$elm_style_framework$Framework_Icon$mobileNotification = F2(
-	function (size, color) {
+	function (cl, size) {
 		return A2(
 			_elm_lang$svg$Svg$svg,
 			{
@@ -31471,7 +31471,8 @@ var _lucamug$elm_style_framework$Framework_Icon$mobileNotification = F2(
 					_elm_lang$svg$Svg$path,
 					{
 						ctor: '::',
-						_0: _elm_lang$svg$Svg_Attributes$fill(color),
+						_0: _elm_lang$svg$Svg_Attributes$fill(
+							_lucamug$elm_style_framework$Framework_Color$colorToHex(cl)),
 						_1: {
 							ctor: '::',
 							_0: _elm_lang$svg$Svg_Attributes$d('M20 49a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zM17 5h4a1 1 0 1 0 0-2h-4a1 1 0 1 0 0 2zm7 0h1a1 1 0 1 0 0-2h-1a1 1 0 1 0 0 2z'),
@@ -31485,7 +31486,8 @@ var _lucamug$elm_style_framework$Framework_Icon$mobileNotification = F2(
 						_elm_lang$svg$Svg$path,
 						{
 							ctor: '::',
-							_0: _elm_lang$svg$Svg_Attributes$fill(color),
+							_0: _elm_lang$svg$Svg_Attributes$fill(
+								_lucamug$elm_style_framework$Framework_Color$colorToHex(cl)),
 							_1: {
 								ctor: '::',
 								_0: _elm_lang$svg$Svg_Attributes$d('M56 12H38V4c0-2-2-4-4-4H8C6 0 4 2 4 4v52c0 2 2 4 4 4h26c2 0 4-2 4-4V33h18V12zM8 2h26l2 2v2H6V4l2-2zm26 56H8l-2-2v-8h30v8l-2 2zm2-12H6V8h30v4H18v21h4v7l9-7h5v13zm18-15H31l-7 5v-5h-4V14h34v17z'),
@@ -31499,7 +31501,8 @@ var _lucamug$elm_style_framework$Framework_Icon$mobileNotification = F2(
 							_elm_lang$svg$Svg$path,
 							{
 								ctor: '::',
-								_0: _elm_lang$svg$Svg_Attributes$fill(color),
+								_0: _elm_lang$svg$Svg_Attributes$fill(
+									_lucamug$elm_style_framework$Framework_Color$colorToHex(cl)),
 								_1: {
 									ctor: '::',
 									_0: _elm_lang$svg$Svg_Attributes$d('M25 21h10a1 1 0 1 0 0-2H25a1 1 0 1 0 0 2zm-1 4l1 1h24a1 1 0 1 0 0-2H25l-1 1z'),
@@ -31513,7 +31516,8 @@ var _lucamug$elm_style_framework$Framework_Icon$mobileNotification = F2(
 			});
 	});
 var _lucamug$elm_style_framework$Framework_Icon$mobileRinging = F2(
-	function (size, color) {
+	function (cl, size) {
+		var hexColor = _lucamug$elm_style_framework$Framework_Color$colorToHex(cl);
 		return A2(
 			_elm_lang$svg$Svg$svg,
 			{
@@ -31532,7 +31536,7 @@ var _lucamug$elm_style_framework$Framework_Icon$mobileRinging = F2(
 					_elm_lang$svg$Svg$path,
 					{
 						ctor: '::',
-						_0: _elm_lang$svg$Svg_Attributes$fill(color),
+						_0: _elm_lang$svg$Svg_Attributes$fill(hexColor),
 						_1: {
 							ctor: '::',
 							_0: _elm_lang$svg$Svg_Attributes$d('M43 0H17c-2 0-4 2-4 4v52c0 2 2 4 4 4h26c2 0 4-2 4-4V4c0-2-2-4-4-4zM15 8h30v38H15V8zm2-6h26l2 2v2H15V4l2-2zm26 56H17l-2-2v-8h30v8l-2 2z'),
@@ -31546,7 +31550,7 @@ var _lucamug$elm_style_framework$Framework_Icon$mobileRinging = F2(
 						_elm_lang$svg$Svg$path,
 						{
 							ctor: '::',
-							_0: _elm_lang$svg$Svg_Attributes$fill(color),
+							_0: _elm_lang$svg$Svg_Attributes$fill(hexColor),
 							_1: {
 								ctor: '::',
 								_0: _elm_lang$svg$Svg_Attributes$d('M30 49a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zM26 5h4a1 1 0 1 0 0-2h-4a1 1 0 1 0 0 2zm7 0h1a1 1 0 1 0 0-2h-1a1 1 0 1 0 0 2zm24 0a1 1 0 1 0-2 1c4 4 4 10 0 14a1 1 0 1 0 2 1c4-5 4-12 0-16z'),
@@ -31560,7 +31564,7 @@ var _lucamug$elm_style_framework$Framework_Icon$mobileRinging = F2(
 							_elm_lang$svg$Svg$path,
 							{
 								ctor: '::',
-								_0: _elm_lang$svg$Svg_Attributes$fill(color),
+								_0: _elm_lang$svg$Svg_Attributes$fill(hexColor),
 								_1: {
 									ctor: '::',
 									_0: _elm_lang$svg$Svg_Attributes$d('M52 7a1 1 0 1 0-1 1 7 7 0 0 1 0 10 1 1 0 1 0 1 1 8 8 0 0 0 0-12zM5 6a1 1 0 1 0-2-1c-4 4-4 11 0 16a1 1 0 0 0 2 0v-1C1 16 1 10 5 6z'),
@@ -31574,7 +31578,7 @@ var _lucamug$elm_style_framework$Framework_Icon$mobileRinging = F2(
 								_elm_lang$svg$Svg$path,
 								{
 									ctor: '::',
-									_0: _elm_lang$svg$Svg_Attributes$fill(color),
+									_0: _elm_lang$svg$Svg_Attributes$fill(hexColor),
 									_1: {
 										ctor: '::',
 										_0: _elm_lang$svg$Svg_Attributes$d('M9 7H8a8 8 0 0 0 0 12 1 1 0 0 0 1 0v-2a7 7 0 0 1 0-9V7z'),
@@ -31589,7 +31593,7 @@ var _lucamug$elm_style_framework$Framework_Icon$mobileRinging = F2(
 			});
 	});
 var _lucamug$elm_style_framework$Framework_Icon$mobileNotification2 = F2(
-	function (size, color) {
+	function (cl, size) {
 		return A2(
 			_elm_lang$svg$Svg$svg,
 			{
@@ -31608,7 +31612,8 @@ var _lucamug$elm_style_framework$Framework_Icon$mobileNotification2 = F2(
 					_elm_lang$svg$Svg$path,
 					{
 						ctor: '::',
-						_0: _elm_lang$svg$Svg_Attributes$fill(color),
+						_0: _elm_lang$svg$Svg_Attributes$fill(
+							_lucamug$elm_style_framework$Framework_Color$colorToHex(cl)),
 						_1: {
 							ctor: '::',
 							_0: _elm_lang$svg$Svg_Attributes$d('M21.5 25.67H7V3.89h14.5v4.7h1.73V2.3a2.3 2.3 0 0 0-2.3-2.3H7.58a2.3 2.3 0 0 0-2.3 2.3v27.08a2.3 2.3 0 0 0 2.3 2.3h13.33a2.3 2.3 0 0 0 2.3-2.3V19.2H21.5v6.46zM19.4 1.44c.33 0 .59.27.59.6s-.26.58-.59.58-.59-.26-.59-.59.26-.59.59-.59zm-8.24.23h6.19v.67h-6.19v-.67zm5.91 27.55h-5.63V27.5h5.63v1.73z'),
@@ -31622,7 +31627,8 @@ var _lucamug$elm_style_framework$Framework_Icon$mobileNotification2 = F2(
 						_elm_lang$svg$Svg$path,
 						{
 							ctor: '::',
-							_0: _elm_lang$svg$Svg_Attributes$fill(color),
+							_0: _elm_lang$svg$Svg_Attributes$fill(
+								_lucamug$elm_style_framework$Framework_Color$colorToHex(cl)),
 							_1: {
 								ctor: '::',
 								_0: _elm_lang$svg$Svg_Attributes$d('M13.05 9.3v9h1.56L13.05 22l4.54-3.7h8.81v-9H13.05zm12.21 7.86H17.2l-.32.25-1 .81.45-1.06H14.2v-6.71h11.07v6.7z'),
@@ -31635,7 +31641,7 @@ var _lucamug$elm_style_framework$Framework_Icon$mobileNotification2 = F2(
 			});
 	});
 var _lucamug$elm_style_framework$Framework_Icon$show = F2(
-	function (size, color) {
+	function (cl, size) {
 		return A2(
 			_elm_lang$svg$Svg$svg,
 			{
@@ -31659,7 +31665,8 @@ var _lucamug$elm_style_framework$Framework_Icon$show = F2(
 					_elm_lang$svg$Svg$path,
 					{
 						ctor: '::',
-						_0: _elm_lang$svg$Svg_Attributes$fill(color),
+						_0: _elm_lang$svg$Svg_Attributes$fill(
+							_lucamug$elm_style_framework$Framework_Color$colorToHex(cl)),
 						_1: {
 							ctor: '::',
 							_0: _elm_lang$svg$Svg_Attributes$d('M256 192a64 64 0 1 0 0 128 64 64 0 0 0 0-128zm250 49l-89-89c-89-89-233-89-322 0L6 241c-8 8-8 22 0 30l89 89a227 227 0 0 0 322 0l89-89c8-8 8-22 0-30zM256 363a107 107 0 1 1 0-214 107 107 0 0 1 0 214z'),
@@ -31671,7 +31678,7 @@ var _lucamug$elm_style_framework$Framework_Icon$show = F2(
 			});
 	});
 var _lucamug$elm_style_framework$Framework_Icon$hide = F2(
-	function (size, color) {
+	function (cl, size) {
 		return A2(
 			_elm_lang$svg$Svg$svg,
 			{
@@ -31695,7 +31702,8 @@ var _lucamug$elm_style_framework$Framework_Icon$hide = F2(
 					_elm_lang$svg$Svg$path,
 					{
 						ctor: '::',
-						_0: _elm_lang$svg$Svg_Attributes$fill(color),
+						_0: _elm_lang$svg$Svg_Attributes$fill(
+							_lucamug$elm_style_framework$Framework_Color$colorToHex(cl)),
 						_1: {
 							ctor: '::',
 							_0: _elm_lang$svg$Svg_Attributes$d('M506 241l-89-89-14-13-258 258a227 227 0 0 0 272-37l89-89c8-8 8-22 0-30zM256 363a21 21 0 0 1 0-43c35 0 64-29 64-64a21 21 0 0 1 43 0c0 59-48 107-107 107zM95 152L6 241c-8 8-8 22 0 30l89 89 14 13 258-258c-86-49-198-37-272 37zm161 40c-35 0-64 29-64 64a21 21 0 0 1-43 0c0-59 48-107 107-107a21 21 0 0 1 0 43z'),
@@ -31706,168 +31714,172 @@ var _lucamug$elm_style_framework$Framework_Icon$hide = F2(
 				_1: {ctor: '[]'}
 			});
 	});
-var _lucamug$elm_style_framework$Framework_Icon$fullscreen = function (size) {
-	return A2(
-		_elm_lang$svg$Svg$svg,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$style(
-				{
-					ctor: '::',
-					_0: {
-						ctor: '_Tuple2',
-						_0: 'height',
-						_1: A2(
-							_elm_lang$core$Basics_ops['++'],
-							_elm_lang$core$Basics$toString(size),
-							'px')
-					},
-					_1: {ctor: '[]'}
-				}),
-			_1: {
+var _lucamug$elm_style_framework$Framework_Icon$fullscreen = F2(
+	function (_p1, size) {
+		return A2(
+			_elm_lang$svg$Svg$svg,
+			{
 				ctor: '::',
-				_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 533 533'),
-				_1: {ctor: '[]'}
-			}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$svg$Svg$path,
-				{
-					ctor: '::',
-					_0: _elm_lang$svg$Svg_Attributes$d('M533 0v217l-83-84-100 100-50-50L400 83 317 0h216zM233 350L133 450l84 83H0V317l83 83 100-100 50 50z'),
-					_1: {ctor: '[]'}
-				},
-				{ctor: '[]'}),
-			_1: {ctor: '[]'}
-		});
-};
-var _lucamug$elm_style_framework$Framework_Icon$exitFullscreen = function (size) {
-	return A2(
-		_elm_lang$svg$Svg$svg,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$style(
-				{
-					ctor: '::',
-					_0: {
-						ctor: '_Tuple2',
-						_0: 'height',
-						_1: A2(
-							_elm_lang$core$Basics_ops['++'],
-							_elm_lang$core$Basics$toString(size),
-							'px')
-					},
-					_1: {ctor: '[]'}
-				}),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 32 32'),
-				_1: {ctor: '[]'}
-			}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$svg$Svg$path,
-				{
-					ctor: '::',
-					_0: _elm_lang$svg$Svg_Attributes$fill('#030104'),
-					_1: {
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
 						ctor: '::',
-						_0: _elm_lang$svg$Svg_Attributes$d('M25 27l4 5 3-3-5-4 5-5H20v12zM0 12h12V0L7 5 3 0 0 3l5 4zm0 17l3 3 4-5 5 5V20H0l5 5zm20-17h12l-5-5 5-4-3-3-4 5-5-5z'),
+						_0: {
+							ctor: '_Tuple2',
+							_0: 'height',
+							_1: A2(
+								_elm_lang$core$Basics_ops['++'],
+								_elm_lang$core$Basics$toString(size),
+								'px')
+						},
 						_1: {ctor: '[]'}
-					}
-				},
-				{ctor: '[]'}),
-			_1: {ctor: '[]'}
-		});
-};
-var _lucamug$elm_style_framework$Framework_Icon$pencil = function (size) {
-	return A2(
-		_elm_lang$svg$Svg$svg,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$style(
-				{
+					}),
+				_1: {
 					ctor: '::',
-					_0: {
-						ctor: '_Tuple2',
-						_0: 'height',
-						_1: A2(
-							_elm_lang$core$Basics_ops['++'],
-							_elm_lang$core$Basics$toString(size),
-							'px')
-					},
+					_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 533 533'),
 					_1: {ctor: '[]'}
-				}),
-			_1: {
+				}
+			},
+			{
 				ctor: '::',
-				_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 529 529'),
-				_1: {ctor: '[]'}
-			}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$svg$Svg$path,
-				{
-					ctor: '::',
-					_0: _elm_lang$svg$Svg_Attributes$d('M329 89l107 108-272 272L57 361 329 89zm189-26l-48-48a48 48 0 0 0-67 0l-46 46 108 108 53-54c14-14 14-37 0-52zM0 513c-2 9 6 16 15 14l120-29L27 391 0 513z'),
-					_1: {ctor: '[]'}
-				},
-				{ctor: '[]'}),
-			_1: {ctor: '[]'}
-		});
-};
-var _lucamug$elm_style_framework$Framework_Icon$home = function (size) {
-	return A2(
-		_elm_lang$svg$Svg$svg,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$style(
-				{
-					ctor: '::',
-					_0: {
-						ctor: '_Tuple2',
-						_0: 'height',
-						_1: A2(
-							_elm_lang$core$Basics_ops['++'],
-							_elm_lang$core$Basics$toString(size),
-							'px')
-					},
-					_1: {ctor: '[]'}
-				}),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 34.94 32.63'),
-				_1: {ctor: '[]'}
-			}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$svg$Svg$path,
-				{
-					ctor: '::',
-					_0: _elm_lang$svg$Svg_Attributes$d('M34.94 15.58L17.24 0 0 15.65l1.5 1.66 2.14-1.92v17.25h27.68V15.38l2.14 1.88zM14.8 29.93V21.6h5.35v8.34zm14.27.45H22.4v-11h-9.84v11H5.88v-17L17.25 3l11.82 10.4z'),
-					_1: {
+				_0: A2(
+					_elm_lang$svg$Svg$path,
+					{
 						ctor: '::',
-						_0: _elm_lang$svg$Svg_Attributes$fill('#262626'),
+						_0: _elm_lang$svg$Svg_Attributes$d('M533 0v217l-83-84-100 100-50-50L400 83 317 0h216zM233 350L133 450l84 83H0V317l83 83 100-100 50 50z'),
+						_1: {ctor: '[]'}
+					},
+					{ctor: '[]'}),
+				_1: {ctor: '[]'}
+			});
+	});
+var _lucamug$elm_style_framework$Framework_Icon$exitFullscreen = F2(
+	function (_p2, size) {
+		return A2(
+			_elm_lang$svg$Svg$svg,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 'height',
+							_1: A2(
+								_elm_lang$core$Basics_ops['++'],
+								_elm_lang$core$Basics$toString(size),
+								'px')
+						},
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 32 32'),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$svg$Svg$path,
+					{
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$fill('#030104'),
 						_1: {
 							ctor: '::',
-							_0: _elm_lang$svg$Svg_Attributes$id('_01'),
+							_0: _elm_lang$svg$Svg_Attributes$d('M25 27l4 5 3-3-5-4 5-5H20v12zM0 12h12V0L7 5 3 0 0 3l5 4zm0 17l3 3 4-5 5 5V20H0l5 5zm20-17h12l-5-5 5-4-3-3-4 5-5-5z'),
 							_1: {ctor: '[]'}
 						}
-					}
-				},
-				{ctor: '[]'}),
-			_1: {ctor: '[]'}
-		});
-};
+					},
+					{ctor: '[]'}),
+				_1: {ctor: '[]'}
+			});
+	});
+var _lucamug$elm_style_framework$Framework_Icon$pencil = F2(
+	function (_p3, size) {
+		return A2(
+			_elm_lang$svg$Svg$svg,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 'height',
+							_1: A2(
+								_elm_lang$core$Basics_ops['++'],
+								_elm_lang$core$Basics$toString(size),
+								'px')
+						},
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 529 529'),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$svg$Svg$path,
+					{
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$d('M329 89l107 108-272 272L57 361 329 89zm189-26l-48-48a48 48 0 0 0-67 0l-46 46 108 108 53-54c14-14 14-37 0-52zM0 513c-2 9 6 16 15 14l120-29L27 391 0 513z'),
+						_1: {ctor: '[]'}
+					},
+					{ctor: '[]'}),
+				_1: {ctor: '[]'}
+			});
+	});
+var _lucamug$elm_style_framework$Framework_Icon$home = F2(
+	function (_p4, size) {
+		return A2(
+			_elm_lang$svg$Svg$svg,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 'height',
+							_1: A2(
+								_elm_lang$core$Basics_ops['++'],
+								_elm_lang$core$Basics$toString(size),
+								'px')
+						},
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 34.94 32.63'),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$svg$Svg$path,
+					{
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$d('M34.94 15.58L17.24 0 0 15.65l1.5 1.66 2.14-1.92v17.25h27.68V15.38l2.14 1.88zM14.8 29.93V21.6h5.35v8.34zm14.27.45H22.4v-11h-9.84v11H5.88v-17L17.25 3l11.82 10.4z'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$fill('#262626'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$id('_01'),
+								_1: {ctor: '[]'}
+							}
+						}
+					},
+					{ctor: '[]'}),
+				_1: {ctor: '[]'}
+			});
+	});
 var _lucamug$elm_style_framework$Framework_Icon$arrows = F2(
-	function (size, _p1) {
+	function (_p5, size) {
 		return A2(
 			_elm_lang$svg$Svg$svg,
 			{
@@ -31893,54 +31905,69 @@ var _lucamug$elm_style_framework$Framework_Icon$arrows = F2(
 				_1: {ctor: '[]'}
 			});
 	});
-var _lucamug$elm_style_framework$Framework_Icon$icon = F2(
-	function (logo, size) {
-		return _mdgriffith$stylish_elephants$Element$html(
-			function () {
-				var _p2 = logo;
-				switch (_p2.ctor) {
-					case 'Hide':
-						return A2(_lucamug$elm_style_framework$Framework_Icon$hide, size, '#999');
-					case 'Show':
-						return A2(_lucamug$elm_style_framework$Framework_Icon$show, size, '#999');
-					case 'MobileRinging':
-						return A2(_lucamug$elm_style_framework$Framework_Icon$mobileRinging, size, '#999');
-					case 'MobileNotification':
-						return A2(_lucamug$elm_style_framework$Framework_Icon$mobileNotification, size, '#999');
-					case 'MobileNotification2':
-						return A2(_lucamug$elm_style_framework$Framework_Icon$mobileNotification2, size, '#999');
-					case 'Home':
-						return _lucamug$elm_style_framework$Framework_Icon$home(size);
-					case 'Pencil':
-						return _lucamug$elm_style_framework$Framework_Icon$pencil(size);
-					case 'ExitFullscreen':
-						return _lucamug$elm_style_framework$Framework_Icon$exitFullscreen(size);
-					case 'Fullscreen':
-						return _lucamug$elm_style_framework$Framework_Icon$fullscreen(size);
-					case 'ChevronDown':
-						return A2(_lucamug$elm_style_framework$Framework_Icon$chevronDown, size, '#333');
-					default:
-						return A2(_lucamug$elm_style_framework$Framework_Icon$arrows, size, '#333');
-				}
-			}());
-	});
-var _lucamug$elm_style_framework$Framework_Icon$Arrows = {ctor: 'Arrows'};
-var _lucamug$elm_style_framework$Framework_Icon$ChevronDown = {ctor: 'ChevronDown'};
-var _lucamug$elm_style_framework$Framework_Icon$MobileNotification2 = {ctor: 'MobileNotification2'};
-var _lucamug$elm_style_framework$Framework_Icon$MobileNotification = {ctor: 'MobileNotification'};
-var _lucamug$elm_style_framework$Framework_Icon$MobileRinging = {ctor: 'MobileRinging'};
-var _lucamug$elm_style_framework$Framework_Icon$Show = {ctor: 'Show'};
-var _lucamug$elm_style_framework$Framework_Icon$Hide = {ctor: 'Hide'};
-var _lucamug$elm_style_framework$Framework_Icon$Home = {ctor: 'Home'};
-var _lucamug$elm_style_framework$Framework_Icon$Fullscreen = {ctor: 'Fullscreen'};
-var _lucamug$elm_style_framework$Framework_Icon$ExitFullscreen = {ctor: 'ExitFullscreen'};
-var _lucamug$elm_style_framework$Framework_Icon$Pencil = {ctor: 'Pencil'};
+var _lucamug$elm_style_framework$Framework_Icon$icon = {
+	pencil: F2(
+		function (cl, size) {
+			return _mdgriffith$stylish_elephants$Element$html(
+				A2(_lucamug$elm_style_framework$Framework_Icon$pencil, cl, size));
+		}),
+	exitFullscreen: F2(
+		function (cl, size) {
+			return _mdgriffith$stylish_elephants$Element$html(
+				A2(_lucamug$elm_style_framework$Framework_Icon$exitFullscreen, cl, size));
+		}),
+	fullscreen: F2(
+		function (cl, size) {
+			return _mdgriffith$stylish_elephants$Element$html(
+				A2(_lucamug$elm_style_framework$Framework_Icon$fullscreen, cl, size));
+		}),
+	home: F2(
+		function (cl, size) {
+			return _mdgriffith$stylish_elephants$Element$html(
+				A2(_lucamug$elm_style_framework$Framework_Icon$home, cl, size));
+		}),
+	hide: F2(
+		function (cl, size) {
+			return _mdgriffith$stylish_elephants$Element$html(
+				A2(_lucamug$elm_style_framework$Framework_Icon$hide, cl, size));
+		}),
+	show: F2(
+		function (cl, size) {
+			return _mdgriffith$stylish_elephants$Element$html(
+				A2(_lucamug$elm_style_framework$Framework_Icon$show, cl, size));
+		}),
+	mobileRinging: F2(
+		function (cl, size) {
+			return _mdgriffith$stylish_elephants$Element$html(
+				A2(_lucamug$elm_style_framework$Framework_Icon$mobileRinging, cl, size));
+		}),
+	mobileNotification: F2(
+		function (cl, size) {
+			return _mdgriffith$stylish_elephants$Element$html(
+				A2(_lucamug$elm_style_framework$Framework_Icon$mobileNotification, cl, size));
+		}),
+	mobileNotification2: F2(
+		function (cl, size) {
+			return _mdgriffith$stylish_elephants$Element$html(
+				A2(_lucamug$elm_style_framework$Framework_Icon$mobileNotification2, cl, size));
+		}),
+	chevronDown: F2(
+		function (cl, size) {
+			return _mdgriffith$stylish_elephants$Element$html(
+				A2(_lucamug$elm_style_framework$Framework_Icon$chevronDown, cl, size));
+		}),
+	arrows: F2(
+		function (cl, size) {
+			return _mdgriffith$stylish_elephants$Element$html(
+				A2(_lucamug$elm_style_framework$Framework_Icon$arrows, cl, size));
+		})
+};
 var _lucamug$elm_style_framework$Framework_Icon$introspection = {
 	name: 'Icons',
 	signature: 'logo : Logo -> Int -> Color.Color -> Element.Element msg',
 	description: 'List of SVG icons',
 	usage: 'icon Pencil 32',
-	usageResult: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$Pencil, 32),
+	usageResult: A2(_lucamug$elm_style_framework$Framework_Icon$icon.pencil, _lucamug$elm_style_framework$Framework_Color$color.black, 32),
 	boxed: true,
 	variations: {
 		ctor: '::',
@@ -31951,78 +31978,78 @@ var _lucamug$elm_style_framework$Framework_Icon$introspection = {
 				ctor: '::',
 				_0: {
 					ctor: '_Tuple2',
-					_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$Pencil, 32),
-					_1: 'icon Pencil 32'
+					_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon.pencil, _lucamug$elm_style_framework$Framework_Color$color.black, 32),
+					_1: 'icon.pencil color.black 32'
 				},
 				_1: {
 					ctor: '::',
 					_0: {
 						ctor: '_Tuple2',
-						_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$ExitFullscreen, 32),
-						_1: 'icon ExitFullscreen 32'
+						_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon.exitFullscreen, _lucamug$elm_style_framework$Framework_Color$color.black, 32),
+						_1: 'icon.exitFullscreen color.black 32'
 					},
 					_1: {
 						ctor: '::',
 						_0: {
 							ctor: '_Tuple2',
-							_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$Fullscreen, 32),
-							_1: 'icon Fullscreen 32'
+							_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon.fullscreen, _lucamug$elm_style_framework$Framework_Color$color.black, 32),
+							_1: 'icon.fullscreen color.black 32'
 						},
 						_1: {
 							ctor: '::',
 							_0: {
 								ctor: '_Tuple2',
-								_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$Home, 32),
-								_1: 'icon Home 32'
+								_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon.home, _lucamug$elm_style_framework$Framework_Color$color.black, 32),
+								_1: 'icon.home color.black 32'
 							},
 							_1: {
 								ctor: '::',
 								_0: {
 									ctor: '_Tuple2',
-									_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$Hide, 32),
-									_1: 'icon Hide 32'
+									_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon.hide, _lucamug$elm_style_framework$Framework_Color$color.black, 32),
+									_1: 'icon.hide color.black 32'
 								},
 								_1: {
 									ctor: '::',
 									_0: {
 										ctor: '_Tuple2',
-										_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$Show, 32),
-										_1: 'icon Show 32'
+										_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon.show, _lucamug$elm_style_framework$Framework_Color$color.black, 32),
+										_1: 'icon.show color.black 32'
 									},
 									_1: {
 										ctor: '::',
 										_0: {
 											ctor: '_Tuple2',
-											_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$MobileRinging, 32),
-											_1: 'icon MobileRinging 32'
+											_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon.mobileRinging, _lucamug$elm_style_framework$Framework_Color$color.black, 32),
+											_1: 'icon.mobileRinging color.black 32'
 										},
 										_1: {
 											ctor: '::',
 											_0: {
 												ctor: '_Tuple2',
-												_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$MobileNotification, 32),
-												_1: 'icon MobileNotification 32'
+												_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon.mobileNotification, _lucamug$elm_style_framework$Framework_Color$color.black, 32),
+												_1: 'icon.mobileNotification color.black 32'
 											},
 											_1: {
 												ctor: '::',
 												_0: {
 													ctor: '_Tuple2',
-													_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$MobileNotification2, 32),
-													_1: 'icon MobileNotification2 32'
+													_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon.mobileNotification2, _lucamug$elm_style_framework$Framework_Color$color.black, 32),
+													_1: 'icon.mobileNotification2 color.black 32'
 												},
 												_1: {
 													ctor: '::',
 													_0: {
 														ctor: '_Tuple2',
-														_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$ChevronDown, 32),
-														_1: 'icon ChevronDown 32'
+														_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon.chevronDown, _lucamug$elm_style_framework$Framework_Color$color.black, 32),
+														_1: 'icon.chevronDown color.black 32'
 													},
 													_1: {
 														ctor: '::',
 														_0: {
 															ctor: '_Tuple2',
-															_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$Arrows, 32),
-															_1: 'icon Arrows 32'
+															_0: A2(_lucamug$elm_style_framework$Framework_Icon$icon.arrows, _lucamug$elm_style_framework$Framework_Color$color.black, 32),
+															_1: 'icon.arrows color.black 32'
 														},
 														_1: {ctor: '[]'}
 													}
@@ -33439,62 +33466,59 @@ var _lucamug$elm_style_framework$Framework$introspectionExample = function (id) 
 var _lucamug$elm_style_framework$Framework$sourceCodeWrapper = F2(
 	function (configuration, sourceCode) {
 		return A2(
-			_mdgriffith$stylish_elephants$Element$paragraph,
+			_mdgriffith$stylish_elephants$Element$el,
 			{
 				ctor: '::',
 				_0: _mdgriffith$stylish_elephants$Element$width(_mdgriffith$stylish_elephants$Element$fill),
 				_1: {
 					ctor: '::',
-					_0: _mdgriffith$stylish_elephants$Element$scrollbars,
+					_0: _mdgriffith$stylish_elephants$Element$scrollbarX,
 					_1: {
 						ctor: '::',
-						_0: _mdgriffith$stylish_elephants$Element$alignTop,
+						_0: _mdgriffith$stylish_elephants$Element_Background$color(configuration.gray3),
 						_1: {
 							ctor: '::',
-							_0: _mdgriffith$stylish_elephants$Element_Font$color(configuration.gray9),
-							_1: {
-								ctor: '::',
-								_0: _mdgriffith$stylish_elephants$Element_Font$family(
-									{
-										ctor: '::',
-										_0: _mdgriffith$stylish_elephants$Element_Font$monospace,
-										_1: {ctor: '[]'}
-									}),
-								_1: {
-									ctor: '::',
-									_0: _mdgriffith$stylish_elephants$Element_Font$size(16),
-									_1: {
-										ctor: '::',
-										_0: _mdgriffith$stylish_elephants$Element_Background$color(configuration.gray3),
-										_1: {
-											ctor: '::',
-											_0: _mdgriffith$stylish_elephants$Element$padding(16),
-											_1: {
-												ctor: '::',
-												_0: _mdgriffith$stylish_elephants$Element_Border$rounded(8),
-												_1: {ctor: '[]'}
-											}
-										}
-									}
-								}
-							}
+							_0: _mdgriffith$stylish_elephants$Element_Border$rounded(8),
+							_1: {ctor: '[]'}
 						}
 					}
 				}
 			},
-			{
-				ctor: '::',
-				_0: _mdgriffith$stylish_elephants$Element$html(
-					A2(
-						_elm_lang$html$Html$pre,
-						{ctor: '[]'},
+			A2(
+				_mdgriffith$stylish_elephants$Element$el,
+				{
+					ctor: '::',
+					_0: _mdgriffith$stylish_elephants$Element_Font$family(
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html$text(sourceCode),
+							_0: _mdgriffith$stylish_elephants$Element_Font$monospace,
 							_1: {ctor: '[]'}
-						})),
-				_1: {ctor: '[]'}
-			});
+						}),
+					_1: {
+						ctor: '::',
+						_0: _mdgriffith$stylish_elephants$Element_Font$color(configuration.gray9),
+						_1: {
+							ctor: '::',
+							_0: _mdgriffith$stylish_elephants$Element_Font$size(16),
+							_1: {
+								ctor: '::',
+								_0: _mdgriffith$stylish_elephants$Element$padding(16),
+								_1: {
+									ctor: '::',
+									_0: _mdgriffith$stylish_elephants$Element$htmlAttribute(
+										_elm_lang$html$Html_Attributes$style(
+											{
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: 'white-space', _1: 'pre'},
+												_1: {ctor: '[]'}
+											})),
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					}
+				},
+				_mdgriffith$stylish_elephants$Element$text(sourceCode)));
 	});
 var _lucamug$elm_style_framework$Framework$viewTitleAndSubTitle = F3(
 	function (configuration, title, subTitle) {
@@ -34052,7 +34076,11 @@ var _lucamug$elm_style_framework$Framework$viewSubSection = F2(
 		var componentExampleSourceCodeToDisplay = _p18._1;
 		return A2(
 			_mdgriffith$stylish_elephants$Element$row,
-			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: _mdgriffith$stylish_elephants$Element$spacing(16),
+				_1: {ctor: '[]'}
+			},
 			{
 				ctor: '::',
 				_0: A2(
@@ -34666,7 +34694,7 @@ var _lucamug$elm_style_framework$Framework$viewContentColumn = function (model) 
 												_1: {ctor: '[]'}
 											}
 										},
-										A2(_lucamug$elm_style_framework$Framework_Icon$icon, _lucamug$elm_style_framework$Framework_Icon$ChevronDown, 32)),
+										A2(_lucamug$elm_style_framework$Framework_Icon$icon.chevronDown, _lucamug$elm_style_framework$Framework_Color$color.grey, 32)),
 									_1: {ctor: '[]'}
 								}
 							}

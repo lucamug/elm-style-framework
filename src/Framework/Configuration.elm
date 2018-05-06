@@ -20,7 +20,7 @@ import MyStyle
 
 {-| -}
 conf :
-    { colors :
+    { color :
         { background : Color.Color
         , black : Color.Color
         , black_bis : Color.Color
@@ -71,7 +71,7 @@ conf :
         }
     , font : { typeface : String, typefaceFallback : Font.Font, url : String }
     , moveDownPlaceHolder : { large : Float, small : Float }
-    , sizes :
+    , size :
         { size1 : Float
         , size2 : Float
         , size3 : Float
@@ -82,7 +82,7 @@ conf :
         }
     }
 conf =
-    { sizes =
+    { size =
         { size1 = getFloat "size1"
         , size2 = getFloat "size2"
         , size3 = getFloat "size3"
@@ -91,7 +91,7 @@ conf =
         , size6 = getFloat "size6"
         , size7 = getFloat "size7"
         }
-    , colors =
+    , color =
         { -- Gray Scale
           black = getColor "black"
         , black_bis = getColor "black_bis"

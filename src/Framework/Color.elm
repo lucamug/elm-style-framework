@@ -1,95 +1,71 @@
-module Framework.Color exposing (color, colorToHex, introspection, lighten, maximumContrast, saturate, usageWrapper)
+module Framework.Color
+    exposing
+        ( background
+        , black
+        , black_bis
+        , black_ter
+        , blue
+        , border
+        , border_hover
+        , code
+        , code_background
+        , cyan
+        , danger
+        , dark
+        , green
+        , grey
+        , grey_dark
+        , grey_darker
+        , grey_light
+        , grey_lighter
+        , info
+        , introspection
+        , light
+        , link
+        , link_active
+        , link_active_border
+        , link_focus
+        , link_focus_border
+        , link_hover
+        , link_hover_border
+        , link_invert
+        , link_visited
+        , muted
+        , orange
+        , pre
+        , pre_background
+        , primary
+        , purple
+        , red
+        , success
+        , text
+        , text_light
+        , text_strong
+        , transparent
+        , turquoise
+        , warning
+        , white
+        , white_bis
+        , white_ter
+        , yellow
+        )
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Colors/Gray%20Scale)
 
 
 # Functions
 
-@docs color, colorToHex, introspection, lighten, maximumContrast, saturate, usageWrapper
+@docs background, black, black_bis, black_ter, blue, border, border_hover, code, code_background, cyan, danger, dark, green, grey, grey_dark, grey_darker, grey_light, grey_lighter, info, introspection, light, link, link_active, link_active_border, link_focus, link_focus_border, link_hover, link_hover_border, link_invert, link_visited, muted, orange, pre, pre_background, primary, purple, red, success, text, text_light, text_strong, transparent, turquoise, warning, white, white_bis, white_ter, yellow
 
 -}
 
-import Char
 import Color
-import Element exposing (Element, column, text)
+import Element exposing (Element, column)
 import Element.Background
 import Element.Border
 import Element.Font
+import Framework.ColorManipulation as ColorManipulation
 import Framework.Configuration exposing (conf)
-
-
-{-| -}
-color :
-    { background : Color.Color
-    , black : Color.Color
-    , black_bis : Color.Color
-    , black_ter : Color.Color
-    , blue : Color.Color
-    , border : Color.Color
-    , border_hover : Color.Color
-    , code : Color.Color
-    , code_background : Color.Color
-    , cyan : Color.Color
-    , danger : Color.Color
-    , dark : Color.Color
-    , green : Color.Color
-    , grey : Color.Color
-    , grey_dark : Color.Color
-    , grey_darker : Color.Color
-    , grey_light : Color.Color
-    , grey_lighter : Color.Color
-    , info : Color.Color
-    , light : Color.Color
-    , link : Color.Color
-    , link_active : Color.Color
-    , link_active_border : Color.Color
-    , link_focus : Color.Color
-    , link_focus_border : Color.Color
-    , link_hover : Color.Color
-    , link_hover_border : Color.Color
-    , link_invert : Color.Color
-    , link_visited : Color.Color
-    , orange : Color.Color
-    , pre : Color.Color
-    , pre_background : Color.Color
-    , primary : Color.Color
-    , purple : Color.Color
-    , red : Color.Color
-    , success : Color.Color
-    , text : Color.Color
-    , text_light : Color.Color
-    , text_strong : Color.Color
-    , transparent : Color.Color
-    , turquoise : Color.Color
-    , warning : Color.Color
-    , white : Color.Color
-    , white_bis : Color.Color
-    , white_ter : Color.Color
-    , yellow : Color.Color
-    , muted : Color.Color
-    }
-color =
-    conf.colors
-
-
-{-| -}
-lighten : Float -> Color.Color -> Color.Color
-lighten quantity cl =
-    let
-        { hue, saturation, lightness } =
-            Color.toHsl cl
-    in
-    Color.hsl hue saturation (lightness * quantity)
-
-
-{-| -}
-saturate : Float -> Color.Color -> Color.Color
-saturate quantity cl =
-    let
-        { hue, saturation, lightness } =
-            Color.toHsl cl
-    in
-    Color.hsl hue (saturation * quantity) lightness
 
 
 {-| -}
@@ -104,80 +80,80 @@ introspection :
     }
 introspection =
     { name = "Colors"
-    , signature = "color : Color -> Color.Color"
+    , signature = "Color.Color"
     , description = ""
     , usage = "color ColorPrimary"
-    , usageResult = usageWrapper <| color.primary
+    , usageResult = usageWrapper <| primary
     , boxed = False
     , variations =
         [ ( "Colors"
-          , [ ( usageWrapper <| color.orange, "color.orange" )
-            , ( usageWrapper <| color.yellow, "color.yellow" )
-            , ( usageWrapper <| color.green, "color.green" )
-            , ( usageWrapper <| color.turquoise, "color.turquoise" )
-            , ( usageWrapper <| color.cyan, "color.cyan" )
-            , ( usageWrapper <| color.blue, "color.blue" )
-            , ( usageWrapper <| color.purple, "color.purple" )
-            , ( usageWrapper <| color.red, "color.red" )
+          , [ ( usageWrapper <| orange, "orange" )
+            , ( usageWrapper <| yellow, "yellow" )
+            , ( usageWrapper <| green, "green" )
+            , ( usageWrapper <| turquoise, "turquoise" )
+            , ( usageWrapper <| cyan, "cyan" )
+            , ( usageWrapper <| blue, "blue" )
+            , ( usageWrapper <| purple, "purple" )
+            , ( usageWrapper <| red, "red" )
             ]
           )
         , ( "Gray Scale"
-          , [ ( usageWrapper <| color.black, "color.black" )
-            , ( usageWrapper <| color.black_bis, "color.black_bis" )
-            , ( usageWrapper <| color.black_ter, "color.black_ter" )
-            , ( usageWrapper <| color.grey_darker, "color.grey_darker" )
-            , ( usageWrapper <| color.grey_dark, "color.grey_dark" )
-            , ( usageWrapper <| color.grey, "color.grey" )
-            , ( usageWrapper <| color.grey_light, "color.grey_light" )
-            , ( usageWrapper <| color.grey_lighter, "color.grey_lighter" )
-            , ( usageWrapper <| color.white_ter, "color.white_ter" )
-            , ( usageWrapper <| color.white_bis, "color.white_bis" )
-            , ( usageWrapper <| color.white, "color.white" )
+          , [ ( usageWrapper <| black, "black" )
+            , ( usageWrapper <| black_bis, "black_bis" )
+            , ( usageWrapper <| black_ter, "black_ter" )
+            , ( usageWrapper <| grey_darker, "grey_darker" )
+            , ( usageWrapper <| grey_dark, "grey_dark" )
+            , ( usageWrapper <| grey, "grey" )
+            , ( usageWrapper <| grey_light, "grey_light" )
+            , ( usageWrapper <| grey_lighter, "grey_lighter" )
+            , ( usageWrapper <| white_ter, "white_ter" )
+            , ( usageWrapper <| white_bis, "white_bis" )
+            , ( usageWrapper <| white, "white" )
             ]
           )
         , ( "Derived"
-          , [ ( usageWrapper <| color.primary, "color.primary" )
-            , ( usageWrapper <| color.info, "color.info" )
-            , ( usageWrapper <| color.success, "color.success" )
-            , ( usageWrapper <| color.warning, "color.warning" )
-            , ( usageWrapper <| color.danger, "color.danger" )
-            , ( usageWrapper <| color.light, "color.light" )
-            , ( usageWrapper <| color.dark, "color.dark" )
+          , [ ( usageWrapper <| primary, "primary" )
+            , ( usageWrapper <| info, "info" )
+            , ( usageWrapper <| success, "success" )
+            , ( usageWrapper <| warning, "warning" )
+            , ( usageWrapper <| danger, "danger" )
+            , ( usageWrapper <| light, "light" )
+            , ( usageWrapper <| dark, "dark" )
             ]
           )
         , ( "Fonts"
-          , [ ( usageWrapper <| color.text, "color.text" )
-            , ( usageWrapper <| color.text_light, "color.text_light" )
-            , ( usageWrapper <| color.text_strong, "color.text_strong" )
-            , ( usageWrapper <| color.code, "color.code" )
-            , ( usageWrapper <| color.code_background, "color.code_background" )
-            , ( usageWrapper <| color.pre, "color.pre" )
-            , ( usageWrapper <| color.pre_background, "color.pre_background" )
+          , [ ( usageWrapper <| text, "text" )
+            , ( usageWrapper <| text_light, "text_light" )
+            , ( usageWrapper <| text_strong, "text_strong" )
+            , ( usageWrapper <| code, "code" )
+            , ( usageWrapper <| code_background, "code_background" )
+            , ( usageWrapper <| pre, "pre" )
+            , ( usageWrapper <| pre_background, "pre_background" )
             ]
           )
         , ( "Links"
-          , [ ( usageWrapper <| color.link, "color.link" )
-            , ( usageWrapper <| color.link_invert, "color.link_invert" )
-            , ( usageWrapper <| color.link_visited, "color.link_visited" )
-            , ( usageWrapper <| color.link_hover, "color.link_hover" )
-            , ( usageWrapper <| color.link_hover_border, "color.link_hover_border" )
-            , ( usageWrapper <| color.link_focus, "color.link_focus" )
-            , ( usageWrapper <| color.link_focus_border, "color.link_focus_border" )
-            , ( usageWrapper <| color.link_active, "color.link_active" )
-            , ( usageWrapper <| color.link_active_border, "color.link_active_border" )
+          , [ ( usageWrapper <| link, "link" )
+            , ( usageWrapper <| link_invert, "link_invert" )
+            , ( usageWrapper <| link_visited, "link_visited" )
+            , ( usageWrapper <| link_hover, "link_hover" )
+            , ( usageWrapper <| link_hover_border, "link_hover_border" )
+            , ( usageWrapper <| link_focus, "link_focus" )
+            , ( usageWrapper <| link_focus_border, "link_focus_border" )
+            , ( usageWrapper <| link_active, "link_active" )
+            , ( usageWrapper <| link_active_border, "link_active_border" )
             ]
           )
         , ( "Others"
           , [ -- Background
-              ( usageWrapper <| color.background, "color.background" )
+              ( usageWrapper <| background, "background" )
 
             -- Border
-            , ( usageWrapper <| color.border, "color.border" )
-            , ( usageWrapper <| color.border_hover, "color.border_hover" )
+            , ( usageWrapper <| border, "border" )
+            , ( usageWrapper <| border_hover, "border_hover" )
 
             -- Others
-            , ( usageWrapper <| color.transparent, "color.transparent" )
-            , ( usageWrapper <| color.muted, "color.muted" )
+            , ( usageWrapper <| transparent, "transparent" )
+            , ( usageWrapper <| muted, "muted" )
             ]
           )
         ]
@@ -192,101 +168,292 @@ usageWrapper cl =
         , Element.width <| Element.px 200
         , Element.padding 10
         , Element.Border.rounded 5
-        , Element.Font.color <| maximumContrast cl
+        , Element.Font.color <| ColorManipulation.maximumContrast cl
         ]
     <|
         column []
-            [ text <| colorToHex cl
-            , text <| colorToHsl2 cl
+            [ Element.text <| ColorManipulation.colorToHex cl
+            , Element.text <| ColorManipulation.colorToHsl2 cl
             ]
-
-
-{-| Return one of the font color that has maximum contrast on a background color
-
-    maximumContrast Color.black == color ColorFontBright
-
--}
-maximumContrast : Color.Color -> Color.Color
-maximumContrast c =
-    -- From https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
-    if intensity c < 186 then
-        color.white
-    else
-        color.black
-
-
-intensity : Color.Color -> Float
-intensity c =
-    -- From https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
-    let
-        rgb =
-            Color.toRgb c
-    in
-    -- From https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
-    toFloat rgb.red * 0.299 + toFloat rgb.green * 0.587 + toFloat rgb.blue * 0.114
-
-
-norm100 : Float -> Int
-norm100 value =
-    round (value * 100)
-
-
-norm57 : Float -> Int
-norm57 value =
-    round (value * 57)
 
 
 {-| -}
-colorToHex : Color.Color -> String
-colorToHex cl =
-    let
-        rgba =
-            Color.toRgb cl
-    in
-    List.map toHex [ rgba.red, rgba.green, rgba.blue ]
-        |> (::) "#"
-        |> String.join ""
+background : Color.Color
+background =
+    conf.color.background
 
 
-fromNaNtoZero : number -> number
-fromNaNtoZero value =
-    if toString value == "NaN" then
-        0
-    else
-        value
+{-| -}
+black : Color.Color
+black =
+    conf.color.black
 
 
-colorToHsl2 : Color.Color -> String
-colorToHsl2 cl =
-    let
-        { hue, saturation, lightness, alpha } =
-            Color.toHsl cl
-    in
-    "hsla("
-        ++ String.join ", "
-            [ toString <| norm57 <| fromNaNtoZero hue
-            , toString (norm100 <| fromNaNtoZero saturation) ++ "%"
-            , toString (norm100 <| fromNaNtoZero lightness) ++ "%"
-            , toString <| toFloat (norm100 alpha) / 100
-            ]
-        ++ ")"
+{-| -}
+black_bis : Color.Color
+black_bis =
+    conf.color.black_bis
 
 
-toHex : Int -> String
-toHex =
-    toRadix >> String.padLeft 2 '0'
+{-| -}
+black_ter : Color.Color
+black_ter =
+    conf.color.black_ter
 
 
-toRadix : Int -> String
-toRadix n =
-    let
-        getChr c =
-            if c < 10 then
-                toString c
-            else
-                String.fromChar <| Char.fromCode (87 + c)
-    in
-    if n < 16 then
-        getChr n
-    else
-        toRadix (n // 16) ++ getChr (n % 16)
+{-| -}
+blue : Color.Color
+blue =
+    conf.color.blue
+
+
+{-| -}
+border : Color.Color
+border =
+    conf.color.border
+
+
+{-| -}
+border_hover : Color.Color
+border_hover =
+    conf.color.border_hover
+
+
+{-| -}
+code : Color.Color
+code =
+    conf.color.code
+
+
+{-| -}
+code_background : Color.Color
+code_background =
+    conf.color.code_background
+
+
+{-| -}
+cyan : Color.Color
+cyan =
+    conf.color.cyan
+
+
+{-| -}
+danger : Color.Color
+danger =
+    conf.color.danger
+
+
+{-| -}
+dark : Color.Color
+dark =
+    conf.color.dark
+
+
+{-| -}
+green : Color.Color
+green =
+    conf.color.green
+
+
+{-| -}
+grey : Color.Color
+grey =
+    conf.color.grey
+
+
+{-| -}
+grey_dark : Color.Color
+grey_dark =
+    conf.color.grey_dark
+
+
+{-| -}
+grey_darker : Color.Color
+grey_darker =
+    conf.color.grey_darker
+
+
+{-| -}
+grey_light : Color.Color
+grey_light =
+    conf.color.grey_light
+
+
+{-| -}
+grey_lighter : Color.Color
+grey_lighter =
+    conf.color.grey_lighter
+
+
+{-| -}
+info : Color.Color
+info =
+    conf.color.info
+
+
+{-| -}
+light : Color.Color
+light =
+    conf.color.light
+
+
+{-| -}
+link : Color.Color
+link =
+    conf.color.link
+
+
+{-| -}
+link_active : Color.Color
+link_active =
+    conf.color.link_active
+
+
+{-| -}
+link_active_border : Color.Color
+link_active_border =
+    conf.color.link_active_border
+
+
+{-| -}
+link_focus : Color.Color
+link_focus =
+    conf.color.link_focus
+
+
+{-| -}
+link_focus_border : Color.Color
+link_focus_border =
+    conf.color.link_focus_border
+
+
+{-| -}
+link_hover : Color.Color
+link_hover =
+    conf.color.link_hover
+
+
+{-| -}
+link_hover_border : Color.Color
+link_hover_border =
+    conf.color.link_hover_border
+
+
+{-| -}
+link_invert : Color.Color
+link_invert =
+    conf.color.link_invert
+
+
+{-| -}
+link_visited : Color.Color
+link_visited =
+    conf.color.link_visited
+
+
+{-| -}
+muted : Color.Color
+muted =
+    conf.color.muted
+
+
+{-| -}
+orange : Color.Color
+orange =
+    conf.color.orange
+
+
+{-| -}
+pre : Color.Color
+pre =
+    conf.color.pre
+
+
+{-| -}
+pre_background : Color.Color
+pre_background =
+    conf.color.pre_background
+
+
+{-| -}
+primary : Color.Color
+primary =
+    conf.color.primary
+
+
+{-| -}
+purple : Color.Color
+purple =
+    conf.color.purple
+
+
+{-| -}
+red : Color.Color
+red =
+    conf.color.red
+
+
+{-| -}
+success : Color.Color
+success =
+    conf.color.success
+
+
+{-| -}
+text : Color.Color
+text =
+    conf.color.text
+
+
+{-| -}
+text_light : Color.Color
+text_light =
+    conf.color.text_light
+
+
+{-| -}
+text_strong : Color.Color
+text_strong =
+    conf.color.text_strong
+
+
+{-| -}
+transparent : Color.Color
+transparent =
+    conf.color.transparent
+
+
+{-| -}
+turquoise : Color.Color
+turquoise =
+    conf.color.turquoise
+
+
+{-| -}
+warning : Color.Color
+warning =
+    conf.color.warning
+
+
+{-| -}
+white : Color.Color
+white =
+    conf.color.white
+
+
+{-| -}
+white_bis : Color.Color
+white_bis =
+    conf.color.white_bis
+
+
+{-| -}
+white_ter : Color.Color
+white_ter =
+    conf.color.white_ter
+
+
+{-| -}
+yellow : Color.Color
+yellow =
+    conf.color.yellow
