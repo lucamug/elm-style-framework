@@ -1,0 +1,2 @@
+#!/bin/bash
+elm-live src/ExampleSPA.elm --output=docs/exampleSPA.js --dir=docs --debug

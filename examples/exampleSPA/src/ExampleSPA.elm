@@ -1,9 +1,12 @@
-module FrameworkCustomized exposing (initConf, main)
+module ExampleSPA exposing (initConf, main)
 
-import Element exposing (alpha, column, el, link, moveLeft, none, paragraph, text)
+import Element exposing (alpha, column, el, height, layout, link, moveLeft, none, paragraph, px, text)
+import Element.Background as Background
 import Element.Font as Font
 import Framework
+import Framework.Color exposing (grey_lighter)
 import FrameworkCustomized.Logo as Logo
+import Html
 import Navigation
 
 
@@ -11,10 +14,19 @@ main : Program Framework.Flag Framework.Model Framework.Msg
 main =
     Navigation.programWithFlags Framework.MsgChangeLocation
         { init = init
-        , view = Framework.view
+        , view = view
         , update = Framework.update
         , subscriptions = Framework.subscriptions
         }
+
+
+view : Framework.Model -> Html.Html Framework.Msg
+view model =
+    layout [] <|
+        column []
+            [ el [ Element.width Element.fill, height <| px 400, Font.center, Element.centerX, Background.color grey_lighter ] <| el [ Element.centerY, Font.size 48 ] <| text "Coming soon..."
+            , Framework.viewPage Nothing model
+            ]
 
 
 init : Framework.Flag -> Navigation.Location -> ( Framework.Model, Cmd msg )

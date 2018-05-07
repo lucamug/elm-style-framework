@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="http://guupa.com/elm-style-framework/images/favicon.png">
+    <title>Example SPA - Elm Style Framework</title>
+</head>
+
+<body>
+    <noscript>
+        You need to enable JavaScript to run this app.
+    </noscript>
+    <script src="exampleSPA.js"></script>
+    <script>
+        (function() {
+            "use strict";
+
+            function start_app() {
+                var local_storage_name = "framework";
+                var app = Elm.ExampleSPA.fullscreen({
+                    local_storage: String((localStorage.getItem(local_storage_name) || "")),
+                    width: window.innerWidth,
+                    height: window.innerHeight
+                });
+            }
+
+            start_app();
+
+        })();
+    </script>
+</body>
+
+</html>
