@@ -48,21 +48,15 @@ update msg model =
 
 {-| -}
 introspection :
-    { boxed : Bool
+    { name : String
     , description : String
-    , name : String
     , signature : String
-    , usage : String
-    , usageResult : Element msg
     , variations : List ( String, List ( Element msg1, String ) )
     }
 introspection =
     { name = "Cards"
-    , signature = ""
     , description = "Wrapper for content"
-    , usage = """simpleWithTitle "Simple" "with Title" (text "Content")"""
-    , usageResult = simpleWithTitle "Simple" "with Title" (text "Content")
-    , boxed = False
+    , signature = ""
     , variations =
         [ ( "Flipping", [ ( text "special: Cards.example1", "" ) ] )
         , ( "Simple with Title", [ ( simpleWithTitle "Simple" "with Title" <| text "Content", """simpleWithTitle "Simple" "with Title" <|

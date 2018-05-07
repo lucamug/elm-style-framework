@@ -11,7 +11,7 @@ Style-elements Input (Alpha version) Examples
 
 -}
 
-import Element exposing (Element, none, text)
+import Element exposing (Element, text)
 import Element.Input as Input
 
 
@@ -59,21 +59,15 @@ initModel =
 
 {-| -}
 introspection :
-    { boxed : Bool
+    { name : String
     , description : String
-    , name : String
     , signature : String
-    , usage : String
-    , usageResult : Element msg
     , variations : List ( String, List ( Element msg1, String ) )
     }
 introspection =
     { name = "Style-Elements Input"
-    , signature = ""
     , description = "This is a raw list of all elements of style-elements as they are"
-    , usage = ""
-    , usageResult = none
-    , boxed = True
+    , signature = ""
     , variations =
         [ ( "Button", [ ( text "special: example0", "" ) ] )
         , ( "Checkbox", [ ( text "special: example2", "" ) ] )

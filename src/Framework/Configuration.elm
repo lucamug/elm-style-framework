@@ -80,6 +80,23 @@ conf :
         , size6 : Float
         , size7 : Float
         }
+    , button :
+        { fontSmall : Int
+        , fontDefault : Int
+        , fontMedium : Int
+        , fontLarge : Int
+        , fontJumbo : Int
+        , paddingXSmall : Int
+        , paddingYSmall : Int
+        , paddingXDefault : Int
+        , paddingYDefault : Int
+        , paddingXMedium : Int
+        , paddingYMedium : Int
+        , paddingXLarge : Int
+        , paddingYLarge : Int
+        , paddingXJumbo : Int
+        , paddingYJumbo : Int
+        }
     }
 conf =
     { size =
@@ -164,6 +181,23 @@ conf =
         , typeface = getString "font_typeface"
         , typefaceFallback = getTypeface "font_typeface_fallback"
         }
+    , button =
+        { fontSmall = getInt "buttonFontSmall"
+        , fontDefault = getInt "buttonFontDefault"
+        , fontMedium = getInt "buttonFontMedium"
+        , fontLarge = getInt "buttonFontLarge"
+        , fontJumbo = getInt "buttonFontJumbo"
+        , paddingXSmall = getInt "buttonPaddingXSmall"
+        , paddingYSmall = getInt "buttonPaddingYSmall"
+        , paddingXDefault = getInt "buttonPaddingXDefault"
+        , paddingYDefault = getInt "buttonPaddingYDefault"
+        , paddingXMedium = getInt "buttonPaddingXMedium"
+        , paddingYMedium = getInt "buttonPaddingYMedium"
+        , paddingXLarge = getInt "buttonPaddingXLarge"
+        , paddingYLarge = getInt "buttonPaddingYLarge"
+        , paddingXJumbo = getInt "buttonPaddingXJumbo"
+        , paddingYJumbo = getInt "buttonPaddingYJumbo"
+        }
     }
 
 
@@ -197,6 +231,11 @@ getFloat key =
 
         Err _ ->
             0
+
+
+getInt : String -> Int
+getInt key =
+    round <| getFloat key
 
 
 
@@ -454,4 +493,21 @@ configuration =
         -- Transparent
         , ( "transparent", "#ffffff00" )
         , ( "muted", bulmaColor.grey_light )
+
+        -- Button
+        , ( "buttonFontSmall", "12" )
+        , ( "buttonFontDefault", "16" )
+        , ( "buttonFontMedium", "20" )
+        , ( "buttonFontLarge", "24" )
+        , ( "buttonFontJumbo", "16" )
+        , ( "buttonPaddingXSmall", "9" )
+        , ( "buttonPaddingYSmall", "3" )
+        , ( "buttonPaddingXDefault", "12" )
+        , ( "buttonPaddingYDefault", "5" )
+        , ( "buttonPaddingXMedium", "15" )
+        , ( "buttonPaddingYMedium", "7" )
+        , ( "buttonPaddingXLarge", "18" )
+        , ( "buttonPaddingYLarge", "9" )
+        , ( "buttonPaddingXJumbo", "24" )
+        , ( "buttonPaddingYJumbo", "24" )
         ]

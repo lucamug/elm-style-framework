@@ -19,21 +19,15 @@ import Svg.Attributes as SA
 
 {-| -}
 introspection :
-    { boxed : Bool
+    { name : String
     , description : String
-    , name : String
     , signature : String
-    , usage : String
-    , usageResult : Element.Element msg
     , variations : List ( String, List ( Element.Element msg1, String ) )
     }
 introspection =
     { name = "Spinners"
-    , signature = ""
     , description = "List of SVG spinners"
-    , usage = "spinner ThreeCircles 20 Color.black"
-    , usageResult = spinner ThreeCircles 20 Color.black
-    , boxed = True
+    , signature = ""
     , variations =
         [ ( "Spinners"
           , [ ( spinner ThreeCircles 32 Color.black, "spinner ThreeCircles 32 Color.black" )

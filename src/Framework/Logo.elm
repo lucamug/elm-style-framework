@@ -17,21 +17,15 @@ import Svg.Attributes as SA
 
 {-| -}
 introspection :
-    { boxed : Bool
+    { name : String
     , description : String
-    , name : String
     , signature : String
-    , usage : String
-    , usageResult : Element.Element msg
     , variations : List ( String, List ( Element.Element msg1, String ) )
     }
 introspection =
     { name = "Logos"
-    , signature = ""
     , description = "List of SVG logos"
-    , usage = "logo ElmColorful 48"
-    , usageResult = logo (LogoElm ElmColorful) 48
-    , boxed = True
+    , signature = ""
     , variations =
         [ ( "Logos"
           , [ ( logo (LogoElm ElmColorful) 100, "logo (LogoElm <| ElmColorful) 100" )

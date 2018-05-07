@@ -16,21 +16,15 @@ import Element.Region as Region
 
 {-| -}
 introspection :
-    { boxed : Bool
+    { name : String
     , description : String
-    , name : String
     , signature : String
-    , usage : String
-    , usageResult : Element msg
     , variations : List ( String, List ( Element msg1, String ) )
     }
 introspection =
     { name = "Typography"
-    , signature = "List (Element.Attribute msg) -> Element.Element msg -> Element.Element msg"
     , description = ""
-    , usage = """h1 [] <| text "Content\""""
-    , usageResult = h1 [] <| text "Content"
-    , boxed = False
+    , signature = "List (Element.Attribute msg) -> Element.Element msg -> Element.Element msg"
     , variations =
         [ ( "Heading"
           , [ ( h1 [] <| text "h1. Heading", """h1 [] <| text "h1. Heading\"""" )

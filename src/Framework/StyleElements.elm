@@ -17,21 +17,15 @@ import Element exposing (Element, column, decorativeImage, download, downloadAs,
 {-| Used to generate the [Style Guide](https://lucamug.github.io/elm-style-framework/)
 -}
 introspection :
-    { boxed : Bool
+    { name : String
     , description : String
-    , name : String
     , signature : String
-    , usage : String
-    , usageResult : Element msg
     , variations : List ( String, List ( Element msg1, String ) )
     }
 introspection =
     { name = "Style-Elements"
-    , signature = ""
     , description = "This is a raw list of all elements of style-elements as they are"
-    , usage = ""
-    , usageResult = none
-    , boxed = True
+    , signature = ""
     , variations =
         [ ( "Basic Elements"
           , [ ( none, """none""" )

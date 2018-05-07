@@ -70,21 +70,15 @@ import Framework.Configuration exposing (conf)
 
 {-| -}
 introspection :
-    { boxed : Bool
+    { name : String
     , description : String
-    , name : String
     , signature : String
-    , usage : String
-    , usageResult : Element msg
     , variations : List ( String, List ( Element msg1, String ) )
     }
 introspection =
     { name = "Colors"
-    , signature = "Color.Color"
     , description = ""
-    , usage = "color ColorPrimary"
-    , usageResult = usageWrapper <| primary
-    , boxed = False
+    , signature = "Color.Color"
     , variations =
         [ ( "Colors"
           , [ ( usageWrapper <| orange, "orange" )

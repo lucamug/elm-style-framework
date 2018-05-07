@@ -17,6 +17,7 @@ import Element.Font as Font
 import Element.Input as Input
 import Framework.Color
 import Framework.ColorManipulation
+import Framework.Configuration exposing (conf)
 import Framework.Modifier exposing (Modifier(..))
 import Framework.Spinner as Spinner
 import Html.Attributes
@@ -24,12 +25,9 @@ import Html.Attributes
 
 {-| -}
 introspection :
-    { boxed : Bool
+    { name : String
     , description : String
-    , name : String
     , signature : String
-    , usage : String
-    , usageResult : Element a
     , variations : List ( String, List ( Element a1, String ) )
     }
 introspection =
@@ -38,11 +36,8 @@ introspection =
             "Button"
     in
     { name = "Buttons"
-    , signature = "List Modifier -> Maybe msg -> String -> Element msg"
     , description = "Buttons accept a list of modifiers, a Maybe msg (for example: \"Just DoSomething\") and the text to display inside the button."
-    , usage = "button [ Medium, Success, Outlined ] Nothing \"" ++ buttonText ++ "\""
-    , usageResult = button [ Medium, Success, Outlined ] Nothing buttonText
-    , boxed = False
+    , signature = "List Modifier -> Maybe msg -> String -> Element msg"
     , variations =
         [ ( "States"
           , [ ( button [ Primary ] Nothing buttonText, "button [ Primary ] Nothing \"" ++ buttonText ++ "\"" )
@@ -155,87 +150,87 @@ toPx : Size -> Int
 toPx size =
     case size of
         SizeSmall ->
-            12
+            conf.button.fontSmall
 
         SizeDefault ->
-            16
+            conf.button.fontDefault
 
         SizeMedium ->
-            20
+            conf.button.fontMedium
 
         SizeLarge ->
-            24
+            conf.button.fontLarge
 
         SizeJumbo ->
-            24
+            conf.button.fontJumbo
 
 
 toButtonPadding : Size -> ( Int, Int )
 toButtonPadding size =
     case size of
         SizeSmall ->
-            ( 9, 3 )
+            ( conf.button.paddingXSmall, conf.button.paddingYSmall )
 
         SizeDefault ->
-            ( 12, 5 )
+            ( conf.button.paddingXDefault, conf.button.paddingYDefault )
 
         SizeMedium ->
-            ( 15, 7 )
+            ( conf.button.paddingXMedium, conf.button.paddingYMedium )
 
         SizeLarge ->
-            ( 18, 9 )
+            ( conf.button.paddingXLarge, conf.button.paddingYLarge )
 
         SizeJumbo ->
-            ( 48, 24 )
+            ( conf.button.paddingXJumbo, conf.button.paddingYJumbo )
 
 
 processConf : Modifier -> Conf -> Conf
-processConf modifier conf =
+processConf modifier confButton =
     case modifier of
         -- Colors
         Muted ->
-            { conf | color = Framework.Color.muted }
+            { confButton | color = Framework.Color.muted }
 
         Primary ->
-            { conf | color = Framework.Color.primary }
+            { confButton | color = Framework.Color.primary }
 
         Success ->
-            { conf | color = Framework.Color.success }
+            { confButton | color = Framework.Color.success }
 
         Info ->
-            { conf | color = Framework.Color.info }
+            { confButton | color = Framework.Color.info }
 
         Warning ->
-            { conf | color = Framework.Color.warning }
+            { confButton | color = Framework.Color.warning }
 
         Danger ->
-            { conf | color = Framework.Color.danger }
+            { confButton | color = Framework.Color.danger }
 
         -- SIZES
         Small ->
-            { conf | size = SizeSmall }
+            { confButton | size = SizeSmall }
 
         Medium ->
-            { conf | size = SizeMedium }
+            { confButton | size = SizeMedium }
 
         Large ->
-            { conf | size = SizeLarge }
+            { confButton | size = SizeLarge }
 
         Jumbo ->
-            { conf | size = SizeJumbo }
+            { confButton | size = SizeJumbo }
 
         -- STATES
         Outlined ->
-            { conf | state = StateOutlined }
+            { confButton | state = StateOutlined }
 
         Loading ->
-            { conf | state = StateLoading }
+            { confButton | state = StateLoading }
 
         Waiting ->
-            { conf | state = StateWaiting }
+            { confButton | state = StateWaiting }
 
         Disabled ->
-            { conf | state = StateDisabled }
+            { confButton | state = StateDisabled }
 
 
 {-| Generate an Input.button element
@@ -313,7 +308,7 @@ colorBorderDefault =
 buttonAttr : List Modifier -> List (Attribute msg)
 buttonAttr modifiers =
     let
-        conf =
+        confButton =
             List.foldl processConf
                 { color = colorDefault
                 , size = SizeDefault
@@ -322,16 +317,16 @@ buttonAttr modifiers =
                 modifiers
 
         cc =
-            conf.color
+            confButton.color
 
         fontSize =
-            toPx conf.size
+            toPx confButton.size
 
         buttonPadding =
-            toButtonPadding conf.size
+            toButtonPadding confButton.size
 
         backgroundMouseOverColor =
-            case conf.state of
+            case confButton.state of
                 StateOutlined ->
                     cc
 
@@ -346,7 +341,7 @@ buttonAttr modifiers =
                 |> Framework.ColorManipulation.saturate 0.9
 
         fontMouseOverColor =
-            case conf.state of
+            case confButton.state of
                 StateLoading ->
                     Framework.Color.transparent
 
@@ -362,12 +357,12 @@ buttonAttr modifiers =
                         |> Framework.ColorManipulation.saturate 0.9
 
         backgroundColor =
-            case conf.state of
+            case confButton.state of
                 StateDefault ->
                     cc
 
                 StateOutlined ->
-                    if conf.color == Framework.Color.white then
+                    if confButton.color == Framework.Color.white then
                         colorBorderDefault
                     else
                         Framework.Color.transparent
@@ -384,7 +379,7 @@ buttonAttr modifiers =
                         |> Framework.ColorManipulation.saturate 0.4
 
         borderRounded =
-            case conf.size of
+            case confButton.size of
                 SizeSmall ->
                     2
 
@@ -392,10 +387,10 @@ buttonAttr modifiers =
                     3
 
         borderColor =
-            if conf.color == Framework.Color.white then
+            if confButton.color == Framework.Color.white then
                 colorBorderDefault
             else
-                case conf.state of
+                case confButton.state of
                     StateOutlined ->
                         cc
 
@@ -403,13 +398,13 @@ buttonAttr modifiers =
                         backgroundColor
 
         spinnerColor =
-            if conf.color == Framework.Color.white then
+            if confButton.color == Framework.Color.white then
                 Framework.Color.grey_dark
             else
                 Framework.Color.white
 
         fontColor =
-            case conf.state of
+            case confButton.state of
                 StateOutlined ->
                     cc
 
@@ -420,13 +415,13 @@ buttonAttr modifiers =
                     Framework.Color.transparent
 
                 _ ->
-                    if conf.color == Framework.Color.white then
+                    if confButton.color == Framework.Color.white then
                         Framework.Color.grey_dark
                     else
                         Framework.Color.white
 
         inFrontAddon =
-            case conf.state of
+            case confButton.state of
                 StateLoading ->
                     [ inFront
                         (el [ centerY, centerX ] <|
@@ -452,7 +447,7 @@ buttonAttr modifiers =
     , Border.width 1
     , Border.color borderColor
     ]
-        ++ (if conf.state == StateDisabled then
+        ++ (if confButton.state == StateDisabled then
                 [ htmlAttribute <| Html.Attributes.style [ ( "cursor", "not-allowed" ) ]
                 ]
             else

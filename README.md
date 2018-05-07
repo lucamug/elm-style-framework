@@ -6,39 +6,25 @@
 
 This is an incomplete Style Framework that leverage the [experimental version of style-elements](http://package.elm-lang.org/packages/mdgriffith/stylish-elephants/4.0.0). Major changes may happen at any time to this Repo.
 
-See the [Style Guide](https://lucamug.github.io/elm-style-framework/) to see usage examples.
+The framework has a built-in style guide generator and allow customization on several levels.
+
+<a href="https://lucamug.github.io/elm-style-framework/">
+  <img src="docs/images/framework-customizations.png" alt="Framework Customization">
+</a>
 
 To use it:
 
 ```elm
-module Button exposing (main)
+module Main exposing (main)
 
-import Element exposing (..)
-import Framework.Button as Button exposing (button)
-import Framework.Modifiers exposing (..)
-
-
-main =
-    layout [] <|
-        button [ Medium, Success, Outlined ] Nothing "Button"
-```
-
-The framework has documentation built-in (based on [elm-styleguide-generator](http://package.elm-lang.org/packages/lucamug/elm-styleguide-generator/latest)) that can be automatically generated.
- so is possible to generate a Style Guide simply doing
-
-```elm
-module Documentation exposing (main)
-
-import Framework
+import Element exposing (layout)
+import Framework.Button as Button
+import Framework.Modifier exposing (Modifier(..))
 import Html
 
 
-main : Program Never Framework.Model Framework.Msg
+main : Html.Html a
 main =
-    Html.program
-        { init = Framework.init
-        , view = Framework.view
-        , update = Framework.update
-        , subscriptions = \_ -> Sub.none
-        }
+    layout [] <|
+        Button.button [ Medium, Success, Outlined ] Nothing "Button"
 ```

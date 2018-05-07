@@ -197,9 +197,6 @@ emptyIntrospection =
     { name = "Not found"
     , signature = ""
     , description = ""
-    , usage = ""
-    , usageResult = none
-    , boxed = True
     , variations =
         []
     }
@@ -331,9 +328,6 @@ Example, inside Framework.Button:
         { name = "Button"
         , signature = "button : List Modifier -> Maybe msg -> String -> Element msg"
         , description = "Buttons accept a list of modifiers, a Maybe msg (for example: \"Just DoSomething\") and the text to display inside the button."
-        , usage = "button [ Medium, Success, Outlined ] Nothing \"Button\""
-        , usageResult = button [ Medium, Success, Outlined ] Nothing "Button"
-        , boxed = False
         , variations =
             [ ( "Sizes"
               , [ ( button [ Small ] Nothing "Button", "button [ Small ] Nothing \"Button\"" )
@@ -349,10 +343,7 @@ type alias Introspection =
     { name : String
     , signature : String
     , description : String
-    , usage : String
-    , usageResult : Element Msg
     , variations : List Variation
-    , boxed : Bool
     }
 
 
@@ -875,9 +866,6 @@ introspectionExample id =
     { name = "Element " ++ id
     , signature = "Signature " ++ id
     , description = "Description " ++ id
-    , usage = "Usage " ++ id
-    , usageResult = text <| "Usage result " ++ id
-    , boxed = True
     , variations =
         [ ( "Element " ++ id ++ " - Example A"
           , [ ( text <| "Element " ++ id ++ " - Example A - Case 1", "source A1" )

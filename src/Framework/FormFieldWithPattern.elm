@@ -96,21 +96,15 @@ update msg model =
 
 {-| -}
 introspection :
-    { boxed : Bool
+    { name : String
     , description : String
-    , name : String
     , signature : String
-    , usage : String
-    , usageResult : Element msg
     , variations : List ( String, List ( Element msg1, String ) )
     }
 introspection =
     { name = "Fields With Patterns"
-    , signature = ""
     , description = "List of elements for Web Forms"
-    , usage = ""
-    , usageResult = none
-    , boxed = True
+    , signature = ""
     , variations =
         [ ( "Phone number USA", [ ( text "special: FormFieldWithPattern.example1", "" ) ] )
         , ( "Credit Card number", [ ( text "special: FormFieldWithPattern.example2", "" ) ] )
