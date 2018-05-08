@@ -12,7 +12,7 @@ The framework allows customization on several levels. Have a look at this [examp
 
 On the top left, the default version. On the bottom right the customized version.
 
-[![Customization](http://guupa.com/elm-style-framework/images/framework-customizations.png)](http://guupa.com/elm-style-framework/)
+[![Customization](http://guupa.com/elm-style-framework/images/framework-customizations-600.png)](http://guupa.com/elm-style-framework/)
 
 ## Style guide generator
 
