@@ -37,4 +37,4 @@ main =
 ```
 it will generate this page:
 
-[![Button](http://guupa.com/elm-style-framework/images/framework-button-example.png.png)](http://guupa.com/elm-style-framework/exampleButton.html)
+[![Button](http://guupa.com/elm-style-framework/images/framework-button-example.png)](http://guupa.com/elm-style-framework/exampleButton.html)
