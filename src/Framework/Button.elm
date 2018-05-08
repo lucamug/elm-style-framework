@@ -1,6 +1,6 @@
 module Framework.Button exposing (button, buttonAttr, buttonLink, buttonLinkWidth, buttonWidth, introspection)
 
-{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Buttons/States)
+{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
 
 
 # Functions

@@ -1,6 +1,8 @@
 module Framework.Configuration exposing (conf)
 
-{-| List of values that you can change to costumize the aspect of the framwork
+{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
+
+List of values that you can change to costumize the aspect of the framwork
 
 This list is inspired by Bulma framework: <https://bulma.io/documentation/overview/variables/>
 

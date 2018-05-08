@@ -1,6 +1,6 @@
 module Framework.FormField exposing (Field(..), Model, Msg, example1, initModel, inputText, introspection, update)
 
-{-|
+{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
 
 
 # Functions

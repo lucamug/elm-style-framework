@@ -14,7 +14,7 @@ module Framework.Icon
         , show
         )
 
-{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Icons/Icons)
+{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
 
 
 # Functions

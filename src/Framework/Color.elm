@@ -50,7 +50,7 @@ module Framework.Color
         , yellow
         )
 
-{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Colors/Gray%20Scale)
+{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
 
 
 # Functions

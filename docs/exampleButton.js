@@ -26307,7 +26307,67 @@ var _lucamug$elm_style_framework$Framework_Configuration$configuration = _elm_la
 																																																															_1: {
 																																																																ctor: '::',
 																																																																_0: {ctor: '_Tuple2', _0: 'muted', _1: _lucamug$elm_style_framework$Framework_Configuration$bulmaColor.grey_light},
-																																																																_1: {ctor: '[]'}
+																																																																_1: {
+																																																																	ctor: '::',
+																																																																	_0: {ctor: '_Tuple2', _0: 'buttonFontSmall', _1: '12'},
+																																																																	_1: {
+																																																																		ctor: '::',
+																																																																		_0: {ctor: '_Tuple2', _0: 'buttonFontDefault', _1: '16'},
+																																																																		_1: {
+																																																																			ctor: '::',
+																																																																			_0: {ctor: '_Tuple2', _0: 'buttonFontMedium', _1: '20'},
+																																																																			_1: {
+																																																																				ctor: '::',
+																																																																				_0: {ctor: '_Tuple2', _0: 'buttonFontLarge', _1: '24'},
+																																																																				_1: {
+																																																																					ctor: '::',
+																																																																					_0: {ctor: '_Tuple2', _0: 'buttonFontJumbo', _1: '16'},
+																																																																					_1: {
+																																																																						ctor: '::',
+																																																																						_0: {ctor: '_Tuple2', _0: 'buttonPaddingXSmall', _1: '9'},
+																																																																						_1: {
+																																																																							ctor: '::',
+																																																																							_0: {ctor: '_Tuple2', _0: 'buttonPaddingYSmall', _1: '3'},
+																																																																							_1: {
+																																																																								ctor: '::',
+																																																																								_0: {ctor: '_Tuple2', _0: 'buttonPaddingXDefault', _1: '12'},
+																																																																								_1: {
+																																																																									ctor: '::',
+																																																																									_0: {ctor: '_Tuple2', _0: 'buttonPaddingYDefault', _1: '5'},
+																																																																									_1: {
+																																																																										ctor: '::',
+																																																																										_0: {ctor: '_Tuple2', _0: 'buttonPaddingXMedium', _1: '15'},
+																																																																										_1: {
+																																																																											ctor: '::',
+																																																																											_0: {ctor: '_Tuple2', _0: 'buttonPaddingYMedium', _1: '7'},
+																																																																											_1: {
+																																																																												ctor: '::',
+																																																																												_0: {ctor: '_Tuple2', _0: 'buttonPaddingXLarge', _1: '18'},
+																																																																												_1: {
+																																																																													ctor: '::',
+																																																																													_0: {ctor: '_Tuple2', _0: 'buttonPaddingYLarge', _1: '9'},
+																																																																													_1: {
+																																																																														ctor: '::',
+																																																																														_0: {ctor: '_Tuple2', _0: 'buttonPaddingXJumbo', _1: '24'},
+																																																																														_1: {
+																																																																															ctor: '::',
+																																																																															_0: {ctor: '_Tuple2', _0: 'buttonPaddingYJumbo', _1: '24'},
+																																																																															_1: {ctor: '[]'}
+																																																																														}
+																																																																													}
+																																																																												}
+																																																																											}
+																																																																										}
+																																																																									}
+																																																																								}
+																																																																							}
+																																																																						}
+																																																																					}
+																																																																				}
+																																																																			}
+																																																																		}
+																																																																	}
+																																																																}
 																																																															}
 																																																														}
 																																																													}
@@ -26386,6 +26446,10 @@ var _lucamug$elm_style_framework$Framework_Configuration$getFloat = function (ke
 		return 0;
 	}
 };
+var _lucamug$elm_style_framework$Framework_Configuration$getInt = function (key) {
+	return _elm_lang$core$Basics$round(
+		_lucamug$elm_style_framework$Framework_Configuration$getFloat(key));
+};
 var _lucamug$elm_style_framework$Framework_Configuration$getColor = function (key) {
 	return _lucamug$elm_style_framework$Framework_Configuration$hexToColor(
 		_lucamug$elm_style_framework$Framework_Configuration$getString(key));
@@ -26461,6 +26525,23 @@ var _lucamug$elm_style_framework$Framework_Configuration$conf = {
 		url: _lucamug$elm_style_framework$Framework_Configuration$getString('font_url'),
 		typeface: _lucamug$elm_style_framework$Framework_Configuration$getString('font_typeface'),
 		typefaceFallback: _lucamug$elm_style_framework$Framework_Configuration$getTypeface('font_typeface_fallback')
+	},
+	button: {
+		fontSmall: _lucamug$elm_style_framework$Framework_Configuration$getInt('buttonFontSmall'),
+		fontDefault: _lucamug$elm_style_framework$Framework_Configuration$getInt('buttonFontDefault'),
+		fontMedium: _lucamug$elm_style_framework$Framework_Configuration$getInt('buttonFontMedium'),
+		fontLarge: _lucamug$elm_style_framework$Framework_Configuration$getInt('buttonFontLarge'),
+		fontJumbo: _lucamug$elm_style_framework$Framework_Configuration$getInt('buttonFontJumbo'),
+		paddingXSmall: _lucamug$elm_style_framework$Framework_Configuration$getInt('buttonPaddingXSmall'),
+		paddingYSmall: _lucamug$elm_style_framework$Framework_Configuration$getInt('buttonPaddingYSmall'),
+		paddingXDefault: _lucamug$elm_style_framework$Framework_Configuration$getInt('buttonPaddingXDefault'),
+		paddingYDefault: _lucamug$elm_style_framework$Framework_Configuration$getInt('buttonPaddingYDefault'),
+		paddingXMedium: _lucamug$elm_style_framework$Framework_Configuration$getInt('buttonPaddingXMedium'),
+		paddingYMedium: _lucamug$elm_style_framework$Framework_Configuration$getInt('buttonPaddingYMedium'),
+		paddingXLarge: _lucamug$elm_style_framework$Framework_Configuration$getInt('buttonPaddingXLarge'),
+		paddingYLarge: _lucamug$elm_style_framework$Framework_Configuration$getInt('buttonPaddingYLarge'),
+		paddingXJumbo: _lucamug$elm_style_framework$Framework_Configuration$getInt('buttonPaddingXJumbo'),
+		paddingYJumbo: _lucamug$elm_style_framework$Framework_Configuration$getInt('buttonPaddingYJumbo')
 	}
 };
 
@@ -26554,11 +26635,8 @@ var _lucamug$elm_style_framework$Framework_Color$usageWrapper = function (cl) {
 };
 var _lucamug$elm_style_framework$Framework_Color$introspection = {
 	name: 'Colors',
-	signature: 'Color.Color',
 	description: '',
-	usage: 'color ColorPrimary',
-	usageResult: _lucamug$elm_style_framework$Framework_Color$usageWrapper(_lucamug$elm_style_framework$Framework_Color$primary),
-	boxed: false,
+	signature: 'Color.Color',
 	variations: {
 		ctor: '::',
 		_0: {
@@ -27515,11 +27593,8 @@ var _lucamug$elm_style_framework$Framework_Spinner$Rotation = {ctor: 'Rotation'}
 var _lucamug$elm_style_framework$Framework_Spinner$ThreeCircles = {ctor: 'ThreeCircles'};
 var _lucamug$elm_style_framework$Framework_Spinner$introspection = {
 	name: 'Spinners',
-	signature: '',
 	description: 'List of SVG spinners',
-	usage: 'spinner ThreeCircles 20 Color.black',
-	usageResult: A3(_lucamug$elm_style_framework$Framework_Spinner$spinner, _lucamug$elm_style_framework$Framework_Spinner$ThreeCircles, 20, _elm_lang$core$Color$black),
-	boxed: true,
+	signature: '',
 	variations: {
 		ctor: '::',
 		_0: {
@@ -27591,30 +27666,30 @@ var _lucamug$elm_style_framework$Framework_Button$toButtonPadding = function (si
 	var _p0 = size;
 	switch (_p0.ctor) {
 		case 'SizeSmall':
-			return {ctor: '_Tuple2', _0: 9, _1: 3};
+			return {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Configuration$conf.button.paddingXSmall, _1: _lucamug$elm_style_framework$Framework_Configuration$conf.button.paddingYSmall};
 		case 'SizeDefault':
-			return {ctor: '_Tuple2', _0: 12, _1: 5};
+			return {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Configuration$conf.button.paddingXDefault, _1: _lucamug$elm_style_framework$Framework_Configuration$conf.button.paddingYDefault};
 		case 'SizeMedium':
-			return {ctor: '_Tuple2', _0: 15, _1: 7};
+			return {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Configuration$conf.button.paddingXMedium, _1: _lucamug$elm_style_framework$Framework_Configuration$conf.button.paddingYMedium};
 		case 'SizeLarge':
-			return {ctor: '_Tuple2', _0: 18, _1: 9};
+			return {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Configuration$conf.button.paddingXLarge, _1: _lucamug$elm_style_framework$Framework_Configuration$conf.button.paddingYLarge};
 		default:
-			return {ctor: '_Tuple2', _0: 48, _1: 24};
+			return {ctor: '_Tuple2', _0: _lucamug$elm_style_framework$Framework_Configuration$conf.button.paddingXJumbo, _1: _lucamug$elm_style_framework$Framework_Configuration$conf.button.paddingYJumbo};
 	}
 };
 var _lucamug$elm_style_framework$Framework_Button$toPx = function (size) {
 	var _p1 = size;
 	switch (_p1.ctor) {
 		case 'SizeSmall':
-			return 12;
+			return _lucamug$elm_style_framework$Framework_Configuration$conf.button.fontSmall;
 		case 'SizeDefault':
-			return 16;
+			return _lucamug$elm_style_framework$Framework_Configuration$conf.button.fontDefault;
 		case 'SizeMedium':
-			return 20;
+			return _lucamug$elm_style_framework$Framework_Configuration$conf.button.fontMedium;
 		case 'SizeLarge':
-			return 24;
+			return _lucamug$elm_style_framework$Framework_Configuration$conf.button.fontLarge;
 		default:
-			return 24;
+			return _lucamug$elm_style_framework$Framework_Configuration$conf.button.fontJumbo;
 	}
 };
 var _lucamug$elm_style_framework$Framework_Button$Conf = F3(
@@ -27631,84 +27706,84 @@ var _lucamug$elm_style_framework$Framework_Button$StateWaiting = {ctor: 'StateWa
 var _lucamug$elm_style_framework$Framework_Button$StateLoading = {ctor: 'StateLoading'};
 var _lucamug$elm_style_framework$Framework_Button$StateOutlined = {ctor: 'StateOutlined'};
 var _lucamug$elm_style_framework$Framework_Button$processConf = F2(
-	function (modifier, conf) {
+	function (modifier, confButton) {
 		var _p2 = modifier;
 		switch (_p2.ctor) {
 			case 'Muted':
 				return _elm_lang$core$Native_Utils.update(
-					conf,
+					confButton,
 					{color: _lucamug$elm_style_framework$Framework_Color$muted});
 			case 'Primary':
 				return _elm_lang$core$Native_Utils.update(
-					conf,
+					confButton,
 					{color: _lucamug$elm_style_framework$Framework_Color$primary});
 			case 'Success':
 				return _elm_lang$core$Native_Utils.update(
-					conf,
+					confButton,
 					{color: _lucamug$elm_style_framework$Framework_Color$success});
 			case 'Info':
 				return _elm_lang$core$Native_Utils.update(
-					conf,
+					confButton,
 					{color: _lucamug$elm_style_framework$Framework_Color$info});
 			case 'Warning':
 				return _elm_lang$core$Native_Utils.update(
-					conf,
+					confButton,
 					{color: _lucamug$elm_style_framework$Framework_Color$warning});
 			case 'Danger':
 				return _elm_lang$core$Native_Utils.update(
-					conf,
+					confButton,
 					{color: _lucamug$elm_style_framework$Framework_Color$danger});
 			case 'Small':
 				return _elm_lang$core$Native_Utils.update(
-					conf,
+					confButton,
 					{size: _lucamug$elm_style_framework$Framework_Button$SizeSmall});
 			case 'Medium':
 				return _elm_lang$core$Native_Utils.update(
-					conf,
+					confButton,
 					{size: _lucamug$elm_style_framework$Framework_Button$SizeMedium});
 			case 'Large':
 				return _elm_lang$core$Native_Utils.update(
-					conf,
+					confButton,
 					{size: _lucamug$elm_style_framework$Framework_Button$SizeLarge});
 			case 'Jumbo':
 				return _elm_lang$core$Native_Utils.update(
-					conf,
+					confButton,
 					{size: _lucamug$elm_style_framework$Framework_Button$SizeJumbo});
 			case 'Outlined':
 				return _elm_lang$core$Native_Utils.update(
-					conf,
+					confButton,
 					{state: _lucamug$elm_style_framework$Framework_Button$StateOutlined});
 			case 'Loading':
 				return _elm_lang$core$Native_Utils.update(
-					conf,
+					confButton,
 					{state: _lucamug$elm_style_framework$Framework_Button$StateLoading});
 			case 'Waiting':
 				return _elm_lang$core$Native_Utils.update(
-					conf,
+					confButton,
 					{state: _lucamug$elm_style_framework$Framework_Button$StateWaiting});
 			default:
 				return _elm_lang$core$Native_Utils.update(
-					conf,
+					confButton,
 					{state: _lucamug$elm_style_framework$Framework_Button$StateDisabled});
 		}
 	});
 var _lucamug$elm_style_framework$Framework_Button$StateDefault = {ctor: 'StateDefault'};
 var _lucamug$elm_style_framework$Framework_Button$buttonAttr = function (modifiers) {
-	var conf = A3(
+	var confButton = A3(
 		_elm_lang$core$List$foldl,
 		_lucamug$elm_style_framework$Framework_Button$processConf,
 		{color: _lucamug$elm_style_framework$Framework_Button$colorDefault, size: _lucamug$elm_style_framework$Framework_Button$SizeDefault, state: _lucamug$elm_style_framework$Framework_Button$StateDefault},
 		modifiers);
-	var cc = conf.color;
-	var fontSize = _lucamug$elm_style_framework$Framework_Button$toPx(conf.size);
-	var buttonPadding = _lucamug$elm_style_framework$Framework_Button$toButtonPadding(conf.size);
+	var cc = confButton.color;
+	var fontSize = _lucamug$elm_style_framework$Framework_Button$toPx(confButton.size);
+	var buttonPadding = _lucamug$elm_style_framework$Framework_Button$toButtonPadding(confButton.size);
 	var backgroundColor = function () {
-		var _p3 = conf.state;
+		var _p3 = confButton.state;
 		switch (_p3.ctor) {
 			case 'StateDefault':
 				return cc;
 			case 'StateOutlined':
-				return _elm_lang$core$Native_Utils.eq(conf.color, _lucamug$elm_style_framework$Framework_Color$white) ? _lucamug$elm_style_framework$Framework_Button$colorBorderDefault : _lucamug$elm_style_framework$Framework_Color$transparent;
+				return _elm_lang$core$Native_Utils.eq(confButton.color, _lucamug$elm_style_framework$Framework_Color$white) ? _lucamug$elm_style_framework$Framework_Button$colorBorderDefault : _lucamug$elm_style_framework$Framework_Color$transparent;
 			case 'StateLoading':
 				return cc;
 			case 'StateWaiting':
@@ -27721,7 +27796,7 @@ var _lucamug$elm_style_framework$Framework_Button$buttonAttr = function (modifie
 		}
 	}();
 	var backgroundMouseOverColor = function () {
-		var _p4 = conf.state;
+		var _p4 = confButton.state;
 		if (_p4.ctor === 'StateOutlined') {
 			return cc;
 		} else {
@@ -27732,7 +27807,7 @@ var _lucamug$elm_style_framework$Framework_Button$buttonAttr = function (modifie
 		}
 	}();
 	var borderRounded = function () {
-		var _p5 = conf.size;
+		var _p5 = confButton.size;
 		if (_p5.ctor === 'SizeSmall') {
 			return 2;
 		} else {
@@ -27740,10 +27815,10 @@ var _lucamug$elm_style_framework$Framework_Button$buttonAttr = function (modifie
 		}
 	}();
 	var borderColor = function () {
-		if (_elm_lang$core$Native_Utils.eq(conf.color, _lucamug$elm_style_framework$Framework_Color$white)) {
+		if (_elm_lang$core$Native_Utils.eq(confButton.color, _lucamug$elm_style_framework$Framework_Color$white)) {
 			return _lucamug$elm_style_framework$Framework_Button$colorBorderDefault;
 		} else {
-			var _p6 = conf.state;
+			var _p6 = confButton.state;
 			if (_p6.ctor === 'StateOutlined') {
 				return cc;
 			} else {
@@ -27755,9 +27830,9 @@ var _lucamug$elm_style_framework$Framework_Button$buttonAttr = function (modifie
 		_lucamug$elm_style_framework$Framework_ColorManipulation$saturate,
 		0.9,
 		A2(_lucamug$elm_style_framework$Framework_ColorManipulation$lighten, 0.8, borderColor));
-	var spinnerColor = _elm_lang$core$Native_Utils.eq(conf.color, _lucamug$elm_style_framework$Framework_Color$white) ? _lucamug$elm_style_framework$Framework_Color$grey_dark : _lucamug$elm_style_framework$Framework_Color$white;
+	var spinnerColor = _elm_lang$core$Native_Utils.eq(confButton.color, _lucamug$elm_style_framework$Framework_Color$white) ? _lucamug$elm_style_framework$Framework_Color$grey_dark : _lucamug$elm_style_framework$Framework_Color$white;
 	var fontColor = function () {
-		var _p7 = conf.state;
+		var _p7 = confButton.state;
 		switch (_p7.ctor) {
 			case 'StateOutlined':
 				return cc;
@@ -27766,11 +27841,11 @@ var _lucamug$elm_style_framework$Framework_Button$buttonAttr = function (modifie
 			case 'StateWaiting':
 				return _lucamug$elm_style_framework$Framework_Color$transparent;
 			default:
-				return _elm_lang$core$Native_Utils.eq(conf.color, _lucamug$elm_style_framework$Framework_Color$white) ? _lucamug$elm_style_framework$Framework_Color$grey_dark : _lucamug$elm_style_framework$Framework_Color$white;
+				return _elm_lang$core$Native_Utils.eq(confButton.color, _lucamug$elm_style_framework$Framework_Color$white) ? _lucamug$elm_style_framework$Framework_Color$grey_dark : _lucamug$elm_style_framework$Framework_Color$white;
 		}
 	}();
 	var fontMouseOverColor = function () {
-		var _p8 = conf.state;
+		var _p8 = confButton.state;
 		switch (_p8.ctor) {
 			case 'StateLoading':
 				return _lucamug$elm_style_framework$Framework_Color$transparent;
@@ -27786,7 +27861,7 @@ var _lucamug$elm_style_framework$Framework_Button$buttonAttr = function (modifie
 		}
 	}();
 	var inFrontAddon = function () {
-		var _p9 = conf.state;
+		var _p9 = confButton.state;
 		switch (_p9.ctor) {
 			case 'StateLoading':
 				return {
@@ -27864,7 +27939,7 @@ var _lucamug$elm_style_framework$Framework_Button$buttonAttr = function (modifie
 		},
 		A2(
 			_elm_lang$core$Basics_ops['++'],
-			_elm_lang$core$Native_Utils.eq(conf.state, _lucamug$elm_style_framework$Framework_Button$StateDisabled) ? {
+			_elm_lang$core$Native_Utils.eq(confButton.state, _lucamug$elm_style_framework$Framework_Button$StateDisabled) ? {
 				ctor: '::',
 				_0: _mdgriffith$stylish_elephants$Element$htmlAttribute(
 					_elm_lang$html$Html_Attributes$style(
@@ -27944,30 +28019,8 @@ var _lucamug$elm_style_framework$Framework_Button$introspection = function () {
 	var buttonText = 'Button';
 	return {
 		name: 'Buttons',
-		signature: 'List Modifier -> Maybe msg -> String -> Element msg',
 		description: 'Buttons accept a list of modifiers, a Maybe msg (for example: \"Just DoSomething\") and the text to display inside the button.',
-		usage: A2(
-			_elm_lang$core$Basics_ops['++'],
-			'button [ Medium, Success, Outlined ] Nothing \"',
-			A2(_elm_lang$core$Basics_ops['++'], buttonText, '\"')),
-		usageResult: A3(
-			_lucamug$elm_style_framework$Framework_Button$button,
-			{
-				ctor: '::',
-				_0: _lucamug$elm_style_framework$Framework_Modifier$Medium,
-				_1: {
-					ctor: '::',
-					_0: _lucamug$elm_style_framework$Framework_Modifier$Success,
-					_1: {
-						ctor: '::',
-						_0: _lucamug$elm_style_framework$Framework_Modifier$Outlined,
-						_1: {ctor: '[]'}
-					}
-				}
-			},
-			_elm_lang$core$Maybe$Nothing,
-			buttonText),
-		boxed: false,
+		signature: 'List Modifier -> Maybe msg -> String -> Element msg',
 		variations: {
 			ctor: '::',
 			_0: {

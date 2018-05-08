@@ -1,6 +1,6 @@
 module Framework exposing (Conf, Flag, Introspection, Model, Msg(..), init, initCmd, initConf, initModel, introspections, main, subscriptions, update, view, viewPage)
 
-{-| [Demo](https://lucamug.github.io/elm-style-framework/)
+{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
 
 This simple package generates a page with Style Guides.
 It uses certain data structure that each section of the framework expose ([Example](https://lucamug.github.io/elm-styleguide-generator/), [Example source](https://github.com/lucamug/elm-styleguide-generator/blob/master/examples/Main.elm)).

@@ -1,6 +1,6 @@
 module Framework.Logo exposing (Color(..), Logo(..), LogoElmType(..), introspection, logo)
 
-{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Logos/Logos)
+{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
 
 
 # Functions

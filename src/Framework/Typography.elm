@@ -1,6 +1,6 @@
 module Framework.Typography exposing (h1, h2, h3, h4, h5, h6, introspection, textExtraSmall, textLead, textSmall)
 
-{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Typography/Heading)
+{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
 
 
 # Functions

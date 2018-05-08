@@ -1,6 +1,6 @@
 module Framework.StyleElementsInput exposing (Model, Msg, example0, example1, example10, example11, example2, example3, example4, example5, example6, example7, example8, example9, initModel, introspection, update)
 
-{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Style-Elements%20Input/Button)
+{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
 
 Style-elements Input (Alpha version) Examples
 

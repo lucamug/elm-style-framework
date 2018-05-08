@@ -1,11 +1,11 @@
 module Framework.ColorManipulation exposing (colorToHex, colorToHsl2, lighten, maximumContrast, saturate)
 
-{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Colors/Gray%20Scale)
+{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
 
 
 # Functions
 
-@docs color, colorToHex, colorToHsl2, introspection, lighten, maximumContrast, saturate, usageWrapper
+@docs colorToHex, colorToHsl2, lighten, maximumContrast, saturate
 
 -}
 
@@ -34,9 +34,6 @@ saturate quantity cl =
 
 
 {-| Return one of the font color that has maximum contrast on a background color
-
-    maximumContrast Color.black == color ColorFontBright
-
 -}
 maximumContrast : Color.Color -> Color.Color
 maximumContrast c =

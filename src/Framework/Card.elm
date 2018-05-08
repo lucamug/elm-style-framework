@@ -1,6 +1,6 @@
 module Framework.Card exposing (Model, Msg, example1, flipping, initModel, introspection, simple, simpleWithTitle, update)
 
-{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Cards/Flipping)
+{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
 
 Wrapper for content
 
