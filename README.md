@@ -12,9 +12,7 @@ The framework allows customization on several levels. Have a look at this [examp
 
 On the top left, the default version. On the bottom right the customized version.
 
-<a href="https://lucamug.github.io/elm-style-framework/">
-  <img src="docs/images/framework-customizations.png" alt="Framework Customization" style="width: 100%; max-width: 1000px">
-</a>
+[![Customization](http://guupa.com/elm-style-framework/images/framework-customizations.png)](http://guupa.com/elm-style-framework/)
 
 ## Style guide generator
 
@@ -38,6 +36,5 @@ main =
         Button.button [ Medium, Success, Outlined ] Nothing "Button"
 ```
 it will generate this page:
-<a href="https://lucamug.github.io/elm-style-framework/exampleButton.html">
-  <img src="docs/images/framework-customizations.png" alt="Framework Customization" style="width: 100%; max-width: 576px">
-</a>
+
+[![Button](http://guupa.com/elm-style-framework/images/framework-button-example.png.png)](http://guupa.com/elm-style-framework/exampleButton.html)
