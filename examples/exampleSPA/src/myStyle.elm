@@ -23,7 +23,8 @@ As example here we overwrite `primary` with the color `#00d1b2`
 configuration : Dict.Dict String String
 configuration =
     Dict.fromList
-        [ ( "primary", "#9900aa" )
+        [ ( "primary", "#da284d" )
+        , ( "buttonPaddingYDefault", "13" )
         , ( "font_url", "https://fonts.googleapis.com/css?family=" ++ fontName )
         , ( "font_typeface", fontName )
         , ( "font_fallback", "serif" )

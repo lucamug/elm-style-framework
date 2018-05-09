@@ -1,0 +1,651 @@
+{
+  "elm-lang/core Char": {
+    "imports": [
+      "elm-lang/core Basics"
+    ],
+    "package": "elm-lang/core"
+  },
+  "lucamug/elm-style-framework Framework.Color": {
+    "imports": [
+      "elm-lang/core Color",
+      "mdgriffith/stylish-elephants Element",
+      "mdgriffith/stylish-elephants Element.Background",
+      "mdgriffith/stylish-elephants Element.Border",
+      "mdgriffith/stylish-elephants Element.Font",
+      "lucamug/elm-style-framework Framework.ColorManipulation",
+      "lucamug/elm-style-framework Framework.Configuration"
+    ],
+    "package": "lucamug/elm-style-framework"
+  },
+  "lucamug/elm-style-framework Framework": {
+    "imports": [
+      "elm-lang/core Color",
+      "mdgriffith/stylish-elephants Element",
+      "mdgriffith/stylish-elephants Element.Background",
+      "mdgriffith/stylish-elephants Element.Border",
+      "mdgriffith/stylish-elephants Element.Events",
+      "mdgriffith/stylish-elephants Element.Font",
+      "mdgriffith/stylish-elephants Element.Input",
+      "lucamug/elm-style-framework Framework.Button",
+      "lucamug/elm-style-framework Framework.Card",
+      "lucamug/elm-style-framework Framework.Color",
+      "lucamug/elm-style-framework Framework.Configuration",
+      "lucamug/elm-style-framework Framework.FormField",
+      "lucamug/elm-style-framework Framework.FormFieldWithPattern",
+      "lucamug/elm-style-framework Framework.Icon",
+      "lucamug/elm-style-framework Framework.Logo",
+      "lucamug/elm-style-framework Framework.Spinner",
+      "lucamug/elm-style-framework Framework.StyleElements",
+      "lucamug/elm-style-framework Framework.StyleElementsInput",
+      "lucamug/elm-style-framework Framework.Typography",
+      "elm-lang/html Html",
+      "elm-lang/html Html.Attributes",
+      "elm-lang/http Http",
+      "elm-lang/navigation Navigation",
+      "evancz/url-parser UrlParser",
+      "elm-lang/window Window"
+    ],
+    "package": "lucamug/elm-style-framework"
+  },
+  "danielnarey/elm-color-math ColorMath.Hex8": {
+    "imports": [
+      "danielnarey/elm-color-math ColorMath.Hex",
+      "danielnarey/elm-toolkit Toolkit.Function",
+      "danielnarey/elm-toolkit Toolkit.Tuple",
+      "danielnarey/elm-toolkit Toolkit.Tuple4",
+      "danielnarey/elm-toolkit Toolkit.List",
+      "danielnarey/elm-toolkit Toolkit.Maybe",
+      "danielnarey/elm-toolkit Toolkit.Result",
+      "elm-lang/core Color",
+      "elm-lang/core Array",
+      "elm-lang/core Char"
+    ],
+    "package": "danielnarey/elm-color-math"
+  },
+  "lucamug/elm-style-framework Framework.Spinner": {
+    "imports": [
+      "elm-lang/core Color",
+      "mdgriffith/stylish-elephants Element",
+      "lucamug/elm-style-framework Framework.ColorManipulation",
+      "elm-lang/html Html",
+      "elm-lang/svg Svg",
+      "elm-lang/svg Svg.Attributes"
+    ],
+    "package": "lucamug/elm-style-framework"
+  },
+  "elm-lang/core Platform.Cmd": {
+    "imports": [],
+    "package": "elm-lang/core"
+  },
+  "lucamug/elm-style-framework Framework.Icon": {
+    "imports": [
+      "elm-lang/core Color",
+      "mdgriffith/stylish-elephants Element",
+      "lucamug/elm-style-framework Framework.Color",
+      "lucamug/elm-style-framework Framework.ColorManipulation",
+      "elm-lang/html Html.Attributes",
+      "elm-lang/svg Svg",
+      "elm-lang/svg Svg.Attributes"
+    ],
+    "package": "lucamug/elm-style-framework"
+  },
+  "lucamug/elm-style-framework Framework.FormFieldWithPattern": {
+    "imports": [
+      "mdgriffith/stylish-elephants Element",
+      "mdgriffith/stylish-elephants Element.Background",
+      "mdgriffith/stylish-elephants Element.Border",
+      "mdgriffith/stylish-elephants Element.Events",
+      "mdgriffith/stylish-elephants Element.Font",
+      "mdgriffith/stylish-elephants Element.Input",
+      "lucamug/elm-style-framework Framework.Color",
+      "lucamug/elm-style-framework Framework.Configuration",
+      "elm-lang/html Html.Attributes",
+      "elm-lang/core Regex"
+    ],
+    "package": "lucamug/elm-style-framework"
+  },
+  "elm-lang/core List": {
+    "imports": [
+      "elm-lang/core Basics",
+      "elm-lang/core Maybe",
+      "elm-lang/core Maybe"
+    ],
+    "package": "elm-lang/core"
+  },
+  "elm-lang/core Json.Decode": {
+    "imports": [
+      "elm-lang/core Array",
+      "elm-lang/core Dict",
+      "elm-lang/core Json.Encode",
+      "elm-lang/core List",
+      "elm-lang/core Maybe",
+      "elm-lang/core Result"
+    ],
+    "package": "elm-lang/core"
+  },
+  "lucamug/elm-style-framework Framework.StyleElements": {
+    "imports": [
+      "mdgriffith/stylish-elephants Element"
+    ],
+    "package": "lucamug/elm-style-framework"
+  },
+  "elm-lang/core Json.Encode": {
+    "imports": [
+      "elm-lang/core Array"
+    ],
+    "package": "elm-lang/core"
+  },
+  "lucamug/elm-style-framework Framework.ColorManipulation": {
+    "imports": [
+      "elm-lang/core Char",
+      "elm-lang/core Color"
+    ],
+    "package": "lucamug/elm-style-framework"
+  },
+  "mdgriffith/stylish-elephants Element.Font": {
+    "imports": [
+      "elm-lang/core Color",
+      "mdgriffith/stylish-elephants Element",
+      "mdgriffith/stylish-elephants Internal.Model",
+      "mdgriffith/stylish-elephants Internal.Style"
+    ],
+    "package": "mdgriffith/stylish-elephants"
+  },
+  "lucamug/elm-style-framework Framework.Logo": {
+    "imports": [
+      "mdgriffith/stylish-elephants Element",
+      "elm-lang/html Html",
+      "elm-lang/svg Svg",
+      "elm-lang/svg Svg.Attributes"
+    ],
+    "package": "lucamug/elm-style-framework"
+  },
+  "elm-lang/dom Dom.LowLevel": {
+    "imports": [
+      "elm-lang/core Json.Decode",
+      "elm-lang/core Task"
+    ],
+    "package": "elm-lang/dom"
+  },
+  "mdgriffith/stylish-elephants Element.Border": {
+    "imports": [
+      "elm-lang/core Color",
+      "mdgriffith/stylish-elephants Element",
+      "mdgriffith/stylish-elephants Internal.Model",
+      "mdgriffith/stylish-elephants Internal.Style"
+    ],
+    "package": "mdgriffith/stylish-elephants"
+  },
+  "elm-lang/core Platform.Sub": {
+    "imports": [],
+    "package": "elm-lang/core"
+  },
+  "danielnarey/elm-color-math ColorMath.Hex": {
+    "imports": [
+      "danielnarey/elm-toolkit Toolkit.Function",
+      "danielnarey/elm-toolkit Toolkit.Tuple",
+      "danielnarey/elm-toolkit Toolkit.Tuple3",
+      "danielnarey/elm-toolkit Toolkit.List",
+      "danielnarey/elm-toolkit Toolkit.Maybe",
+      "danielnarey/elm-toolkit Toolkit.Result",
+      "elm-lang/core Color",
+      "elm-lang/core Array",
+      "elm-lang/core Char"
+    ],
+    "package": "danielnarey/elm-color-math"
+  },
+  "elm-lang/http Http.Internal": {
+    "imports": [
+      "elm-lang/core Time"
+    ],
+    "package": "elm-lang/http"
+  },
+  "elm-lang/virtual-dom VirtualDom.History": {
+    "imports": [
+      "elm-lang/core Array",
+      "elm-lang/core Json.Decode",
+      "elm-lang/core Json.Encode",
+      "elm-lang/virtual-dom VirtualDom.Helpers",
+      "elm-lang/virtual-dom VirtualDom.Metadata"
+    ],
+    "package": "elm-lang/virtual-dom"
+  },
+  "lucamug/elm-style-framework Framework.Button": {
+    "imports": [
+      "elm-lang/core Color",
+      "mdgriffith/stylish-elephants Element",
+      "mdgriffith/stylish-elephants Element.Background",
+      "mdgriffith/stylish-elephants Element.Border",
+      "mdgriffith/stylish-elephants Element.Font",
+      "mdgriffith/stylish-elephants Element.Input",
+      "lucamug/elm-style-framework Framework.Color",
+      "lucamug/elm-style-framework Framework.ColorManipulation",
+      "lucamug/elm-style-framework Framework.Configuration",
+      "lucamug/elm-style-framework Framework.Modifier",
+      "lucamug/elm-style-framework Framework.Spinner",
+      "elm-lang/html Html.Attributes"
+    ],
+    "package": "lucamug/elm-style-framework"
+  },
+  "elm-lang/core Time": {
+    "imports": [
+      "elm-lang/core Basics",
+      "elm-lang/core Dict",
+      "elm-lang/core List",
+      "elm-lang/core Maybe",
+      "elm-lang/core Platform",
+      "elm-lang/core Platform.Sub",
+      "elm-lang/core Task"
+    ],
+    "package": "elm-lang/core"
+  },
+  "lucamug/elm-style-framework Framework.FormField": {
+    "imports": [
+      "mdgriffith/stylish-elephants Element",
+      "mdgriffith/stylish-elephants Element.Background",
+      "mdgriffith/stylish-elephants Element.Border",
+      "mdgriffith/stylish-elephants Element.Events",
+      "mdgriffith/stylish-elephants Element.Input",
+      "lucamug/elm-style-framework Framework.Color",
+      "elm-lang/html Html.Attributes"
+    ],
+    "package": "lucamug/elm-style-framework"
+  },
+  "mdgriffith/stylish-elephants Element": {
+    "imports": [
+      "elm-lang/core Color",
+      "elm-lang/html Html",
+      "elm-lang/html Html.Attributes",
+      "mdgriffith/stylish-elephants Internal.Model",
+      "mdgriffith/stylish-elephants Internal.Style"
+    ],
+    "package": "mdgriffith/stylish-elephants"
+  },
+  "mdgriffith/stylish-elephants Internal.Model": {
+    "imports": [
+      "elm-lang/core Color",
+      "elm-lang/html Html",
+      "elm-lang/html Html.Attributes",
+      "mdgriffith/stylish-elephants Internal.Style",
+      "elm-lang/core Json.Encode",
+      "elm-lang/core Regex",
+      "elm-lang/core Set",
+      "elm-lang/virtual-dom VirtualDom"
+    ],
+    "package": "mdgriffith/stylish-elephants"
+  },
+  "elm-lang/core Task": {
+    "imports": [
+      "elm-lang/core Basics",
+      "elm-lang/core List",
+      "elm-lang/core Maybe",
+      "elm-lang/core Platform",
+      "elm-lang/core Platform.Cmd",
+      "elm-lang/core Result"
+    ],
+    "package": "elm-lang/core"
+  },
+  "mdgriffith/stylish-elephants Element.Background": {
+    "imports": [
+      "elm-lang/core Color",
+      "mdgriffith/stylish-elephants Element",
+      "mdgriffith/stylish-elephants Internal.Model"
+    ],
+    "package": "mdgriffith/stylish-elephants"
+  },
+  "elm-lang/virtual-dom VirtualDom": {
+    "imports": [
+      "elm-lang/core Json.Decode",
+      "elm-lang/virtual-dom VirtualDom.Debug"
+    ],
+    "package": "elm-lang/virtual-dom"
+  },
+  "danielnarey/elm-toolkit Toolkit.Tuple": {
+    "imports": [],
+    "package": "danielnarey/elm-toolkit"
+  },
+  "mdgriffith/stylish-elephants Element.Events": {
+    "imports": [
+      "elm-lang/html Html.Events",
+      "mdgriffith/stylish-elephants Element",
+      "mdgriffith/stylish-elephants Internal.Model",
+      "elm-lang/core Json.Decode",
+      "elm-lang/virtual-dom VirtualDom"
+    ],
+    "package": "mdgriffith/stylish-elephants"
+  },
+  "lucamug/elm-style-framework Framework.Configuration": {
+    "imports": [
+      "elm-lang/core Color",
+      "danielnarey/elm-color-math ColorMath.Hex8",
+      "elm-lang/core Dict",
+      "mdgriffith/stylish-elephants Element.Font",
+      "lucamug/elm-style-framework MyStyle"
+    ],
+    "package": "lucamug/elm-style-framework"
+  },
+  "mdgriffith/stylish-elephants Internal.Events": {
+    "imports": [
+      "mdgriffith/stylish-elephants Element",
+      "elm-lang/html Html.Events",
+      "mdgriffith/stylish-elephants Internal.Model",
+      "elm-lang/core Json.Decode",
+      "elm-lang/virtual-dom VirtualDom"
+    ],
+    "package": "mdgriffith/stylish-elephants"
+  },
+  "lucamug/elm-style-framework MyStyle": {
+    "imports": [
+      "elm-lang/core Dict"
+    ],
+    "package": "lucamug/elm-style-framework"
+  },
+  "elm-lang/http Http": {
+    "imports": [
+      "elm-lang/core Dict",
+      "elm-lang/http Http.Internal",
+      "elm-lang/core Json.Decode",
+      "elm-lang/core Json.Encode",
+      "elm-lang/core Maybe",
+      "elm-lang/core Platform.Cmd",
+      "elm-lang/core Result",
+      "elm-lang/core Task",
+      "elm-lang/core Time"
+    ],
+    "package": "elm-lang/http"
+  },
+  "danielnarey/elm-toolkit Toolkit.Tuple3": {
+    "imports": [],
+    "package": "danielnarey/elm-toolkit"
+  },
+  "elm-lang/window Window": {
+    "imports": [
+      "elm-lang/dom Dom.LowLevel",
+      "elm-lang/core Json.Decode",
+      "elm-lang/core Process",
+      "elm-lang/core Task"
+    ],
+    "package": "elm-lang/window"
+  },
+  "elm-lang/core Platform": {
+    "imports": [
+      "elm-lang/core Basics",
+      "elm-lang/core Platform.Cmd",
+      "elm-lang/core Platform.Sub"
+    ],
+    "package": "elm-lang/core"
+  },
+  "elm-lang/navigation Navigation": {
+    "imports": [
+      "elm-lang/dom Dom.LowLevel",
+      "elm-lang/html Html",
+      "elm-lang/core Json.Decode",
+      "elm-lang/core Process",
+      "elm-lang/core Task"
+    ],
+    "package": "elm-lang/navigation"
+  },
+  "elm-lang/core Basics": {
+    "imports": [],
+    "package": "elm-lang/core"
+  },
+  "danielnarey/elm-toolkit Toolkit.Function": {
+    "imports": [],
+    "package": "danielnarey/elm-toolkit"
+  },
+  "elm-lang/core Set": {
+    "imports": [
+      "elm-lang/core Basics",
+      "elm-lang/core Dict",
+      "elm-lang/core List"
+    ],
+    "package": "elm-lang/core"
+  },
+  "elm-lang/core Color": {
+    "imports": [
+      "elm-lang/core Basics"
+    ],
+    "package": "elm-lang/core"
+  },
+  "elm-lang/core String": {
+    "imports": [
+      "elm-lang/core Char",
+      "elm-lang/core Maybe",
+      "elm-lang/core Result"
+    ],
+    "package": "elm-lang/core"
+  },
+  "elm-lang/virtual-dom VirtualDom.Overlay": {
+    "imports": [
+      "elm-lang/core Json.Decode",
+      "elm-lang/core Json.Encode",
+      "elm-lang/virtual-dom VirtualDom.Helpers",
+      "elm-lang/virtual-dom VirtualDom.Metadata",
+      "elm-lang/virtual-dom VirtualDom.Report"
+    ],
+    "package": "elm-lang/virtual-dom"
+  },
+  "elm-lang/svg Svg.Attributes": {
+    "imports": [
+      "elm-lang/svg Svg",
+      "elm-lang/virtual-dom VirtualDom"
+    ],
+    "package": "elm-lang/svg"
+  },
+  "elm-lang/core Result": {
+    "imports": [
+      "elm-lang/core Maybe"
+    ],
+    "package": "elm-lang/core"
+  },
+  "danielnarey/elm-toolkit Toolkit.Tuple4": {
+    "imports": [],
+    "package": "danielnarey/elm-toolkit"
+  },
+  "elm-lang/virtual-dom VirtualDom.Helpers": {
+    "imports": [
+      "elm-lang/core Json.Decode",
+      "elm-lang/core Json.Encode"
+    ],
+    "package": "elm-lang/virtual-dom"
+  },
+  "elm-lang/core Process": {
+    "imports": [
+      "elm-lang/core Basics",
+      "elm-lang/core Platform",
+      "elm-lang/core Task",
+      "elm-lang/core Time"
+    ],
+    "package": "elm-lang/core"
+  },
+  "lucamug/elm-style-framework Framework.Card": {
+    "imports": [
+      "elm-lang/core Color",
+      "mdgriffith/stylish-elephants Element",
+      "mdgriffith/stylish-elephants Element.Background",
+      "mdgriffith/stylish-elephants Element.Border",
+      "mdgriffith/stylish-elephants Element.Events",
+      "mdgriffith/stylish-elephants Element.Font",
+      "lucamug/elm-style-framework Framework.Color",
+      "elm-lang/html Html",
+      "elm-lang/html Html.Attributes"
+    ],
+    "package": "lucamug/elm-style-framework"
+  },
+  "elm-lang/virtual-dom VirtualDom.Metadata": {
+    "imports": [
+      "elm-lang/core Array",
+      "elm-lang/core Dict",
+      "elm-lang/core Json.Decode",
+      "elm-lang/core Json.Encode",
+      "elm-lang/virtual-dom VirtualDom.Report"
+    ],
+    "package": "elm-lang/virtual-dom"
+  },
+  "elm-lang/core Maybe": {
+    "imports": [],
+    "package": "elm-lang/core"
+  },
+  "elm-lang/virtual-dom VirtualDom.Expando": {
+    "imports": [
+      "elm-lang/core Dict",
+      "elm-lang/core Json.Decode",
+      "elm-lang/virtual-dom VirtualDom.Helpers"
+    ],
+    "package": "elm-lang/virtual-dom"
+  },
+  "mdgriffith/stylish-elephants Internal.Grid": {
+    "imports": [
+      "mdgriffith/stylish-elephants Element",
+      "mdgriffith/stylish-elephants Internal.Model"
+    ],
+    "package": "mdgriffith/stylish-elephants"
+  },
+  "elm-lang/html Html.Events": {
+    "imports": [
+      "elm-lang/html Html",
+      "elm-lang/core Json.Decode",
+      "elm-lang/virtual-dom VirtualDom"
+    ],
+    "package": "elm-lang/html"
+  },
+  "danielnarey/elm-toolkit Toolkit.Maybe": {
+    "imports": [],
+    "package": "danielnarey/elm-toolkit"
+  },
+  "mdgriffith/stylish-elephants Element.Region": {
+    "imports": [
+      "mdgriffith/stylish-elephants Element",
+      "mdgriffith/stylish-elephants Internal.Model"
+    ],
+    "package": "mdgriffith/stylish-elephants"
+  },
+  "mdgriffith/stylish-elephants Internal.Style": {
+    "imports": [
+      "elm-lang/html Html"
+    ],
+    "package": "mdgriffith/stylish-elephants"
+  },
+  "elm-lang/html Html": {
+    "imports": [
+      "elm-lang/virtual-dom VirtualDom"
+    ],
+    "package": "elm-lang/html"
+  },
+  "mdgriffith/stylish-elephants Element.Input": {
+    "imports": [
+      "elm-lang/core Color",
+      "mdgriffith/stylish-elephants Element",
+      "mdgriffith/stylish-elephants Element.Background",
+      "mdgriffith/stylish-elephants Element.Border",
+      "mdgriffith/stylish-elephants Element.Events",
+      "mdgriffith/stylish-elephants Element.Font",
+      "mdgriffith/stylish-elephants Element.Region",
+      "elm-lang/html Html",
+      "elm-lang/html Html.Attributes",
+      "elm-lang/html Html.Events",
+      "mdgriffith/stylish-elephants Internal.Events",
+      "mdgriffith/stylish-elephants Internal.Grid",
+      "mdgriffith/stylish-elephants Internal.Model",
+      "mdgriffith/stylish-elephants Internal.Style",
+      "elm-lang/core Json.Decode"
+    ],
+    "package": "mdgriffith/stylish-elephants"
+  },
+  "elm-lang/html Html.Attributes": {
+    "imports": [
+      "elm-lang/html Html",
+      "elm-lang/core Json.Encode",
+      "elm-lang/virtual-dom VirtualDom"
+    ],
+    "package": "elm-lang/html"
+  },
+  "danielnarey/elm-toolkit Toolkit.Result": {
+    "imports": [],
+    "package": "danielnarey/elm-toolkit"
+  },
+  "elm-lang/core Array": {
+    "imports": [
+      "elm-lang/core Basics",
+      "elm-lang/core Maybe",
+      "elm-lang/core List"
+    ],
+    "package": "elm-lang/core"
+  },
+  "danielnarey/elm-toolkit Toolkit.List": {
+    "imports": [
+      "elm-lang/core Set",
+      "danielnarey/elm-toolkit Toolkit.Maybe",
+      "danielnarey/elm-toolkit Toolkit.Function"
+    ],
+    "package": "danielnarey/elm-toolkit"
+  },
+  "lucamug/elm-style-framework Framework.Modifier": {
+    "imports": [],
+    "package": "lucamug/elm-style-framework"
+  },
+  "elm-lang/core Dict": {
+    "imports": [
+      "elm-lang/core Basics",
+      "elm-lang/core Maybe",
+      "elm-lang/core List",
+      "elm-lang/core String"
+    ],
+    "package": "elm-lang/core"
+  },
+  "lucamug/elm-style-framework Framework.StyleElementsInput": {
+    "imports": [
+      "mdgriffith/stylish-elephants Element",
+      "mdgriffith/stylish-elephants Element.Input"
+    ],
+    "package": "lucamug/elm-style-framework"
+  },
+  "lucamug/elm-style-framework Framework.Typography": {
+    "imports": [
+      "mdgriffith/stylish-elephants Element",
+      "mdgriffith/stylish-elephants Element.Font",
+      "mdgriffith/stylish-elephants Element.Region"
+    ],
+    "package": "lucamug/elm-style-framework"
+  },
+  "elm-lang/core Regex": {
+    "imports": [
+      "elm-lang/core Maybe"
+    ],
+    "package": "elm-lang/core"
+  },
+  "elm-lang/svg Svg": {
+    "imports": [
+      "elm-lang/html Html",
+      "elm-lang/virtual-dom VirtualDom",
+      "elm-lang/core Json.Encode"
+    ],
+    "package": "elm-lang/svg"
+  },
+  "elm-lang/virtual-dom VirtualDom.Report": {
+    "imports": [],
+    "package": "elm-lang/virtual-dom"
+  },
+  "evancz/url-parser UrlParser": {
+    "imports": [
+      "elm-lang/core Dict",
+      "elm-lang/http Http",
+      "elm-lang/navigation Navigation"
+    ],
+    "package": "evancz/url-parser"
+  },
+  "elm-lang/virtual-dom VirtualDom.Debug": {
+    "imports": [
+      "elm-lang/core Json.Decode",
+      "elm-lang/core Json.Encode",
+      "elm-lang/core Task",
+      "elm-lang/virtual-dom VirtualDom.Expando",
+      "elm-lang/virtual-dom VirtualDom.Helpers",
+      "elm-lang/virtual-dom VirtualDom.History",
+      "elm-lang/virtual-dom VirtualDom.Metadata",
+      "elm-lang/virtual-dom VirtualDom.Overlay",
+      "elm-lang/virtual-dom VirtualDom.Report"
+    ],
+    "package": "elm-lang/virtual-dom"
+  }
+}

@@ -1,0 +1,4 @@
+#!/bin/bash
+echo ""
+echo "For the SPA, run the command cmd/start from the folder examples/exampleSPA"
+echo ""
