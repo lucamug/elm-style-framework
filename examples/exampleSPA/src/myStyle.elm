@@ -25,6 +25,7 @@ configuration =
     Dict.fromList
         [ ( "primary", "#da284d" )
         , ( "buttonPaddingYDefault", "13" )
+        , ( "buttonPaddingYSmall", "8" )
         , ( "font_url", "https://fonts.googleapis.com/css?family=" ++ fontName )
         , ( "font_typeface", fontName )
         , ( "font_fallback", "serif" )

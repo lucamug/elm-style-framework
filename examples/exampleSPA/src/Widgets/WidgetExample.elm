@@ -71,10 +71,8 @@ viewElement model =
         ( widthCard, heightCard ) =
             case model.windowSize of
                 Just windowSize ->
-                    if windowSize.width < 500 then
-                        ( 200, sizeY )
-                    else if windowSize.width < 400 then
-                        ( 200, sizeY )
+                    if windowSize.width < 550 then
+                        ( windowSize.width - 50, sizeY )
                     else
                         ( sizeX, sizeY )
 
@@ -138,7 +136,7 @@ viewFront : Model -> List (Element Msg)
 viewFront model =
     case defaultRouteFromLocation model.location of
         Route.RouteWidgetExample4DigitCodeStep1 ->
-            [ paragraph [ Font.size 20 ] [ text "Example of 4 digit code" ]
+            [ paragraph [ width fill, Font.size 20 ] [ text "Example of 4 digit code" ]
             , el [ centerX, width <| Element.px 230, height <| Element.px 92, moveUp 15 ] <|
                 Element.map MsgFormFieldWIdthPattern
                     (FormFieldWithPattern.inputText model.modelFormFieldWithPattern
@@ -176,8 +174,8 @@ viewBack model =
     -- CREATE ACCOUNT WITH EMAIL
     case defaultRouteFromLocation model.location of
         Route.RouteWidgetExampleEmailStep1 ->
-            [ paragraph [ Font.size 20 ] [ text <| "Example of E-mail input field" ]
-            , paragraph [] [ text <| "This is an example of E-mail input field" ]
+            [ paragraph [ width fill, Font.size 20 ] [ text <| "Example of E-mail input field" ]
+            , paragraph [ width fill ] [ text <| "This is an example of E-mail input field" ]
             , Element.map MsgFormField <|
                 FormField.inputText model.modelFormField
                     { field = FormField.FieldEmail

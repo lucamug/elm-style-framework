@@ -1,7 +1,7 @@
 module ExampleSPA exposing (main)
 
 import Color
-import Element exposing (Attribute, Element, alpha, centerX, centerY, column, el, fill, fillPortion, focusStyle, height, htmlAttribute, layoutWith, map, none, padding, paragraph, px, row, scrollbarX, shrink, spacing, text, width)
+import Element exposing (Attribute, Element, alpha, centerX, centerY, column, el, fill, fillPortion, focusStyle, height, htmlAttribute, layoutWith, map, none, padding, px, row, scrollbarX, shrink, spacing, text, width)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
@@ -252,22 +252,52 @@ viewElement model =
     let
         header =
             viewHeader model
+
+        menuType =
+            case model.windowSize of
+                Just windowSize ->
+                    if windowSize.width < 550 then
+                        column
+                    else
+                        row
+
+                Nothing ->
+                    row
+
+        menuAttributes =
+            case model.windowSize of
+                Just windowSize ->
+                    if windowSize.width < 550 then
+                        [ alpha 1
+                        , spacing 2
+                        , padding 6
+                        , width <| px 200
+                        ]
+                    else
+                        [ alpha 0.7
+                        , spacing 10
+                        , padding 16
+                        ]
+
+                Nothing ->
+                    [ alpha 0.5
+                    , spacing 10
+                    , padding 16
+                    ]
     in
     column
         --[ Events.onClick MsgClick ]
         []
         [ header
         , viewBody model
-        , row
-            [ hackStyle "position" "fixed"
-            , hackStyle "top" "0"
-            , hackStyle "right" "0"
-            , hackStyle "z-index" "2"
-            , alpha 0.5
-            , spacing 10
-            , padding 20
-            , Font.alignRight
-            ]
+        , menuType
+            ([ hackStyle "position" "fixed"
+             , hackStyle "top" "0"
+             , hackStyle "right" "0"
+             , hackStyle "z-index" "2"
+             ]
+                ++ menuAttributes
+            )
           <|
             widgetMenu model
         ]
@@ -275,9 +305,9 @@ viewElement model =
 
 widgetMenu : Model -> List (Element Msg)
 widgetMenu model =
-    [ Button.buttonLink [ Modifier.Small ] (Route.routeToString <| Route.RouteWidgetExampleEmailStep1) "Example E-mail Field"
-    , Button.buttonLink [ Modifier.Small ] (Route.routeToString <| Route.RouteWidgetExample4DigitCodeStep1) "Example 4 digit code"
-    , Button.buttonLink [ Modifier.Small ] (Route.routeToString <| Route.RouteFramework) "Framework"
+    [ el [ width fill ] <| Button.buttonLink [ Modifier.Small ] (Route.routeToString <| Route.RouteWidgetExampleEmailStep1) "Example E-mail Field"
+    , el [ width fill ] <| Button.buttonLink [ Modifier.Small ] (Route.routeToString <| Route.RouteWidgetExample4DigitCodeStep1) "Example 4 digit code"
+    , el [ width fill ] <| Button.buttonLink [ Modifier.Small ] (Route.routeToString <| Route.RouteFramework) "Framework"
     ]
 
 
@@ -359,17 +389,16 @@ decoder =
 
 viewSelectWidget : Element Msg
 viewSelectWidget =
-    column
+    Element.paragraph
         [ Background.color <| Framework.Color.white
         , padding 20
-        , width shrink
-        , height shrink
         , centerX
         , centerY
+        , width shrink
         , alpha 0.8
-        , spacing 30
+        , spacing 15
         , Border.rounded 10
-        , scrollbarX
+        , Font.center
         ]
     <|
         [ text "Welcome to the Single Page Application example built with elm-style-element" ]
