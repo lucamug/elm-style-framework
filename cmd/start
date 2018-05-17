@@ -1,2 +1,2 @@
 #!/bin/bash
-elm-live src/Framework.elm --output=docs/framework.js --dir=docs --debug
+elm-live src/Framework.elm --output=docs/build/framework.js --dir=docs --debug
