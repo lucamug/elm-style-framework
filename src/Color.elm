@@ -20,12 +20,16 @@ white =
 
 
 yellow =
-    Element.rgb 255 255 255
+    Element.rgb 255 255 0
 
 
 toRgb _ =
     { red = 0, green = 0, blue = 0 }
 
 
-rgba _ _ _ _ =
-    Element.rgb 0 0 0
+rgba r g b a =
+    Element.rgba r g b a
+
+
+rgb r g b =
+    Element.rgb r g b

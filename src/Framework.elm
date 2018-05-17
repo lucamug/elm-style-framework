@@ -162,11 +162,11 @@ type alias Conf msg =
 {-| -}
 initConf : Conf msg
 initConf =
-    { gray3 = Color.rgba 0x33 0x33 0x33 0xFF
-    , gray9 = Color.rgba 0x99 0x99 0x99 0xFF
-    , grayB = Color.rgba 0xB6 0xB6 0xB6 0xFF
-    , grayD = Color.rgba 0xD1 0xD1 0xD1 0xFF
-    , grayF = Color.rgba 0xF7 0xF7 0xF7 0xFF
+    { gray3 = Element.rgb 0x33 0x33 0x33
+    , gray9 = Element.rgb 0x99 0x99 0x99
+    , grayB = Element.rgb 0xB6 0xB6 0xB6
+    , grayD = Element.rgb 0xD1 0xD1 0xD1
+    , grayF = Element.rgb 0xF7 0xF7 0xF7
     , title =
         column []
             [ link []
@@ -191,7 +191,9 @@ initConf =
         Element.inFront <|
             link
                 [ alignRight
-                , Font.color <| Framework.Color.primary
+
+                --, Font.color <| Framework.Color.primary
+                , Font.color <| Color.black
                 ]
                 { label = image [ width <| px 60, alpha 0.5 ] { src = "images/github.png", description = "Fork me on Github" }
                 , url = "https://github.com/lucamug/elm-style-framework"
@@ -520,7 +522,9 @@ view model =
                 , conf.font.typefaceFallback
                 ]
             , Font.size 16
-            , Font.color <| model.conf.gray3
+
+            -- , Font.color <| model.conf.gray3
+            , Font.color Color.black
             , Background.color Color.white
             , model.conf.forkMe
             ]
@@ -593,7 +597,9 @@ viewMenuColumn : Model -> Element Msg
 viewMenuColumn model =
     column
         [ Background.color <| model.conf.gray3
-        , Font.color <| model.conf.grayB
+
+        -- , Font.color <| model.conf.grayB
+        , Font.color Color.black
         , width fill
         , height shrink
         , spacing 30
@@ -605,7 +611,9 @@ viewMenuColumn model =
             , row
                 [ spacing 10
                 , Font.size 14
-                , Font.color <| model.conf.gray9
+
+                -- , Font.color <| model.conf.gray9
+                , Font.color Color.black
                 , paddingXY 0 20
                 ]
                 [ el [ pointer, Events.onClick MsgOpenAllSections ] <| text "Expand All"
@@ -706,7 +714,8 @@ viewLogo title subTitle version =
 viewIntrospectionForMenu : Conf msg -> Introspection -> Bool -> Element Msg
 viewIntrospectionForMenu configuration introspection open =
     column
-        [ Font.color <| configuration.gray9
+        [ -- Font.color <| configuration.gray9
+          Font.color Color.black
         ]
         [ el
             [ pointer
@@ -738,7 +747,9 @@ viewIntrospectionForMenu configuration introspection open =
             ([ clip
              , height shrink
              , Font.size 16
-             , Font.color <| configuration.grayD
+
+             --, Font.color <| configuration.grayD
+             , Font.color Color.black
              , spacing 12
              , paddingEach { bottom = 0, left = 26, right = 0, top = 12 }
              ]
@@ -906,7 +917,9 @@ sourceCodeWrapper configuration sourceCode =
     <|
         el
             [ Font.family [ Font.monospace ]
-            , Font.color <| configuration.gray9
+
+            --, Font.color <| configuration.gray9
+            , Font.color Color.black
             , Font.size 16
             , padding 16
             , htmlAttribute <| Html.Attributes.style "white-space" "pre"
