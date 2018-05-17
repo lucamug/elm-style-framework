@@ -1,6 +1,6 @@
 module Framework.Card exposing (Model, Msg, example1, flipping, initModel, introspection, simple, simpleWithTitle, update)
 
-{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
+{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Cards/Flipping)
 
 Wrapper for content
 
@@ -198,41 +198,38 @@ flipping data =
 
                    -- Chrome has a bug during flipping from back to Front
                    -- maybe this could be used as hint? https://stackoverflow.com/questions/34062061/css-flip-card-bug-in-chrome
-                   , style "backface-visibility" "hidden"
-                   , style "position" "absolute"
                    ]
+                ++ stylexxx "backface-visibility" "hidden"
+                ++ stylexxx "position" "absolute"
     in
     column
-        [ -- width 500 -> 2000px
-          style "perspective" "1500px"
-        , alignTop
-        ]
+        (-- width 500 -> 2000px
+         alignTop :: stylexxx "perspective" "1500px"
+        )
         [ html <| Html.node "style" [] [ Html.text "alignbottom, alignright {pointer-events:none}" ]
         , row
-            [ width <| x
-            , height <| y
-            , style "transition" "all 0.7s cubic-bezier(0.365, 1.440, 0.430, 0.965)"
-            , style "transform-style" "preserve-3d"
-            , if data.activeFront then
-                style "transform" "rotateY(0deg)"
-              else
-                style "transform" "rotateY(180deg)"
-            ]
+            ([ width <| x
+             , height <| y
+             ]
+                ++ stylexxx "transition" "all 0.7s cubic-bezier(0.365, 1.440, 0.430, 0.965)"
+                ++ stylexxx "transform-style" "preserve-3d"
+                ++ (if data.activeFront then
+                        stylexxx "transform" "rotateY(0deg)"
+                    else
+                        stylexxx "transform" "rotateY(180deg)"
+                   )
+            )
             [ -- The  "alignbottom {pointer-events:none}" is needed otherwise the right half
               -- is covered by alignbottom
               el
                 (commonAttr
-                    ++ [ style "transform" "rotateY(0deg)"
-                       , style "z-index" "2"
-                       ]
+                    ++ stylexxx "transform" "rotateY(0deg)"
+                    ++ stylexxx "z-index" "2"
                 )
               <|
                 data.front
             , el
-                (commonAttr
-                    ++ [ style "transform" "rotateY(180deg)"
-                       ]
-                )
+                (commonAttr ++ stylexxx "transform" "rotateY(180deg)")
               <|
                 data.back
             ]
@@ -240,8 +237,8 @@ flipping data =
 
 
 {-| -}
-style : String -> String -> Attribute msg
-style key value =
+stylexxx : String -> String -> List (Attribute msg)
+stylexxx key value =
     if
         key
             == "backface-visibility"
@@ -254,13 +251,11 @@ style key value =
             || key
             == "transform"
     then
-        htmlAttribute <|
-            Html.Attributes.style
-                [ ( "-webkit-" ++ key, value )
-                , ( "-moz-" ++ key, value )
-                , ( "-ms-" ++ key, value )
-                , ( "-o-" ++ key, value )
-                , ( key, value )
-                ]
+        [ htmlAttribute <| Html.Attributes.style ("-webkit-" ++ key) value
+        , htmlAttribute <| Html.Attributes.style ("-moz-" ++ key) value
+        , htmlAttribute <| Html.Attributes.style ("-ms-" ++ key) value
+        , htmlAttribute <| Html.Attributes.style ("-o-" ++ key) value
+        , htmlAttribute <| Html.Attributes.style key value
+        ]
     else
-        htmlAttribute <| Html.Attributes.style [ ( key, value ) ]
+        [ htmlAttribute <| Html.Attributes.style key value ]

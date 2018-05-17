@@ -1,6 +1,6 @@
 module Framework.Modifier exposing (Modifier(..))
 
-{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
+{-|
 
 
 # Functions

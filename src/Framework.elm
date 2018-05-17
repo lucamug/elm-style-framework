@@ -1,6 +1,6 @@
 module Framework exposing (Conf, Flag, Introspection, Model, Msg(..), init, initCmd, initConf, initModel, introspections, main, subscriptions, update, view, viewPage)
 
-{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
+{-| [Demo](https://lucamug.github.io/elm-style-framework/)
 
 This simple package generates a page with Style Guides.
 It uses certain data structure that each section of the framework expose ([Example](https://lucamug.github.io/elm-styleguide-generator/), [Example source](https://github.com/lucamug/elm-styleguide-generator/blob/master/examples/Main.elm)).
@@ -99,7 +99,9 @@ For any issue or to get in touch with the authors, refer to the github page.
 -}
 
 --import Element.Input as Input
+--import Framework.FormFieldWithPattern as FormFieldWithPattern
 
+import Browser
 import Color
 import Element exposing (Attribute, Element, alignLeft, alignRight, alignTop, alpha, centerX, centerY, clip, clipX, column, el, fill, focusStyle, height, html, htmlAttribute, image, layoutWith, link, moveLeft, none, padding, paddingEach, paddingXY, paragraph, pointer, px, rotate, row, scrollbarY, scrollbars, shrink, spacing, text, width)
 import Element.Background as Background
@@ -112,7 +114,6 @@ import Framework.Card as Card
 import Framework.Color
 import Framework.Configuration exposing (conf)
 import Framework.FormField as FormField
-import Framework.FormFieldWithPattern as FormFieldWithPattern
 import Framework.Icon as Icon
 import Framework.Logo as Logo
 import Framework.Spinner as Spinner
@@ -122,9 +123,16 @@ import Framework.Typography as Typography
 import Html
 import Html.Attributes
 import Http
-import Navigation
-import UrlParser exposing ((</>))
-import Window
+import Json.Decode
+import Json.Decode.Pipeline
+import Url
+import Url.Parser exposing ((</>))
+
+
+
+-- 019 import Navigation
+-- 019 import Url.Parser exposing ((</>))
+-- 019 import Window
 
 
 debug : Bool
@@ -135,11 +143,11 @@ debug =
 {-| Configuration
 -}
 type alias Conf msg =
-    { gray3 : Color.Color
-    , gray9 : Color.Color
-    , grayB : Color.Color
-    , grayD : Color.Color
-    , grayF : Color.Color
+    { gray3 : Element.Color
+    , gray9 : Element.Color
+    , grayB : Element.Color
+    , grayD : Element.Color
+    , grayF : Element.Color
     , title : Element msg
     , subTitle : String
     , version : String
@@ -213,12 +221,12 @@ maybeSelected : Model -> Maybe ( Introspection, Variation )
 maybeSelected model =
     let
         ( slug1, slug2 ) =
-            case maybeRoute model.location of
-                Just route ->
-                    case route of
+            case fromUrl model.location of
+                Just tempRoute ->
+                    case tempRoute of
                         RouteSubPage slug3 slug4 ->
-                            ( Maybe.withDefault "" <| Http.decodeUri (slugToString slug3)
-                            , Maybe.withDefault "" <| Http.decodeUri (slugToString slug4)
+                            ( Maybe.withDefault "" <| Url.percentDecode (slugToString slug3)
+                            , Maybe.withDefault "" <| Url.percentDecode (slugToString slug4)
                             )
 
                         _ ->
@@ -235,39 +243,72 @@ maybeSelected model =
     in
     if introspection == emptyIntrospection || variation == emptyVariation then
         Nothing
+
     else
         Just ( introspection, variation )
 
 
+type alias WindowSize =
+    { width : Int, height : Int }
+
+
 {-| -}
 type alias Model =
-    { maybeWindowSize : Maybe Window.Size
+    { maybeWindowSize : Maybe WindowSize
     , modelStyleElementsInput : StyleElementsInput.Model
     , modelFormField : FormField.Model
-    , modelFormFieldWithPattern : FormFieldWithPattern.Model
+
+    --, modelFormFieldWithPattern : FormFieldWithPattern.Model
     , modelCards : Card.Model
     , introspections : List ( Introspection, Bool )
-    , location : Navigation.Location
-    , maybeWindowSize : Maybe Window.Size
+    , location : Url.Parser.Url
     , password : String
     , conf : Conf Msg
     }
 
 
+decodeFlag : Json.Decode.Decoder Flag
+decodeFlag =
+    Json.Decode.Pipeline.decode Flag
+        |> Json.Decode.Pipeline.required "width" Json.Decode.int
+        |> Json.Decode.Pipeline.required "height" Json.Decode.int
+
+
+decodeFlagFromJson : Json.Decode.Value -> Maybe Flag
+decodeFlagFromJson json =
+    let
+        decoded =
+            json
+                |> Json.Decode.decodeValue decodeFlag
+    in
+    case decoded of
+        Ok flag ->
+            Just flag
+
+        Err _ ->
+            Nothing
+
+
 {-| -}
-initModel : Flag -> Navigation.Location -> Model
-initModel flag location =
+initModel : Json.Decode.Value -> Url.Parser.Url -> Model
+initModel value location =
+    let
+        flag =
+            decodeFlagFromJson value
+    in
     { location = location
     , password = ""
     , modelStyleElementsInput = StyleElementsInput.initModel
     , modelFormField = FormField.initModel
-    , modelFormFieldWithPattern = FormFieldWithPattern.initModel
+
+    --, modelFormFieldWithPattern = FormFieldWithPattern.initModel
     , modelCards = Card.initModel
-    , maybeWindowSize = Just <| Window.Size flag.width flag.height
+    , maybeWindowSize = flag
     , conf = initConf
     , introspections =
         if debug then
             introspections
+
         else
             introspectionsForDebugging
     }
@@ -280,9 +321,9 @@ initCmd =
 
 
 {-| -}
-init : Flag -> Navigation.Location -> ( Model, Cmd Msg )
-init flag location =
-    ( initModel flag location
+init : Browser.Env Json.Decode.Value -> ( Model, Cmd Msg )
+init { url, flags } =
+    ( initModel flags url
     , initCmd
     )
 
@@ -300,7 +341,8 @@ introspections : List ( Introspection, Bool )
 introspections =
     [ ( Framework.Color.introspection, True )
     , ( FormField.introspection, True )
-    , ( FormFieldWithPattern.introspection, True )
+
+    --, ( FormFieldWithPattern.introspection, True )
     , ( Typography.introspection, True )
     , ( Card.introspection, True )
     , ( Button.introspection, True )
@@ -357,15 +399,16 @@ type alias SubSection =
 
 {-| -}
 type Msg
-    = MsgToggleSection String
+    = SetRoute (Maybe Route)
+    | MsgToggleSection String
     | MsgOpenAllSections
     | MsgCloseAllSections
-    | MsgChangeWindowSize Window.Size
+    | MsgChangeWindowSize WindowSize
     | MsgStyleElementsInput StyleElementsInput.Msg
     | MsgFormField FormField.Msg
-    | MsgFormFieldWithPattern FormFieldWithPattern.Msg
+      --| 019 MsgFormFieldWithPattern FormFieldWithPattern.Msg
     | MsgCards Card.Msg
-    | MsgChangeLocation Navigation.Location
+    | MsgChangeLocation Url.Parser.Url
     | MsgChangePassword String
 
 
@@ -373,6 +416,10 @@ type Msg
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        SetRoute _ ->
+            -- 019, not done yet
+            ( model, Cmd.none )
+
         MsgChangeLocation location ->
             ( { model | location = location }, Cmd.none )
 
@@ -381,30 +428,31 @@ update msg model =
 
         MsgOpenAllSections ->
             let
-                introspections =
+                intros =
                     List.map (\( data, _ ) -> ( data, True )) model.introspections
             in
-            ( { model | introspections = introspections }, Cmd.none )
+            ( { model | introspections = intros }, Cmd.none )
 
         MsgCloseAllSections ->
             let
-                introspections =
+                intros =
                     List.map (\( data, _ ) -> ( data, False )) model.introspections
             in
-            ( { model | introspections = introspections }, Cmd.none )
+            ( { model | introspections = intros }, Cmd.none )
 
         MsgToggleSection dataName ->
             let
                 toggle ( data, show ) =
                     if data.name == dataName then
                         ( data, not show )
+
                     else
                         ( data, show )
 
-                introspections =
+                intros =
                     List.map toggle model.introspections
             in
-            ( { model | introspections = introspections }, Cmd.none )
+            ( { model | introspections = intros }, Cmd.none )
 
         MsgChangeWindowSize windowSize ->
             ( { model | maybeWindowSize = Just windowSize }, Cmd.none )
@@ -423,13 +471,13 @@ update msg model =
             in
             ( { model | modelFormField = newModel }, Cmd.none )
 
-        MsgFormFieldWithPattern msg2 ->
-            let
-                ( newModel, _ ) =
-                    FormFieldWithPattern.update msg2 model.modelFormFieldWithPattern
-            in
-            ( { model | modelFormFieldWithPattern = newModel }, Cmd.none )
-
+        {- MsgFormFieldWithPattern msg2 ->
+           let
+               ( newModel, _ ) =
+                   FormFieldWithPattern.update msg2 model.modelFormFieldWithPattern
+           in
+           ( { model | modelFormFieldWithPattern = newModel }, Cmd.none )
+        -}
         MsgCards msg2 ->
             let
                 ( newModel, _ ) =
@@ -450,48 +498,36 @@ Example, in your Style Guide page:
             ]
 
 -}
-view : Model -> Html.Html Msg
+view : Model -> Browser.Page Msg
 view model =
-    layoutWith
-        { options =
-            [ focusStyle
-                { borderColor = Just <| Framework.Color.primary
-                , backgroundColor = Nothing
-                , shadow = Nothing
-                }
-            ]
-        }
-        [ Font.family
-            [ Font.external
-                { name = conf.font.typeface
-                , url = conf.font.url
-                }
-            , Font.typeface conf.font.typeface
-            , conf.font.typefaceFallback
-            ]
-        , Font.size 16
-        , Font.color <| model.conf.gray3
-        , Background.color Color.white
-        , model.conf.forkMe
-        ]
-    <|
-        if model.conf.hostnamesWithoutPassword model.location.hostname || model.password == model.conf.password || String.length model.conf.password == 0 then
-            viewPage model.maybeWindowSize model
-        else
-            column [ width fill, height fill ]
-                [ html (Html.node "style" [] [ Html.text """.elm-mini-controls {display: none;}""" ])
-                , Input.text
-                    [ width <| px 200
-                    , centerX
-                    , centerY
-                    , Border.color <| Framework.Color.grey_light
-                    ]
-                    { onChange = Just MsgChangePassword
-                    , text = model.password
-                    , placeholder = Nothing
-                    , label = Input.labelLeft [ Font.size 30 ] <| text "🔒"
+    { title = "ciao"
+    , body =
+        [ layoutWith
+            { options =
+                [ focusStyle
+                    { borderColor = Just <| Framework.Color.primary
+                    , backgroundColor = Nothing
+                    , shadow = Nothing
                     }
                 ]
+            }
+            [ Font.family
+                [ Font.external
+                    { name = conf.font.typeface
+                    , url = conf.font.url
+                    }
+                , Font.typeface conf.font.typeface
+                , conf.font.typefaceFallback
+                ]
+            , Font.size 16
+            , Font.color <| model.conf.gray3
+            , Background.color Color.white
+            , model.conf.forkMe
+            ]
+          <|
+            viewPage model.maybeWindowSize model
+        ]
+    }
 
 
 css : String
@@ -535,7 +571,7 @@ Example, in your Style Guide page:
                 ]
 
 -}
-viewPage : Maybe Window.Size -> Model -> Element Msg
+viewPage : Maybe WindowSize -> Model -> Element Msg
 viewPage maybeWindowSize model =
     row
         [ height <|
@@ -628,6 +664,7 @@ viewSomething model ( introspection, ( title, listSubSection ) ) =
                         [ text <| String.join "⇾" <| String.split "->" introspection.signature
                         ]
                     ]
+
                 else
                     []
                )
@@ -684,6 +721,7 @@ viewIntrospectionForMenu configuration introspection open =
                     , rotate
                         (if open then
                             pi / 2
+
                          else
                             0
                         )
@@ -706,6 +744,7 @@ viewIntrospectionForMenu configuration introspection open =
              ]
                 ++ (if open then
                         [ htmlAttribute <| Html.Attributes.class "elmStyleguideGenerator-open" ]
+
                     else
                         [ htmlAttribute <| Html.Attributes.class "elmStyleguideGenerator-close" ]
                    )
@@ -750,15 +789,18 @@ specialComponent model component =
     )
 
 
-specialComponentFormFieldWithPattern : Model -> (FormFieldWithPattern.Model -> ( Element FormFieldWithPattern.Msg, c )) -> ( Element Msg, c )
-specialComponentFormFieldWithPattern model component =
-    let
-        componentTuplet =
-            component model.modelFormFieldWithPattern
-    in
-    ( Element.map MsgFormFieldWithPattern (Tuple.first <| componentTuplet)
-    , Tuple.second <| componentTuplet
-    )
+
+{-
+   specialComponentFormFieldWithPattern : Model -> (FormFieldWithPattern.Model -> ( Element FormFieldWithPattern.Msg, c )) -> ( Element Msg, c )
+   specialComponentFormFieldWithPattern model component =
+       let
+           componentTuplet =
+               component model.modelFormFieldWithPattern
+       in
+       ( Element.map MsgFormFieldWithPattern (Tuple.first <| componentTuplet)
+       , Tuple.second <| componentTuplet
+       )
+-}
 
 
 specialComponentFormField : Model -> (FormField.Model -> ( Element FormField.Msg, c )) -> ( Element Msg, c )
@@ -789,40 +831,56 @@ viewSubSection model ( componentExample, componentExampleSourceCode ) =
         ( componentExampleToDisplay, componentExampleSourceCodeToDisplay ) =
             if componentExample == text "special: Form.example1" then
                 specialComponentFormField model FormField.example1
-            else if componentExample == text "special: FormFieldWithPattern.example1" then
-                specialComponentFormFieldWithPattern model FormFieldWithPattern.example1
-            else if componentExample == text "special: FormFieldWithPattern.example2" then
-                specialComponentFormFieldWithPattern model FormFieldWithPattern.example2
-            else if componentExample == text "special: FormFieldWithPattern.example3" then
-                specialComponentFormFieldWithPattern model FormFieldWithPattern.example3
+                {- else if componentExample == text "special: FormFieldWithPattern.example1" then
+                       specialComponentFormFieldWithPattern model FormFieldWithPattern.example1
+                   else if componentExample == text "special: FormFieldWithPattern.example2" then
+                       specialComponentFormFieldWithPattern model FormFieldWithPattern.example2
+                   else if componentExample == text "special: FormFieldWithPattern.example3" then
+                       specialComponentFormFieldWithPattern model FormFieldWithPattern.example3
+                -}
+
             else if componentExample == text "special: Cards.example1" then
                 specialComponentCards model Card.example1
+
             else if componentExample == text "special: example0" then
                 specialComponent model StyleElementsInput.example0
+
             else if componentExample == text "special: example1" then
                 specialComponent model StyleElementsInput.example1
+
             else if componentExample == text "special: example2" then
                 specialComponent model StyleElementsInput.example2
+
             else if componentExample == text "special: example3" then
                 specialComponent model StyleElementsInput.example3
+
             else if componentExample == text "special: example4" then
                 specialComponent model StyleElementsInput.example4
+
             else if componentExample == text "special: example5" then
                 specialComponent model StyleElementsInput.example5
+
             else if componentExample == text "special: example6" then
                 specialComponent model StyleElementsInput.example6
+
             else if componentExample == text "special: example7" then
                 specialComponent model StyleElementsInput.example7
+
             else if componentExample == text "special: example8" then
                 specialComponent model StyleElementsInput.example8
+
             else if componentExample == text "special: example9" then
                 specialComponent model StyleElementsInput.example9
+
             else if componentExample == text "special: example9" then
                 specialComponent model StyleElementsInput.example9
+
             else if componentExample == text "special: example10" then
                 specialComponent model StyleElementsInput.example10
+
             else if componentExample == text "special: example11" then
                 specialComponent model StyleElementsInput.example11
+
             else
                 ( componentExample, componentExampleSourceCode )
     in
@@ -851,7 +909,7 @@ sourceCodeWrapper configuration sourceCode =
             , Font.color <| configuration.gray9
             , Font.size 16
             , padding 16
-            , htmlAttribute <| Html.Attributes.style [ ( "white-space", "pre" ) ]
+            , htmlAttribute <| Html.Attributes.style "white-space" "pre"
             ]
         <|
             text sourceCode
@@ -885,7 +943,7 @@ introspectionExample id =
 subscriptions : Model -> Sub Msg
 subscriptions _ =
     Sub.batch
-        [ Window.resizes MsgChangeWindowSize
+        [-- 019 Window.resizes MsgChangeWindowSize
         ]
 
 
@@ -896,22 +954,28 @@ subscriptions _ =
        -> { init : flags -> Location -> (model, Cmd msg), update : msg -> model -> (model, Cmd msg), view : model -> Html msg, subscriptions : model -> Sub msg }
        -> Program flags model msg
 -}
--- maybeRoute : Navigation.Location -> Maybe Route
+-- fromUrl : Url.Parser.Url -> Maybe Route
 
 
 {-| -}
-main : Program Flag Model Msg
+main : Program Json.Decode.Value Model Msg
 main =
-    Navigation.programWithFlags MsgChangeLocation
+    Browser.fullscreen
         { init = init
-        , view = view
-        , update = update
+        , onNavigation = Just onNavigation
         , subscriptions = subscriptions
+        , update = update
+        , view = view
         }
 
 
 
 -- ROUTING
+
+
+onNavigation : Url.Parser.Url -> Msg
+onNavigation url =
+    SetRoute (fromUrl url)
 
 
 type Route
@@ -924,11 +988,11 @@ rootRoute =
     "framework"
 
 
-route : UrlParser.Parser (Route -> a) a
+route : Url.Parser.Parser (Route -> a) a
 route =
-    UrlParser.oneOf
-        [ UrlParser.map RouteHome (UrlParser.s rootRoute)
-        , UrlParser.map RouteSubPage (UrlParser.s rootRoute </> stateParser </> stateParser)
+    Url.Parser.oneOf
+        [ Url.Parser.map RouteHome (Url.Parser.s rootRoute)
+        , Url.Parser.map RouteSubPage (Url.Parser.s rootRoute </> stateParser </> stateParser)
         ]
 
 
@@ -941,9 +1005,9 @@ slugToString (Slug slug) =
     slug
 
 
-stateParser : UrlParser.Parser (Slug -> a) a
+stateParser : Url.Parser.Parser (Slug -> a) a
 stateParser =
-    UrlParser.custom "SLUG" (Ok << Slug)
+    Url.Parser.custom "SLUG" (Just << Slug)
 
 
 routeRoot : String
@@ -965,9 +1029,28 @@ routeToString page =
     routeRoot ++ String.join "/" pieces
 
 
-maybeRoute : Navigation.Location -> Maybe Route
-maybeRoute location =
-    if String.isEmpty location.hash then
-        Just RouteHome
-    else
-        UrlParser.parseHash route location
+fromUrl : Url.Parser.Url -> Maybe Route
+fromUrl url =
+    {-
+       if String.isEmpty location.hash then
+           Just RouteHome
+
+       else
+           UrlParser.parseHash route location
+    -}
+    case url.fragment of
+        Nothing ->
+            Just RouteHome
+
+        Just fragment ->
+            fragmentToRoute fragment
+
+
+fragmentToRoute : String -> Maybe Route
+fragmentToRoute fragment =
+    case Url.Parser.toUrl fragment of
+        Nothing ->
+            Nothing
+
+        Just segments ->
+            Url.Parser.parse route segments

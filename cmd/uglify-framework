@@ -1,0 +1,3 @@
+#!/bin/bash
+# ./elm make src/Framework.elm --output docs/build/019-framework.js --optimize
+uglifyjs --output docs/build/framework-min.js docs/build/framework.js --mangle --toplevel --compress

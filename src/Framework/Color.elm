@@ -50,7 +50,7 @@ module Framework.Color
         , yellow
         )
 
-{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
+{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Colors/Gray%20Scale)
 
 
 # Functions
@@ -59,7 +59,8 @@ module Framework.Color
 
 -}
 
-import Color
+-- import Color
+
 import Element exposing (Element, column)
 import Element.Background
 import Element.Border
@@ -78,7 +79,7 @@ introspection :
 introspection =
     { name = "Colors"
     , description = ""
-    , signature = "Color.Color"
+    , signature = "Element.Color"
     , variations =
         [ ( "Colors"
           , [ ( usageWrapper <| orange, "orange" )
@@ -155,7 +156,7 @@ introspection =
 
 
 {-| -}
-usageWrapper : Color.Color -> Element.Element msg
+usageWrapper : Element.Color -> Element.Element msg
 usageWrapper cl =
     Element.el
         [ Element.Background.color cl
@@ -172,282 +173,282 @@ usageWrapper cl =
 
 
 {-| -}
-background : Color.Color
+background : Element.Color
 background =
     conf.color.background
 
 
 {-| -}
-black : Color.Color
+black : Element.Color
 black =
     conf.color.black
 
 
 {-| -}
-black_bis : Color.Color
+black_bis : Element.Color
 black_bis =
     conf.color.black_bis
 
 
 {-| -}
-black_ter : Color.Color
+black_ter : Element.Color
 black_ter =
     conf.color.black_ter
 
 
 {-| -}
-blue : Color.Color
+blue : Element.Color
 blue =
     conf.color.blue
 
 
 {-| -}
-border : Color.Color
+border : Element.Color
 border =
     conf.color.border
 
 
 {-| -}
-border_hover : Color.Color
+border_hover : Element.Color
 border_hover =
     conf.color.border_hover
 
 
 {-| -}
-code : Color.Color
+code : Element.Color
 code =
     conf.color.code
 
 
 {-| -}
-code_background : Color.Color
+code_background : Element.Color
 code_background =
     conf.color.code_background
 
 
 {-| -}
-cyan : Color.Color
+cyan : Element.Color
 cyan =
     conf.color.cyan
 
 
 {-| -}
-danger : Color.Color
+danger : Element.Color
 danger =
     conf.color.danger
 
 
 {-| -}
-dark : Color.Color
+dark : Element.Color
 dark =
     conf.color.dark
 
 
 {-| -}
-green : Color.Color
+green : Element.Color
 green =
     conf.color.green
 
 
 {-| -}
-grey : Color.Color
+grey : Element.Color
 grey =
     conf.color.grey
 
 
 {-| -}
-grey_dark : Color.Color
+grey_dark : Element.Color
 grey_dark =
     conf.color.grey_dark
 
 
 {-| -}
-grey_darker : Color.Color
+grey_darker : Element.Color
 grey_darker =
     conf.color.grey_darker
 
 
 {-| -}
-grey_light : Color.Color
+grey_light : Element.Color
 grey_light =
     conf.color.grey_light
 
 
 {-| -}
-grey_lighter : Color.Color
+grey_lighter : Element.Color
 grey_lighter =
     conf.color.grey_lighter
 
 
 {-| -}
-info : Color.Color
+info : Element.Color
 info =
     conf.color.info
 
 
 {-| -}
-light : Color.Color
+light : Element.Color
 light =
     conf.color.light
 
 
 {-| -}
-link : Color.Color
+link : Element.Color
 link =
     conf.color.link
 
 
 {-| -}
-link_active : Color.Color
+link_active : Element.Color
 link_active =
     conf.color.link_active
 
 
 {-| -}
-link_active_border : Color.Color
+link_active_border : Element.Color
 link_active_border =
     conf.color.link_active_border
 
 
 {-| -}
-link_focus : Color.Color
+link_focus : Element.Color
 link_focus =
     conf.color.link_focus
 
 
 {-| -}
-link_focus_border : Color.Color
+link_focus_border : Element.Color
 link_focus_border =
     conf.color.link_focus_border
 
 
 {-| -}
-link_hover : Color.Color
+link_hover : Element.Color
 link_hover =
     conf.color.link_hover
 
 
 {-| -}
-link_hover_border : Color.Color
+link_hover_border : Element.Color
 link_hover_border =
     conf.color.link_hover_border
 
 
 {-| -}
-link_invert : Color.Color
+link_invert : Element.Color
 link_invert =
     conf.color.link_invert
 
 
 {-| -}
-link_visited : Color.Color
+link_visited : Element.Color
 link_visited =
     conf.color.link_visited
 
 
 {-| -}
-muted : Color.Color
+muted : Element.Color
 muted =
     conf.color.muted
 
 
 {-| -}
-orange : Color.Color
+orange : Element.Color
 orange =
     conf.color.orange
 
 
 {-| -}
-pre : Color.Color
+pre : Element.Color
 pre =
     conf.color.pre
 
 
 {-| -}
-pre_background : Color.Color
+pre_background : Element.Color
 pre_background =
     conf.color.pre_background
 
 
 {-| -}
-primary : Color.Color
+primary : Element.Color
 primary =
     conf.color.primary
 
 
 {-| -}
-purple : Color.Color
+purple : Element.Color
 purple =
     conf.color.purple
 
 
 {-| -}
-red : Color.Color
+red : Element.Color
 red =
     conf.color.red
 
 
 {-| -}
-success : Color.Color
+success : Element.Color
 success =
     conf.color.success
 
 
 {-| -}
-text : Color.Color
+text : Element.Color
 text =
     conf.color.text
 
 
 {-| -}
-text_light : Color.Color
+text_light : Element.Color
 text_light =
     conf.color.text_light
 
 
 {-| -}
-text_strong : Color.Color
+text_strong : Element.Color
 text_strong =
     conf.color.text_strong
 
 
 {-| -}
-transparent : Color.Color
+transparent : Element.Color
 transparent =
     conf.color.transparent
 
 
 {-| -}
-turquoise : Color.Color
+turquoise : Element.Color
 turquoise =
     conf.color.turquoise
 
 
 {-| -}
-warning : Color.Color
+warning : Element.Color
 warning =
     conf.color.warning
 
 
 {-| -}
-white : Color.Color
+white : Element.Color
 white =
     conf.color.white
 
 
 {-| -}
-white_bis : Color.Color
+white_bis : Element.Color
 white_bis =
     conf.color.white_bis
 
 
 {-| -}
-white_ter : Color.Color
+white_ter : Element.Color
 white_ter =
     conf.color.white_ter
 
 
 {-| -}
-yellow : Color.Color
+yellow : Element.Color
 yellow =
     conf.color.yellow

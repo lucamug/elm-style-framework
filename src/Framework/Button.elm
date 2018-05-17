@@ -1,6 +1,6 @@
 module Framework.Button exposing (button, buttonAttr, buttonLink, buttonLinkWidth, buttonWidth, introspection)
 
-{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
+{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Buttons/States)
 
 
 # Functions
@@ -9,7 +9,8 @@ module Framework.Button exposing (button, buttonAttr, buttonLink, buttonLinkWidt
 
 -}
 
-import Color
+--import Color
+
 import Element exposing (Attribute, Element, centerX, centerY, column, el, htmlAttribute, inFront, link, mouseOver, paddingXY, row, spacing, text)
 import Element.Background as Background
 import Element.Border as Border
@@ -140,7 +141,7 @@ type State
 
 
 type alias Conf =
-    { color : Color.Color
+    { color : Element.Color
     , size : Size
     , state : State
     }
@@ -248,9 +249,9 @@ button modifiers onPress label =
 
 
 extraAttrForButtonWidth : Int -> List (Attribute msg)
-extraAttrForButtonWidth buttonWidth =
-    [ Element.htmlAttribute (Html.Attributes.style [ ( "width", "100%" ) ])
-    , Element.htmlAttribute (Html.Attributes.style [ ( "max-width", toString buttonWidth ++ "px" ) ])
+extraAttrForButtonWidth buttonX =
+    [ Element.htmlAttribute (Html.Attributes.style "width" "100%")
+    , Element.htmlAttribute (Html.Attributes.style "max-width" (String.fromInt buttonX ++ "px"))
     , Font.center
     , centerX
     ]
@@ -258,10 +259,10 @@ extraAttrForButtonWidth buttonWidth =
 
 {-| -}
 buttonWidth : List Modifier -> Maybe msg -> String -> Int -> Element msg
-buttonWidth modifiers onPress label buttonWidth =
+buttonWidth modifiers onPress label buttonX =
     Input.button
         (buttonAttr modifiers
-            ++ extraAttrForButtonWidth buttonWidth
+            ++ extraAttrForButtonWidth buttonX
         )
         { onPress = onPress
         , label = text label
@@ -280,22 +281,22 @@ buttonLink modifiers url label =
 
 {-| -}
 buttonLinkWidth : List Modifier -> String -> String -> Int -> Element msg
-buttonLinkWidth modifiers url label buttonWidth =
+buttonLinkWidth modifiers url label buttonX =
     link
         (buttonAttr modifiers
-            ++ extraAttrForButtonWidth buttonWidth
+            ++ extraAttrForButtonWidth buttonX
         )
         { url = url
         , label = text label
         }
 
 
-colorDefault : Color.Color
+colorDefault : Element.Color
 colorDefault =
     Framework.Color.white
 
 
-colorBorderDefault : Color.Color
+colorBorderDefault : Element.Color
 colorBorderDefault =
     Framework.Color.grey_lighter
 
@@ -448,8 +449,7 @@ buttonAttr modifiers =
     , Border.color borderColor
     ]
         ++ (if confButton.state == StateDisabled then
-                [ htmlAttribute <| Html.Attributes.style [ ( "cursor", "not-allowed" ) ]
-                ]
+                [ htmlAttribute <| Html.Attributes.style "cursor" "not-allowed" ]
             else
                 [ mouseOver
                     [ Font.color fontMouseOverColor

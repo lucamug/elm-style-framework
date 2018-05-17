@@ -1,8 +1,6 @@
 module Framework.Configuration exposing (conf)
 
-{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
-
-List of values that you can change to costumize the aspect of the framwork
+{-| List of values that you can change to costumize the aspect of the framwork
 
 This list is inspired by Bulma framework: <https://bulma.io/documentation/overview/variables/>
 
@@ -13,9 +11,11 @@ This list is inspired by Bulma framework: <https://bulma.io/documentation/overvi
 
 -}
 
-import Color
-import ColorMath.Hex8
+-- 019 import ColorMath.Hex8
+-- import Color
+
 import Dict
+import Element
 import Element.Font as Font
 import MyStyle
 
@@ -23,53 +23,53 @@ import MyStyle
 {-| -}
 conf :
     { color :
-        { background : Color.Color
-        , black : Color.Color
-        , black_bis : Color.Color
-        , black_ter : Color.Color
-        , blue : Color.Color
-        , border : Color.Color
-        , border_hover : Color.Color
-        , code : Color.Color
-        , code_background : Color.Color
-        , cyan : Color.Color
-        , danger : Color.Color
-        , dark : Color.Color
-        , green : Color.Color
-        , grey : Color.Color
-        , grey_dark : Color.Color
-        , grey_darker : Color.Color
-        , grey_light : Color.Color
-        , grey_lighter : Color.Color
-        , info : Color.Color
-        , light : Color.Color
-        , link : Color.Color
-        , link_active : Color.Color
-        , link_active_border : Color.Color
-        , link_focus : Color.Color
-        , link_focus_border : Color.Color
-        , link_hover : Color.Color
-        , link_hover_border : Color.Color
-        , link_invert : Color.Color
-        , link_visited : Color.Color
-        , muted : Color.Color
-        , orange : Color.Color
-        , pre : Color.Color
-        , pre_background : Color.Color
-        , primary : Color.Color
-        , purple : Color.Color
-        , red : Color.Color
-        , success : Color.Color
-        , text : Color.Color
-        , text_light : Color.Color
-        , text_strong : Color.Color
-        , transparent : Color.Color
-        , turquoise : Color.Color
-        , warning : Color.Color
-        , white : Color.Color
-        , white_bis : Color.Color
-        , white_ter : Color.Color
-        , yellow : Color.Color
+        { background : Element.Color
+        , black : Element.Color
+        , black_bis : Element.Color
+        , black_ter : Element.Color
+        , blue : Element.Color
+        , border : Element.Color
+        , border_hover : Element.Color
+        , code : Element.Color
+        , code_background : Element.Color
+        , cyan : Element.Color
+        , danger : Element.Color
+        , dark : Element.Color
+        , green : Element.Color
+        , grey : Element.Color
+        , grey_dark : Element.Color
+        , grey_darker : Element.Color
+        , grey_light : Element.Color
+        , grey_lighter : Element.Color
+        , info : Element.Color
+        , light : Element.Color
+        , link : Element.Color
+        , link_active : Element.Color
+        , link_active_border : Element.Color
+        , link_focus : Element.Color
+        , link_focus_border : Element.Color
+        , link_hover : Element.Color
+        , link_hover_border : Element.Color
+        , link_invert : Element.Color
+        , link_visited : Element.Color
+        , muted : Element.Color
+        , orange : Element.Color
+        , pre : Element.Color
+        , pre_background : Element.Color
+        , primary : Element.Color
+        , purple : Element.Color
+        , red : Element.Color
+        , success : Element.Color
+        , text : Element.Color
+        , text_light : Element.Color
+        , text_strong : Element.Color
+        , transparent : Element.Color
+        , turquoise : Element.Color
+        , warning : Element.Color
+        , white : Element.Color
+        , white_bis : Element.Color
+        , white_ter : Element.Color
+        , yellow : Element.Color
         }
     , font : { typeface : String, typefaceFallback : Font.Font, url : String }
     , moveDownPlaceHolder : { large : Float, small : Float }
@@ -228,10 +228,10 @@ getString key =
 getFloat : String -> Float
 getFloat key =
     case String.toFloat <| getString key of
-        Ok value2 ->
+        Just value2 ->
             value2
 
-        Err _ ->
+        Nothing ->
             0
 
 
@@ -248,7 +248,7 @@ getInt key =
 -}
 
 
-hexToColor : String -> Color.Color
+hexToColor : String -> Element.Color
 hexToColor hex =
     let
         newHex =
@@ -259,15 +259,19 @@ hexToColor hex =
             else
                 hex
     in
-    case ColorMath.Hex8.toColor <| newHex of
-        Ok value ->
-            value
+    {- 019
+       case ColorMath.Hex8.toColor <| newHex of
+           Ok value ->
+               value
 
-        Err _ ->
-            Color.rgb 0x00 0x00 0x00
+           Err _ ->
+               Color.rgb 0x00 0x00 0x00
+       -
+    -}
+    Element.rgb 0x00 0x00 0x00
 
 
-getColor : String -> Color.Color
+getColor : String -> Element.Color
 getColor key =
     hexToColor <| getString key
 
@@ -298,10 +302,12 @@ getValue key original replacement =
                     Nothing
 
 
-hsl2ToString : Float -> Float -> Float -> String
-hsl2ToString a b c =
-    Color.hsl (degrees a) (b / 100) (c / 100)
-        |> ColorMath.Hex8.fromColor
+hsl2toString : Float -> Float -> Float -> String
+hsl2toString a b c =
+    -- 019
+    -- Color.hsl (degrees a) (b / 100) (c / 100)
+    -- |> ColorMath.Hex8.fromColor
+    "#000000"
 
 
 bulmaColor :
@@ -327,25 +333,25 @@ bulmaColor :
     }
 bulmaColor =
     { -- https://bulma.io/documentation/overview/variables/
-      black = hsl2ToString 0 0 4
-    , black_bis = hsl2ToString 0 0 7
-    , black_ter = hsl2ToString 0 0 14
-    , grey_darker = hsl2ToString 0 0 21
-    , grey_dark = hsl2ToString 0 0 29
-    , grey = hsl2ToString 0 0 48
-    , grey_light = hsl2ToString 0 0 71
-    , grey_lighter = hsl2ToString 0 0 86
-    , white_ter = hsl2ToString 0 0 96
-    , white_bis = hsl2ToString 0 0 98
-    , white = hsl2ToString 0 0 100
-    , orange = hsl2ToString 14 100 53
-    , yellow = hsl2ToString 48 100 67
-    , green = hsl2ToString 141 71 48
-    , turquoise = hsl2ToString 171 100 41
-    , cyan = hsl2ToString 204 86 53
-    , blue = hsl2ToString 217 71 53
-    , purple = hsl2ToString 271 100 71
-    , red = hsl2ToString 348 100 61
+      black = hsl2toString 0 0 4
+    , black_bis = hsl2toString 0 0 7
+    , black_ter = hsl2toString 0 0 14
+    , grey_darker = hsl2toString 0 0 21
+    , grey_dark = hsl2toString 0 0 29
+    , grey = hsl2toString 0 0 48
+    , grey_light = hsl2toString 0 0 71
+    , grey_lighter = hsl2toString 0 0 86
+    , white_ter = hsl2toString 0 0 96
+    , white_bis = hsl2toString 0 0 98
+    , white = hsl2toString 0 0 100
+    , orange = hsl2toString 14 100 53
+    , yellow = hsl2toString 48 100 67
+    , green = hsl2toString 141 71 48
+    , turquoise = hsl2toString 171 100 41
+    , cyan = hsl2toString 204 86 53
+    , blue = hsl2toString 217 71 53
+    , purple = hsl2toString 271 100 71
+    , red = hsl2toString 348 100 61
     }
 
 
@@ -371,11 +377,14 @@ bulmaSizes =
 
 findColorInvert : String -> String
 findColorInvert color =
-    color
-        |> hexToColor
-        |> Color.complement
-        -- |> ColorMath.Scaling.rotateHue 0.5
-        |> ColorMath.Hex8.fromColor
+    {- 019
+       color
+           |> hexToColor
+           |> Color.complement
+           -- |> ColorMath.Scaling.rotateHue 0.5
+           |> ColorMath.Hex8.fromColor
+    -}
+    "#000000"
 
 
 configuration : Dict.Dict String String

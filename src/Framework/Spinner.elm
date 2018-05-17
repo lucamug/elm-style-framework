@@ -1,6 +1,6 @@
 module Framework.Spinner exposing (Spinner(..), introspection, spinner)
 
-{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
+{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Spinners/Spinners)
 
 
 # Functions
@@ -43,10 +43,10 @@ introspection =
     spinner ThreeCircles 32 Color.black
 
 -}
-spinner : Spinner -> Int -> Color.Color -> Element.Element msg
-spinner spinner size color =
+spinner : Spinner -> Int -> Element.Color -> Element.Element msg
+spinner sp size color =
     Element.html <|
-        case spinner of
+        case sp of
             ThreeCircles ->
                 spinnerThreeCirclesHtml size color
 
@@ -61,7 +61,7 @@ type Spinner
     | Rotation
 
 
-spinnerThreeCirclesHtml : Int -> Color.Color -> Html.Html msg
+spinnerThreeCirclesHtml : Int -> Element.Color -> Html.Html msg
 spinnerThreeCirclesHtml _ color =
     let
         colorString =
@@ -73,8 +73,8 @@ spinnerThreeCirclesHtml _ color =
     Svg.svg
         [ SA.viewBox "0 0 64 64"
         , SA.xmlSpace "http://www.w3.org/2000/svg"
-        , SA.width <| toString size
-        , SA.height <| toString size
+        , SA.width <| String.fromInt size
+        , SA.height <| String.fromInt size
         ]
         [ Svg.g
             []
@@ -115,7 +115,7 @@ spinnerThreeCirclesHtml _ color =
         ]
 
 
-spinnerRotationHtml : Int -> Color.Color -> Html.Html msg
+spinnerRotationHtml : Int -> Element.Color -> Html.Html msg
 spinnerRotationHtml size color =
     let
         colorString =
@@ -130,8 +130,8 @@ spinnerRotationHtml size color =
     Svg.svg
         [ SA.viewBox "0 0 38 38"
         , SA.xmlSpace "http://www.w3.org/2000/svg"
-        , SA.width <| toString size
-        , SA.height <| toString size
+        , SA.width <| String.fromInt size
+        , SA.height <| String.fromInt size
         ]
         [ Svg.defs []
             [ Svg.linearGradient

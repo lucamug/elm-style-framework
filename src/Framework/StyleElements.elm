@@ -1,6 +1,6 @@
 module Framework.StyleElements exposing (introspection)
 
-{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
+{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Style-Elements/Basic%20Elements)
 
 Style-elements (Alpha version) Examples
 

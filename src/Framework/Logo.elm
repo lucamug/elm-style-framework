@@ -1,6 +1,6 @@
 module Framework.Logo exposing (Color(..), Logo(..), LogoElmType(..), introspection, logo)
 
-{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
+{-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Logos/Logos)
 
 
 # Functions
@@ -45,9 +45,9 @@ introspection =
 {-| SVG Logo
 -}
 logo : Logo -> Int -> Element.Element msg
-logo logo size =
+logo lg size =
     Element.html <|
-        case logo of
+        case lg of
             LogoLucamug ->
                 logoLucamug size
 
@@ -141,8 +141,8 @@ elmLogo type_ height =
     Svg.svg
         [ SA.version "1"
         , SA.viewBox "0 0 323 323"
-        , SA.height <| toString height
-        , SA.width <| toString <| floor <| toFloat height * ratio
+        , SA.height <| String.fromInt height
+        , SA.width <| String.fromInt <| floor <| toFloat height * ratio
         ]
         [ p [ f c.c1, d "M162 153l70-70H92zm94 94l67 67V179z" ] []
         , p [ f c.c2, d "M9 0l70 70h153L162 0zm238 85l77 76-77 77-76-77z" ] []
@@ -155,8 +155,8 @@ logoLucamug : Int -> Html msg
 logoLucamug height =
     Svg.svg
         [ SA.viewBox "0 0 100 100"
-        , SA.height <| toString height
-        , SA.width <| toString <| floor <| toFloat height * 1
+        , SA.height <| String.fromInt height
+        , SA.width <| String.fromInt <| floor <| toFloat height * 1
         ]
         [ Svg.path [ SA.fill "none", SA.d "M0 0h100v100H0z" ] []
         , Svg.circle [ SA.cx "50", SA.cy "50", SA.r "50", SA.fill "tomato" ] []

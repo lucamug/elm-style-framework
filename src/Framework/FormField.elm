@@ -1,6 +1,6 @@
 module Framework.FormField exposing (Field(..), Model, Msg, example1, initModel, inputText, introspection, update)
 
-{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
+{-|
 
 
 # Functions
@@ -92,7 +92,7 @@ hasFocus model field =
 
 hackInLineStyle : String -> String -> Attribute msg
 hackInLineStyle text1 text2 =
-    Element.htmlAttribute (Html.Attributes.style [ ( text1, text2 ) ])
+    Element.htmlAttribute (Html.Attributes.style text1 text2)
 
 
 {-| -}
