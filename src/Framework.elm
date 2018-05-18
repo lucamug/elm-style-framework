@@ -129,7 +129,6 @@ import Url
 import Url.Parser exposing ((</>))
 
 
-
 -- 019 import Navigation
 -- 019 import Url.Parser exposing ((</>))
 -- 019 import Window
@@ -222,8 +221,11 @@ emptyVariation =
 maybeSelected : Model -> Maybe ( Introspection, Variation )
 maybeSelected model =
     let
+        _ =
+            urlToRoute model.url
+
         ( slug1, slug2 ) =
-            case fromUrl model.location of
+            case fromUrl model.url of
                 Just tempRoute ->
                     case tempRoute of
                         RouteSubPage slug3 slug4 ->
@@ -245,7 +247,6 @@ maybeSelected model =
     in
     if introspection == emptyIntrospection || variation == emptyVariation then
         Nothing
-
     else
         Just ( introspection, variation )
 
@@ -263,7 +264,7 @@ type alias Model =
     --, modelFormFieldWithPattern : FormFieldWithPattern.Model
     , modelCards : Card.Model
     , introspections : List ( Introspection, Bool )
-    , location : Url.Parser.Url
+    , url : Url.Parser.Url
     , password : String
     , conf : Conf Msg
     }
@@ -293,12 +294,12 @@ decodeFlagFromJson json =
 
 {-| -}
 initModel : Json.Decode.Value -> Url.Parser.Url -> Model
-initModel value location =
+initModel value url =
     let
         flag =
             decodeFlagFromJson value
     in
-    { location = location
+    { url = url
     , password = ""
     , modelStyleElementsInput = StyleElementsInput.initModel
     , modelFormField = FormField.initModel
@@ -310,7 +311,6 @@ initModel value location =
     , introspections =
         if debug then
             introspections
-
         else
             introspectionsForDebugging
     }
@@ -401,8 +401,7 @@ type alias SubSection =
 
 {-| -}
 type Msg
-    = SetRoute (Maybe Route)
-    | MsgToggleSection String
+    = MsgToggleSection String
     | MsgOpenAllSections
     | MsgCloseAllSections
     | MsgChangeWindowSize WindowSize
@@ -410,7 +409,7 @@ type Msg
     | MsgFormField FormField.Msg
       --| 019 MsgFormFieldWithPattern FormFieldWithPattern.Msg
     | MsgCards Card.Msg
-    | MsgChangeLocation Url.Parser.Url
+    | MsgChangeUrl Url.Parser.Url
     | MsgChangePassword String
 
 
@@ -418,12 +417,8 @@ type Msg
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        SetRoute _ ->
-            -- 019, not done yet
-            ( model, Cmd.none )
-
-        MsgChangeLocation location ->
-            ( { model | location = location }, Cmd.none )
+        MsgChangeUrl url ->
+            ( { model | url = url }, Cmd.none )
 
         MsgChangePassword password ->
             ( { model | password = password }, Cmd.none )
@@ -447,7 +442,6 @@ update msg model =
                 toggle ( data, show ) =
                     if data.name == dataName then
                         ( data, not show )
-
                     else
                         ( data, show )
 
@@ -672,7 +666,6 @@ viewSomething model ( introspection, ( title, listSubSection ) ) =
                         [ text <| String.join "⇾" <| String.split "->" introspection.signature
                         ]
                     ]
-
                 else
                     []
                )
@@ -730,7 +723,6 @@ viewIntrospectionForMenu configuration introspection open =
                     , rotate
                         (if open then
                             pi / 2
-
                          else
                             0
                         )
@@ -755,7 +747,6 @@ viewIntrospectionForMenu configuration introspection open =
              ]
                 ++ (if open then
                         [ htmlAttribute <| Html.Attributes.class "elmStyleguideGenerator-open" ]
-
                     else
                         [ htmlAttribute <| Html.Attributes.class "elmStyleguideGenerator-close" ]
                    )
@@ -849,49 +840,34 @@ viewSubSection model ( componentExample, componentExampleSourceCode ) =
                    else if componentExample == text "special: FormFieldWithPattern.example3" then
                        specialComponentFormFieldWithPattern model FormFieldWithPattern.example3
                 -}
-
             else if componentExample == text "special: Cards.example1" then
                 specialComponentCards model Card.example1
-
             else if componentExample == text "special: example0" then
                 specialComponent model StyleElementsInput.example0
-
             else if componentExample == text "special: example1" then
                 specialComponent model StyleElementsInput.example1
-
             else if componentExample == text "special: example2" then
                 specialComponent model StyleElementsInput.example2
-
             else if componentExample == text "special: example3" then
                 specialComponent model StyleElementsInput.example3
-
             else if componentExample == text "special: example4" then
                 specialComponent model StyleElementsInput.example4
-
             else if componentExample == text "special: example5" then
                 specialComponent model StyleElementsInput.example5
-
             else if componentExample == text "special: example6" then
                 specialComponent model StyleElementsInput.example6
-
             else if componentExample == text "special: example7" then
                 specialComponent model StyleElementsInput.example7
-
             else if componentExample == text "special: example8" then
                 specialComponent model StyleElementsInput.example8
-
             else if componentExample == text "special: example9" then
                 specialComponent model StyleElementsInput.example9
-
             else if componentExample == text "special: example9" then
                 specialComponent model StyleElementsInput.example9
-
             else if componentExample == text "special: example10" then
                 specialComponent model StyleElementsInput.example10
-
             else if componentExample == text "special: example11" then
                 specialComponent model StyleElementsInput.example11
-
             else
                 ( componentExample, componentExampleSourceCode )
     in
@@ -988,25 +964,13 @@ main =
 
 onNavigation : Url.Parser.Url -> Msg
 onNavigation url =
-    SetRoute (fromUrl url)
+    -- SetRoute (fromUrl url)
+    MsgChangeUrl url
 
 
 type Route
     = RouteHome
     | RouteSubPage Slug Slug
-
-
-rootRoute : String
-rootRoute =
-    "framework"
-
-
-route : Url.Parser.Parser (Route -> a) a
-route =
-    Url.Parser.oneOf
-        [ Url.Parser.map RouteHome (Url.Parser.s rootRoute)
-        , Url.Parser.map RouteSubPage (Url.Parser.s rootRoute </> stateParser </> stateParser)
-        ]
 
 
 type Slug
@@ -1018,8 +982,8 @@ slugToString (Slug slug) =
     slug
 
 
-stateParser : Url.Parser.Parser (Slug -> a) a
-stateParser =
+slugParser : Url.Parser.Parser (Slug -> a) a
+slugParser =
     Url.Parser.custom "SLUG" (Just << Slug)
 
 
@@ -1059,11 +1023,56 @@ fromUrl url =
             fragmentToRoute fragment
 
 
+type alias Docs =
+    { name : String
+    , value : Maybe String
+    }
+
+
+docs : Url.Parser.Parser (Docs -> a) a
+docs =
+    Url.Parser.map Docs (Url.Parser.string </> Url.Parser.fragment identity)
+
+
+route : Url.Parser.Parser (Docs -> a) a
+route =
+    Url.Parser.map Docs (Url.Parser.string </> Url.Parser.fragment identity)
+
+
+urlToRoute : Url.Parser.Url -> Route
+urlToRoute url =
+    let
+        _ =
+            url |> Debug.log "url"
+
+        _ =
+            Url.Parser.parse route url |> Debug.log "fragment parsed"
+    in
+    RouteHome
+
+
+routeOld : Url.Parser.Parser (Route -> a) a
+routeOld =
+    Url.Parser.oneOf
+        [ Url.Parser.map RouteHome (Url.Parser.s rootRoute)
+        , Url.Parser.map RouteSubPage (Url.Parser.s rootRoute </> slugParser </> slugParser)
+        ]
+
+
 fragmentToRoute : String -> Maybe Route
 fragmentToRoute fragment =
-    case Url.Parser.toUrl fragment of
-        Nothing ->
-            Nothing
+    let
+        test =
+            case Url.Parser.toUrl fragment of
+                Nothing ->
+                    Nothing
 
-        Just segments ->
-            Url.Parser.parse route segments
+                Just segments ->
+                    Url.Parser.parse route segments
+    in
+    Just RouteHome
+
+
+rootRoute : String
+rootRoute =
+    "framework"
