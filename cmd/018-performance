@@ -1,0 +1,2 @@
+#!/bin/bash
+rm -rf elm-stuff/build-artifacts ; time elm-make src/Framework.elm
