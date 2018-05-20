@@ -278,8 +278,8 @@ hexToColor hex =
 
 getColor : String -> Element.Color
 getColor key =
-    -- xxx hexToColor <| getString key
-    Element.rgb 255 255 0
+    -- 019 hexToColor <| getString key
+    Element.rgb 0.7 0.7 0.7
 
 
 getValue :

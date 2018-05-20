@@ -245,7 +245,7 @@ inputText model { field, pattern, label } =
             Input.text
                 ([ Events.onFocus <| OnFocus field
                  , Events.onLoseFocus <| OnLoseFocus field
-                 , Background.color <| Framework.Color.transparent
+                 , Background.color <| Element.rgba 0 0 0 0
                  , if largeSize then
                     Border.width 0
 
@@ -255,8 +255,6 @@ inputText model { field, pattern, label } =
                  , paddingXY 0 8
                  , width <| px 230
                  , hackInLineStyle "transition" "all 0.15s"
-
-                 --, hackInLineStyle "z-index" "10"
                  ]
                     ++ font
                     ++ (if hasFocus model field then
@@ -269,8 +267,6 @@ inputText model { field, pattern, label } =
                 { label =
                     Input.labelAbove
                         ([ hackInLineStyle "transition" "all 0.15s"
-
-                         --, hackInLineStyle "z-index" "10"
                          , hackInLineStyle "pointer-events" "none"
                          , Font.family [ Font.typeface conf.font.typeface, conf.font.typefaceFallback ]
                          , Font.size 16

@@ -492,12 +492,13 @@ Example, in your Style Guide page:
 -}
 view : Model -> Browser.Page Msg
 view model =
-    { title = "ciao"
+    { title = "0.19 - Elm Style Framework"
     , body =
         [ layoutWith
             { options =
                 [ focusStyle
-                    { borderColor = Just <| Framework.Color.primary
+                    { -- 019 borderColor = Just <| Framework.Color.primary
+                      borderColor = Just <| Element.rgb 0.9 0.2 0.2
                     , backgroundColor = Nothing
                     , shadow = Nothing
                     }
