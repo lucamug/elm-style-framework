@@ -1044,7 +1044,7 @@ urlToRoute : Url.Parser.Url -> Route
 urlToRoute url =
     let
         maybeRoute =
-            Url.Parser.parse routeParser (fragmentAsPath url) |> Debug.log "route"
+            Url.Parser.parse routeParser (fragmentAsPath url)
     in
     case maybeRoute of
         Nothing ->

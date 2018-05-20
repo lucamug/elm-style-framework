@@ -14535,7 +14535,6 @@ var author$project$Framework$routeParser = elm_lang$url$Url$Parser$oneOf(
 				elm_lang$url$Url$Parser$s(author$project$Framework$rootRoute),
 				A2(elm_lang$url$Url$Parser$slash, author$project$Framework$slugParser, author$project$Framework$slugParser)))
 		]));
-var elm_lang$core$Debug$log = _Debug_log;
 var elm_lang$url$Url$Parser$getFirstMatch = function (states) {
 	getFirstMatch:
 	while (true) {
@@ -14658,12 +14657,9 @@ var elm_lang$url$Url$Parser$parse = F2(
 	});
 var author$project$Framework$urlToRoute = function (url) {
 	var maybeRoute = A2(
-		elm_lang$core$Debug$log,
-		'route',
-		A2(
-			elm_lang$url$Url$Parser$parse,
-			author$project$Framework$routeParser,
-			author$project$Framework$fragmentAsPath(url)));
+		elm_lang$url$Url$Parser$parse,
+		author$project$Framework$routeParser,
+		author$project$Framework$fragmentAsPath(url));
 	if (maybeRoute.$ === 'Nothing') {
 		return author$project$Framework$RouteHome;
 	} else {
