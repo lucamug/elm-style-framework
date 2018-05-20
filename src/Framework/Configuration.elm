@@ -211,11 +211,14 @@ getTypeface key =
     in
     if value == "sans-serif" then
         Font.sansSerif
+
     else if value == "monospace" then
         Font.monospace
+
     else if value == "cursive" then
         -- Font.cursive (still not implemented)
         Font.serif
+
     else
         Font.serif
 
@@ -254,8 +257,10 @@ hexToColor hex =
         newHex =
             if String.length hex == 6 || String.length hex == 7 then
                 hex ++ "ff"
+
             else if String.length hex == 3 || String.length hex == 4 then
                 hex ++ "f"
+
             else
                 hex
     in
@@ -273,7 +278,8 @@ hexToColor hex =
 
 getColor : String -> Element.Color
 getColor key =
-    hexToColor <| getString key
+    -- xxx hexToColor <| getString key
+    Element.rgb 255 255 0
 
 
 getValue :
@@ -307,7 +313,7 @@ hsl2toString a b c =
     -- 019
     -- Color.hsl (degrees a) (b / 100) (c / 100)
     -- |> ColorMath.Hex8.fromColor
-    "#000000"
+    "#ff00ff"
 
 
 bulmaColor :

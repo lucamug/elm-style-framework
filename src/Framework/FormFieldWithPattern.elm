@@ -52,12 +52,12 @@ type Msg
 
 regexNotDigit : Regex.Regex
 regexNotDigit =
-    Regex.regex "[^0-9]"
+    Maybe.withDefault Regex.never (Regex.fromString "[^0-9]")
 
 
 regexNotDigitsAtTheEnd : Regex.Regex
 regexNotDigitsAtTheEnd =
-    Regex.regex "[^0-9]*$"
+    Maybe.withDefault Regex.never (Regex.fromString "[^0-9]*$")
 
 
 {-| -}
@@ -67,13 +67,13 @@ update msg model =
         Input field pattern value ->
             let
                 onlyDigits =
-                    Regex.replace Regex.All regexNotDigit (\_ -> "") value
+                    Regex.replace regexNotDigit (\_ -> "") value
 
                 withPattern =
                     result pattern onlyDigits
 
                 removeCharactedAtTheEndIfNotNumbers =
-                    Regex.replace Regex.All regexNotDigitsAtTheEnd (\_ -> "") withPattern
+                    Regex.replace regexNotDigitsAtTheEnd (\_ -> "") withPattern
             in
             ( case field of
                 FieldTelephone ->
@@ -125,7 +125,7 @@ hasFocus model field =
 
 hackInLineStyle : String -> String -> Attribute msg
 hackInLineStyle text1 text2 =
-    Element.htmlAttribute (Html.Attributes.style [ ( text1, text2 ) ])
+    Element.htmlAttribute (Html.Attributes.style text1 text2)
 
 
 {-| -}
@@ -196,12 +196,14 @@ inputText model { field, pattern, label } =
                     ]
                 , Font.size 54
                 ]
+
             else
                 []
 
         moveDownPlaceHolder =
             if largeSize then
                 conf.moveDownPlaceHolder.large
+
             else
                 conf.moveDownPlaceHolder.small
 
@@ -224,6 +226,7 @@ inputText model { field, pattern, label } =
             el
                 ([ if hasFocus model field && largeSize then
                     Font.color <| Framework.Color.primary
+
                    else
                     Font.color <| Framework.Color.grey_light
                  , moveDown moveDownPlaceHolder
@@ -235,6 +238,7 @@ inputText model { field, pattern, label } =
                 text <|
                     if labelIsAbove then
                         patternToShow
+
                     else
                         ""
         , inFront <|
@@ -244,6 +248,7 @@ inputText model { field, pattern, label } =
                  , Background.color <| Framework.Color.transparent
                  , if largeSize then
                     Border.width 0
+
                    else
                     Border.widthEach { bottom = 2, left = 0, right = 0, top = 0 }
                  , Border.rounded 0
@@ -256,6 +261,7 @@ inputText model { field, pattern, label } =
                     ++ font
                     ++ (if hasFocus model field then
                             [ Border.color <| Framework.Color.primary ]
+
                         else
                             []
                        )
@@ -271,6 +277,7 @@ inputText model { field, pattern, label } =
                          ]
                             ++ (if labelIsAbove then
                                     [ scale 0.9, moveLeft 14 ]
+
                                 else
                                     [ moveDown 33 ]
                                )
@@ -305,6 +312,7 @@ tokenize : Char -> Char -> Token
 tokenize inputChar pattern =
     if pattern == inputChar || pattern == '_' then
         InputValue
+
     else
         Other pattern
 
@@ -313,6 +321,7 @@ format : List Token -> String -> String
 format tokens input =
     if String.isEmpty input then
         input
+
     else
         append tokens (String.toList input) ""
 

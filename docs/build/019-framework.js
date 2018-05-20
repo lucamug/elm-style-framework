@@ -1857,7 +1857,7 @@ function _Platform_setupIncomingPort(name, sendToApp)
 
 	function send(incomingValue)
 	{
-		var result = A2(_Json_run, converter, _Json_wrap(incomingValue));
+		var result = A2(_Json_run, converter, incomingValue);
 
 		elm_lang$core$Result$isOk(result) || _Error_throw(4, name, result.a);
 
@@ -1934,8 +1934,8 @@ function _String_uncons(string)
 	return word
 		? elm_lang$core$Maybe$Just(
 			0xD800 <= word && word <= 0xDBFF
-				? _Utils_Tuple2(_Utils_chr(string[0] + string[1]), string.slice(2))
-				: _Utils_Tuple2(_Utils_chr(string[0]), string.slice(1))
+				? _Utils_Tuple2(string[0] + string[1], string.slice(2))
+				: _Utils_Tuple2(string[0], string.slice(1))
 		)
 		: elm_lang$core$Maybe$Nothing;
 }
@@ -3887,6 +3887,107 @@ var _Bitwise_shiftRightZfBy = F2(function(offset, a)
 });
 
 
+// CREATE
+
+var _Regex_never = /.^/;
+
+var _Regex_fromStringWith = F2(function(options, string)
+{
+	var flags = 'g';
+	if (options.multiline) { flags += 'm'; }
+	if (options.caseInsensitive) { flags += 'i'; }
+
+	try
+	{
+		return elm_lang$core$Maybe$Just(new RegExp(string, flags));
+	}
+	catch(error)
+	{
+		return elm_lang$core$Maybe$Nothing;
+	}
+});
+
+
+// USE
+
+var _Regex_contains = F2(function(re, string)
+{
+	return string.match(re) !== null;
+});
+
+
+var _Regex_findAtMost = F3(function(n, re, str)
+{
+	var out = [];
+	var number = 0;
+	var string = str;
+	var lastIndex = re.lastIndex;
+	var prevLastIndex = -1;
+	var result;
+	while (number++ < n && (result = re.exec(string)))
+	{
+		if (prevLastIndex == re.lastIndex) break;
+		var i = result.length - 1;
+		var subs = new Array(i);
+		while (i > 0)
+		{
+			var submatch = result[i];
+			subs[--i] = submatch
+				? elm_lang$core$Maybe$Just(submatch)
+				: elm_lang$core$Maybe$Nothing;
+		}
+		out.push(A4(elm_lang$regex$Regex$Match, result[0], result.index, number, _List_fromArray(subs)));
+		prevLastIndex = re.lastIndex;
+	}
+	re.lastIndex = lastIndex;
+	return _List_fromArray(out);
+});
+
+
+var _Regex_replaceAtMost = F4(function(n, re, replacer, string)
+{
+	var count = 0;
+	function jsReplacer(match)
+	{
+		if (count++ >= n)
+		{
+			return match;
+		}
+		var i = arguments.length - 3;
+		var submatches = new Array(i);
+		while (i > 0)
+		{
+			var submatch = arguments[i];
+			submatches[--i] = submatch
+				? elm_lang$core$Maybe$Just(submatch)
+				: elm_lang$core$Maybe$Nothing;
+		}
+		return replacer(A4(elm_lang$regex$Regex$Match, match, arguments[arguments.length - 2], count, _List_fromArray(submatches)));
+	}
+	return string.replace(re, jsReplacer);
+});
+
+var _Regex_splitAtMost = F3(function(n, re, str)
+{
+	var string = str;
+	var out = [];
+	var start = re.lastIndex;
+	var restoreLastIndex = re.lastIndex;
+	while (n--)
+	{
+		var result = re.exec(string);
+		if (!result) break;
+		out.push(string.slice(start, result.index));
+		start = re.lastIndex;
+	}
+	out.push(string.slice(start));
+	re.lastIndex = restoreLastIndex;
+	return _List_fromArray(out);
+});
+
+var _Regex_infinity = Infinity;
+
+
 function _Url_percentEncode(string)
 {
 	return encodeURIComponent(string);
@@ -4536,7 +4637,7 @@ var mdgriffith$stylish_elephants$Element$rgb = F3(
 	function (r, g, b) {
 		return A4(mdgriffith$stylish_elephants$Internal$Model$Rgba, r, g, b, 1);
 	});
-var author$project$Color$black = A3(mdgriffith$stylish_elephants$Element$rgb, 0, 0, 0);
+var author$project$Color$black = A3(mdgriffith$stylish_elephants$Element$rgb, 0.2, 0.2, 0.2);
 var author$project$Framework$Logo$ElmColor = function (a) {
 	return {$: 'ElmColor', a: a};
 };
@@ -10532,14 +10633,17 @@ var author$project$Framework$initConf = {
 						mdgriffith$stylish_elephants$Element$text('Style')
 					]))
 			])),
-	version: '7.0.0'
+	version: '0.19'
 };
 var author$project$Framework$Button$SizeDefault = {$: 'SizeDefault'};
 var author$project$Framework$Button$StateDefault = {$: 'StateDefault'};
 var author$project$Framework$Button$StateDisabled = {$: 'StateDisabled'};
+var author$project$Framework$Configuration$getColor = function (key) {
+	return A3(mdgriffith$stylish_elephants$Element$rgb, 255, 255, 0);
+};
 var author$project$Framework$Configuration$hsl2toString = F3(
 	function (a, b, c) {
-		return '#000000';
+		return '#ff00ff';
 	});
 var author$project$Framework$Configuration$bulmaColor = {
 	black: A3(author$project$Framework$Configuration$hsl2toString, 0, 0, 4),
@@ -10684,15 +10788,6 @@ var author$project$Framework$Configuration$getString = function (key) {
 		elm_lang$core$Maybe$withDefault,
 		'',
 		A3(author$project$Framework$Configuration$getValue, key, author$project$Framework$Configuration$configuration, author$project$MyStyle$configuration));
-};
-var elm_lang$core$String$length = _String_length;
-var author$project$Framework$Configuration$hexToColor = function (hex) {
-	var newHex = ((elm_lang$core$String$length(hex) === 6) || (elm_lang$core$String$length(hex) === 7)) ? (hex + 'ff') : (((elm_lang$core$String$length(hex) === 3) || (elm_lang$core$String$length(hex) === 4)) ? (hex + 'f') : hex);
-	return A3(mdgriffith$stylish_elephants$Element$rgb, 0, 0, 0);
-};
-var author$project$Framework$Configuration$getColor = function (key) {
-	return author$project$Framework$Configuration$hexToColor(
-		author$project$Framework$Configuration$getString(key));
 };
 var elm_lang$core$String$toFloat = _String_toFloat;
 var author$project$Framework$Configuration$getFloat = function (key) {
@@ -10915,10 +11010,10 @@ var author$project$Framework$Color$grey_dark = author$project$Framework$Configur
 var author$project$Framework$Color$transparent = author$project$Framework$Configuration$conf.color.transparent;
 var author$project$Color$hsl = F3(
 	function (_n0, _n1, _n2) {
-		return A3(mdgriffith$stylish_elephants$Element$rgb, 0, 0, 0);
+		return A3(mdgriffith$stylish_elephants$Element$rgb, 0, 1, 0);
 	});
 var author$project$Color$toHsl = function (_n0) {
-	return {alpha: 0, hue: 0, lightness: 0, saturation: 0};
+	return {alpha: 77, hue: 77, lightness: 77, saturation: 77};
 };
 var author$project$Framework$ColorManipulation$lighten = F2(
 	function (quantity, cl) {
@@ -10939,7 +11034,7 @@ var author$project$Framework$ColorManipulation$saturate = F2(
 var author$project$Framework$Spinner$Rotation = {$: 'Rotation'};
 var author$project$Framework$Spinner$ThreeCircles = {$: 'ThreeCircles'};
 var author$project$Color$toRgb = function (_n0) {
-	return {blue: 0, green: 0, red: 0};
+	return {blue: 0, green: 0, red: 1};
 };
 var elm_lang$core$Basics$modBy = _Basics_modBy;
 var elm_lang$core$Char$fromCode = _Char_fromCode;
@@ -10962,6 +11057,7 @@ var elm_lang$core$Basics$composeR = F3(
 		return g(
 			f(x));
 	});
+var elm_lang$core$String$length = _String_length;
 var elm_lang$core$Bitwise$and = _Bitwise_and;
 var elm_lang$core$Bitwise$shiftRightBy = _Bitwise_shiftRightBy;
 var elm_lang$core$String$repeatHelp = F3(
@@ -12563,7 +12659,7 @@ var author$project$Framework$ColorManipulation$colorToHsl2 = function (cl) {
 				author$project$Framework$ColorManipulation$norm100(alpha) / 100)
 			])) + ')');
 };
-var author$project$Color$white = A3(mdgriffith$stylish_elephants$Element$rgb, 255, 255, 255);
+var author$project$Color$white = A3(mdgriffith$stylish_elephants$Element$rgb, 1, 1, 1);
 var author$project$Framework$ColorManipulation$intensity = function (c) {
 	var rgb = author$project$Color$toRgb(c);
 	return ((rgb.red * 0.299) + (rgb.green * 0.587)) + (rgb.blue * 0.114);
@@ -12789,6 +12885,38 @@ var author$project$Framework$FormField$introspection = {
 				[
 					_Utils_Tuple2(
 					mdgriffith$stylish_elephants$Element$text('special: Form.example1'),
+					'')
+				]))
+		])
+};
+var author$project$Framework$FormFieldWithPattern$introspection = {
+	description: 'List of elements for Web Forms',
+	name: 'Fields With Patterns',
+	signature: '',
+	variations: _List_fromArray(
+		[
+			_Utils_Tuple2(
+			'Phone number USA',
+			_List_fromArray(
+				[
+					_Utils_Tuple2(
+					mdgriffith$stylish_elephants$Element$text('special: FormFieldWithPattern.example1'),
+					'')
+				])),
+			_Utils_Tuple2(
+			'Credit Card number',
+			_List_fromArray(
+				[
+					_Utils_Tuple2(
+					mdgriffith$stylish_elephants$Element$text('special: FormFieldWithPattern.example2'),
+					'')
+				])),
+			_Utils_Tuple2(
+			'4 Digit Code',
+			_List_fromArray(
+				[
+					_Utils_Tuple2(
+					mdgriffith$stylish_elephants$Element$text('special: FormFieldWithPattern.example3'),
 					'')
 				]))
 		])
@@ -13787,6 +13915,7 @@ var author$project$Framework$introspections = _List_fromArray(
 	[
 		_Utils_Tuple2(author$project$Framework$Color$introspection, true),
 		_Utils_Tuple2(author$project$Framework$FormField$introspection, true),
+		_Utils_Tuple2(author$project$Framework$FormFieldWithPattern$introspection, true),
 		_Utils_Tuple2(author$project$Framework$Typography$introspection, true),
 		_Utils_Tuple2(author$project$Framework$Card$introspection, true),
 		_Utils_Tuple2(author$project$Framework$Button$introspection, true),
@@ -13842,6 +13971,7 @@ var author$project$Framework$introspectionsForDebugging = _List_fromArray(
 	]);
 var author$project$Framework$Card$initModel = true;
 var author$project$Framework$FormField$initModel = {focus: elm_lang$core$Maybe$Nothing, valueEmail: ''};
+var author$project$Framework$FormFieldWithPattern$initModel = {focus: elm_lang$core$Maybe$Nothing, value: ''};
 var author$project$Framework$StyleElementsInput$initModel = {
 	checkbox: false,
 	radio: elm_lang$core$Maybe$Just('A'),
@@ -13856,6 +13986,7 @@ var author$project$Framework$initModel = F2(
 			maybeWindowSize: flag,
 			modelCards: author$project$Framework$Card$initModel,
 			modelFormField: author$project$Framework$FormField$initModel,
+			modelFormFieldWithPattern: author$project$Framework$FormFieldWithPattern$initModel,
 			modelStyleElementsInput: author$project$Framework$StyleElementsInput$initModel,
 			password: '',
 			url: url
@@ -13894,6 +14025,196 @@ var author$project$Framework$FormField$update = F2(
 					_Utils_update(
 						model,
 						{valueEmail: value}),
+					elm_lang$core$Platform$Cmd$none);
+			case 'OnFocus':
+				var field = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							focus: elm_lang$core$Maybe$Just(field)
+						}),
+					elm_lang$core$Platform$Cmd$none);
+			default:
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{focus: elm_lang$core$Maybe$Nothing}),
+					elm_lang$core$Platform$Cmd$none);
+		}
+	});
+var elm_lang$regex$Regex$Match = F4(
+	function (match, index, number, submatches) {
+		return {index: index, match: match, number: number, submatches: submatches};
+	});
+var elm_lang$regex$Regex$fromStringWith = _Regex_fromStringWith;
+var elm_lang$regex$Regex$fromString = function (string) {
+	return A2(
+		elm_lang$regex$Regex$fromStringWith,
+		{caseInsensitive: false, multiline: false},
+		string);
+};
+var elm_lang$regex$Regex$never = _Regex_never;
+var author$project$Framework$FormFieldWithPattern$regexNotDigit = A2(
+	elm_lang$core$Maybe$withDefault,
+	elm_lang$regex$Regex$never,
+	elm_lang$regex$Regex$fromString('[^0-9]'));
+var author$project$Framework$FormFieldWithPattern$regexNotDigitsAtTheEnd = A2(
+	elm_lang$core$Maybe$withDefault,
+	elm_lang$regex$Regex$never,
+	elm_lang$regex$Regex$fromString('[^0-9]*$'));
+var elm_lang$core$List$head = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return elm_lang$core$Maybe$Just(x);
+	} else {
+		return elm_lang$core$Maybe$Nothing;
+	}
+};
+var elm_lang$core$List$tail = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return elm_lang$core$Maybe$Just(xs);
+	} else {
+		return elm_lang$core$Maybe$Nothing;
+	}
+};
+var author$project$Framework$FormFieldWithPattern$append = F3(
+	function (tokens, input, formatted) {
+		append:
+		while (true) {
+			var maybeToken = elm_lang$core$List$head(tokens);
+			var appendInput = A2(
+				elm_lang$core$Maybe$withDefault,
+				formatted,
+				A2(
+					elm_lang$core$Maybe$map,
+					A2(
+						author$project$Framework$FormFieldWithPattern$append,
+						A2(
+							elm_lang$core$Maybe$withDefault,
+							_List_Nil,
+							elm_lang$core$List$tail(tokens)),
+						A2(
+							elm_lang$core$Maybe$withDefault,
+							_List_Nil,
+							elm_lang$core$List$tail(input))),
+					A2(
+						elm_lang$core$Maybe$map,
+						function (_char) {
+							return _Utils_ap(
+								formatted,
+								elm_lang$core$String$fromChar(_char));
+						},
+						elm_lang$core$List$head(input))));
+			if (maybeToken.$ === 'Nothing') {
+				return formatted;
+			} else {
+				var token = maybeToken.a;
+				if (token.$ === 'InputValue') {
+					return appendInput;
+				} else {
+					var _char = token.a;
+					var $temp$tokens = A2(
+						elm_lang$core$Maybe$withDefault,
+						_List_Nil,
+						elm_lang$core$List$tail(tokens)),
+						$temp$input = input,
+						$temp$formatted = _Utils_ap(
+						formatted,
+						elm_lang$core$String$fromChar(_char));
+					tokens = $temp$tokens;
+					input = $temp$input;
+					formatted = $temp$formatted;
+					continue append;
+				}
+			}
+		}
+	});
+var elm_lang$core$String$isEmpty = function (string) {
+	return string === '';
+};
+var elm_lang$core$String$foldr = _String_foldr;
+var elm_lang$core$String$toList = function (string) {
+	return A3(elm_lang$core$String$foldr, elm_lang$core$List$cons, _List_Nil, string);
+};
+var author$project$Framework$FormFieldWithPattern$format = F2(
+	function (tokens, input) {
+		return elm_lang$core$String$isEmpty(input) ? input : A3(
+			author$project$Framework$FormFieldWithPattern$append,
+			tokens,
+			elm_lang$core$String$toList(input),
+			'');
+	});
+var author$project$Framework$FormFieldWithPattern$InputValue = {$: 'InputValue'};
+var author$project$Framework$FormFieldWithPattern$Other = function (a) {
+	return {$: 'Other', a: a};
+};
+var author$project$Framework$FormFieldWithPattern$tokenize = F2(
+	function (inputChar, pattern) {
+		return (_Utils_eq(pattern, inputChar) || _Utils_eq(
+			pattern,
+			_Utils_chr('_'))) ? author$project$Framework$FormFieldWithPattern$InputValue : author$project$Framework$FormFieldWithPattern$Other(pattern);
+	});
+var author$project$Framework$FormFieldWithPattern$parse = F2(
+	function (inputChar, pattern) {
+		return A2(
+			elm_lang$core$List$map,
+			author$project$Framework$FormFieldWithPattern$tokenize(inputChar),
+			elm_lang$core$String$toList(pattern));
+	});
+var author$project$Framework$FormFieldWithPattern$result = F2(
+	function (template, string) {
+		return A2(
+			author$project$Framework$FormFieldWithPattern$format,
+			A2(
+				author$project$Framework$FormFieldWithPattern$parse,
+				_Utils_chr('0'),
+				template),
+			string);
+	});
+var elm_lang$regex$Regex$replace = _Regex_replaceAtMost(_Regex_infinity);
+var author$project$Framework$FormFieldWithPattern$update = F2(
+	function (msg, model) {
+		switch (msg.$) {
+			case 'Input':
+				var field = msg.a;
+				var pattern = msg.b;
+				var value = msg.c;
+				var onlyDigits = A3(
+					elm_lang$regex$Regex$replace,
+					author$project$Framework$FormFieldWithPattern$regexNotDigit,
+					function (_n3) {
+						return '';
+					},
+					value);
+				var withPattern = A2(author$project$Framework$FormFieldWithPattern$result, pattern, onlyDigits);
+				var removeCharactedAtTheEndIfNotNumbers = A3(
+					elm_lang$regex$Regex$replace,
+					author$project$Framework$FormFieldWithPattern$regexNotDigitsAtTheEnd,
+					function (_n2) {
+						return '';
+					},
+					withPattern);
+				return _Utils_Tuple2(
+					function () {
+						switch (field.$) {
+							case 'FieldTelephone':
+								return _Utils_update(
+									model,
+									{value: removeCharactedAtTheEndIfNotNumbers});
+							case 'FieldCreditCard':
+								return _Utils_update(
+									model,
+									{value: removeCharactedAtTheEndIfNotNumbers});
+							default:
+								return _Utils_update(
+									model,
+									{value: removeCharactedAtTheEndIfNotNumbers});
+						}
+					}(),
 					elm_lang$core$Platform$Cmd$none);
 			case 'OnFocus':
 				var field = msg.a;
@@ -14025,10 +14346,19 @@ var author$project$Framework$update = F2(
 						model,
 						{modelFormField: newModel}),
 					elm_lang$core$Platform$Cmd$none);
+			case 'MsgFormFieldWithPattern':
+				var msg2 = msg.a;
+				var _n6 = A2(author$project$Framework$FormFieldWithPattern$update, msg2, model.modelFormFieldWithPattern);
+				var newModel = _n6.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{modelFormFieldWithPattern: newModel}),
+					elm_lang$core$Platform$Cmd$none);
 			default:
 				var msg2 = msg.a;
-				var _n6 = A2(author$project$Framework$Card$update, msg2, model.modelCards);
-				var newModel = _n6.a;
+				var _n7 = A2(author$project$Framework$Card$update, msg2, model.modelCards);
+				var newModel = _n7.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
@@ -14039,82 +14369,38 @@ var author$project$Framework$update = F2(
 var author$project$Framework$css = '\nbody {\n    line-height: normal !important;\n}\n.elmStyleguideGenerator-open {\ntransition: all .8s;\nttransform: translateY(0);\nmax-height: 500px;\n}\n.elmStyleguideGenerator-close {\ntransition: all .1s;\nttransform: translateY(-100%);\nmax-height: 0;\n}\npre {\n    margin: 0;\n}\n';
 var author$project$Framework$emptyIntrospection = {description: '', name: 'Not found', signature: '', variations: _List_Nil};
 var author$project$Framework$emptyVariation = _Utils_Tuple2('Not found', _List_Nil);
+var author$project$Framework$slugToString = function (_n0) {
+	var slug = _n0.a;
+	return slug;
+};
 var author$project$Framework$RouteHome = {$: 'RouteHome'};
-var author$project$Framework$Docs = F2(
-	function (name, value) {
-		return {name: name, value: value};
+var author$project$Framework$fragmentAsPath = function (url) {
+	var _n0 = url.fragment;
+	if (_n0.$ === 'Nothing') {
+		return _Utils_update(
+			url,
+			{path: ''});
+	} else {
+		var fragment = _n0.a;
+		return _Utils_update(
+			url,
+			{path: fragment});
+	}
+};
+var author$project$Framework$RouteSubPage = F2(
+	function (a, b) {
+		return {$: 'RouteSubPage', a: a, b: b};
 	});
+var author$project$Framework$rootRoute = 'framework';
+var author$project$Framework$Slug = function (a) {
+	return {$: 'Slug', a: a};
+};
 var elm_lang$url$Url$Parser$Parser = function (a) {
 	return {$: 'Parser', a: a};
 };
 var elm_lang$url$Url$Parser$State = F5(
 	function (visited, unvisited, params, frag, value) {
 		return {frag: frag, params: params, unvisited: unvisited, value: value, visited: visited};
-	});
-var elm_lang$url$Url$Parser$fragment = function (toFrag) {
-	return elm_lang$url$Url$Parser$Parser(
-		function (_n0) {
-			var visited = _n0.visited;
-			var unvisited = _n0.unvisited;
-			var params = _n0.params;
-			var frag = _n0.frag;
-			var value = _n0.value;
-			return _List_fromArray(
-				[
-					A5(
-					elm_lang$url$Url$Parser$State,
-					visited,
-					unvisited,
-					params,
-					frag,
-					value(
-						toFrag(frag)))
-				]);
-		});
-};
-var elm_lang$url$Url$Parser$mapState = F2(
-	function (func, _n0) {
-		var visited = _n0.visited;
-		var unvisited = _n0.unvisited;
-		var params = _n0.params;
-		var frag = _n0.frag;
-		var value = _n0.value;
-		return A5(
-			elm_lang$url$Url$Parser$State,
-			visited,
-			unvisited,
-			params,
-			frag,
-			func(value));
-	});
-var elm_lang$url$Url$Parser$map = F2(
-	function (subValue, _n0) {
-		var parseArg = _n0.a;
-		return elm_lang$url$Url$Parser$Parser(
-			function (_n1) {
-				var visited = _n1.visited;
-				var unvisited = _n1.unvisited;
-				var params = _n1.params;
-				var frag = _n1.frag;
-				var value = _n1.value;
-				return A2(
-					elm_lang$core$List$map,
-					elm_lang$url$Url$Parser$mapState(value),
-					parseArg(
-						A5(elm_lang$url$Url$Parser$State, visited, unvisited, params, frag, subValue)));
-			});
-	});
-var elm_lang$url$Url$Parser$slash = F2(
-	function (_n0, _n1) {
-		var parseBefore = _n0.a;
-		var parseAfter = _n1.a;
-		return elm_lang$url$Url$Parser$Parser(
-			function (state) {
-				return A2(
-					elm_lang$core$List$concatMap,
-					parseAfter,
-					parseBefore(state));
-			});
 	});
 var elm_lang$url$Url$Parser$custom = F2(
 	function (tipe, stringToSomething) {
@@ -14149,14 +14435,107 @@ var elm_lang$url$Url$Parser$custom = F2(
 				}
 			});
 	});
-var elm_lang$url$Url$Parser$string = A2(elm_lang$url$Url$Parser$custom, 'STRING', elm_lang$core$Maybe$Just);
-var author$project$Framework$route = A2(
-	elm_lang$url$Url$Parser$map,
-	author$project$Framework$Docs,
-	A2(
-		elm_lang$url$Url$Parser$slash,
-		elm_lang$url$Url$Parser$string,
-		elm_lang$url$Url$Parser$fragment(elm_lang$core$Basics$identity)));
+var author$project$Framework$slugParser = A2(
+	elm_lang$url$Url$Parser$custom,
+	'SLUG',
+	function ($) {
+		return elm_lang$core$Maybe$Just(
+			author$project$Framework$Slug($));
+	});
+var elm_lang$url$Url$Parser$mapState = F2(
+	function (func, _n0) {
+		var visited = _n0.visited;
+		var unvisited = _n0.unvisited;
+		var params = _n0.params;
+		var frag = _n0.frag;
+		var value = _n0.value;
+		return A5(
+			elm_lang$url$Url$Parser$State,
+			visited,
+			unvisited,
+			params,
+			frag,
+			func(value));
+	});
+var elm_lang$url$Url$Parser$map = F2(
+	function (subValue, _n0) {
+		var parseArg = _n0.a;
+		return elm_lang$url$Url$Parser$Parser(
+			function (_n1) {
+				var visited = _n1.visited;
+				var unvisited = _n1.unvisited;
+				var params = _n1.params;
+				var frag = _n1.frag;
+				var value = _n1.value;
+				return A2(
+					elm_lang$core$List$map,
+					elm_lang$url$Url$Parser$mapState(value),
+					parseArg(
+						A5(elm_lang$url$Url$Parser$State, visited, unvisited, params, frag, subValue)));
+			});
+	});
+var elm_lang$url$Url$Parser$oneOf = function (parsers) {
+	return elm_lang$url$Url$Parser$Parser(
+		function (state) {
+			return A2(
+				elm_lang$core$List$concatMap,
+				function (_n0) {
+					var parser = _n0.a;
+					return parser(state);
+				},
+				parsers);
+		});
+};
+var elm_lang$url$Url$Parser$s = function (str) {
+	return elm_lang$url$Url$Parser$Parser(
+		function (_n0) {
+			var visited = _n0.visited;
+			var unvisited = _n0.unvisited;
+			var params = _n0.params;
+			var frag = _n0.frag;
+			var value = _n0.value;
+			if (!unvisited.b) {
+				return _List_Nil;
+			} else {
+				var next = unvisited.a;
+				var rest = unvisited.b;
+				return _Utils_eq(next, str) ? _List_fromArray(
+					[
+						A5(
+						elm_lang$url$Url$Parser$State,
+						A2(elm_lang$core$List$cons, next, visited),
+						rest,
+						params,
+						frag,
+						value)
+					]) : _List_Nil;
+			}
+		});
+};
+var elm_lang$url$Url$Parser$slash = F2(
+	function (_n0, _n1) {
+		var parseBefore = _n0.a;
+		var parseAfter = _n1.a;
+		return elm_lang$url$Url$Parser$Parser(
+			function (state) {
+				return A2(
+					elm_lang$core$List$concatMap,
+					parseAfter,
+					parseBefore(state));
+			});
+	});
+var author$project$Framework$routeParser = elm_lang$url$Url$Parser$oneOf(
+	_List_fromArray(
+		[
+			A2(
+			elm_lang$url$Url$Parser$map,
+			author$project$Framework$RouteSubPage,
+			A2(
+				elm_lang$url$Url$Parser$slash,
+				elm_lang$url$Url$Parser$s(author$project$Framework$rootRoute),
+				A2(elm_lang$url$Url$Parser$slash, author$project$Framework$slugParser, author$project$Framework$slugParser)))
+		]));
+var elm_lang$core$Debug$log = _Debug_log;
 var elm_lang$url$Url$Parser$getFirstMatch = function (states) {
 	getFirstMatch:
 	while (true) {
@@ -14277,220 +14656,68 @@ var elm_lang$url$Url$Parser$parse = F2(
 					url.fragment,
 					elm_lang$core$Basics$identity)));
 	});
-var elm_lang$core$String$startsWith = _String_startsWith;
-var elm_lang$url$Url$Parser$Http = {$: 'Http'};
-var elm_lang$url$Url$Parser$Https = {$: 'Https'};
-var elm_lang$core$String$indexes = _String_indexes;
-var elm_lang$core$String$isEmpty = function (string) {
-	return string === '';
-};
-var elm_lang$core$String$left = F2(
-	function (n, string) {
-		return (n < 1) ? '' : A3(elm_lang$core$String$slice, 0, n, string);
-	});
-var elm_lang$core$String$contains = _String_contains;
-var elm_lang$core$String$toInt = _String_toInt;
-var elm_lang$url$Url$Parser$Url = F6(
-	function (protocol, host, port_, path, query, fragment) {
-		return {fragment: fragment, host: host, path: path, port_: port_, protocol: protocol, query: query};
-	});
-var elm_lang$url$Url$Parser$chompBeforePath = F5(
-	function (protocol, path, params, frag, str) {
-		if (elm_lang$core$String$isEmpty(str) || A2(elm_lang$core$String$contains, '@', str)) {
-			return elm_lang$core$Maybe$Nothing;
-		} else {
-			var _n0 = A2(elm_lang$core$String$indexes, ':', str);
-			if (!_n0.b) {
-				return elm_lang$core$Maybe$Just(
-					A6(elm_lang$url$Url$Parser$Url, protocol, str, elm_lang$core$Maybe$Nothing, path, params, frag));
-			} else {
-				if (!_n0.b.b) {
-					var i = _n0.a;
-					var _n1 = elm_lang$core$String$toInt(
-						A2(elm_lang$core$String$dropLeft, i + 1, str));
-					if (_n1.$ === 'Nothing') {
-						return elm_lang$core$Maybe$Nothing;
-					} else {
-						var port_ = _n1;
-						return elm_lang$core$Maybe$Just(
-							A6(
-								elm_lang$url$Url$Parser$Url,
-								protocol,
-								A2(elm_lang$core$String$left, i, str),
-								port_,
-								path,
-								params,
-								frag));
-					}
-				} else {
-					return elm_lang$core$Maybe$Nothing;
-				}
-			}
-		}
-	});
-var elm_lang$url$Url$Parser$chompBeforeQuery = F4(
-	function (protocol, params, frag, str) {
-		if (elm_lang$core$String$isEmpty(str)) {
-			return elm_lang$core$Maybe$Nothing;
-		} else {
-			var _n0 = A2(elm_lang$core$String$indexes, '/', str);
-			if (!_n0.b) {
-				return A5(elm_lang$url$Url$Parser$chompBeforePath, protocol, '/', params, frag, str);
-			} else {
-				var i = _n0.a;
-				return A5(
-					elm_lang$url$Url$Parser$chompBeforePath,
-					protocol,
-					A2(elm_lang$core$String$dropLeft, i, str),
-					params,
-					frag,
-					A2(elm_lang$core$String$left, i, str));
-			}
-		}
-	});
-var elm_lang$url$Url$Parser$chompBeforeFragment = F3(
-	function (protocol, frag, str) {
-		if (elm_lang$core$String$isEmpty(str)) {
-			return elm_lang$core$Maybe$Nothing;
-		} else {
-			var _n0 = A2(elm_lang$core$String$indexes, '?', str);
-			if (!_n0.b) {
-				return A4(elm_lang$url$Url$Parser$chompBeforeQuery, protocol, elm_lang$core$Maybe$Nothing, frag, str);
-			} else {
-				var i = _n0.a;
-				return A4(
-					elm_lang$url$Url$Parser$chompBeforeQuery,
-					protocol,
-					elm_lang$core$Maybe$Just(
-						A2(elm_lang$core$String$dropLeft, i + 1, str)),
-					frag,
-					A2(elm_lang$core$String$left, i, str));
-			}
-		}
-	});
-var elm_lang$url$Url$Parser$chompAfterProtocol = F2(
-	function (protocol, str) {
-		if (elm_lang$core$String$isEmpty(str)) {
-			return elm_lang$core$Maybe$Nothing;
-		} else {
-			var _n0 = A2(elm_lang$core$String$indexes, '#', str);
-			if (!_n0.b) {
-				return A3(elm_lang$url$Url$Parser$chompBeforeFragment, protocol, elm_lang$core$Maybe$Nothing, str);
-			} else {
-				var i = _n0.a;
-				return A3(
-					elm_lang$url$Url$Parser$chompBeforeFragment,
-					protocol,
-					elm_lang$core$Maybe$Just(
-						A2(elm_lang$core$String$dropLeft, i + 1, str)),
-					A2(elm_lang$core$String$left, i, str));
-			}
-		}
-	});
-var elm_lang$url$Url$Parser$toUrl = function (str) {
-	return A2(elm_lang$core$String$startsWith, 'http://', str) ? A2(
-		elm_lang$url$Url$Parser$chompAfterProtocol,
-		elm_lang$url$Url$Parser$Http,
-		A2(elm_lang$core$String$dropLeft, 7, str)) : (A2(elm_lang$core$String$startsWith, 'https://', str) ? A2(
-		elm_lang$url$Url$Parser$chompAfterProtocol,
-		elm_lang$url$Url$Parser$Https,
-		A2(elm_lang$core$String$dropLeft, 8, str)) : elm_lang$core$Maybe$Nothing);
-};
-var author$project$Framework$fragmentToRoute = function (fragment) {
-	var test = function () {
-		var _n0 = elm_lang$url$Url$Parser$toUrl(fragment);
-		if (_n0.$ === 'Nothing') {
-			return elm_lang$core$Maybe$Nothing;
-		} else {
-			var segments = _n0.a;
-			return A2(elm_lang$url$Url$Parser$parse, author$project$Framework$route, segments);
-		}
-	}();
-	return elm_lang$core$Maybe$Just(author$project$Framework$RouteHome);
-};
-var author$project$Framework$fromUrl = function (url) {
-	var _n0 = url.fragment;
-	if (_n0.$ === 'Nothing') {
-		return elm_lang$core$Maybe$Just(author$project$Framework$RouteHome);
-	} else {
-		var fragment = _n0.a;
-		return author$project$Framework$fragmentToRoute(fragment);
-	}
-};
-var author$project$Framework$slugToString = function (_n0) {
-	var slug = _n0.a;
-	return slug;
-};
-var elm_lang$core$Debug$log = _Debug_log;
 var author$project$Framework$urlToRoute = function (url) {
-	var _n0 = A2(elm_lang$core$Debug$log, 'url', url);
-	var _n1 = A2(
+	var maybeRoute = A2(
 		elm_lang$core$Debug$log,
-		'fragment parsed',
-		A2(elm_lang$url$Url$Parser$parse, author$project$Framework$route, url));
-	return author$project$Framework$RouteHome;
-};
-var elm_lang$core$List$head = function (list) {
-	if (list.b) {
-		var x = list.a;
-		var xs = list.b;
-		return elm_lang$core$Maybe$Just(x);
+		'route',
+		A2(
+			elm_lang$url$Url$Parser$parse,
+			author$project$Framework$routeParser,
+			author$project$Framework$fragmentAsPath(url)));
+	if (maybeRoute.$ === 'Nothing') {
+		return author$project$Framework$RouteHome;
 	} else {
-		return elm_lang$core$Maybe$Nothing;
+		var route = maybeRoute.a;
+		return route;
 	}
 };
 var author$project$Framework$maybeSelected = function (model) {
 	var _n0 = function () {
-		var _n1 = author$project$Framework$fromUrl(model.url);
-		if (_n1.$ === 'Just') {
-			var tempRoute = _n1.a;
-			if (tempRoute.$ === 'RouteSubPage') {
-				var slug3 = tempRoute.a;
-				var slug4 = tempRoute.b;
-				return _Utils_Tuple2(
-					A2(
-						elm_lang$core$Maybe$withDefault,
-						'',
-						elm_lang$url$Url$percentDecode(
-							author$project$Framework$slugToString(slug3))),
-					A2(
-						elm_lang$core$Maybe$withDefault,
-						'',
-						elm_lang$url$Url$percentDecode(
-							author$project$Framework$slugToString(slug4))));
-			} else {
-				return _Utils_Tuple2('', '');
-			}
+		var _n1 = author$project$Framework$urlToRoute(model.url);
+		if (_n1.$ === 'RouteSubPage') {
+			var slug3 = _n1.a;
+			var slug4 = _n1.b;
+			return _Utils_Tuple2(
+				A2(
+					elm_lang$core$Maybe$withDefault,
+					'',
+					elm_lang$url$Url$percentDecode(
+						author$project$Framework$slugToString(slug3))),
+				A2(
+					elm_lang$core$Maybe$withDefault,
+					'',
+					elm_lang$url$Url$percentDecode(
+						author$project$Framework$slugToString(slug4))));
 		} else {
 			return _Utils_Tuple2('', '');
 		}
 	}();
 	var slug1 = _n0.a;
 	var slug2 = _n0.b;
-	var _n3 = A2(
+	var _n2 = A2(
 		elm_lang$core$Maybe$withDefault,
 		_Utils_Tuple2(author$project$Framework$emptyIntrospection, false),
 		elm_lang$core$List$head(
 			A2(
 				elm_lang$core$List$filter,
-				function (_n4) {
-					var introspection2 = _n4.a;
+				function (_n3) {
+					var introspection2 = _n3.a;
 					return _Utils_eq(introspection2.name, slug1);
 				},
 				model.introspections)));
-	var introspection = _n3.a;
+	var introspection = _n2.a;
 	var variation = A2(
 		elm_lang$core$Maybe$withDefault,
 		author$project$Framework$emptyVariation,
 		elm_lang$core$List$head(
 			A2(
 				elm_lang$core$List$filter,
-				function (_n6) {
-					var name = _n6.a;
+				function (_n5) {
+					var name = _n5.a;
 					return _Utils_eq(name, slug2);
 				},
 				introspection.variations)));
-	var _n5 = author$project$Framework$urlToRoute(model.url);
+	var _n4 = author$project$Framework$urlToRoute(model.url);
 	return (_Utils_eq(introspection, author$project$Framework$emptyIntrospection) || _Utils_eq(variation, author$project$Framework$emptyVariation)) ? elm_lang$core$Maybe$Nothing : elm_lang$core$Maybe$Just(
 		_Utils_Tuple2(introspection, variation));
 };
@@ -14591,7 +14818,17 @@ var author$project$Framework$specialComponentFormField = F2(
 			A2(mdgriffith$stylish_elephants$Element$map, author$project$Framework$MsgFormField, componentTuplet.a),
 			componentTuplet.b);
 	});
-var author$project$Color$yellow = A3(mdgriffith$stylish_elephants$Element$rgb, 255, 255, 0);
+var author$project$Framework$MsgFormFieldWithPattern = function (a) {
+	return {$: 'MsgFormFieldWithPattern', a: a};
+};
+var author$project$Framework$specialComponentFormFieldWithPattern = F2(
+	function (model, component) {
+		var componentTuplet = component(model.modelFormFieldWithPattern);
+		return _Utils_Tuple2(
+			A2(mdgriffith$stylish_elephants$Element$map, author$project$Framework$MsgFormFieldWithPattern, componentTuplet.a),
+			componentTuplet.b);
+	});
+var author$project$Color$yellow = A3(mdgriffith$stylish_elephants$Element$rgb, 0, 1, 1);
 var author$project$Framework$Card$Flip = {$: 'Flip'};
 var author$project$Framework$Card$stylexxx = F2(
 	function (key, value) {
@@ -15820,6 +16057,180 @@ var author$project$Framework$FormField$example1 = function (model) {
 			{field: author$project$Framework$FormField$FieldEmail, label: 'E-mail address'}),
 		'inputText model\n    { field = FieldEmail\n    , label = "E-mail address"\n    }');
 };
+var author$project$Framework$FormFieldWithPattern$FieldTelephone = {$: 'FieldTelephone'};
+var author$project$Framework$FormFieldWithPattern$Field4DigitCode = {$: 'Field4DigitCode'};
+var author$project$Framework$FormFieldWithPattern$Input = F3(
+	function (a, b, c) {
+		return {$: 'Input', a: a, b: b, c: c};
+	});
+var author$project$Framework$FormFieldWithPattern$OnFocus = function (a) {
+	return {$: 'OnFocus', a: a};
+};
+var author$project$Framework$FormFieldWithPattern$OnLoseFocus = function (a) {
+	return {$: 'OnLoseFocus', a: a};
+};
+var author$project$Framework$FormFieldWithPattern$hackInLineStyle = F2(
+	function (text1, text2) {
+		return mdgriffith$stylish_elephants$Element$htmlAttribute(
+			A2(elm_lang$html$Html$Attributes$style, text1, text2));
+	});
+var author$project$Framework$FormFieldWithPattern$hasFocus = F2(
+	function (model, field) {
+		var _n0 = model.focus;
+		if (_n0.$ === 'Just') {
+			var focus = _n0.a;
+			return _Utils_eq(focus, field);
+		} else {
+			return false;
+		}
+	});
+var elm_lang$core$String$right = F2(
+	function (n, string) {
+		return (n < 1) ? '' : A3(
+			elm_lang$core$String$slice,
+			-n,
+			elm_lang$core$String$length(string),
+			string);
+	});
+var mdgriffith$stylish_elephants$Internal$Model$Typeface = function (a) {
+	return {$: 'Typeface', a: a};
+};
+var mdgriffith$stylish_elephants$Element$Font$typeface = mdgriffith$stylish_elephants$Internal$Model$Typeface;
+var mdgriffith$stylish_elephants$Element$Input$text = mdgriffith$stylish_elephants$Element$Input$textHelper(
+	{
+		autofill: elm_lang$core$Maybe$Nothing,
+		spellchecked: false,
+		type_: mdgriffith$stylish_elephants$Element$Input$TextInputNode('text')
+	});
+var author$project$Framework$FormFieldWithPattern$inputText = F2(
+	function (model, _n0) {
+		var field = _n0.field;
+		var pattern = _n0.pattern;
+		var label = _n0.label;
+		var modelValue = function () {
+			switch (field.$) {
+				case 'FieldTelephone':
+					return model.value;
+				case 'FieldCreditCard':
+					return model.value;
+				default:
+					return model.value;
+			}
+		}();
+		var lengthDifference = elm_lang$core$String$length(pattern) - elm_lang$core$String$length(modelValue);
+		var patternToShow = _Utils_ap(
+			modelValue,
+			A2(elm_lang$core$String$right, lengthDifference, pattern));
+		var largeSize = _Utils_eq(field, author$project$Framework$FormFieldWithPattern$Field4DigitCode);
+		var moveDownPlaceHolder = largeSize ? author$project$Framework$Configuration$conf.moveDownPlaceHolder.large : author$project$Framework$Configuration$conf.moveDownPlaceHolder.small;
+		var labelIsAbove = A2(author$project$Framework$FormFieldWithPattern$hasFocus, model, field) || ((modelValue !== '') || largeSize);
+		var font = largeSize ? _List_fromArray(
+			[
+				mdgriffith$stylish_elephants$Element$Font$family(
+				_List_fromArray(
+					[mdgriffith$stylish_elephants$Element$Font$monospace])),
+				mdgriffith$stylish_elephants$Element$Font$size(54)
+			]) : _List_Nil;
+		return A2(
+			mdgriffith$stylish_elephants$Element$el,
+			_List_fromArray(
+				[
+					mdgriffith$stylish_elephants$Element$inFront(
+					A2(
+						mdgriffith$stylish_elephants$Element$el,
+						_Utils_ap(
+							_List_fromArray(
+								[
+									(A2(author$project$Framework$FormFieldWithPattern$hasFocus, model, field) && largeSize) ? mdgriffith$stylish_elephants$Element$Font$color(author$project$Framework$Color$primary) : mdgriffith$stylish_elephants$Element$Font$color(author$project$Framework$Color$grey_light),
+									mdgriffith$stylish_elephants$Element$moveDown(moveDownPlaceHolder),
+									A2(author$project$Framework$FormFieldWithPattern$hackInLineStyle, 'pointer-events', 'none')
+								]),
+							font),
+						mdgriffith$stylish_elephants$Element$text(
+							labelIsAbove ? patternToShow : ''))),
+					mdgriffith$stylish_elephants$Element$inFront(
+					A2(
+						mdgriffith$stylish_elephants$Element$Input$text,
+						_Utils_ap(
+							_List_fromArray(
+								[
+									mdgriffith$stylish_elephants$Element$Events$onFocus(
+									author$project$Framework$FormFieldWithPattern$OnFocus(field)),
+									mdgriffith$stylish_elephants$Element$Events$onLoseFocus(
+									author$project$Framework$FormFieldWithPattern$OnLoseFocus(field)),
+									mdgriffith$stylish_elephants$Element$Background$color(author$project$Framework$Color$transparent),
+									largeSize ? mdgriffith$stylish_elephants$Element$Border$width(0) : mdgriffith$stylish_elephants$Element$Border$widthEach(
+									{bottom: 2, left: 0, right: 0, top: 0}),
+									mdgriffith$stylish_elephants$Element$Border$rounded(0),
+									A2(mdgriffith$stylish_elephants$Element$paddingXY, 0, 8),
+									mdgriffith$stylish_elephants$Element$width(
+									mdgriffith$stylish_elephants$Element$px(230)),
+									A2(author$project$Framework$FormFieldWithPattern$hackInLineStyle, 'transition', 'all 0.15s')
+								]),
+							_Utils_ap(
+								font,
+								A2(author$project$Framework$FormFieldWithPattern$hasFocus, model, field) ? _List_fromArray(
+									[
+										mdgriffith$stylish_elephants$Element$Border$color(author$project$Framework$Color$primary)
+									]) : _List_Nil)),
+						{
+							label: A2(
+								mdgriffith$stylish_elephants$Element$Input$labelAbove,
+								_Utils_ap(
+									_List_fromArray(
+										[
+											A2(author$project$Framework$FormFieldWithPattern$hackInLineStyle, 'transition', 'all 0.15s'),
+											A2(author$project$Framework$FormFieldWithPattern$hackInLineStyle, 'pointer-events', 'none'),
+											mdgriffith$stylish_elephants$Element$Font$family(
+											_List_fromArray(
+												[
+													mdgriffith$stylish_elephants$Element$Font$typeface(author$project$Framework$Configuration$conf.font.typeface),
+													author$project$Framework$Configuration$conf.font.typefaceFallback
+												])),
+											mdgriffith$stylish_elephants$Element$Font$size(16)
+										]),
+									labelIsAbove ? _List_fromArray(
+										[
+											mdgriffith$stylish_elephants$Element$scale(0.9),
+											mdgriffith$stylish_elephants$Element$moveLeft(14)
+										]) : _List_fromArray(
+										[
+											mdgriffith$stylish_elephants$Element$moveDown(33)
+										])),
+								mdgriffith$stylish_elephants$Element$text(label)),
+							onChange: elm_lang$core$Maybe$Just(
+								A2(author$project$Framework$FormFieldWithPattern$Input, field, pattern)),
+							placeholder: elm_lang$core$Maybe$Nothing,
+							text: modelValue
+						}))
+				]),
+			mdgriffith$stylish_elephants$Element$none);
+	});
+var author$project$Framework$FormFieldWithPattern$example1 = function (model) {
+	return _Utils_Tuple2(
+		A2(
+			author$project$Framework$FormFieldWithPattern$inputText,
+			model,
+			{field: author$project$Framework$FormFieldWithPattern$FieldTelephone, label: 'Phone number USA', pattern: '(000) 000 - 0000'}),
+		'inputText model\n    { field = FieldTelephone\n    , pattern = "(000) 000 - 0000"\n    , label = "Phone number USA"\n    }');
+};
+var author$project$Framework$FormFieldWithPattern$FieldCreditCard = {$: 'FieldCreditCard'};
+var author$project$Framework$FormFieldWithPattern$example2 = function (model) {
+	return _Utils_Tuple2(
+		A2(
+			author$project$Framework$FormFieldWithPattern$inputText,
+			model,
+			{field: author$project$Framework$FormFieldWithPattern$FieldCreditCard, label: 'Credit Card number', pattern: '0000 - 0000 - 0000 - 0000'}),
+		'inputText model\n    { field = FieldCreditCard\n    , pattern = "0000 - 0000 - 0000 - 0000"\n    , label = "Credit Card number"\n    }');
+};
+var author$project$Framework$FormFieldWithPattern$example3 = function (model) {
+	return _Utils_Tuple2(
+		A2(
+			author$project$Framework$FormFieldWithPattern$inputText,
+			model,
+			{field: author$project$Framework$FormFieldWithPattern$Field4DigitCode, label: '4 Digits Code', pattern: '_ _ _ _'}),
+		'inputText model\n    { field = Field4DigitCode\n    , pattern = "_ _ _ _"\n    , label = "4 Digits Code"\n    }');
+};
 var author$project$Framework$StyleElementsInput$Button = {$: 'Button'};
 var author$project$Framework$StyleElementsInput$example0 = function (_n0) {
 	return _Utils_Tuple2(
@@ -15835,12 +16246,6 @@ var author$project$Framework$StyleElementsInput$example0 = function (_n0) {
 var author$project$Framework$StyleElementsInput$Input = function (a) {
 	return {$: 'Input', a: a};
 };
-var mdgriffith$stylish_elephants$Element$Input$text = mdgriffith$stylish_elephants$Element$Input$textHelper(
-	{
-		autofill: elm_lang$core$Maybe$Nothing,
-		spellchecked: false,
-		type_: mdgriffith$stylish_elephants$Element$Input$TextInputNode('text')
-	});
 var author$project$Framework$StyleElementsInput$example1 = function (model) {
 	return _Utils_Tuple2(
 		A2(
@@ -16813,6 +17218,12 @@ var author$project$Framework$viewSubSection = F2(
 			componentExample,
 			mdgriffith$stylish_elephants$Element$text('special: Form.example1')) ? A2(author$project$Framework$specialComponentFormField, model, author$project$Framework$FormField$example1) : (_Utils_eq(
 			componentExample,
+			mdgriffith$stylish_elephants$Element$text('special: FormFieldWithPattern.example1')) ? A2(author$project$Framework$specialComponentFormFieldWithPattern, model, author$project$Framework$FormFieldWithPattern$example1) : (_Utils_eq(
+			componentExample,
+			mdgriffith$stylish_elephants$Element$text('special: FormFieldWithPattern.example2')) ? A2(author$project$Framework$specialComponentFormFieldWithPattern, model, author$project$Framework$FormFieldWithPattern$example2) : (_Utils_eq(
+			componentExample,
+			mdgriffith$stylish_elephants$Element$text('special: FormFieldWithPattern.example3')) ? A2(author$project$Framework$specialComponentFormFieldWithPattern, model, author$project$Framework$FormFieldWithPattern$example3) : (_Utils_eq(
+			componentExample,
 			mdgriffith$stylish_elephants$Element$text('special: Cards.example1')) ? A2(author$project$Framework$specialComponentCards, model, author$project$Framework$Card$example1) : (_Utils_eq(
 			componentExample,
 			mdgriffith$stylish_elephants$Element$text('special: example0')) ? A2(author$project$Framework$specialComponent, model, author$project$Framework$StyleElementsInput$example0) : (_Utils_eq(
@@ -16839,7 +17250,7 @@ var author$project$Framework$viewSubSection = F2(
 			componentExample,
 			mdgriffith$stylish_elephants$Element$text('special: example10')) ? A2(author$project$Framework$specialComponent, model, author$project$Framework$StyleElementsInput$example10) : (_Utils_eq(
 			componentExample,
-			mdgriffith$stylish_elephants$Element$text('special: example11')) ? A2(author$project$Framework$specialComponent, model, author$project$Framework$StyleElementsInput$example11) : _Utils_Tuple2(componentExample, componentExampleSourceCode)))))))))))))));
+			mdgriffith$stylish_elephants$Element$text('special: example11')) ? A2(author$project$Framework$specialComponent, model, author$project$Framework$StyleElementsInput$example11) : _Utils_Tuple2(componentExample, componentExampleSourceCode))))))))))))))))));
 		var componentExampleToDisplay = _n1.a;
 		var componentExampleSourceCodeToDisplay = _n1.b;
 		return A2(
@@ -16958,7 +17369,6 @@ var author$project$Framework$viewIntrospection = F2(
 					},
 					introspection.variations)));
 	});
-var author$project$Framework$rootRoute = 'framework';
 var author$project$Framework$routeRoot = '#/';
 var author$project$Framework$routeToString = function (page) {
 	var pieces = function () {
@@ -17127,13 +17537,6 @@ var author$project$Framework$MsgCloseAllSections = {$: 'MsgCloseAllSections'};
 var author$project$Framework$MsgOpenAllSections = {$: 'MsgOpenAllSections'};
 var author$project$Framework$MsgToggleSection = function (a) {
 	return {$: 'MsgToggleSection', a: a};
-};
-var author$project$Framework$RouteSubPage = F2(
-	function (a, b) {
-		return {$: 'RouteSubPage', a: a, b: b};
-	});
-var author$project$Framework$Slug = function (a) {
-	return {$: 'Slug', a: a};
 };
 var author$project$Framework$viewListVariationForMenu = F2(
 	function (introspection, variations) {
@@ -17508,9 +17911,6 @@ var mdgriffith$stylish_elephants$Internal$Model$renderRoot = F3(
 					_List_fromArray(
 						[child]))));
 	});
-var mdgriffith$stylish_elephants$Internal$Model$Typeface = function (a) {
-	return {$: 'Typeface', a: a};
-};
 var mdgriffith$stylish_elephants$Internal$Model$rootStyle = function () {
 	var families = _List_fromArray(
 		[
@@ -17576,7 +17976,6 @@ var mdgriffith$stylish_elephants$Element$Font$external = function (_n0) {
 	var name = _n0.name;
 	return A2(mdgriffith$stylish_elephants$Internal$Model$ImportFont, name, url);
 };
-var mdgriffith$stylish_elephants$Element$Font$typeface = mdgriffith$stylish_elephants$Internal$Model$Typeface;
 var author$project$Framework$view = function (model) {
 	return {
 		body: _List_fromArray(
@@ -17620,6 +18019,122 @@ var elm_lang$browser$Browser$Env = F2(
 	});
 var elm_lang$browser$Browser$NotFound = function (a) {
 	return {$: 'NotFound', a: a};
+};
+var elm_lang$core$String$startsWith = _String_startsWith;
+var elm_lang$url$Url$Parser$Http = {$: 'Http'};
+var elm_lang$url$Url$Parser$Https = {$: 'Https'};
+var elm_lang$core$String$indexes = _String_indexes;
+var elm_lang$core$String$left = F2(
+	function (n, string) {
+		return (n < 1) ? '' : A3(elm_lang$core$String$slice, 0, n, string);
+	});
+var elm_lang$core$String$contains = _String_contains;
+var elm_lang$core$String$toInt = _String_toInt;
+var elm_lang$url$Url$Parser$Url = F6(
+	function (protocol, host, port_, path, query, fragment) {
+		return {fragment: fragment, host: host, path: path, port_: port_, protocol: protocol, query: query};
+	});
+var elm_lang$url$Url$Parser$chompBeforePath = F5(
+	function (protocol, path, params, frag, str) {
+		if (elm_lang$core$String$isEmpty(str) || A2(elm_lang$core$String$contains, '@', str)) {
+			return elm_lang$core$Maybe$Nothing;
+		} else {
+			var _n0 = A2(elm_lang$core$String$indexes, ':', str);
+			if (!_n0.b) {
+				return elm_lang$core$Maybe$Just(
+					A6(elm_lang$url$Url$Parser$Url, protocol, str, elm_lang$core$Maybe$Nothing, path, params, frag));
+			} else {
+				if (!_n0.b.b) {
+					var i = _n0.a;
+					var _n1 = elm_lang$core$String$toInt(
+						A2(elm_lang$core$String$dropLeft, i + 1, str));
+					if (_n1.$ === 'Nothing') {
+						return elm_lang$core$Maybe$Nothing;
+					} else {
+						var port_ = _n1;
+						return elm_lang$core$Maybe$Just(
+							A6(
+								elm_lang$url$Url$Parser$Url,
+								protocol,
+								A2(elm_lang$core$String$left, i, str),
+								port_,
+								path,
+								params,
+								frag));
+					}
+				} else {
+					return elm_lang$core$Maybe$Nothing;
+				}
+			}
+		}
+	});
+var elm_lang$url$Url$Parser$chompBeforeQuery = F4(
+	function (protocol, params, frag, str) {
+		if (elm_lang$core$String$isEmpty(str)) {
+			return elm_lang$core$Maybe$Nothing;
+		} else {
+			var _n0 = A2(elm_lang$core$String$indexes, '/', str);
+			if (!_n0.b) {
+				return A5(elm_lang$url$Url$Parser$chompBeforePath, protocol, '/', params, frag, str);
+			} else {
+				var i = _n0.a;
+				return A5(
+					elm_lang$url$Url$Parser$chompBeforePath,
+					protocol,
+					A2(elm_lang$core$String$dropLeft, i, str),
+					params,
+					frag,
+					A2(elm_lang$core$String$left, i, str));
+			}
+		}
+	});
+var elm_lang$url$Url$Parser$chompBeforeFragment = F3(
+	function (protocol, frag, str) {
+		if (elm_lang$core$String$isEmpty(str)) {
+			return elm_lang$core$Maybe$Nothing;
+		} else {
+			var _n0 = A2(elm_lang$core$String$indexes, '?', str);
+			if (!_n0.b) {
+				return A4(elm_lang$url$Url$Parser$chompBeforeQuery, protocol, elm_lang$core$Maybe$Nothing, frag, str);
+			} else {
+				var i = _n0.a;
+				return A4(
+					elm_lang$url$Url$Parser$chompBeforeQuery,
+					protocol,
+					elm_lang$core$Maybe$Just(
+						A2(elm_lang$core$String$dropLeft, i + 1, str)),
+					frag,
+					A2(elm_lang$core$String$left, i, str));
+			}
+		}
+	});
+var elm_lang$url$Url$Parser$chompAfterProtocol = F2(
+	function (protocol, str) {
+		if (elm_lang$core$String$isEmpty(str)) {
+			return elm_lang$core$Maybe$Nothing;
+		} else {
+			var _n0 = A2(elm_lang$core$String$indexes, '#', str);
+			if (!_n0.b) {
+				return A3(elm_lang$url$Url$Parser$chompBeforeFragment, protocol, elm_lang$core$Maybe$Nothing, str);
+			} else {
+				var i = _n0.a;
+				return A3(
+					elm_lang$url$Url$Parser$chompBeforeFragment,
+					protocol,
+					elm_lang$core$Maybe$Just(
+						A2(elm_lang$core$String$dropLeft, i + 1, str)),
+					A2(elm_lang$core$String$left, i, str));
+			}
+		}
+	});
+var elm_lang$url$Url$Parser$toUrl = function (str) {
+	return A2(elm_lang$core$String$startsWith, 'http://', str) ? A2(
+		elm_lang$url$Url$Parser$chompAfterProtocol,
+		elm_lang$url$Url$Parser$Http,
+		A2(elm_lang$core$String$dropLeft, 7, str)) : (A2(elm_lang$core$String$startsWith, 'https://', str) ? A2(
+		elm_lang$url$Url$Parser$chompAfterProtocol,
+		elm_lang$url$Url$Parser$Https,
+		A2(elm_lang$core$String$dropLeft, 8, str)) : elm_lang$core$Maybe$Nothing);
 };
 var elm_lang$browser$Browser$unsafeToUrl = function (string) {
 	var _n0 = elm_lang$url$Url$Parser$toUrl(string);

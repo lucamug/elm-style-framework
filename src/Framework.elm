@@ -99,7 +99,6 @@ For any issue or to get in touch with the authors, refer to the github page.
 -}
 
 --import Element.Input as Input
---import Framework.FormFieldWithPattern as FormFieldWithPattern
 
 import Browser
 import Color
@@ -114,6 +113,7 @@ import Framework.Card as Card
 import Framework.Color
 import Framework.Configuration exposing (conf)
 import Framework.FormField as FormField
+import Framework.FormFieldWithPattern as FormFieldWithPattern
 import Framework.Icon as Icon
 import Framework.Logo as Logo
 import Framework.Spinner as Spinner
@@ -127,6 +127,7 @@ import Json.Decode
 import Json.Decode.Pipeline
 import Url
 import Url.Parser exposing ((</>))
+
 
 
 -- 019 import Navigation
@@ -182,7 +183,7 @@ initConf =
                 ]
             ]
     , subTitle = "FRAMEWORK"
-    , version = "7.0.0"
+    , version = "0.19"
     , introduction = none
     , mainPadding = 41
     , password = ""
@@ -225,18 +226,13 @@ maybeSelected model =
             urlToRoute model.url
 
         ( slug1, slug2 ) =
-            case fromUrl model.url of
-                Just tempRoute ->
-                    case tempRoute of
-                        RouteSubPage slug3 slug4 ->
-                            ( Maybe.withDefault "" <| Url.percentDecode (slugToString slug3)
-                            , Maybe.withDefault "" <| Url.percentDecode (slugToString slug4)
-                            )
+            case urlToRoute model.url of
+                RouteSubPage slug3 slug4 ->
+                    ( Maybe.withDefault "" <| Url.percentDecode (slugToString slug3)
+                    , Maybe.withDefault "" <| Url.percentDecode (slugToString slug4)
+                    )
 
-                        _ ->
-                            ( "", "" )
-
-                Nothing ->
+                _ ->
                     ( "", "" )
 
         ( introspection, _ ) =
@@ -247,6 +243,7 @@ maybeSelected model =
     in
     if introspection == emptyIntrospection || variation == emptyVariation then
         Nothing
+
     else
         Just ( introspection, variation )
 
@@ -260,8 +257,7 @@ type alias Model =
     { maybeWindowSize : Maybe WindowSize
     , modelStyleElementsInput : StyleElementsInput.Model
     , modelFormField : FormField.Model
-
-    --, modelFormFieldWithPattern : FormFieldWithPattern.Model
+    , modelFormFieldWithPattern : FormFieldWithPattern.Model
     , modelCards : Card.Model
     , introspections : List ( Introspection, Bool )
     , url : Url.Parser.Url
@@ -303,14 +299,14 @@ initModel value url =
     , password = ""
     , modelStyleElementsInput = StyleElementsInput.initModel
     , modelFormField = FormField.initModel
-
-    --, modelFormFieldWithPattern = FormFieldWithPattern.initModel
+    , modelFormFieldWithPattern = FormFieldWithPattern.initModel
     , modelCards = Card.initModel
     , maybeWindowSize = flag
     , conf = initConf
     , introspections =
         if debug then
             introspections
+
         else
             introspectionsForDebugging
     }
@@ -343,8 +339,7 @@ introspections : List ( Introspection, Bool )
 introspections =
     [ ( Framework.Color.introspection, True )
     , ( FormField.introspection, True )
-
-    --, ( FormFieldWithPattern.introspection, True )
+    , ( FormFieldWithPattern.introspection, True )
     , ( Typography.introspection, True )
     , ( Card.introspection, True )
     , ( Button.introspection, True )
@@ -407,7 +402,7 @@ type Msg
     | MsgChangeWindowSize WindowSize
     | MsgStyleElementsInput StyleElementsInput.Msg
     | MsgFormField FormField.Msg
-      --| 019 MsgFormFieldWithPattern FormFieldWithPattern.Msg
+    | MsgFormFieldWithPattern FormFieldWithPattern.Msg
     | MsgCards Card.Msg
     | MsgChangeUrl Url.Parser.Url
     | MsgChangePassword String
@@ -442,6 +437,7 @@ update msg model =
                 toggle ( data, show ) =
                     if data.name == dataName then
                         ( data, not show )
+
                     else
                         ( data, show )
 
@@ -467,13 +463,13 @@ update msg model =
             in
             ( { model | modelFormField = newModel }, Cmd.none )
 
-        {- MsgFormFieldWithPattern msg2 ->
-           let
-               ( newModel, _ ) =
-                   FormFieldWithPattern.update msg2 model.modelFormFieldWithPattern
-           in
-           ( { model | modelFormFieldWithPattern = newModel }, Cmd.none )
-        -}
+        MsgFormFieldWithPattern msg2 ->
+            let
+                ( newModel, _ ) =
+                    FormFieldWithPattern.update msg2 model.modelFormFieldWithPattern
+            in
+            ( { model | modelFormFieldWithPattern = newModel }, Cmd.none )
+
         MsgCards msg2 ->
             let
                 ( newModel, _ ) =
@@ -666,6 +662,7 @@ viewSomething model ( introspection, ( title, listSubSection ) ) =
                         [ text <| String.join "⇾" <| String.split "->" introspection.signature
                         ]
                     ]
+
                 else
                     []
                )
@@ -723,6 +720,7 @@ viewIntrospectionForMenu configuration introspection open =
                     , rotate
                         (if open then
                             pi / 2
+
                          else
                             0
                         )
@@ -747,6 +745,7 @@ viewIntrospectionForMenu configuration introspection open =
              ]
                 ++ (if open then
                         [ htmlAttribute <| Html.Attributes.class "elmStyleguideGenerator-open" ]
+
                     else
                         [ htmlAttribute <| Html.Attributes.class "elmStyleguideGenerator-close" ]
                    )
@@ -791,18 +790,15 @@ specialComponent model component =
     )
 
 
-
-{-
-   specialComponentFormFieldWithPattern : Model -> (FormFieldWithPattern.Model -> ( Element FormFieldWithPattern.Msg, c )) -> ( Element Msg, c )
-   specialComponentFormFieldWithPattern model component =
-       let
-           componentTuplet =
-               component model.modelFormFieldWithPattern
-       in
-       ( Element.map MsgFormFieldWithPattern (Tuple.first <| componentTuplet)
-       , Tuple.second <| componentTuplet
-       )
--}
+specialComponentFormFieldWithPattern : Model -> (FormFieldWithPattern.Model -> ( Element FormFieldWithPattern.Msg, c )) -> ( Element Msg, c )
+specialComponentFormFieldWithPattern model component =
+    let
+        componentTuplet =
+            component model.modelFormFieldWithPattern
+    in
+    ( Element.map MsgFormFieldWithPattern (Tuple.first <| componentTuplet)
+    , Tuple.second <| componentTuplet
+    )
 
 
 specialComponentFormField : Model -> (FormField.Model -> ( Element FormField.Msg, c )) -> ( Element Msg, c )
@@ -833,41 +829,58 @@ viewSubSection model ( componentExample, componentExampleSourceCode ) =
         ( componentExampleToDisplay, componentExampleSourceCodeToDisplay ) =
             if componentExample == text "special: Form.example1" then
                 specialComponentFormField model FormField.example1
-                {- else if componentExample == text "special: FormFieldWithPattern.example1" then
-                       specialComponentFormFieldWithPattern model FormFieldWithPattern.example1
-                   else if componentExample == text "special: FormFieldWithPattern.example2" then
-                       specialComponentFormFieldWithPattern model FormFieldWithPattern.example2
-                   else if componentExample == text "special: FormFieldWithPattern.example3" then
-                       specialComponentFormFieldWithPattern model FormFieldWithPattern.example3
-                -}
+
+            else if componentExample == text "special: FormFieldWithPattern.example1" then
+                specialComponentFormFieldWithPattern model FormFieldWithPattern.example1
+
+            else if componentExample == text "special: FormFieldWithPattern.example2" then
+                specialComponentFormFieldWithPattern model FormFieldWithPattern.example2
+
+            else if componentExample == text "special: FormFieldWithPattern.example3" then
+                specialComponentFormFieldWithPattern model FormFieldWithPattern.example3
+
             else if componentExample == text "special: Cards.example1" then
                 specialComponentCards model Card.example1
+
             else if componentExample == text "special: example0" then
                 specialComponent model StyleElementsInput.example0
+
             else if componentExample == text "special: example1" then
                 specialComponent model StyleElementsInput.example1
+
             else if componentExample == text "special: example2" then
                 specialComponent model StyleElementsInput.example2
+
             else if componentExample == text "special: example3" then
                 specialComponent model StyleElementsInput.example3
+
             else if componentExample == text "special: example4" then
                 specialComponent model StyleElementsInput.example4
+
             else if componentExample == text "special: example5" then
                 specialComponent model StyleElementsInput.example5
+
             else if componentExample == text "special: example6" then
                 specialComponent model StyleElementsInput.example6
+
             else if componentExample == text "special: example7" then
                 specialComponent model StyleElementsInput.example7
+
             else if componentExample == text "special: example8" then
                 specialComponent model StyleElementsInput.example8
+
             else if componentExample == text "special: example9" then
                 specialComponent model StyleElementsInput.example9
+
             else if componentExample == text "special: example9" then
                 specialComponent model StyleElementsInput.example9
+
             else if componentExample == text "special: example10" then
                 specialComponent model StyleElementsInput.example10
+
             else if componentExample == text "special: example11" then
                 specialComponent model StyleElementsInput.example11
+
             else
                 ( componentExample, componentExampleSourceCode )
     in
@@ -1008,13 +1021,6 @@ routeToString page =
 
 fromUrl : Url.Parser.Url -> Maybe Route
 fromUrl url =
-    {-
-       if String.isEmpty location.hash then
-           Just RouteHome
-
-       else
-           UrlParser.parseHash route location
-    -}
     case url.fragment of
         Nothing ->
             Just RouteHome
@@ -1034,28 +1040,28 @@ docs =
     Url.Parser.map Docs (Url.Parser.string </> Url.Parser.fragment identity)
 
 
-route : Url.Parser.Parser (Docs -> a) a
-route =
-    Url.Parser.map Docs (Url.Parser.string </> Url.Parser.fragment identity)
-
-
 urlToRoute : Url.Parser.Url -> Route
 urlToRoute url =
     let
-        _ =
-            url |> Debug.log "url"
-
-        _ =
-            Url.Parser.parse route url |> Debug.log "fragment parsed"
+        maybeRoute =
+            Url.Parser.parse routeParser (fragmentAsPath url) |> Debug.log "route"
     in
-    RouteHome
+    case maybeRoute of
+        Nothing ->
+            RouteHome
+
+        Just route ->
+            route
 
 
-routeOld : Url.Parser.Parser (Route -> a) a
-routeOld =
+routeParser : Url.Parser.Parser (Route -> a) a
+routeParser =
     Url.Parser.oneOf
-        [ Url.Parser.map RouteHome (Url.Parser.s rootRoute)
-        , Url.Parser.map RouteSubPage (Url.Parser.s rootRoute </> slugParser </> slugParser)
+        [ Url.Parser.map RouteSubPage
+            (Url.Parser.s rootRoute
+                </> slugParser
+                </> slugParser
+            )
         ]
 
 
@@ -1068,7 +1074,7 @@ fragmentToRoute fragment =
                     Nothing
 
                 Just segments ->
-                    Url.Parser.parse route segments
+                    Url.Parser.parse routeParser segments
     in
     Just RouteHome
 
@@ -1076,3 +1082,23 @@ fragmentToRoute fragment =
 rootRoute : String
 rootRoute =
     "framework"
+
+
+fragmentAsPath : Url.Parser.Url -> Url.Parser.Url
+fragmentAsPath url =
+    case url.fragment of
+        Nothing ->
+            { url | path = "" }
+
+        Just fragment ->
+            { url | path = fragment }
+
+
+maybeFragmentAsPath : Maybe Url.Parser.Url -> Maybe Url.Parser.Url
+maybeFragmentAsPath maybeUrl =
+    case maybeUrl of
+        Nothing ->
+            Nothing
+
+        Just url ->
+            Just <| fragmentAsPath url

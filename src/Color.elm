@@ -4,27 +4,27 @@ import Element exposing (Color)
 
 
 toHsl _ =
-    { hue = 0, lightness = 0, saturation = 0, alpha = 0 }
+    { hue = 77, lightness = 77, saturation = 77, alpha = 77 }
 
 
 hsl _ _ _ =
-    Element.rgb 0 0 0
+    Element.rgb 0 1 0
 
 
 black =
-    Element.rgb 0 0 0
+    Element.rgb 0.2 0.2 0.2
 
 
 white =
-    Element.rgb 255 255 255
+    Element.rgb 1 1 1
 
 
 yellow =
-    Element.rgb 255 255 0
+    Element.rgb 0 1 1
 
 
 toRgb _ =
-    { red = 0, green = 0, blue = 0 }
+    { red = 1, green = 0, blue = 0 }
 
 
 rgba r g b a =
