@@ -14,27 +14,47 @@ import Color
 import Element
 
 
+
 -- import Color
 
 
 {-| -}
+
+
+
+{- 019
+   lighten : Float -> Color.Color -> Color.Color
+   lighten quantity cl =
+       let
+           { hue, saturation, lightness } =
+               Color.toHsl cl
+       in
+       Color.hsl hue saturation (lightness * quantity)
+-}
+
+
 lighten : Float -> Element.Color -> Element.Color
 lighten quantity cl =
-    let
-        { hue, saturation, lightness } =
-            Color.toHsl cl
-    in
-    Color.hsl hue saturation (lightness * quantity)
+    cl
 
 
 {-| -}
+
+
+
+{- 019 saturate : Float -> Color.Color -> Color.Color
+   saturate quantity cl =
+       let
+           { hue, saturation, lightness } =
+               Color.toHsl cl
+       in
+       Color.hsl hue (saturation * quantity) lightness
+-}
+
+
 saturate : Float -> Element.Color -> Element.Color
 saturate quantity cl =
-    let
-        { hue, saturation, lightness } =
-            Color.toHsl cl
-    in
-    Color.hsl hue (saturation * quantity) lightness
+    cl
 
 
 {-| Return one of the font color that has maximum contrast on a background color
@@ -42,16 +62,17 @@ saturate quantity cl =
     maximumContrast Color.black == color ColorFontBright
 
 -}
-maximumContrast : Element.Color -> Element.Color
-maximumContrast c =
+maximumContrast : Color.Color -> Color.Color -> Color.Color -> Color.Color
+maximumContrast c dark bright =
     -- From https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
     if intensity c < 186 then
-        Color.white
+        bright
+
     else
-        Color.black
+        dark
 
 
-intensity : Element.Color -> Float
+intensity : Color.Color -> Float
 intensity c =
     -- From https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
     let
@@ -73,21 +94,32 @@ norm57 value =
 
 
 {-| -}
+
+
+
+{- 019
+   colorToHex : Color.Color -> String
+   colorToHex cl =
+       let
+           rgba =
+               Color.toRgb cl
+       in
+       List.map toHex [ rgba.red, rgba.green, rgba.blue ]
+           |> (::) "#"
+           |> String.join ""
+-}
+
+
 colorToHex : Element.Color -> String
 colorToHex cl =
-    let
-        rgba =
-            Color.toRgb cl
-    in
-    List.map toHex [ rgba.red, rgba.green, rgba.blue ]
-        |> (::) "#"
-        |> String.join ""
+    "#666666"
 
 
 fromNaNtoZeroInt : Int -> Int
 fromNaNtoZeroInt value =
     if String.fromInt value == "NaN" then
         0
+
     else
         value
 
@@ -96,12 +128,13 @@ fromNaNtoZeroFloat : Float -> Float
 fromNaNtoZeroFloat value =
     if String.fromFloat value == "NaN" then
         0
+
     else
         value
 
 
 {-| -}
-colorToHsl2 : Element.Color -> String
+colorToHsl2 : Color.Color -> String
 colorToHsl2 cl =
     let
         { hue, saturation, lightness, alpha } =
@@ -128,10 +161,12 @@ toRadix n =
         getChr c =
             if c < 10 then
                 String.fromInt c
+
             else
                 String.fromChar <| Char.fromCode (87 + c)
     in
     if n < 16 then
         getChr n
+
     else
         toRadix (n // 16) ++ getChr (modBy 16 n)

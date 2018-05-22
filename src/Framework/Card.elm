@@ -11,7 +11,7 @@ Wrapper for content
 
 -}
 
-import Color
+import ColorElement as Color
 import Element exposing (Attribute, Element, alignTop, centerX, centerY, column, el, fill, height, html, htmlAttribute, padding, pointer, px, row, shrink, spacing, text, width)
 import Element.Background as Background
 import Element.Border as Border
@@ -203,9 +203,8 @@ flipping data =
                 ++ stylexxx "position" "absolute"
     in
     column
-        (-- width 500 -> 2000px
-         alignTop :: stylexxx "perspective" "1500px"
-        )
+        -- width 500 -> 2000px
+        (alignTop :: stylexxx "perspective" "1500px")
         [ html <| Html.node "style" [] [ Html.text "alignbottom, alignright {pointer-events:none}" ]
         , row
             ([ width <| x
@@ -215,6 +214,7 @@ flipping data =
                 ++ stylexxx "transform-style" "preserve-3d"
                 ++ (if data.activeFront then
                         stylexxx "transform" "rotateY(0deg)"
+
                     else
                         stylexxx "transform" "rotateY(180deg)"
                    )
@@ -257,5 +257,6 @@ stylexxx key value =
         , htmlAttribute <| Html.Attributes.style ("-o-" ++ key) value
         , htmlAttribute <| Html.Attributes.style key value
         ]
+
     else
         [ htmlAttribute <| Html.Attributes.style key value ]

@@ -9,7 +9,7 @@ module Framework.Spinner exposing (Spinner(..), introspection, spinner)
 
 -}
 
-import Color
+import ColorElement as Color
 import Element
 import Framework.ColorManipulation
 import Html

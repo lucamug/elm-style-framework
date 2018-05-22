@@ -14,6 +14,7 @@ This list is inspired by Bulma framework: <https://bulma.io/documentation/overvi
 -- 019 import ColorMath.Hex8
 -- import Color
 
+import ColorElement as Color
 import Dict
 import Element
 import Element.Font as Font
@@ -249,37 +250,43 @@ getInt key =
    getInt key =
        round <| getFloat key
 -}
+{-
 
+   hexToColor : String -> Element.Color
+   hexToColor hex =
+       let
+           newHex =
+               if String.length hex == 6 || String.length hex == 7 then
+                   hex ++ "ff"
 
-hexToColor : String -> Element.Color
-hexToColor hex =
-    let
-        newHex =
-            if String.length hex == 6 || String.length hex == 7 then
-                hex ++ "ff"
+               else if String.length hex == 3 || String.length hex == 4 then
+                   hex ++ "f"
 
-            else if String.length hex == 3 || String.length hex == 4 then
-                hex ++ "f"
-
-            else
-                hex
-    in
-    {- 019
+               else
+                   hex
+       in
        case ColorMath.Hex8.toColor <| newHex of
            Ok value ->
                value
 
            Err _ ->
                Color.rgb 0x00 0x00 0x00
-       -
-    -}
-    Element.rgb 0x00 0x00 0x00
+-}
 
 
 getColor : String -> Element.Color
 getColor key =
-    -- 019 hexToColor <| getString key
-    Element.rgb 0.7 0.7 0.7
+    let
+        value =
+            getString key
+
+        _ =
+            Debug.log "xxx" <| key
+
+        _ =
+            Debug.log "xxx" <| value
+    in
+    Color.hexToColor <| value
 
 
 getValue :
@@ -308,14 +315,6 @@ getValue key original replacement =
                     Nothing
 
 
-hsl2toString : Float -> Float -> Float -> String
-hsl2toString a b c =
-    -- 019
-    -- Color.hsl (degrees a) (b / 100) (c / 100)
-    -- |> ColorMath.Hex8.fromColor
-    "#ff00ff"
-
-
 bulmaColor :
     { black : String
     , black_bis : String
@@ -339,25 +338,25 @@ bulmaColor :
     }
 bulmaColor =
     { -- https://bulma.io/documentation/overview/variables/
-      black = hsl2toString 0 0 4
-    , black_bis = hsl2toString 0 0 7
-    , black_ter = hsl2toString 0 0 14
-    , grey_darker = hsl2toString 0 0 21
-    , grey_dark = hsl2toString 0 0 29
-    , grey = hsl2toString 0 0 48
-    , grey_light = hsl2toString 0 0 71
-    , grey_lighter = hsl2toString 0 0 86
-    , white_ter = hsl2toString 0 0 96
-    , white_bis = hsl2toString 0 0 98
-    , white = hsl2toString 0 0 100
-    , orange = hsl2toString 14 100 53
-    , yellow = hsl2toString 48 100 67
-    , green = hsl2toString 141 71 48
-    , turquoise = hsl2toString 171 100 41
-    , cyan = hsl2toString 204 86 53
-    , blue = hsl2toString 217 71 53
-    , purple = hsl2toString 271 100 71
-    , red = hsl2toString 348 100 61
+      black = Color.hsltoString 0 0 4
+    , black_bis = Color.hsltoString 0 0 7
+    , black_ter = Color.hsltoString 0 0 14
+    , grey_darker = Color.hsltoString 0 0 21
+    , grey_dark = Color.hsltoString 0 0 29
+    , grey = Color.hsltoString 0 0 48
+    , grey_light = Color.hsltoString 0 0 71
+    , grey_lighter = Color.hsltoString 0 0 86
+    , white_ter = Color.hsltoString 0 0 96
+    , white_bis = Color.hsltoString 0 0 98
+    , white = Color.hsltoString 0 0 100
+    , orange = Color.hsltoString 14 100 53
+    , yellow = Color.hsltoString 48 100 67
+    , green = Color.hsltoString 141 71 48
+    , turquoise = Color.hsltoString 171 100 41
+    , cyan = Color.hsltoString 204 86 53
+    , blue = Color.hsltoString 217 71 53
+    , purple = Color.hsltoString 271 100 71
+    , red = Color.hsltoString 348 100 61
     }
 
 

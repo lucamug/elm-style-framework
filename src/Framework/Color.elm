@@ -61,6 +61,7 @@ module Framework.Color
 
 -- import Color
 
+import Color
 import Element exposing (Element, column)
 import Element.Background
 import Element.Border
@@ -159,16 +160,17 @@ introspection =
 usageWrapper : Element.Color -> Element.Element msg
 usageWrapper cl =
     Element.el
-        [ Element.Background.color cl
+        [ Element.Background.color <| cl
         , Element.width <| Element.px 200
         , Element.padding 10
         , Element.Border.rounded 5
-        , Element.Font.color <| ColorManipulation.maximumContrast cl
+
+        -- 019 , Element.Font.color <| ColorManipulation.maximumContrast cl (Color.hsla 0 0 0 100) (Color.hsla 0 100 100 100)
         ]
     <|
         column []
-            [ Element.text <| ColorManipulation.colorToHex cl
-            , Element.text <| ColorManipulation.colorToHsl2 cl
+            [-- Element.text <| ColorManipulation.colorToHex cl
+             -- , Element.text <| ColorManipulation.colorToHsl2 cl
             ]
 
 

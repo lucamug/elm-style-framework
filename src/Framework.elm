@@ -101,7 +101,7 @@ For any issue or to get in touch with the authors, refer to the github page.
 --import Element.Input as Input
 
 import Browser
-import Color
+import ColorElement as Color
 import Element exposing (Attribute, Element, alignLeft, alignRight, alignTop, alpha, centerX, centerY, clip, clipX, column, el, fill, focusStyle, height, html, htmlAttribute, image, layoutWith, link, moveLeft, none, padding, paddingEach, paddingXY, paragraph, pointer, px, rotate, row, scrollbarY, scrollbars, shrink, spacing, text, width)
 import Element.Background as Background
 import Element.Border as Border
