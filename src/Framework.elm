@@ -260,7 +260,7 @@ type alias Model =
     , modelFormFieldWithPattern : FormFieldWithPattern.Model
     , modelCards : Card.Model
     , introspections : List ( Introspection, Bool )
-    , url : Url.Parser.Url
+    , url : Url.Url
     , password : String
     , conf : Conf Msg
     }
@@ -268,7 +268,7 @@ type alias Model =
 
 decodeFlag : Json.Decode.Decoder Flag
 decodeFlag =
-    Json.Decode.Pipeline.decode Flag
+    Json.Decode.succeed Flag
         |> Json.Decode.Pipeline.required "width" Json.Decode.int
         |> Json.Decode.Pipeline.required "height" Json.Decode.int
 
@@ -289,7 +289,7 @@ decodeFlagFromJson json =
 
 
 {-| -}
-initModel : Json.Decode.Value -> Url.Parser.Url -> Model
+initModel : Json.Decode.Value -> Url.Url -> Model
 initModel value url =
     let
         flag =
@@ -404,7 +404,7 @@ type Msg
     | MsgFormField FormField.Msg
     | MsgFormFieldWithPattern FormFieldWithPattern.Msg
     | MsgCards Card.Msg
-    | MsgChangeUrl Url.Parser.Url
+    | MsgChangeUrl Url.Url
     | MsgChangePassword String
 
 
@@ -957,7 +957,7 @@ subscriptions _ =
        -> { init : flags -> Location -> (model, Cmd msg), update : msg -> model -> (model, Cmd msg), view : model -> Html msg, subscriptions : model -> Sub msg }
        -> Program flags model msg
 -}
--- fromUrl : Url.Parser.Url -> Maybe Route
+-- fromUrl : Url.Url -> Maybe Route
 
 
 {-| -}
@@ -976,7 +976,7 @@ main =
 -- ROUTING
 
 
-onNavigation : Url.Parser.Url -> Msg
+onNavigation : Url.Url -> Msg
 onNavigation url =
     -- SetRoute (fromUrl url)
     MsgChangeUrl url
@@ -1020,7 +1020,7 @@ routeToString page =
     routeRoot ++ String.join "/" pieces
 
 
-fromUrl : Url.Parser.Url -> Maybe Route
+fromUrl : Url.Url -> Maybe Route
 fromUrl url =
     case url.fragment of
         Nothing ->
@@ -1041,7 +1041,7 @@ docs =
     Url.Parser.map Docs (Url.Parser.string </> Url.Parser.fragment identity)
 
 
-urlToRoute : Url.Parser.Url -> Route
+urlToRoute : Url.Url -> Route
 urlToRoute url =
     let
         maybeRoute =
@@ -1066,17 +1066,25 @@ routeParser =
         ]
 
 
+
+{-
+   fragmentToRoute : String -> Maybe Route
+   fragmentToRoute fragment =
+       let
+           test =
+               case Url.Parser.toUrl fragment of
+                   Nothing ->
+                       Nothing
+
+                   Just segments ->
+                       Url.Parser.parse routeParser segments
+       in
+       Just RouteHome
+-}
+
+
 fragmentToRoute : String -> Maybe Route
 fragmentToRoute fragment =
-    let
-        test =
-            case Url.Parser.toUrl fragment of
-                Nothing ->
-                    Nothing
-
-                Just segments ->
-                    Url.Parser.parse routeParser segments
-    in
     Just RouteHome
 
 
@@ -1085,7 +1093,7 @@ rootRoute =
     "framework"
 
 
-fragmentAsPath : Url.Parser.Url -> Url.Parser.Url
+fragmentAsPath : Url.Url -> Url.Url
 fragmentAsPath url =
     case url.fragment of
         Nothing ->
@@ -1095,7 +1103,7 @@ fragmentAsPath url =
             { url | path = fragment }
 
 
-maybeFragmentAsPath : Maybe Url.Parser.Url -> Maybe Url.Parser.Url
+maybeFragmentAsPath : Maybe Url.Url -> Maybe Url.Url
 maybeFragmentAsPath maybeUrl =
     case maybeUrl of
         Nothing ->
