@@ -9,9 +9,8 @@ module Framework.Spinner exposing (Spinner(..), introspection, spinner)
 
 -}
 
-import ColorElement as Color
+import Color
 import Element
-import Framework.ColorManipulation
 import Html
 import Svg
 import Svg.Attributes as SA
@@ -43,7 +42,7 @@ introspection =
     spinner ThreeCircles 32 Color.black
 
 -}
-spinner : Spinner -> Int -> Element.Color -> Element.Element msg
+spinner : Spinner -> Int -> Color.Color -> Element.Element msg
 spinner sp size color =
     Element.html <|
         case sp of
@@ -61,11 +60,11 @@ type Spinner
     | Rotation
 
 
-spinnerThreeCirclesHtml : Int -> Element.Color -> Html.Html msg
+spinnerThreeCirclesHtml : Int -> Color.Color -> Html.Html msg
 spinnerThreeCirclesHtml _ color =
     let
         colorString =
-            Framework.ColorManipulation.colorToHex color
+            Color.colorToHex color
 
         size =
             32
@@ -115,11 +114,11 @@ spinnerThreeCirclesHtml _ color =
         ]
 
 
-spinnerRotationHtml : Int -> Element.Color -> Html.Html msg
+spinnerRotationHtml : Int -> Color.Color -> Html.Html msg
 spinnerRotationHtml size color =
     let
         colorString =
-            Framework.ColorManipulation.colorToHex color
+            Color.colorToHex color
 
         idElement =
             "id" ++ String.dropLeft 1 colorString

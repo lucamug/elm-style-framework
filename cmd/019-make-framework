@@ -1,3 +1,4 @@
 #!/bin/bash
-~/elm.2 make src/Framework.elm --output docs/build/019-framework.js
+# ~/elm.2 make src/Framework.elm --output docs/build/019-framework.js
+~/elm.2 make src/Framework.elm --output docs/build/019-framework.js --optimize
 # elm-live --output=docs/build/framework.js src/Framework.elm --dir=docs --debug --port=8000

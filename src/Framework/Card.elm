@@ -11,7 +11,7 @@ Wrapper for content
 
 -}
 
-import ColorElement as Color
+import Color
 import Element exposing (Attribute, Element, alignTop, centerX, centerY, column, el, fill, height, html, htmlAttribute, padding, pointer, px, row, shrink, spacing, text, width)
 import Element.Background as Background
 import Element.Border as Border
@@ -69,10 +69,10 @@ text "Content\"""" ) ] )
 {-| -}
 cardCommonAttr : List (Attribute msg)
 cardCommonAttr =
-    [ Border.shadow { blur = 10, color = Color.rgba 0 0 0 0.05, offset = ( 0, 2 ), size = 1 }
+    [ Border.shadow { blur = 10, color = Color.toElementColor <| Color.rgba 0 0 0 0.05, offset = ( 0, 2 ), size = 1 }
     , Border.width 1
-    , Border.color <| Framework.Color.grey_lighter
-    , Background.color <| Framework.Color.white
+    , Border.color <| Color.toElementColor Framework.Color.grey_lighter
+    , Background.color <| Color.toElementColor Framework.Color.white
     , Border.rounded 4
     ]
 
@@ -107,7 +107,7 @@ example1 model =
                     , el [ centerX ] <| text "Front"
                     ]
         , back =
-            el (commonAttr ++ [ Background.color Color.yellow ]) <|
+            el (commonAttr ++ [ Background.color <| Color.toElementColor Color.yellow ]) <|
                 column contentAttr
                     [ el [ centerX ] <| text "Click Me"
                     , el [ centerX ] <| text "Back"
@@ -147,12 +147,12 @@ simpleWithTitle title subTitle content =
         [ el
             [ padding 10
             , Border.widthEach { bottom = 1, left = 0, right = 0, top = 0 }
-            , Border.color <| Framework.Color.grey_light
+            , Border.color <| Color.toElementColor Framework.Color.grey_light
             , width fill
             ]
             (row [ spacing 10 ]
                 [ el [ Font.bold ] <| text title
-                , el [ Font.color <| Framework.Color.grey ] <| text subTitle
+                , el [ Font.color <| Color.toElementColor Framework.Color.grey ] <| text subTitle
                 ]
             )
         , el [ padding 20, width fill ] content

@@ -9,15 +9,13 @@ module Framework.Button exposing (button, buttonAttr, buttonLink, buttonLinkWidt
 
 -}
 
---import Color
-
+import Color
 import Element exposing (Attribute, Element, centerX, centerY, column, el, htmlAttribute, inFront, link, mouseOver, paddingXY, row, spacing, text)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
 import Framework.Color
-import Framework.ColorManipulation
 import Framework.Configuration exposing (conf)
 import Framework.Modifier exposing (Modifier(..))
 import Framework.Spinner as Spinner
@@ -141,7 +139,7 @@ type State
 
 
 type alias Conf =
-    { color : Element.Color
+    { color : Color.Color
     , size : Size
     , state : State
     }
@@ -291,12 +289,12 @@ buttonLinkWidth modifiers url label buttonX =
         }
 
 
-colorDefault : Element.Color
+colorDefault : Color.Color
 colorDefault =
     Framework.Color.white
 
 
-colorBorderDefault : Element.Color
+colorBorderDefault : Color.Color
 colorBorderDefault =
     Framework.Color.grey_lighter
 
@@ -333,13 +331,13 @@ buttonAttr modifiers =
 
                 _ ->
                     backgroundColor
-                        |> Framework.ColorManipulation.lighten 0.8
-                        |> Framework.ColorManipulation.saturate 0.9
+                        |> Color.lighten 0.8
+                        |> Color.saturate 0.9
 
         borderMouseOverColor =
             borderColor
-                |> Framework.ColorManipulation.lighten 0.8
-                |> Framework.ColorManipulation.saturate 0.9
+                |> Color.lighten 0.8
+                |> Color.saturate 0.9
 
         fontMouseOverColor =
             case confButton.state of
@@ -354,8 +352,8 @@ buttonAttr modifiers =
 
                 _ ->
                     fontColor
-                        |> Framework.ColorManipulation.lighten 0.8
-                        |> Framework.ColorManipulation.saturate 0.9
+                        |> Color.lighten 0.8
+                        |> Color.saturate 0.9
 
         backgroundColor =
             case confButton.state of
@@ -365,6 +363,7 @@ buttonAttr modifiers =
                 StateOutlined ->
                     if confButton.color == Framework.Color.white then
                         colorBorderDefault
+
                     else
                         Framework.Color.transparent
 
@@ -376,8 +375,8 @@ buttonAttr modifiers =
 
                 StateDisabled ->
                     cc
-                        |> Framework.ColorManipulation.lighten 1.1
-                        |> Framework.ColorManipulation.saturate 0.4
+                        |> Color.lighten 1.1
+                        |> Color.saturate 0.4
 
         borderRounded =
             case confButton.size of
@@ -390,6 +389,7 @@ buttonAttr modifiers =
         borderColor =
             if confButton.color == Framework.Color.white then
                 colorBorderDefault
+
             else
                 case confButton.state of
                     StateOutlined ->
@@ -401,6 +401,7 @@ buttonAttr modifiers =
         spinnerColor =
             if confButton.color == Framework.Color.white then
                 Framework.Color.grey_dark
+
             else
                 Framework.Color.white
 
@@ -418,6 +419,7 @@ buttonAttr modifiers =
                 _ ->
                     if confButton.color == Framework.Color.white then
                         Framework.Color.grey_dark
+
                     else
                         Framework.Color.white
 
@@ -441,20 +443,21 @@ buttonAttr modifiers =
                     []
     in
     [ Font.size fontSize
-    , Font.color fontColor
-    , Background.color backgroundColor
+    , Font.color <| Color.toElementColor fontColor
+    , Background.color <| Color.toElementColor backgroundColor
     , paddingXY (Tuple.first buttonPadding) (Tuple.second buttonPadding)
     , Border.rounded borderRounded
     , Border.width 1
-    , Border.color borderColor
+    , Border.color <| Color.toElementColor borderColor
     ]
         ++ (if confButton.state == StateDisabled then
                 [ htmlAttribute <| Html.Attributes.style "cursor" "not-allowed" ]
+
             else
                 [ mouseOver
-                    [ Font.color fontMouseOverColor
-                    , Background.color backgroundMouseOverColor
-                    , Border.color borderMouseOverColor
+                    [ Font.color <| Color.toElementColor fontMouseOverColor
+                    , Background.color <| Color.toElementColor backgroundMouseOverColor
+                    , Border.color <| Color.toElementColor borderMouseOverColor
                     ]
                 ]
            )

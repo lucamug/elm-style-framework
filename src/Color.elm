@@ -3,10 +3,6 @@ module Color exposing (..)
 import Element
 
 
-toHsl _ =
-    { hue = 0, lightness = 0, saturation = 0, alpha = 0 }
-
-
 black =
     rgb 20 20 20
 
@@ -16,22 +12,37 @@ white =
 
 
 yellow =
-    rgb 0 200 200
+    -- #ffeb3b
+    -- 255 235 59
+    -- HSLA 54 100% 62% 1
+    -- Color.hsl2ToString  48 100 67
+    -- rgb 255 235 59
+    hsla 54 100 62 1
 
 
-hsltoString : Float -> Float -> Float -> String
-hsltoString h s l =
-    hsl (degrees h) (s / 100) (l / 100)
+hsl2 h2 s2 l2 =
+    hsl (degrees h2) (s2 / 100) (l2 / 100)
+
+
+hsl2ToString : Float -> Float -> Float -> String
+hsl2ToString h2 s2 l2 =
+    hsl2 h2 s2 l2
+        |> colorToHex
+
+
+hslToString : Float -> Float -> Float -> String
+hslToString h s l =
+    hsl h s l
         |> colorToHex
 
 
 colorToHex : Color -> String
 colorToHex cl =
     let
-        c =
+        { red, green, blue } =
             toRgb cl
     in
-    List.map toHex [ c.red, c.green, c.blue ]
+    List.map toHex [ red, green, blue ]
         |> (::) "#"
         |> String.join ""
 
@@ -50,12 +61,15 @@ toRadix n =
 
             else
                 String.fromChar <| Char.fromCode (87 + c)
-    in
-    if n < 16 then
-        getChr n
 
-    else
-        toRadix (n // 16) ++ getChr (modBy 16 n)
+        result =
+            if n < 16 then
+                getChr n
+
+            else
+                toRadix (n // 16) ++ getChr (remainderBy 16 n)
+    in
+    result
 
 
 
@@ -106,6 +120,20 @@ toRgb color =
             }
 
 
+toHsl : Color -> { hue : Float, saturation : Float, lightness : Float, alpha : Float }
+toHsl color =
+    case color of
+        HSLA h s l a ->
+            { hue = h, saturation = s, lightness = l, alpha = a }
+
+        RGBA r g b a ->
+            let
+                ( h, s, l ) =
+                    rgbToHsl r g b
+            in
+            { hue = h, saturation = s, lightness = l, alpha = a }
+
+
 hslToRgb : Float -> Float -> Float -> ( Float, Float, Float )
 hslToRgb hue saturation lightness =
     let
@@ -149,13 +177,60 @@ hslToRgb hue saturation lightness =
     ( r + m, g + m, b + m )
 
 
+rgbToHsl : Int -> Int -> Int -> ( Float, Float, Float )
+rgbToHsl red green blue =
+    let
+        r =
+            toFloat red / 255
+
+        g =
+            toFloat green / 255
+
+        b =
+            toFloat blue / 255
+
+        cMax =
+            max (max r g) b
+
+        cMin =
+            min (min r g) b
+
+        c =
+            cMax - cMin
+
+        hue =
+            degrees 60
+                * (if cMax == r then
+                    fmod ((g - b) / c) 6
+
+                   else if cMax == g then
+                    ((b - r) / c) + 2
+
+                   else
+                    {- cMax == b -}
+                    ((r - g) / c) + 4
+                  )
+
+        lightness =
+            (cMax + cMin) / 2
+
+        saturation =
+            if lightness == 0 then
+                0
+
+            else
+                c / (1 - abs (2 * lightness - 1))
+    in
+    ( hue, saturation, lightness )
+
+
 fmod : Float -> Int -> Float
 fmod f n =
     let
         integer =
             floor f
     in
-    toFloat (remainderBy integer n) + f - toFloat integer
+    toFloat (modBy n integer) + f - toFloat integer
 
 
 toElementColor : Color -> Element.Color
@@ -353,3 +428,29 @@ fromStringHelp position chars accumulated =
 
                 nonHex ->
                     Err (String.fromChar nonHex ++ " is not a valid hexadecimal character.")
+
+
+
+-- #############################
+-- ## From Color Manipulation ##
+-- #############################
+
+
+saturate : Float -> Color -> Color
+saturate quantity cl =
+    cl
+
+
+lighten : Float -> Color -> Color
+lighten quantity cl =
+    cl
+
+
+maximumContrast c1 bright dark =
+    dark
+
+
+
+-- #############################
+-- ##                         ##
+-- #############################

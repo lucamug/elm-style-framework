@@ -66,7 +66,6 @@ import Element exposing (Element, column)
 import Element.Background
 import Element.Border
 import Element.Font
-import Framework.ColorManipulation as ColorManipulation
 import Framework.Configuration exposing (conf)
 
 
@@ -80,7 +79,7 @@ introspection :
 introspection =
     { name = "Colors"
     , description = ""
-    , signature = "Element.Color"
+    , signature = "Color.Color"
     , variations =
         [ ( "Colors"
           , [ ( usageWrapper <| orange, "orange" )
@@ -157,300 +156,300 @@ introspection =
 
 
 {-| -}
-usageWrapper : Element.Color -> Element.Element msg
+usageWrapper : Color.Color -> Element.Element msg
 usageWrapper cl =
     Element.el
-        [ Element.Background.color <| cl
+        [ Element.Background.color <| Color.toElementColor cl
         , Element.width <| Element.px 200
         , Element.padding 10
         , Element.Border.rounded 5
-
-        -- 019 , Element.Font.color <| ColorManipulation.maximumContrast cl (Color.hsla 0 0 0 100) (Color.hsla 0 100 100 100)
+        , Element.Font.color <| Color.toElementColor <| Color.maximumContrast cl (Color.rgb 0 0 0) (Color.rgb 255 255 255)
         ]
     <|
         column []
-            [-- Element.text <| ColorManipulation.colorToHex cl
-             -- , Element.text <| ColorManipulation.colorToHsl2 cl
+            [ Element.text <| Color.colorToHex cl
+
+            --, Element.text <| Debug.toString <| Color.toHsl cl
             ]
 
 
 {-| -}
-background : Element.Color
+background : Color.Color
 background =
     conf.color.background
 
 
 {-| -}
-black : Element.Color
+black : Color.Color
 black =
     conf.color.black
 
 
 {-| -}
-black_bis : Element.Color
+black_bis : Color.Color
 black_bis =
     conf.color.black_bis
 
 
 {-| -}
-black_ter : Element.Color
+black_ter : Color.Color
 black_ter =
     conf.color.black_ter
 
 
 {-| -}
-blue : Element.Color
+blue : Color.Color
 blue =
     conf.color.blue
 
 
 {-| -}
-border : Element.Color
+border : Color.Color
 border =
     conf.color.border
 
 
 {-| -}
-border_hover : Element.Color
+border_hover : Color.Color
 border_hover =
     conf.color.border_hover
 
 
 {-| -}
-code : Element.Color
+code : Color.Color
 code =
     conf.color.code
 
 
 {-| -}
-code_background : Element.Color
+code_background : Color.Color
 code_background =
     conf.color.code_background
 
 
 {-| -}
-cyan : Element.Color
+cyan : Color.Color
 cyan =
     conf.color.cyan
 
 
 {-| -}
-danger : Element.Color
+danger : Color.Color
 danger =
     conf.color.danger
 
 
 {-| -}
-dark : Element.Color
+dark : Color.Color
 dark =
     conf.color.dark
 
 
 {-| -}
-green : Element.Color
+green : Color.Color
 green =
     conf.color.green
 
 
 {-| -}
-grey : Element.Color
+grey : Color.Color
 grey =
     conf.color.grey
 
 
 {-| -}
-grey_dark : Element.Color
+grey_dark : Color.Color
 grey_dark =
     conf.color.grey_dark
 
 
 {-| -}
-grey_darker : Element.Color
+grey_darker : Color.Color
 grey_darker =
     conf.color.grey_darker
 
 
 {-| -}
-grey_light : Element.Color
+grey_light : Color.Color
 grey_light =
     conf.color.grey_light
 
 
 {-| -}
-grey_lighter : Element.Color
+grey_lighter : Color.Color
 grey_lighter =
     conf.color.grey_lighter
 
 
 {-| -}
-info : Element.Color
+info : Color.Color
 info =
     conf.color.info
 
 
 {-| -}
-light : Element.Color
+light : Color.Color
 light =
     conf.color.light
 
 
 {-| -}
-link : Element.Color
+link : Color.Color
 link =
     conf.color.link
 
 
 {-| -}
-link_active : Element.Color
+link_active : Color.Color
 link_active =
     conf.color.link_active
 
 
 {-| -}
-link_active_border : Element.Color
+link_active_border : Color.Color
 link_active_border =
     conf.color.link_active_border
 
 
 {-| -}
-link_focus : Element.Color
+link_focus : Color.Color
 link_focus =
     conf.color.link_focus
 
 
 {-| -}
-link_focus_border : Element.Color
+link_focus_border : Color.Color
 link_focus_border =
     conf.color.link_focus_border
 
 
 {-| -}
-link_hover : Element.Color
+link_hover : Color.Color
 link_hover =
     conf.color.link_hover
 
 
 {-| -}
-link_hover_border : Element.Color
+link_hover_border : Color.Color
 link_hover_border =
     conf.color.link_hover_border
 
 
 {-| -}
-link_invert : Element.Color
+link_invert : Color.Color
 link_invert =
     conf.color.link_invert
 
 
 {-| -}
-link_visited : Element.Color
+link_visited : Color.Color
 link_visited =
     conf.color.link_visited
 
 
 {-| -}
-muted : Element.Color
+muted : Color.Color
 muted =
     conf.color.muted
 
 
 {-| -}
-orange : Element.Color
+orange : Color.Color
 orange =
     conf.color.orange
 
 
 {-| -}
-pre : Element.Color
+pre : Color.Color
 pre =
     conf.color.pre
 
 
 {-| -}
-pre_background : Element.Color
+pre_background : Color.Color
 pre_background =
     conf.color.pre_background
 
 
 {-| -}
-primary : Element.Color
+primary : Color.Color
 primary =
     conf.color.primary
 
 
 {-| -}
-purple : Element.Color
+purple : Color.Color
 purple =
     conf.color.purple
 
 
 {-| -}
-red : Element.Color
+red : Color.Color
 red =
     conf.color.red
 
 
 {-| -}
-success : Element.Color
+success : Color.Color
 success =
     conf.color.success
 
 
 {-| -}
-text : Element.Color
+text : Color.Color
 text =
     conf.color.text
 
 
 {-| -}
-text_light : Element.Color
+text_light : Color.Color
 text_light =
     conf.color.text_light
 
 
 {-| -}
-text_strong : Element.Color
+text_strong : Color.Color
 text_strong =
     conf.color.text_strong
 
 
 {-| -}
-transparent : Element.Color
+transparent : Color.Color
 transparent =
     conf.color.transparent
 
 
 {-| -}
-turquoise : Element.Color
+turquoise : Color.Color
 turquoise =
     conf.color.turquoise
 
 
 {-| -}
-warning : Element.Color
+warning : Color.Color
 warning =
     conf.color.warning
 
 
 {-| -}
-white : Element.Color
+white : Color.Color
 white =
     conf.color.white
 
 
 {-| -}
-white_bis : Element.Color
+white_bis : Color.Color
 white_bis =
     conf.color.white_bis
 
 
 {-| -}
-white_ter : Element.Color
+white_ter : Color.Color
 white_ter =
     conf.color.white_ter
 
 
 {-| -}
-yellow : Element.Color
+yellow : Color.Color
 yellow =
     conf.color.yellow

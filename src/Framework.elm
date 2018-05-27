@@ -69,7 +69,7 @@ view model =
 
 introspections : List ( Framework.Introspection, Bool )
 introspections =
-    [ ( Color.introspection, True )
+    [ ( <| Color.toElementColor Color.introspection, True )
     , ( Logo.introspection, True )
     , ( Icon.introspection, True )
     ]
@@ -101,7 +101,7 @@ For any issue or to get in touch with the authors, refer to the github page.
 --import Element.Input as Input
 
 import Browser
-import ColorElement as Color
+import Color
 import Element exposing (Attribute, Element, alignLeft, alignRight, alignTop, alpha, centerX, centerY, clip, clipX, column, el, fill, focusStyle, height, html, htmlAttribute, image, layoutWith, link, moveLeft, none, padding, paddingEach, paddingXY, paragraph, pointer, px, rotate, row, scrollbarY, scrollbars, shrink, spacing, text, width)
 import Element.Background as Background
 import Element.Border as Border
@@ -193,7 +193,7 @@ initConf =
                 [ alignRight
 
                 --, Font.color <| Framework.Color.primary
-                , Font.color <| Color.black
+                , Font.color <| Color.toElementColor Color.black
                 ]
                 { label = image [ width <| px 60, alpha 0.5 ] { src = "images/github.png", description = "Fork me on Github" }
                 , url = "https://github.com/lucamug/elm-style-framework"
@@ -515,8 +515,8 @@ view model =
             , Font.size 16
 
             -- , Font.color <| model.conf.gray3
-            , Font.color Color.black
-            , Background.color Color.white
+            , Font.color <| Color.toElementColor Color.black
+            , Background.color <| Color.toElementColor Color.white
             , model.conf.forkMe
             ]
           <|
@@ -590,7 +590,7 @@ viewMenuColumn model =
         [ Background.color <| model.conf.gray3
 
         -- , Font.color <| model.conf.grayB
-        , Font.color Color.black
+        , Font.color <| Color.toElementColor Color.black
         , width fill
         , height shrink
         , spacing 30
@@ -604,7 +604,7 @@ viewMenuColumn model =
                 , Font.size 14
 
                 -- , Font.color <| model.conf.gray9
-                , Font.color Color.black
+                , Font.color <| Color.toElementColor Color.black
                 , paddingXY 0 20
                 ]
                 [ el [ pointer, Events.onClick MsgOpenAllSections ] <| text "Expand All"
@@ -682,7 +682,7 @@ viewIntrospectionBody model title listSubSection =
     column
         [ padding model.conf.mainPadding
         , spacing model.conf.mainPadding
-        , Background.color <| Color.white
+        , Background.color <| Color.toElementColor Color.white
         ]
         [ el [ Font.size 28 ] (text <| title)
         , column [ spacing 10 ] (List.map (\( part, name ) -> viewSubSection model ( part, name )) listSubSection)
@@ -706,7 +706,7 @@ viewIntrospectionForMenu : Conf msg -> Introspection -> Bool -> Element Msg
 viewIntrospectionForMenu configuration introspection open =
     column
         [ -- Font.color <| configuration.gray9
-          Font.color Color.black
+          Font.color <| Color.toElementColor Color.black
         ]
         [ el
             [ pointer
@@ -740,7 +740,7 @@ viewIntrospectionForMenu configuration introspection open =
              , Font.size 16
 
              --, Font.color <| configuration.grayD
-             , Font.color Color.black
+             , Font.color <| Color.toElementColor Color.black
              , spacing 12
              , paddingEach { bottom = 0, left = 26, right = 0, top = 12 }
              ]
@@ -909,7 +909,7 @@ sourceCodeWrapper configuration sourceCode =
             [ Font.family [ Font.monospace ]
 
             --, Font.color <| configuration.gray9
-            , Font.color Color.black
+            , Font.color <| Color.toElementColor Color.black
             , Font.size 16
             , padding 16
             , htmlAttribute <| Html.Attributes.style "white-space" "pre"

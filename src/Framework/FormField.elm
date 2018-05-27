@@ -9,6 +9,7 @@ module Framework.FormField exposing (Field(..), Model, Msg, example1, initModel,
 
 -}
 
+import Color
 import Element exposing (Attribute, Element, alpha, fill, moveDown, moveLeft, paddingXY, scale, text, width)
 import Element.Background as Background
 import Element.Border as Border
@@ -124,7 +125,7 @@ inputText model { field, label } =
     Input.email
         ([ Events.onFocus <| OnFocus field
          , Events.onLoseFocus <| OnLoseFocus field
-         , Background.color <| Framework.Color.transparent
+         , Background.color <| Color.toElementColor Framework.Color.transparent
          , Border.widthEach { bottom = 1, left = 0, right = 0, top = 0 }
          , Border.rounded 0
          , paddingXY 0 8
@@ -133,7 +134,8 @@ inputText model { field, label } =
          , hackInLineStyle "z-index" "10"
          ]
             ++ (if hasFocus model field then
-                    [ Border.color <| Framework.Color.primary ]
+                    [ Border.color <| Color.toElementColor Framework.Color.primary ]
+
                 else
                     []
                )
@@ -146,6 +148,7 @@ inputText model { field, label } =
                  ]
                     ++ (if labelIsAbove then
                             [ scale 1, moveLeft 0 ]
+
                         else
                             [ moveDown 33
                             , alpha 0.5

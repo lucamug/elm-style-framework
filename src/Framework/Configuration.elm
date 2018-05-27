@@ -14,7 +14,7 @@ This list is inspired by Bulma framework: <https://bulma.io/documentation/overvi
 -- 019 import ColorMath.Hex8
 -- import Color
 
-import ColorElement as Color
+import Color
 import Dict
 import Element
 import Element.Font as Font
@@ -24,53 +24,53 @@ import MyStyle
 {-| -}
 conf :
     { color :
-        { background : Element.Color
-        , black : Element.Color
-        , black_bis : Element.Color
-        , black_ter : Element.Color
-        , blue : Element.Color
-        , border : Element.Color
-        , border_hover : Element.Color
-        , code : Element.Color
-        , code_background : Element.Color
-        , cyan : Element.Color
-        , danger : Element.Color
-        , dark : Element.Color
-        , green : Element.Color
-        , grey : Element.Color
-        , grey_dark : Element.Color
-        , grey_darker : Element.Color
-        , grey_light : Element.Color
-        , grey_lighter : Element.Color
-        , info : Element.Color
-        , light : Element.Color
-        , link : Element.Color
-        , link_active : Element.Color
-        , link_active_border : Element.Color
-        , link_focus : Element.Color
-        , link_focus_border : Element.Color
-        , link_hover : Element.Color
-        , link_hover_border : Element.Color
-        , link_invert : Element.Color
-        , link_visited : Element.Color
-        , muted : Element.Color
-        , orange : Element.Color
-        , pre : Element.Color
-        , pre_background : Element.Color
-        , primary : Element.Color
-        , purple : Element.Color
-        , red : Element.Color
-        , success : Element.Color
-        , text : Element.Color
-        , text_light : Element.Color
-        , text_strong : Element.Color
-        , transparent : Element.Color
-        , turquoise : Element.Color
-        , warning : Element.Color
-        , white : Element.Color
-        , white_bis : Element.Color
-        , white_ter : Element.Color
-        , yellow : Element.Color
+        { background : Color.Color
+        , black : Color.Color
+        , black_bis : Color.Color
+        , black_ter : Color.Color
+        , blue : Color.Color
+        , border : Color.Color
+        , border_hover : Color.Color
+        , code : Color.Color
+        , code_background : Color.Color
+        , cyan : Color.Color
+        , danger : Color.Color
+        , dark : Color.Color
+        , green : Color.Color
+        , grey : Color.Color
+        , grey_dark : Color.Color
+        , grey_darker : Color.Color
+        , grey_light : Color.Color
+        , grey_lighter : Color.Color
+        , info : Color.Color
+        , light : Color.Color
+        , link : Color.Color
+        , link_active : Color.Color
+        , link_active_border : Color.Color
+        , link_focus : Color.Color
+        , link_focus_border : Color.Color
+        , link_hover : Color.Color
+        , link_hover_border : Color.Color
+        , link_invert : Color.Color
+        , link_visited : Color.Color
+        , muted : Color.Color
+        , orange : Color.Color
+        , pre : Color.Color
+        , pre_background : Color.Color
+        , primary : Color.Color
+        , purple : Color.Color
+        , red : Color.Color
+        , success : Color.Color
+        , text : Color.Color
+        , text_light : Color.Color
+        , text_strong : Color.Color
+        , transparent : Color.Color
+        , turquoise : Color.Color
+        , warning : Color.Color
+        , white : Color.Color
+        , white_bis : Color.Color
+        , white_ter : Color.Color
+        , yellow : Color.Color
         }
     , font : { typeface : String, typefaceFallback : Font.Font, url : String }
     , moveDownPlaceHolder : { large : Float, small : Float }
@@ -252,7 +252,7 @@ getInt key =
 -}
 {-
 
-   hexToColor : String -> Element.Color
+   hexToColor : String -> Color.Color
    hexToColor hex =
        let
            newHex =
@@ -274,17 +274,11 @@ getInt key =
 -}
 
 
-getColor : String -> Element.Color
+getColor : String -> Color.Color
 getColor key =
     let
         value =
             getString key
-
-        _ =
-            Debug.log "xxx" <| key
-
-        _ =
-            Debug.log "xxx" <| value
     in
     Color.hexToColor <| value
 
@@ -338,25 +332,25 @@ bulmaColor :
     }
 bulmaColor =
     { -- https://bulma.io/documentation/overview/variables/
-      black = Color.hsltoString 0 0 4
-    , black_bis = Color.hsltoString 0 0 7
-    , black_ter = Color.hsltoString 0 0 14
-    , grey_darker = Color.hsltoString 0 0 21
-    , grey_dark = Color.hsltoString 0 0 29
-    , grey = Color.hsltoString 0 0 48
-    , grey_light = Color.hsltoString 0 0 71
-    , grey_lighter = Color.hsltoString 0 0 86
-    , white_ter = Color.hsltoString 0 0 96
-    , white_bis = Color.hsltoString 0 0 98
-    , white = Color.hsltoString 0 0 100
-    , orange = Color.hsltoString 14 100 53
-    , yellow = Color.hsltoString 48 100 67
-    , green = Color.hsltoString 141 71 48
-    , turquoise = Color.hsltoString 171 100 41
-    , cyan = Color.hsltoString 204 86 53
-    , blue = Color.hsltoString 217 71 53
-    , purple = Color.hsltoString 271 100 71
-    , red = Color.hsltoString 348 100 61
+      black = Color.hsl2ToString 0 0 4
+    , black_bis = Color.hsl2ToString 0 0 7
+    , black_ter = Color.hsl2ToString 0 0 14
+    , grey_darker = Color.hsl2ToString 0 0 21
+    , grey_dark = Color.hsl2ToString 0 0 29
+    , grey = Color.hsl2ToString 0 0 48
+    , grey_light = Color.hsl2ToString 0 0 71
+    , grey_lighter = Color.hsl2ToString 0 0 86
+    , white_ter = Color.hsl2ToString 0 0 96
+    , white_bis = Color.hsl2ToString 0 0 98
+    , white = Color.hsl2ToString 0 0 100
+    , orange = Color.hsl2ToString 14 100 53
+    , yellow = Color.hsl2ToString 48 100 67
+    , green = Color.hsl2ToString 141 71 48
+    , turquoise = Color.hsl2ToString 171 100 41
+    , cyan = Color.hsl2ToString 204 86 53
+    , blue = Color.hsl2ToString 217 71 53
+    , purple = Color.hsl2ToString 271 100 71
+    , red = Color.hsl2ToString 348 100 61
     }
 
 

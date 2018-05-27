@@ -31,6 +31,6 @@ white =
     Color.toElementColor Color.white
 
 
-hsltoString : Float -> Float -> Float -> String
-hsltoString h s l =
-    Color.hsltoString h s l
+hsl2ToString  : Float -> Float -> Float -> String
+hsl2ToString  h s l =
+    Color.hsl2ToString  h s l
