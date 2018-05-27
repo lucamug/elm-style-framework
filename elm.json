@@ -14,7 +14,8 @@
         "elm/regex": "1.0.0",
         "elm/svg": "1.0.0",
         "elm/url": "1.0.0",
-        "elm/virtual-dom": "1.0.0"
+        "elm/virtual-dom": "1.0.0",
+        "mdgriffith/stylish-elephants": "6.1.0"
     },
     "test-dependencies": {},
     "do-not-edit-this-by-hand": {

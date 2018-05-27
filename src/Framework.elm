@@ -129,12 +129,6 @@ import Url
 import Url.Parser exposing ((</>))
 
 
-
--- 019 import Navigation
--- 019 import Url.Parser exposing ((</>))
--- 019 import Window
-
-
 debug : Bool
 debug =
     True
@@ -143,11 +137,11 @@ debug =
 {-| Configuration
 -}
 type alias Conf msg =
-    { gray3 : Element.Color
-    , gray9 : Element.Color
-    , grayB : Element.Color
-    , grayD : Element.Color
-    , grayF : Element.Color
+    { gray3 : Color.Color
+    , gray9 : Color.Color
+    , grayB : Color.Color
+    , grayD : Color.Color
+    , grayF : Color.Color
     , title : Element msg
     , subTitle : String
     , version : String
@@ -162,11 +156,11 @@ type alias Conf msg =
 {-| -}
 initConf : Conf msg
 initConf =
-    { gray3 = Element.rgb 0x33 0x33 0x33
-    , gray9 = Element.rgb 0x99 0x99 0x99
-    , grayB = Element.rgb 0xB6 0xB6 0xB6
-    , grayD = Element.rgb 0xD1 0xD1 0xD1
-    , grayF = Element.rgb 0xF7 0xF7 0xF7
+    { gray3 = Color.rgb 0x33 0x33 0x33
+    , gray9 = Color.rgb 0x99 0x99 0x99
+    , grayB = Color.rgb 0xB6 0xB6 0xB6
+    , grayD = Color.rgb 0xD1 0xD1 0xD1
+    , grayF = Color.rgb 0xF7 0xF7 0xF7
     , title =
         column []
             [ link []
@@ -497,8 +491,7 @@ view model =
         [ layoutWith
             { options =
                 [ focusStyle
-                    { -- 019 borderColor = Just <| Framework.Color.primary
-                      borderColor = Just <| Element.rgb 0.9 0.2 0.2
+                    { borderColor = Just <| Color.toElementColor Framework.Color.primary
                     , backgroundColor = Nothing
                     , shadow = Nothing
                     }
@@ -513,9 +506,7 @@ view model =
                 , conf.font.typefaceFallback
                 ]
             , Font.size 16
-
-            -- , Font.color <| model.conf.gray3
-            , Font.color <| Color.toElementColor Color.black
+            , Font.color <| Color.toElementColor model.conf.gray3
             , Background.color <| Color.toElementColor Color.white
             , model.conf.forkMe
             ]
@@ -587,10 +578,8 @@ viewPage maybeWindowSize model =
 viewMenuColumn : Model -> Element Msg
 viewMenuColumn model =
     column
-        [ Background.color <| model.conf.gray3
-
-        -- , Font.color <| model.conf.grayB
-        , Font.color <| Color.toElementColor Color.black
+        [ Background.color <| Color.toElementColor model.conf.gray3
+        , Font.color <| Color.toElementColor model.conf.grayB
         , width fill
         , height shrink
         , spacing 30
@@ -602,9 +591,7 @@ viewMenuColumn model =
             , row
                 [ spacing 10
                 , Font.size 14
-
-                -- , Font.color <| model.conf.gray9
-                , Font.color <| Color.toElementColor Color.black
+                , Font.color <| Color.toElementColor model.conf.gray9
                 , paddingXY 0 20
                 ]
                 [ el [ pointer, Events.onClick MsgOpenAllSections ] <| text "Expand All"
@@ -705,8 +692,7 @@ viewLogo title subTitle version =
 viewIntrospectionForMenu : Conf msg -> Introspection -> Bool -> Element Msg
 viewIntrospectionForMenu configuration introspection open =
     column
-        [ -- Font.color <| configuration.gray9
-          Font.color <| Color.toElementColor Color.black
+        [ Font.color <| Color.toElementColor configuration.gray9
         ]
         [ el
             [ pointer
@@ -738,9 +724,7 @@ viewIntrospectionForMenu configuration introspection open =
             ([ clip
              , height shrink
              , Font.size 16
-
-             --, Font.color <| configuration.grayD
-             , Font.color <| Color.toElementColor Color.black
+             , Font.color <| Color.toElementColor configuration.grayD
              , spacing 12
              , paddingEach { bottom = 0, left = 26, right = 0, top = 12 }
              ]
@@ -770,7 +754,7 @@ viewListVariationForMenu introspection variations =
 viewTitleAndSubTitle : Conf msg -> String -> Element Msg -> Element Msg
 viewTitleAndSubTitle configuration title subTitle =
     column
-        [ Background.color <| configuration.grayF
+        [ Background.color <| Color.toElementColor configuration.grayF
         , padding configuration.mainPadding
         , spacing 10
         , height shrink
@@ -901,15 +885,13 @@ sourceCodeWrapper configuration sourceCode =
     el
         [ width fill
         , Element.scrollbarX
-        , Background.color <| configuration.gray3
+        , Background.color <| Color.toElementColor configuration.gray3
         , Border.rounded 8
         ]
     <|
         el
             [ Font.family [ Font.monospace ]
-
-            --, Font.color <| configuration.gray9
-            , Font.color <| Color.toElementColor Color.black
+            , Font.color <| Color.toElementColor configuration.gray9
             , Font.size 16
             , padding 16
             , htmlAttribute <| Html.Attributes.style "white-space" "pre"

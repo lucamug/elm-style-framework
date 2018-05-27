@@ -446,8 +446,24 @@ lighten quantity cl =
     cl
 
 
-maximumContrast c1 bright dark =
-    dark
+maximumContrast c dark bright =
+    -- From https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
+    if intensity c < 186 then
+        bright
+
+    else
+        dark
+
+
+intensity : Color -> Float
+intensity c =
+    -- From https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
+    let
+        c2 =
+            toRgb c
+    in
+    -- From https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
+    toFloat c2.red * 0.299 + toFloat c2.green * 0.587 + toFloat c2.blue * 0.114
 
 
 
