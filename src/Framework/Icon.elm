@@ -23,7 +23,7 @@ module Framework.Icon
 
 # Functions
 
-@docs arrows , chevronDown , exitFullscreen , fullscreen , hide , home , introspection , mobileNotification , mobileNotification2 , mobileRinging , pencil , show
+@docs arrows, chevronDown, circle, circle_, exitFullscreen, fullscreen, hide, home, introspection, mobileNotification, mobileNotification2, mobileRinging, pencil, show, smile, smile_
 
 -}
 
@@ -220,6 +220,7 @@ circle cl size =
         circle_ cl size
 
 
+{-| -}
 smile_ : Color.Color -> Int -> Html.Html msg
 smile_ cl size =
     Svg.svg [ SA.viewBox "0 0 559 559", SA.height <| toString size ]
@@ -228,6 +229,7 @@ smile_ cl size =
         ]
 
 
+{-| -}
 smile : Color.Color -> Int -> Element.Element msg
 smile cl size =
     Element.html <|

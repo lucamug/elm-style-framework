@@ -5,7 +5,7 @@ module Framework.ColorManipulation exposing (colorToHex, colorToHsl2, lighten, m
 
 # Functions
 
-@docs color, colorToHex, colorToHsl2, introspection, lighten, maximumContrast, saturate, usageWrapper
+@docs colorToHex, colorToHsl2, lighten, maximumContrast, saturate
 
 -}
 

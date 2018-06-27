@@ -19,7 +19,7 @@ Wrapper for content
 
 # Functions
 
-@docs Model, Msg, example1, flipping, initModel, introspection, simple, simpleWithTitle, update
+@docs Model, Msg, example1, flipping, initModel, introspection, simple, simpleWithTitle, update, normal
 
 -}
 
