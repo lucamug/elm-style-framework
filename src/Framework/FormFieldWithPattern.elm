@@ -1,6 +1,6 @@
 module Framework.FormFieldWithPattern exposing (Field(..), Model, Msg, example1, example2, example3, initModel, inputText, introspection, update)
 
-{-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
+{-|
 
 
 # Functions
@@ -123,8 +123,8 @@ hasFocus model field =
             False
 
 
-hackInLineStyle : String -> String -> Attribute msg
-hackInLineStyle text1 text2 =
+inLineStyle : String -> String -> Attribute msg
+inLineStyle text1 text2 =
     Element.htmlAttribute (Html.Attributes.style [ ( text1, text2 ) ])
 
 
@@ -165,14 +165,14 @@ example3 : Model -> ( Element Msg, String )
 example3 model =
     ( inputText model
         { field = Field4DigitCode
-        , pattern = "_ _ _ _"
+        , pattern = "____"
         , label = "4 Digits Code"
         }
     , """inputText model
-    { field = Field4DigitCode
-    , pattern = "_ _ _ _"
-    , label = "4 Digits Code"
-    }"""
+        { field = Field4DigitCode
+        , pattern = "____"
+        , label = "4 Digits Code"
+        }"""
     )
 
 
@@ -227,7 +227,8 @@ inputText model { field, pattern, label } =
                    else
                     Font.color <| Framework.Color.grey_light
                  , moveDown moveDownPlaceHolder
-                 , hackInLineStyle "pointer-events" "none"
+                 , inLineStyle "pointer-events" "none"
+                 , inLineStyle "letter-spacing" "10px"
                  ]
                     ++ font
                 )
@@ -246,12 +247,13 @@ inputText model { field, pattern, label } =
                     Border.width 0
                    else
                     Border.widthEach { bottom = 2, left = 0, right = 0, top = 0 }
+                 , inLineStyle "letter-spacing" "10px"
                  , Border.rounded 0
                  , paddingXY 0 8
                  , width <| px 230
-                 , hackInLineStyle "transition" "all 0.15s"
+                 , inLineStyle "transition" "all 0.15s"
 
-                 --, hackInLineStyle "z-index" "10"
+                 --, Element.htmlAttribute <| Html.Attributes.type_ "number"
                  ]
                     ++ font
                     ++ (if hasFocus model field then
@@ -262,10 +264,8 @@ inputText model { field, pattern, label } =
                 )
                 { label =
                     Input.labelAbove
-                        ([ hackInLineStyle "transition" "all 0.15s"
-
-                         --, hackInLineStyle "z-index" "10"
-                         , hackInLineStyle "pointer-events" "none"
+                        ([ inLineStyle "transition" "all 0.15s"
+                         , inLineStyle "pointer-events" "none"
                          , Font.family [ Font.typeface conf.font.typeface, conf.font.typefaceFallback ]
                          , Font.size 16
                          ]

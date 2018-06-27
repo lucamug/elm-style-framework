@@ -1,11 +1,11 @@
-module Framework.Button exposing (button, buttonAttr, buttonLink, buttonLinkWidth, buttonWidth, introspection)
+module Framework.Button exposing (button, buttonAttr, buttonLink, buttonLinkWidth, buttonLinkWidthAndClick, buttonWidth, introspection)
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
 
 
 # Functions
 
-@docs button, buttonAttr, buttonLink, buttonLinkWidth, buttonWidth, introspection
+@docs button, buttonAttr, buttonLink, buttonLinkWidth, buttonLinkWidthAndClick, buttonWidth, introspection
 
 -}
 
@@ -20,7 +20,10 @@ import Framework.ColorManipulation
 import Framework.Configuration exposing (conf)
 import Framework.Modifier exposing (Modifier(..))
 import Framework.Spinner as Spinner
+import Html
 import Html.Attributes
+import Html.Events
+import Json.Decode
 
 
 {-| -}
@@ -288,6 +291,60 @@ buttonLinkWidth modifiers url label buttonWidth =
         { url = url
         , label = text label
         }
+
+
+{-| -}
+buttonLinkWidthAndClick :
+    { a
+        | buttonWidth : Int
+        , label : String
+        , message : msg
+        , modifiers : List Modifier
+        , url : String
+    }
+    -> Element msg
+buttonLinkWidthAndClick { message, modifiers, url, label, buttonWidth } =
+    link
+        (buttonAttr modifiers
+            ++ extraAttrForButtonWidth buttonWidth
+            ++ [ htmlAttribute <|
+                    Html.Events.onWithOptions "click"
+                        { stopPropagation = True
+                        , preventDefault = True
+                        }
+                        (Json.Decode.succeed message)
+               ]
+        )
+        { url = "xxx"
+        , label = text <| label
+        }
+
+
+
+-- TODO, convert buttonLinkWidthAndClick into a button because it doesn't make
+-- sense that it is a link
+
+
+buttonLinkWidthAndClick2 :
+    { a
+        | buttonWidth : Int
+        , label : String
+        , message : String -> msg
+        , modifiers : List Modifier
+        , url : String
+    }
+    -> Element msg
+buttonLinkWidthAndClick2 { message, modifiers, url, label, buttonWidth } =
+    Element.html <|
+        Html.button
+            [ Html.Events.onWithOptions "click"
+                { stopPropagation = True
+                , preventDefault = True
+                }
+                (Json.Decode.succeed (message url))
+            ]
+            [ Html.text <| label
+            ]
 
 
 colorDefault : Color.Color
