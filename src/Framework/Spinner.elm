@@ -62,18 +62,16 @@ type Spinner
 
 
 spinnerThreeCirclesHtml : Int -> Color.Color -> Html.Html msg
-spinnerThreeCirclesHtml _ color =
+spinnerThreeCirclesHtml size color =
     let
         colorString =
             Framework.ColorManipulation.colorToHex color
-
-        size =
-            32
     in
     Svg.svg
-        [ SA.viewBox "0 0 64 64"
+        [ SA.viewBox "10 26 44 12"
         , SA.xmlSpace "http://www.w3.org/2000/svg"
-        , SA.width <| toString size
+
+        --, SA.width <| toString size
         , SA.height <| toString size
         ]
         [ Svg.g

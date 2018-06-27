@@ -1,4 +1,16 @@
-module Framework.Card exposing (Model, Msg, example1, flipping, initModel, introspection, simple, simpleWithTitle, update)
+module Framework.Card
+    exposing
+        ( Model
+        , Msg
+        , example1
+        , flipping
+        , initModel
+        , introspection
+        , normal
+        , simple
+        , simpleWithTitle
+        , update
+        )
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/framework.html)
 
@@ -69,11 +81,11 @@ text "Content\"""" ) ] )
 {-| -}
 cardCommonAttr : List (Attribute msg)
 cardCommonAttr =
-    [ Border.shadow { blur = 10, color = Color.rgba 0 0 0 0.05, offset = ( 0, 2 ), size = 1 }
-    , Border.width 1
+    [ Border.width 1
     , Border.color <| Framework.Color.grey_lighter
     , Background.color <| Framework.Color.white
     , Border.rounded 4
+    , alignTop
     ]
 
 
@@ -135,28 +147,63 @@ flipping
 
 
 {-| -}
-simpleWithTitle : String -> String -> Element msg -> Element msg
-simpleWithTitle title subTitle content =
+normal :
+    { conf
+        | colorBackground : Color.Color
+        , colorFont : Color.Color
+        , colorFontSecondary : Color.Color
+        , colorBorder : Color.Color
+        , colorBorderSecondary : Color.Color
+        , colorShadow : Color.Color
+        , extraAttributes : List (Element.Attr () msg)
+        , title : String
+        , subTitle : String
+        , content : Element msg
+    }
+    -> Element msg
+normal { colorBackground, colorFont, colorFontSecondary, colorBorder, colorBorderSecondary, colorShadow, extraAttributes, title, subTitle, content } =
     column
         (cardCommonAttr
             ++ [ Border.width 1
                , width fill
                , height shrink
+               , Background.color colorBackground
+               , Font.color colorFont
+               , Border.color colorBorder
+               , Border.shadow { blur = 10, color = colorShadow, offset = ( 0, 2 ), size = 1 }
                ]
+            ++ extraAttributes
         )
         [ el
             [ padding 10
             , Border.widthEach { bottom = 1, left = 0, right = 0, top = 0 }
-            , Border.color <| Framework.Color.grey_light
+            , Border.color <| colorBorderSecondary
             , width fill
             ]
             (row [ spacing 10 ]
                 [ el [ Font.bold ] <| text title
-                , el [ Font.color <| Framework.Color.grey ] <| text subTitle
+                , el [ Font.color <| colorFontSecondary ] <| text subTitle
                 ]
             )
         , el [ padding 20, width fill ] content
         ]
+
+
+{-| -}
+simpleWithTitle : String -> String -> Element msg -> Element msg
+simpleWithTitle title subTitle content =
+    normal
+        { title = title
+        , subTitle = subTitle
+        , content = content
+        , colorBackground = Framework.Color.white
+        , colorFont = Framework.Color.grey
+        , colorFontSecondary = Framework.Color.grey_light
+        , colorBorder = Framework.Color.grey_light
+        , colorBorderSecondary = Framework.Color.grey_light
+        , colorShadow = Color.rgba 0 0 0 0.05
+        , extraAttributes = []
+        }
 
 
 {-| -}
@@ -167,6 +214,7 @@ simple content =
             ++ [ padding 20
                , width fill
                , height shrink
+               , Border.shadow { blur = 10, color = Color.rgba 0 0 0 0.05, offset = ( 0, 2 ), size = 1 }
                ]
         )
     <|
@@ -200,6 +248,7 @@ flipping data =
                    -- maybe this could be used as hint? https://stackoverflow.com/questions/34062061/css-flip-card-bug-in-chrome
                    , style "backface-visibility" "hidden"
                    , style "position" "absolute"
+                   , Border.shadow { blur = 10, color = Color.rgba 0 0 0 0.05, offset = ( 0, 2 ), size = 1 }
                    ]
     in
     column

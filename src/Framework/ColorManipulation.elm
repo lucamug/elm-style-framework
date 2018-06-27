@@ -5,7 +5,7 @@ module Framework.ColorManipulation exposing (colorToHex, colorToHsl2, lighten, m
 
 # Functions
 
-@docs colorToHex, colorToHsl2, lighten, maximumContrast, saturate
+@docs color, colorToHex, colorToHsl2, introspection, lighten, maximumContrast, saturate, usageWrapper
 
 -}
 
@@ -34,6 +34,9 @@ saturate quantity cl =
 
 
 {-| Return one of the font color that has maximum contrast on a background color
+
+    maximumContrast Color.black == color ColorFontBright
+
 -}
 maximumContrast : Color.Color -> Color.Color
 maximumContrast c =

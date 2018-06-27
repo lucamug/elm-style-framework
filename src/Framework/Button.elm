@@ -432,7 +432,7 @@ buttonAttr modifiers =
                 StateWaiting ->
                     [ inFront
                         (el [ centerY, centerX ] <|
-                            Spinner.spinner Spinner.ThreeCircles fontSize spinnerColor
+                            Spinner.spinner Spinner.ThreeCircles (fontSize - 4) spinnerColor
                         )
                     ]
 
