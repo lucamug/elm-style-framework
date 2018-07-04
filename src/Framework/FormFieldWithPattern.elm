@@ -40,7 +40,7 @@ initModel =
 type Field
     = FieldTelephone
     | FieldCreditCard
-    | Field4DigitCode
+    | Field6DigitCode
 
 
 {-| -}
@@ -82,7 +82,7 @@ update msg model =
                 FieldCreditCard ->
                     { model | value = removeCharactedAtTheEndIfNotNumbers }
 
-                Field4DigitCode ->
+                Field6DigitCode ->
                     { model | value = removeCharactedAtTheEndIfNotNumbers }
             , Cmd.none
             )
@@ -164,12 +164,12 @@ example2 model =
 example3 : Model -> ( Element Msg, String )
 example3 model =
     ( inputText model
-        { field = Field4DigitCode
+        { field = Field6DigitCode
         , pattern = "____"
         , label = "4 Digits Code"
         }
     , """inputText model
-        { field = Field4DigitCode
+        { field = Field6DigitCode
         , pattern = "____"
         , label = "4 Digits Code"
         }"""
@@ -187,7 +187,7 @@ inputText model { field, pattern, label } =
             modelValue ++ String.right lengthDifference pattern
 
         largeSize =
-            field == Field4DigitCode
+            field == Field6DigitCode
 
         font =
             if largeSize then
@@ -213,7 +213,7 @@ inputText model { field, pattern, label } =
                 FieldCreditCard ->
                     model.value
 
-                Field4DigitCode ->
+                Field6DigitCode ->
                     model.value
 
         labelIsAbove =
@@ -250,7 +250,7 @@ inputText model { field, pattern, label } =
                  , inLineStyle "letter-spacing" "10px"
                  , Border.rounded 0
                  , paddingXY 0 8
-                 , width <| px 230
+                 , width <| px 330
                  , inLineStyle "transition" "all 0.15s"
 
                  --, Element.htmlAttribute <| Html.Attributes.type_ "number"
