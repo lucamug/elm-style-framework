@@ -315,7 +315,7 @@ buttonLinkWidthAndClick { message, modifiers, url, label, buttonWidth } =
                         (Json.Decode.succeed message)
                ]
         )
-        { url = "xxx"
+        { url = url
         , label = text <| label
         }
 
