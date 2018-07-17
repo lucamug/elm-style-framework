@@ -473,7 +473,7 @@ buttonAttr modifiers =
 
                 _ ->
                     if confButton.color == Framework.Color.white then
-                        Framework.Color.grey_dark
+                        Framework.Color.text
                     else
                         Framework.Color.white
 

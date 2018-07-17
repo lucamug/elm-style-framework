@@ -9,7 +9,7 @@ module Framework.FormFieldWithPattern exposing (Field(..), Model, Msg, example1,
 
 -}
 
-import Element exposing (Attribute, Element, el, inFront, moveDown, moveLeft, none, paddingXY, px, scale, text, width)
+import Element exposing (..)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Events as Events
@@ -252,6 +252,7 @@ inputText model { field, pattern, label } =
                  , paddingXY 0 8
                  , width <| px 330
                  , inLineStyle "transition" "all 0.15s"
+                 , htmlAttribute <| Html.Attributes.id "elementToFocus"
 
                  --, Element.htmlAttribute <| Html.Attributes.type_ "number"
                  ]
