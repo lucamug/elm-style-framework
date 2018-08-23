@@ -156,7 +156,7 @@ normal { colorBackground, colorFont, colorFontSecondary, colorBorder, colorBorde
             ++ [ Border.width 1
                , width fill
                , height shrink
-               , Background.color colorBackground
+               , Background.color <| Color.toElementColor Framework.Color.white
                , Font.color colorFont
                , Border.color colorBorder
                , Border.shadow { blur = 10, color = colorShadow, offset = ( 0, 2 ), size = 1 }
