@@ -156,10 +156,11 @@ normal { colorBackground, colorFont, colorFontSecondary, colorBorder, colorBorde
             ++ [ Border.width 1
                , width fill
                , height shrink
+               , Background.color <| Color.toElementColor colorBackground
                , Background.color <| Color.toElementColor Framework.Color.white
-               , Font.color colorFont
-               , Border.color colorBorder
-               , Border.shadow { blur = 10, color = colorShadow, offset = ( 0, 2 ), size = 1 }
+               , Font.color <| Color.toElementColor colorFont
+               , Border.color <| Color.toElementColor colorBorder
+               , Border.shadow { blur = 10, color = Color.toElementColor colorShadow, offset = ( 0, 2 ), size = 1 }
                ]
             ++ extraAttributes
         )
@@ -203,7 +204,9 @@ simple content =
             ++ [ padding 20
                , width fill
                , height shrink
-               , Border.shadow { blur = 10, color = Color.rgba 0 0 0 0.05, offset = ( 0, 2 ), size = 1 }
+
+               -- TODO fix this shadow
+               -- , Border.shadow { blur = 10, color = Color.rgba 0 0 0 0.05, offset = ( 0, 2 ), size = 1 }
                ]
         )
     <|
