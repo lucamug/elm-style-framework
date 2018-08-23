@@ -5,20 +5,24 @@
     ],
     "elm-version": "0.19.0",
     "dependencies": {
-        "NoRedInk/json-decode-pipeline": "1.0.0",
-        "elm/browser": "1.0.0",
-        "elm/core": "1.0.0",
-        "elm/html": "1.0.0",
-        "elm/http": "1.0.0",
-        "elm/json": "1.0.0",
-        "elm/regex": "1.0.0",
-        "elm/svg": "1.0.0",
-        "elm/url": "1.0.0",
-        "elm/virtual-dom": "1.0.0",
-        "mdgriffith/stylish-elephants": "6.1.0"
+        "direct": {
+            "NoRedInk/elm-json-decode-pipeline": "1.0.0",
+            "elm/browser": "1.0.0",
+            "elm/core": "1.0.0",
+            "elm/html": "1.0.0",
+            "elm/http": "1.0.0",
+            "elm/json": "1.0.0",
+            "elm/regex": "1.0.0",
+            "elm/svg": "1.0.0",
+            "elm/url": "1.0.0",
+            "mdgriffith/stylish-elephants": "8.0.2"
+        },
+        "indirect": {
+            "elm/virtual-dom": "1.0.0"
+        }
     },
-    "test-dependencies": {},
-    "do-not-edit-this-by-hand": {
-        "transitive-dependencies": {}
+    "test-dependencies": {
+        "direct": {},
+        "indirect": {}
     }
 }
