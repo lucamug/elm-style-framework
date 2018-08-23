@@ -65,15 +65,13 @@ spinnerThreeCirclesHtml size color =
     let
         colorString =
             Color.colorToHex color
-
-        size2 =
-            32
     in
     Svg.svg
         [ SA.viewBox "10 26 44 12"
         , SA.xmlSpace "http://www.w3.org/2000/svg"
-        , SA.width <| String.fromInt size2
-        , SA.height <| String.fromInt size2
+
+        -- , SA.width <| String.fromInt size2
+        , SA.height <| String.fromInt size
         ]
         [ Svg.g
             []
