@@ -5,3 +5,5 @@ svg
 
 # 0.19
 elm
+src/MyStyle.elm
+docs/build/framework.js
