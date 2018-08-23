@@ -1,18 +1,7 @@
-module Framework.Icon
-    exposing
-        ( arrows
-        , chevronDown
-        , exitFullscreen
-        , fullscreen
-        , hide
-        , home
-        , introspection
-        , mobileNotification
-        , mobileNotification2
-        , mobileRinging
-        , pencil
-        , show
-        )
+module Framework.Icon exposing
+    ( arrows, chevronDown, exitFullscreen, fullscreen, hide, home, introspection, mobileNotification, mobileNotification2, mobileRinging, pencil, show
+    , circle, circle_, smile, smile_
+    )
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Icons/Icons)
 
@@ -28,6 +17,7 @@ module Framework.Icon
 import Color
 import Element
 import Framework.Color exposing (black)
+import Html
 import Html.Attributes
 import Svg
 import Svg.Attributes as SA
@@ -57,6 +47,8 @@ introspection =
             , ( mobileNotification2 black 32, "mobileNotification2 black 32" )
             , ( chevronDown black 32, "chevronDown black 32" )
             , ( arrows black 32, "arrows black 32" )
+            , ( circle black 32, "circle black 32" )
+            , ( smile black 32, "smile black 32" )
             ]
           )
         ]
@@ -195,3 +187,36 @@ chevronDown _ size =
                 ]
                 []
             ]
+
+
+{-| -}
+circle_ : Color.Color -> Int -> Html.Html msg
+circle_ cl size =
+    Svg.svg [ SA.viewBox "0 0 100 100", SA.height <| String.fromInt size ]
+        [ Svg.circle
+            [ SA.fill (Color.colorToHex cl), SA.cx "50", SA.cy "50", SA.r "50" ]
+            []
+        ]
+
+
+{-| -}
+circle : Color.Color -> Int -> Element.Element msg
+circle cl size =
+    Element.html <|
+        circle_ cl size
+
+
+{-| -}
+smile_ : Color.Color -> Int -> Html.Html msg
+smile_ cl size =
+    Svg.svg [ SA.viewBox "0 0 559 559", SA.height <| String.fromInt size ]
+        [ Svg.path [ SA.fill (Color.colorToHex cl), SA.d "M315 429h-49c-62 0-110-48-110-109a13 13 0 0 1 27 0c0 46 36 82 83 82h49c46 0 83-35 83-80a13 13 0 1 1 27 0c0 60-48 107-110 107zm-88-224c-3 0-7-1-9-4a33 33 0 0 0-46-1 13 13 0 1 1-19-19c22-23 61-22 84 1a13 13 0 0 1-10 23zm183 0c-3 0-6-1-9-4a33 33 0 0 0-46-1 13 13 0 1 1-19-19c22-23 61-22 84 1a13 13 0 0 1-10 23z" ] []
+        , Svg.path [ SA.fill (Color.colorToHex cl), SA.d "M280 559a280 280 0 1 1 0-560 280 280 0 0 1 0 560zm0-532a253 253 0 1 0 0 506 253 253 0 0 0 0-506z" ] []
+        ]
+
+
+{-| -}
+smile : Color.Color -> Int -> Element.Element msg
+smile cl size =
+    Element.html <|
+        smile_ cl size

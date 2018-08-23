@@ -1,4 +1,4 @@
-module Framework.Card exposing (Model, Msg, example1, flipping, initModel, introspection, simple, simpleWithTitle, update)
+module Framework.Card exposing (Model, Msg, example1, flipping, initModel, introspection, simple, simpleWithTitle, update, normal)
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Cards/Flipping)
 
@@ -7,7 +7,7 @@ Wrapper for content
 
 # Functions
 
-@docs Model, Msg, example1, flipping, initModel, introspection, simple, simpleWithTitle, update
+@docs Model, Msg, example1, flipping, initModel, introspection, simple, simpleWithTitle, update, normal
 
 -}
 
@@ -74,6 +74,7 @@ cardCommonAttr =
     , Border.color <| Color.toElementColor Framework.Color.grey_lighter
     , Background.color <| Color.toElementColor Framework.Color.white
     , Border.rounded 4
+    , alignTop
     ]
 
 
@@ -135,14 +136,32 @@ flipping
 
 
 {-| -}
-simpleWithTitle : String -> String -> Element msg -> Element msg
-simpleWithTitle title subTitle content =
+normal :
+    { conf
+        | colorBackground : Color.Color
+        , colorFont : Color.Color
+        , colorFontSecondary : Color.Color
+        , colorBorder : Color.Color
+        , colorBorderSecondary : Color.Color
+        , colorShadow : Color.Color
+        , extraAttributes : List (Element.Attr () msg)
+        , title : String
+        , subTitle : String
+        , content : Element msg
+    }
+    -> Element msg
+normal { colorBackground, colorFont, colorFontSecondary, colorBorder, colorBorderSecondary, colorShadow, extraAttributes, title, subTitle, content } =
     column
         (cardCommonAttr
             ++ [ Border.width 1
                , width fill
                , height shrink
+               , Background.color colorBackground
+               , Font.color colorFont
+               , Border.color colorBorder
+               , Border.shadow { blur = 10, color = colorShadow, offset = ( 0, 2 ), size = 1 }
                ]
+            ++ extraAttributes
         )
         [ el
             [ padding 10
@@ -160,6 +179,23 @@ simpleWithTitle title subTitle content =
 
 
 {-| -}
+simpleWithTitle : String -> String -> Element msg -> Element msg
+simpleWithTitle title subTitle content =
+    normal
+        { title = title
+        , subTitle = subTitle
+        , content = content
+        , colorBackground = Framework.Color.white
+        , colorFont = Framework.Color.grey
+        , colorFontSecondary = Framework.Color.grey_light
+        , colorBorder = Framework.Color.grey_light
+        , colorBorderSecondary = Framework.Color.grey_light
+        , colorShadow = Color.rgba 0 0 0 0.05
+        , extraAttributes = []
+        }
+
+
+{-| -}
 simple : Element msg -> Element msg
 simple content =
     el
@@ -167,6 +203,7 @@ simple content =
             ++ [ padding 20
                , width fill
                , height shrink
+               , Border.shadow { blur = 10, color = Color.rgba 0 0 0 0.05, offset = ( 0, 2 ), size = 1 }
                ]
         )
     <|

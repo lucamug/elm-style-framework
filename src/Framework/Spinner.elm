@@ -1,4 +1,4 @@
-module Framework.Spinner exposing (Spinner(..), introspection, spinner)
+module Framework.Spinner exposing (Spinner(..), spinner, introspection)
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Spinners/Spinners)
 
@@ -61,19 +61,19 @@ type Spinner
 
 
 spinnerThreeCirclesHtml : Int -> Color.Color -> Html.Html msg
-spinnerThreeCirclesHtml _ color =
+spinnerThreeCirclesHtml size color =
     let
         colorString =
             Color.colorToHex color
 
-        size =
+        size2 =
             32
     in
     Svg.svg
-        [ SA.viewBox "0 0 64 64"
+        [ SA.viewBox "10 26 44 12"
         , SA.xmlSpace "http://www.w3.org/2000/svg"
-        , SA.width <| String.fromInt size
-        , SA.height <| String.fromInt size
+        , SA.width <| String.fromInt size2
+        , SA.height <| String.fromInt size2
         ]
         [ Svg.g
             []
