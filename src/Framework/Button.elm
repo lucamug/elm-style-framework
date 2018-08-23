@@ -1,11 +1,11 @@
-module Framework.Button exposing (button, buttonAttr, buttonLink, buttonLinkWidth, buttonLinkWidthAndClick, buttonWidth, introspection)
+module Framework.Button exposing (button, buttonAttr, buttonLink, buttonLinkWidth, buttonWidth, introspection)
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Buttons/States)
 
 
 # Functions
 
-@docs button, buttonAttr, buttonLink, buttonLinkWidth, buttonLinkWidthAndClick, buttonWidth, introspection
+@docs button, buttonAttr, buttonLink, buttonLinkWidth, buttonWidth, introspection
 
 -}
 
@@ -292,58 +292,62 @@ buttonLinkWidth modifiers url label buttonX =
         }
 
 
-{-| -}
-buttonLinkWidthAndClick :
-    { a
-        | buttonWidth : Int
-        , label : String
-        , message : msg
-        , modifiers : List Modifier
-        , url : String
-    }
-    -> Element msg
-buttonLinkWidthAndClick { message, modifiers, url, label, buttonWidthInternal } =
-    link
-        (buttonAttr modifiers
-            ++ extraAttrForButtonWidth buttonWidthInternal
-            ++ [ htmlAttribute <|
-                    Html.Events.onWithOptions "click"
-                        { stopPropagation = True
-                        , preventDefault = True
-                        }
-                        (Json.Decode.succeed message)
+
+{-
+
+   {-| -}
+   buttonLinkWidthAndClick :
+       { a
+           | buttonWidth : Int
+           , label : String
+           , message : msg
+           , modifiers : List Modifier
+           , url : String
+       }
+       -> Element msg
+   buttonLinkWidthAndClick { message, modifiers, url, label, buttonWidthInternal } =
+       link
+           (buttonAttr modifiers
+               ++ extraAttrForButtonWidth buttonWidthInternal
+               ++ [ htmlAttribute <|
+                       Html.Events.onWithOptions "click"
+                           { stopPropagation = True
+                           , preventDefault = True
+                           }
+                           (Json.Decode.succeed message)
+                  ]
+           )
+           { url = url
+           , label = text <| label
+           }
+
+
+
+   -- TODO, convert buttonLinkWidthAndClick into a button because it doesn't make
+   -- sense that it is a link
+
+
+   buttonLinkWidthAndClick2 :
+       { a
+           | buttonWidth : Int
+           , label : String
+           , message : String -> msg
+           , modifiers : List Modifier
+           , url : String
+       }
+       -> Element msg
+   buttonLinkWidthAndClick2 { message, modifiers, url, label, buttonWidthInternal } =
+       Element.html <|
+           Html.button
+               [ Html.Events.onWithOptions "click"
+                   { stopPropagation = True
+                   , preventDefault = True
+                   }
+                   (Json.Decode.succeed (message url))
                ]
-        )
-        { url = url
-        , label = text <| label
-        }
-
-
-
--- TODO, convert buttonLinkWidthAndClick into a button because it doesn't make
--- sense that it is a link
-
-
-buttonLinkWidthAndClick2 :
-    { a
-        | buttonWidth : Int
-        , label : String
-        , message : String -> msg
-        , modifiers : List Modifier
-        , url : String
-    }
-    -> Element msg
-buttonLinkWidthAndClick2 { message, modifiers, url, label, buttonWidthInternal } =
-    Element.html <|
-        Html.button
-            [ Html.Events.onWithOptions "click"
-                { stopPropagation = True
-                , preventDefault = True
-                }
-                (Json.Decode.succeed (message url))
-            ]
-            [ Html.text <| label
-            ]
+               [ Html.text <| label
+               ]
+-}
 
 
 colorDefault : Color.Color
