@@ -281,7 +281,7 @@ inputText model { field, pattern, label } =
                         )
                     <|
                         text label
-                , onChange = Just <| Input field pattern
+                , onChange = Input field pattern
                 , placeholder = Nothing
                 , text = modelValue
                 }

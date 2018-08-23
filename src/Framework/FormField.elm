@@ -157,7 +157,7 @@ inputText model { field, label } =
                 )
             <|
                 text label
-        , onChange = Just <| Input field
+        , onChange = Input field
         , placeholder = Nothing
         , text = modelValue
         }

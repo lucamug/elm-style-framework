@@ -11,7 +11,7 @@ Style-elements (Alpha version) Examples
 
 -}
 
-import Element exposing (Element, column, decorativeImage, download, downloadAs, el, image, link, newTabLink, none, row, spacing, text)
+import Element exposing (Element, column, download, downloadAs, el, image, link, newTabLink, none, row, spacing, text)
 
 
 {-| Used to generate the [Style Guide](https://lucamug.github.io/elm-style-framework/)
@@ -46,7 +46,6 @@ introspection =
 
             --, ( image [] { src = "http://placekitten.com/100/100", description = "description" }, """image [] { src = "https://placebear.com/300/200", description = "description" }""" )
             , ( image [] { src = "http://via.placeholder.com/200x100/ff3399/000", description = "description" }, """image [] { src = "http://via.placeholder.com/200x100/ff3399/000", description = "description" }""" )
-            , ( decorativeImage [] { src = "http://via.placeholder.com/200x100/ff3399/000" }, """decorativeImage [] { src = "http://via.placeholder.com/200x100/ff3399/000" }""" )
             ]
           )
         ]

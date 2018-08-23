@@ -104,13 +104,13 @@ example1 : { a | text : String } -> ( Element Msg, String )
 example1 model =
     ( Input.text []
         { label = Input.labelAbove [] <| text "Label"
-        , onChange = Just Input
+        , onChange = Input
         , placeholder = Nothing
         , text = model.text
         }
     , """Input.text []
     { label = Input.labelAbove [] <| text "Label"
-    , onChange = Just Input
+    , onChange = Input
     , placeholder = Nothing
     , text = model.text
     }"""
@@ -122,15 +122,15 @@ example2 : { a | checkbox : Bool } -> ( Element Msg, String )
 example2 model =
     ( Input.checkbox []
         { label = Input.labelAbove [] <| text "Label"
-        , onChange = Just Checkbox
+        , onChange = Checkbox
         , checked = model.checkbox
-        , icon = Nothing
+        , icon = \_ -> Element.none
         }
     , """Input.checkbox []
     { label = Input.labelAbove [] <| text "Label"
-    , onChange = Just Checkbox
+    , onChange = Checkbox
     , checked = model.checkbox
-    , icon = Nothing
+    , icon = \\_ -> none
     }"""
     )
 
@@ -140,7 +140,7 @@ example3 : { a | radio : Maybe String } -> ( Element Msg, String )
 example3 model =
     ( Input.radio []
         { label = Input.labelAbove [] <| text "Label"
-        , onChange = Just Radio
+        , onChange = Radio
         , selected = model.radio
         , options =
             [ Input.option "A" (text "Radio A")
@@ -150,7 +150,7 @@ example3 model =
         }
     , """Input.radio []
     { label = Input.labelAbove [] <| text "Label"
-    , onChange = Just Radio
+    , onChange = Radio
     , selected = model.radio
     , options =
         [ Input.option "A" (text "Radio A")
@@ -166,7 +166,7 @@ example4 : { a | radio : Maybe String } -> ( Element Msg, String )
 example4 model =
     ( Input.radioRow []
         { label = Input.labelAbove [] <| text "Label"
-        , onChange = Just Radio
+        , onChange = Radio
         , selected = model.radio
         , options =
             [ Input.option "A" (text "Radio A")
@@ -176,7 +176,7 @@ example4 model =
         }
     , """Input.radioRow []
     { label = Input.labelAbove [] <| text "Label"
-    , onChange = Just Radio
+    , onChange = Radio
     , selected = model.radio
     , options =
         [ Input.option "A" (text "Radio A")
@@ -192,13 +192,13 @@ example5 : { a | text : String } -> ( Element Msg, String )
 example5 model =
     ( Input.username []
         { label = Input.labelAbove [] <| text "Label"
-        , onChange = Just Input
+        , onChange = Input
         , placeholder = Nothing
         , text = model.text
         }
     , """Input.username []
     { label = Input.labelAbove [] <| text "Label"
-    , onChange = Just Input
+    , onChange = Input
     , placeholder = Nothing
     , text = model.text
     }"""
@@ -210,14 +210,14 @@ example6 : { a | text : String } -> ( Element Msg, String )
 example6 model =
     ( Input.newPassword []
         { label = Input.labelAbove [] <| text "Label"
-        , onChange = Just Input
+        , onChange = Input
         , placeholder = Nothing
         , text = model.text
         , show = False
         }
     , """Input.newPassword []
     { label = Input.labelAbove [] <| text "Label"
-    , onChange = Just Input
+    , onChange = Input
     , placeholder = Nothing
     , text = model.text
     , show = False
@@ -230,14 +230,14 @@ example7 : { a | text : String } -> ( Element Msg, String )
 example7 model =
     ( Input.currentPassword []
         { label = Input.labelAbove [] <| text "Label"
-        , onChange = Just Input
+        , onChange = Input
         , placeholder = Nothing
         , text = model.text
         , show = False
         }
     , """Input.currentPassword []
     { label = Input.labelAbove [] <| text "Label"
-    , onChange = Just Input
+    , onChange = Input
     , placeholder = Nothing
     , text = model.text
     , show = False
@@ -250,13 +250,13 @@ example8 : { a | text : String } -> ( Element Msg, String )
 example8 model =
     ( Input.email []
         { label = Input.labelAbove [] <| text "Label"
-        , onChange = Just Input
+        , onChange = Input
         , placeholder = Nothing
         , text = model.text
         }
     , """Input.email []
     { label = Input.labelAbove [] <| text "Label"
-    , onChange = Just Input
+    , onChange = Input
     , placeholder = Nothing
     , text = model.text
     }"""
@@ -268,13 +268,13 @@ example9 : { a | text : String } -> ( Element Msg, String )
 example9 model =
     ( Input.search []
         { label = Input.labelAbove [] <| text "Label"
-        , onChange = Just Input
+        , onChange = Input
         , placeholder = Nothing
         , text = model.text
         }
     , """Input.search []
     { label = Input.labelAbove [] <| text "Label"
-    , onChange = Just Input
+    , onChange = Input
     , placeholder = Nothing
     , text = model.text
     }"""
@@ -286,14 +286,14 @@ example10 : { a | text : String } -> ( Element Msg, String )
 example10 model =
     ( Input.multiline []
         { label = Input.labelAbove [] <| text "Label"
-        , onChange = Just Input
+        , onChange = Input
         , placeholder = Nothing
         , text = model.text
         , spellcheck = False
         }
     , """Input.multiline []
     { label = Input.labelAbove [] <| text "Label"
-    , onChange = Just Input
+    , onChange = Input
     , placeholder = Nothing
     , text = model.text
     , spellcheck = False
@@ -306,14 +306,14 @@ example11 : { a | text : String } -> ( Element Msg, String )
 example11 model =
     ( Input.multiline []
         { label = Input.labelAbove [] <| text "Label"
-        , onChange = Just Input
+        , onChange = Input
         , placeholder = Nothing
         , text = model.text
         , spellcheck = True
         }
     , """Input.multiline []
     { label = Input.labelAbove [] <| text "Label"
-    , onChange = Just Input
+    , onChange = Input
     , placeholder = Nothing
     , text = model.text
     , spellcheck = True
