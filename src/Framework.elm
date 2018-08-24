@@ -313,8 +313,8 @@ initCmd =
 
 
 {-| -}
-init : Browser.Env Json.Decode.Value -> ( Model, Cmd Msg )
-init { url, flags } =
+-- init : Browser.Env Json.Decode.Value -> ( Model, Cmd Msg )
+init _ _ _ =
     ( initModel flags url
     , initCmd
     )
@@ -400,12 +400,24 @@ type Msg
     | MsgCards Card.Msg
     | MsgChangeUrl Url.Url
     | MsgChangePassword String
+    | MsgNoOp
+    | MsgChangedUrl Url.Url
+    | MsgClickedLink Browser.UrlRequest
 
 
 {-| -}
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        MsgNoOp  ->
+            ( model , Cmd.none )
+
+        MsgChangedUrl _ ->
+            ( model , Cmd.none )
+
+        MsgClickedLink _ ->
+            ( model , Cmd.none )
+
         MsgChangeUrl url ->
             ( { model | url = url }, Cmd.none )
 
@@ -484,7 +496,7 @@ Example, in your Style Guide page:
             ]
 
 -}
-view : Model -> Browser.Page Msg
+--view : Model -> Browser.Page Msg
 view model =
     { title = "0.19 - Elm Style Framework"
     , body =
@@ -943,23 +955,31 @@ subscriptions _ =
 
 
 {-| -}
-main : Program Json.Decode.Value Model Msg
+--main : Program Json.Decode.Value Model Msg
 main =
-    Browser.fullscreen
+    Browser.application
         { init = init
-        , onNavigation = Just onNavigation
-        , subscriptions = subscriptions
-        , update = update
         , view = view
+        , update = update
+        , subscriptions = subscriptions
+
+        , onUrlChange = MsgChangedUrl
+        , onUrlRequest = MsgClickedLink
+
+        --, onUrlChange = onUrlChange
+        --, onUrlRequest = onUrlRequest
+        -- onUrlChange : Url.Url -> Msg
         }
 
-
+onUrlRequest : Browser.UrlRequest -> Msg
+onUrlRequest _ =
+  MsgNoOp
 
 -- ROUTING
 
 
-onNavigation : Url.Url -> Msg
-onNavigation url =
+onUrlChange : Url.Url -> Msg
+onUrlChange url =
     -- SetRoute (fromUrl url)
     MsgChangeUrl url
 
