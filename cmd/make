@@ -1,0 +1,3 @@
+#!/bin/bash
+elm make src/Framework.elm --output=docs/build/framework.js --report=json
+# sudo npm install -g git://github.com/architectcodes/elm-live.git#upgrade-to-elm-19

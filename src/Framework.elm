@@ -1,4 +1,4 @@
-module Framework exposing (Conf, Flag, Introspection, Model, Msg(..), init, initCmd, initConf, initModel, introspections, main, subscriptions, update, view, viewPage)
+module Framework exposing (Conf, Flags, Introspection, Model, Msg(..), init, initCmd, initConf, initModel, introspections, main, subscriptions, update, view, viewPage)
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/)
 
@@ -94,15 +94,17 @@ For any issue or to get in touch with the authors, refer to the github page.
 
 # Functions
 
-@docs Conf, Flag, Introspection, Model, Msg, init, initCmd, initConf, initModel, introspections, main, subscriptions, update, view, viewPage
+@docs Conf, Flags, Introspection, Model, Msg, init, initCmd, initConf, initModel, introspections, main, subscriptions, update, view, viewPage
 
 -}
 
 --import Element.Input as Input
 
 import Browser
+import Browser.Events
+import Browser.Navigation
 import Color
-import Element exposing (Attribute, Element, alignLeft, alignRight, alignTop, alpha, centerX, centerY, clip, clipX, column, el, fill, focusStyle, height, html, htmlAttribute, image, layoutWith, link, moveLeft, none, padding, paddingEach, paddingXY, paragraph, pointer, px, rotate, row, scrollbarY, scrollbars, shrink, spacing, text, width)
+import Element exposing (..)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Events as Events
@@ -164,7 +166,18 @@ initConf =
     , title =
         column []
             [ link []
-                { label = el [ alpha 0.3 ] <| Logo.logo (Logo.LogoElm <| Logo.ElmColor Logo.White) 60
+                { label =
+                    el
+                        [ alpha 0.8
+                        , paddingEach
+                            { top = 0
+                            , right = 0
+                            , bottom = 20
+                            , left = 0
+                            }
+                        ]
+                    <|
+                        Logo.logo (Logo.LogoElm <| Logo.ElmColor Logo.Orange) 60
                 , url = ".."
                 }
             , paragraph
@@ -242,6 +255,14 @@ maybeSelected model =
         Just ( introspection, variation )
 
 
+decodeFlags : Json.Decode.Decoder Flags
+decodeFlags =
+    Json.Decode.succeed Flags
+        |> Json.Decode.Pipeline.required "width" Json.Decode.int
+        |> Json.Decode.Pipeline.required "height" Json.Decode.int
+
+
+{-| -}
 type alias WindowSize =
     { width : Int, height : Int }
 
@@ -260,42 +281,18 @@ type alias Model =
     }
 
 
-decodeFlag : Json.Decode.Decoder Flag
-decodeFlag =
-    Json.Decode.succeed Flag
-        |> Json.Decode.Pipeline.required "width" Json.Decode.int
-        |> Json.Decode.Pipeline.required "height" Json.Decode.int
-
-
-decodeFlagFromJson : Json.Decode.Value -> Maybe Flag
-decodeFlagFromJson json =
-    let
-        decoded =
-            json
-                |> Json.Decode.decodeValue decodeFlag
-    in
-    case decoded of
-        Ok flag ->
-            Just flag
-
-        Err _ ->
-            Nothing
-
-
-{-| -}
-initModel : Json.Decode.Value -> Url.Url -> Model
-initModel value url =
-    let
-        flag =
-            decodeFlagFromJson value
-    in
+initModel : Flags -> Url.Url -> Model
+initModel flags url =
     { url = url
     , password = ""
     , modelStyleElementsInput = StyleElementsInput.initModel
     , modelFormField = FormField.initModel
     , modelFormFieldWithPattern = FormFieldWithPattern.initModel
     , modelCards = Card.initModel
-    , maybeWindowSize = flag
+
+    -- TODO windowSize
+    --, maybeWindowSize = Nothing
+    , maybeWindowSize = Just { width = flags.width, height = flags.height }
     , conf = initConf
     , introspections =
         if debug then
@@ -313,8 +310,8 @@ initCmd =
 
 
 {-| -}
--- init : Browser.Env Json.Decode.Value -> ( Model, Cmd Msg )
-init _ _ _ =
+init : Flags -> Url.Url -> Browser.Navigation.Key -> ( Model, Cmd Msg )
+init flags url naviagtionKey =
     ( initModel flags url
     , initCmd
     )
@@ -346,7 +343,7 @@ introspections =
 
 
 {-| -}
-type alias Flag =
+type alias Flags =
     { width : Int
     , height : Int
     }
@@ -393,7 +390,7 @@ type Msg
     = MsgToggleSection String
     | MsgOpenAllSections
     | MsgCloseAllSections
-    | MsgChangeWindowSize WindowSize
+    | MsgChangeWindowSize Int Int
     | MsgStyleElementsInput StyleElementsInput.Msg
     | MsgFormField FormField.Msg
     | MsgFormFieldWithPattern FormFieldWithPattern.Msg
@@ -408,15 +405,31 @@ type Msg
 {-| -}
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg of
-        MsgNoOp  ->
-            ( model , Cmd.none )
+    case msg |> Debug.log "msg" of
+        MsgNoOp ->
+            ( model, Cmd.none )
 
         MsgChangedUrl _ ->
-            ( model , Cmd.none )
+            ( model, Cmd.none )
 
-        MsgClickedLink _ ->
-            ( model , Cmd.none )
+        MsgClickedLink urlRequest ->
+            case urlRequest of
+                Browser.Internal url ->
+                    case url.fragment of
+                        Nothing ->
+                            ( model, Cmd.none )
+
+                        Just fragment ->
+                            let
+                                _ =
+                                    Debug.log "xxx" fragment
+                            in
+                            ( { model | url = url }, Cmd.none )
+
+                Browser.External href ->
+                    ( model
+                    , Browser.Navigation.load href
+                    )
 
         MsgChangeUrl url ->
             ( { model | url = url }, Cmd.none )
@@ -452,8 +465,8 @@ update msg model =
             in
             ( { model | introspections = intros }, Cmd.none )
 
-        MsgChangeWindowSize windowSize ->
-            ( { model | maybeWindowSize = Just windowSize }, Cmd.none )
+        MsgChangeWindowSize x y ->
+            ( { model | maybeWindowSize = Just { width = x, height = y } }, Cmd.none )
 
         MsgStyleElementsInput msg2 ->
             let
@@ -484,50 +497,6 @@ update msg model =
             ( { model | modelCards = newModel }, Cmd.none )
 
 
-{-| This create the entire page of Html type.
-
-Example, in your Style Guide page:
-
-    main : Html.Html msg
-    main =
-        Styleguide.viewHtmlPage
-            [ Framework.Button.introspection
-            , Framework.Color.introspection
-            ]
-
--}
---view : Model -> Browser.Page Msg
-view model =
-    { title = "0.19 - Elm Style Framework"
-    , body =
-        [ layoutWith
-            { options =
-                [ focusStyle
-                    { borderColor = Just <| Color.toElementColor Framework.Color.primary
-                    , backgroundColor = Nothing
-                    , shadow = Nothing
-                    }
-                ]
-            }
-            [ Font.family
-                [ Font.external
-                    { name = conf.font.typeface
-                    , url = conf.font.url
-                    }
-                , Font.typeface conf.font.typeface
-                , conf.font.typefaceFallback
-                ]
-            , Font.size 16
-            , Font.color <| Color.toElementColor model.conf.gray3
-            , Background.color <| Color.toElementColor Color.white
-            , model.conf.forkMe
-            ]
-          <|
-            viewPage model.maybeWindowSize model
-        ]
-    }
-
-
 css : String
 css =
     -- line-height to normal is because Confluence is changing this parameter
@@ -549,42 +518,6 @@ pre {
     margin: 0;
 }
 """
-
-
-{-| This create the entire page of Element type. If you are working
-with style-elements this is the way to go, so you can customize your page.
-
-Example, in your Style Guide page:
-
-    main : Html.Html msg
-    main =
-        layout layoutFontsAndAttributes <|
-            column []
-                [ ...
-                , Styleguide.page
-                    [ Framework.Button.introspection
-                    , Framework.Color.introspection
-                    ]
-                ...
-                ]
-
--}
-viewPage : Maybe WindowSize -> Model -> Element Msg
-viewPage maybeWindowSize model =
-    row
-        [ height <|
-            case maybeWindowSize of
-                Just windowSize ->
-                    px windowSize.height
-
-                Nothing ->
-                    fill
-        , width fill
-        ]
-        [ html <| Html.node "style" [] [ Html.text css ]
-        , el [ height <| fill, scrollbarY, clipX, width <| px 310 ] <| viewMenuColumn model
-        , el [ height <| fill, scrollbarY, clipX, width <| fill ] <| viewContentColumn model
-        ]
 
 
 viewMenuColumn : Model -> Element Msg
@@ -614,32 +547,11 @@ viewMenuColumn model =
         ]
 
 
-viewContentColumn : Model -> Element Msg
-viewContentColumn model =
-    case maybeSelected model of
-        Just something ->
-            viewSomething model something
-
-        Nothing ->
-            el
-                [ height fill
-                , width fill
-                , scrollbars
-                ]
-            <|
-                column []
-                    [ column [ padding <| model.conf.mainPadding + 100, spacing model.conf.mainPadding ]
-                        [ el [] <| viewLogo model.conf.title model.conf.subTitle model.conf.version
-                        , el [ Font.size 24 ] model.conf.introduction
-                        , el [ centerX, alpha 0.2 ] <| Icon.chevronDown Framework.Color.grey 32
-                        ]
-                    , column [] <| List.map (\( introspection, _ ) -> viewIntrospection model introspection) model.introspections
-                    ]
-
-
 viewIntrospection : Model -> Introspection -> Element Msg
 viewIntrospection model introspection =
-    column []
+    column
+        [ width fill
+        ]
         (viewIntrospectionTitle model.conf introspection
             :: List.map
                 (\( string, listSubSections ) ->
@@ -649,10 +561,30 @@ viewIntrospection model introspection =
         )
 
 
+viewIntrospectionTitle : Conf msg -> Introspection -> Element Msg
+viewIntrospectionTitle configuration introspection =
+    let
+        title =
+            introspection.name
+
+        subTitle =
+            text introspection.description
+    in
+    column
+        [ Background.color <| Color.toElementColor configuration.grayF
+        , padding configuration.mainPadding
+        , spacing 10
+        , width fill
+        ]
+        [ el [ Font.size 32, Font.bold ] (text <| title)
+        , paragraph [ Font.size 24, Font.extraLight ] [ subTitle ]
+        ]
+
+
 viewSomething : Model -> ( Introspection, ( String, List SubSection ) ) -> Element Msg
 viewSomething model ( introspection, ( title, listSubSection ) ) =
     column
-        []
+        [ width fill ]
         (viewIntrospectionTitle model.conf introspection
             :: (if introspection.signature /= "" then
                     [ paragraph
@@ -671,20 +603,25 @@ viewSomething model ( introspection, ( title, listSubSection ) ) =
         )
 
 
-viewIntrospectionTitle : Conf msg -> Introspection -> Element Msg
-viewIntrospectionTitle configuration introspection =
-    viewTitleAndSubTitle configuration introspection.name (text introspection.description)
-
-
 viewIntrospectionBody : Model -> String -> List SubSection -> Element Msg
 viewIntrospectionBody model title listSubSection =
     column
         [ padding model.conf.mainPadding
         , spacing model.conf.mainPadding
         , Background.color <| Color.toElementColor Color.white
+        , width fill
         ]
         [ el [ Font.size 28 ] (text <| title)
-        , column [ spacing 10 ] (List.map (\( part, name ) -> viewSubSection model ( part, name )) listSubSection)
+        , column
+            [ spacing 10
+            , width <| fill
+            , clip
+            , scrollbarX
+            ]
+            (List.map
+                (\( part, name ) -> viewSubSection model ( part, name ))
+                listSubSection
+            )
         ]
 
 
@@ -763,17 +700,126 @@ viewListVariationForMenu introspection variations =
         variations
 
 
-viewTitleAndSubTitle : Conf msg -> String -> Element Msg -> Element Msg
-viewTitleAndSubTitle configuration title subTitle =
-    column
-        [ Background.color <| Color.toElementColor configuration.grayF
-        , padding configuration.mainPadding
-        , spacing 10
-        , height shrink
+viewContentColumn : Model -> Element Msg
+viewContentColumn model =
+    case maybeSelected model of
+        Just something ->
+            viewSomething model something
+
+        Nothing ->
+            column
+                [ width fill
+                ]
+                [ column
+                    [ padding <| model.conf.mainPadding + 100
+                    , spacing model.conf.mainPadding
+                    ]
+                    [ el [] <| viewLogo model.conf.title model.conf.subTitle model.conf.version
+                    , el [ Font.size 24 ] model.conf.introduction
+                    , el [ centerX, alpha 0.2 ] <| Icon.chevronDown Framework.Color.grey 32
+                    ]
+                , column
+                    []
+                  <|
+                    List.map (\( introspection, _ ) -> viewIntrospection model introspection) model.introspections
+                ]
+
+
+{-| This create the entire page of Element type. If you are working
+with style-elements this is the way to go, so you can customize your page.
+
+Example, in your Style Guide page:
+
+    main : Html.Html msg
+    main =
+        layout layoutFontsAndAttributes <|
+            column []
+                [ ...
+                , Styleguide.page
+                    [ Framework.Button.introspection
+                    , Framework.Color.introspection
+                    ]
+                ...
+                ]
+
+-}
+viewPage : Maybe WindowSize -> Model -> Element Msg
+viewPage maybeWindowSize model =
+    row
+        [ height <|
+            case maybeWindowSize of
+                Just windowSize ->
+                    px windowSize.height
+
+                Nothing ->
+                    fill
+        , width fill
         ]
-        [ el [ Font.size 32, Font.bold ] (text <| title)
-        , paragraph [ Font.size 24, Font.extraLight ] [ subTitle ]
+        [ html <| Html.node "style" [] [ Html.text css ]
+        , el
+            [ height <| fill
+            , width <| px 310
+            , scrollbarY
+            , clipX
+            ]
+          <|
+            viewMenuColumn model
+        , el
+            [ height <| fill
+            , width <| fill
+            , scrollbarY
+            ]
+          <|
+            viewContentColumn model
         ]
+
+
+{-| This create the entire page of Html type.
+
+Example, in your Style Guide page:
+
+    main : Html.Html msg
+    main =
+        Styleguide.viewHtmlPage
+            [ Framework.Button.introspection
+            , Framework.Color.introspection
+            ]
+
+-}
+view : Model -> Browser.Document Msg
+view model =
+    { title = "0.19 - Elm Style Framework"
+    , body =
+        [ layoutWith
+            { options =
+                [ focusStyle
+                    { borderColor = Just <| Color.toElementColor Framework.Color.primary
+                    , backgroundColor = Nothing
+                    , shadow = Nothing
+                    }
+                ]
+            }
+            [ Font.family
+                [ Font.external
+                    { name = conf.font.typeface
+                    , url = conf.font.url
+                    }
+                , Font.typeface conf.font.typeface
+                , conf.font.typefaceFallback
+                ]
+            , Font.size 16
+            , Font.color <| Color.toElementColor model.conf.gray3
+            , Background.color <| Color.toElementColor Color.white
+            , model.conf.forkMe
+            ]
+          <|
+            viewPage model.maybeWindowSize model
+        ]
+    }
+
+
+
+--
 
 
 specialComponent : Model -> (StyleElementsInput.Model -> ( Element StyleElementsInput.Msg, c )) -> ( Element Msg, c )
@@ -881,35 +927,48 @@ viewSubSection model ( componentExample, componentExampleSourceCode ) =
             else
                 ( componentExample, componentExampleSourceCode )
     in
+    -- there is a very subtle bug here that if I don't use paragraph,
+    -- it doesn't fit. See https://ellie-app.com/38Nf6ygRSMta1
+    -- but the problem is actually on the left cell, very weird
     row
-        [ spacing 16 ]
-        [ column
-            [ width fill
-            , alignTop
+        [ spacing 16
+        , width fill
+        ]
+        [ el
+            [ width <| fillPortion 2
+            , height fill
             ]
-            [ componentExampleToDisplay ]
-        , sourceCodeWrapper model.conf componentExampleSourceCodeToDisplay
+          <|
+            componentExampleToDisplay
+        , el
+            [ width <| fillPortion 3
+            , height fill
+            ]
+          <|
+            sourceCodeWrapper model.conf componentExampleSourceCodeToDisplay
         ]
 
 
 sourceCodeWrapper : Conf msg -> String -> Element Msg
 sourceCodeWrapper configuration sourceCode =
     el
-        [ width fill
-        , Element.scrollbarX
-        , Background.color <| Color.toElementColor configuration.gray3
+        [ Background.color <| Color.toElementColor configuration.gray3
         , Border.rounded 8
+        , width <| fill
+        , clip
+        , scrollbars
         ]
     <|
-        el
+        -- there is a very subtle bug here that if I don't use paragraph,
+        -- it doesn't fit. See https://ellie-app.com/38Nf6ygRSMta1
+        paragraph
             [ Font.family [ Font.monospace ]
             , Font.color <| Color.toElementColor configuration.gray9
             , Font.size 16
             , padding 16
-            , htmlAttribute <| Html.Attributes.style "white-space" "pre"
             ]
-        <|
-            text sourceCode
+            [ text sourceCode
+            ]
 
 
 
@@ -940,48 +999,12 @@ introspectionExample id =
 subscriptions : Model -> Sub Msg
 subscriptions _ =
     Sub.batch
-        [-- 019 Window.resizes MsgChangeWindowSize
+        [ Browser.Events.onResize MsgChangeWindowSize
         ]
 
 
 
-{-
-   programWithFlags
-       :  (Location -> msg)
-       -> { init : flags -> Location -> (model, Cmd msg), update : msg -> model -> (model, Cmd msg), view : model -> Html msg, subscriptions : model -> Sub msg }
-       -> Program flags model msg
--}
--- fromUrl : Url.Url -> Maybe Route
-
-
-{-| -}
---main : Program Json.Decode.Value Model Msg
-main =
-    Browser.application
-        { init = init
-        , view = view
-        , update = update
-        , subscriptions = subscriptions
-
-        , onUrlChange = MsgChangedUrl
-        , onUrlRequest = MsgClickedLink
-
-        --, onUrlChange = onUrlChange
-        --, onUrlRequest = onUrlRequest
-        -- onUrlChange : Url.Url -> Msg
-        }
-
-onUrlRequest : Browser.UrlRequest -> Msg
-onUrlRequest _ =
-  MsgNoOp
-
 -- ROUTING
-
-
-onUrlChange : Url.Url -> Msg
-onUrlChange url =
-    -- SetRoute (fromUrl url)
-    MsgChangeUrl url
 
 
 type Route
@@ -1022,27 +1045,6 @@ routeToString page =
     routeRoot ++ String.join "/" pieces
 
 
-fromUrl : Url.Url -> Maybe Route
-fromUrl url =
-    case url.fragment of
-        Nothing ->
-            Just RouteHome
-
-        Just fragment ->
-            fragmentToRoute fragment
-
-
-type alias Docs =
-    { name : String
-    , value : Maybe String
-    }
-
-
-docs : Url.Parser.Parser (Docs -> a) a
-docs =
-    Url.Parser.map Docs (Url.Parser.string </> Url.Parser.fragment identity)
-
-
 urlToRoute : Url.Url -> Route
 urlToRoute url =
     let
@@ -1068,28 +1070,6 @@ routeParser =
         ]
 
 
-
-{-
-   fragmentToRoute : String -> Maybe Route
-   fragmentToRoute fragment =
-       let
-           test =
-               case Url.Parser.toUrl fragment of
-                   Nothing ->
-                       Nothing
-
-                   Just segments ->
-                       Url.Parser.parse routeParser segments
-       in
-       Just RouteHome
--}
-
-
-fragmentToRoute : String -> Maybe Route
-fragmentToRoute fragment =
-    Just RouteHome
-
-
 rootRoute : String
 rootRoute =
     "framework"
@@ -1105,11 +1085,14 @@ fragmentAsPath url =
             { url | path = fragment }
 
 
-maybeFragmentAsPath : Maybe Url.Url -> Maybe Url.Url
-maybeFragmentAsPath maybeUrl =
-    case maybeUrl of
-        Nothing ->
-            Nothing
-
-        Just url ->
-            Just <| fragmentAsPath url
+{-| -}
+main : Program Flags Model Msg
+main =
+    Browser.application
+        { init = init
+        , view = view
+        , update = update
+        , subscriptions = subscriptions
+        , onUrlChange = MsgChangedUrl
+        , onUrlRequest = MsgClickedLink
+        }
