@@ -43,6 +43,7 @@ maximumContrast c =
     -- From https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
     if intensity c < 186 then
         Color.white
+
     else
         Color.black
 
@@ -84,6 +85,7 @@ fromNaNtoZero : number -> number
 fromNaNtoZero value =
     if toString value == "NaN" then
         0
+
     else
         value
 
@@ -116,10 +118,12 @@ toRadix n =
         getChr c =
             if c < 10 then
                 toString c
+
             else
                 String.fromChar <| Char.fromCode (87 + c)
     in
     if n < 16 then
         getChr n
+
     else
         toRadix (n // 16) ++ getChr (n % 16)

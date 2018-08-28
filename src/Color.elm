@@ -1,4 +1,4 @@
-module Color exposing (..)
+module Color exposing (Color(..), Color2, black, colorToHex, erroneousHex, fmod, fromString, fromStringHelp, hex, hexToColor, hsl, hsl2, hsl2ToString, hslToRgb, hslToString, hsla, intensity, lighten, maximumContrast, rgb, rgbToHsl, rgba, saturate, toElementColor, toFloatNorm255, toHex, toHsl, toRadix, toRgb, validHex, white, withPrecedingHash, yellow)
 
 import Element
 
