@@ -3,14 +3,17 @@ module Color exposing (Color(..), Color2, black, colorToHex, erroneousHex, fmod,
 import Element
 
 
+black : Color
 black =
     rgb 20 20 20
 
 
+white : Color
 white =
     rgb 230 230 230
 
 
+yellow : Color
 yellow =
     -- #ffeb3b
     -- 255 235 59
