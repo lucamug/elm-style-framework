@@ -10,7 +10,7 @@ module Framework.FormFieldWithPattern exposing (Field(..), Model, Msg, example1,
 -}
 
 import Color
-import Element exposing (Attribute, Element, el, inFront, moveDown, moveLeft, none, paddingXY, px, scale, text, width)
+import Element exposing (..)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Events as Events
@@ -109,7 +109,7 @@ introspection =
     , variations =
         [ ( "Phone number USA", [ ( text "special: FormFieldWithPattern.example1", "" ) ] )
         , ( "Credit Card number", [ ( text "special: FormFieldWithPattern.example2", "" ) ] )
-        , ( "4 Digit Code", [ ( text "special: FormFieldWithPattern.example3", "" ) ] )
+        , ( "6 Digit Code", [ ( text "special: FormFieldWithPattern.example3", "" ) ] )
         ]
     }
 
@@ -136,11 +136,13 @@ example1 model =
         { field = FieldTelephone
         , pattern = "(000) 000 - 0000"
         , label = "Phone number USA"
+        , id = "test"
         }
     , """inputText model
     { field = FieldTelephone
     , pattern = "(000) 000 - 0000"
     , label = "Phone number USA"
+    , id = "test"
     }"""
     )
 
@@ -152,11 +154,13 @@ example2 model =
         { field = FieldCreditCard
         , pattern = "0000 - 0000 - 0000 - 0000"
         , label = "Credit Card number"
+        , id = "test"
         }
     , """inputText model
     { field = FieldCreditCard
     , pattern = "0000 - 0000 - 0000 - 0000"
     , label = "Credit Card number"
+    , id = "test"
     }"""
     )
 
@@ -166,20 +170,22 @@ example3 : Model -> ( Element Msg, String )
 example3 model =
     ( inputText model
         { field = Field6DigitCode
-        , pattern = "____"
-        , label = "4 Digits Code"
+        , pattern = "______"
+        , label = "6 Digits Code"
+        , id = "test"
         }
     , """inputText model
         { field = Field6DigitCode
-        , pattern = "____"
-        , label = "4 Digits Code"
+        , pattern = "______"
+        , label = "6 Digits Code"
+        , id = "test"
         }"""
     )
 
 
 {-| -}
-inputText : Model -> { a | field : Field, label : String, pattern : String } -> Element Msg
-inputText model { field, pattern, label } =
+inputText : Model -> { a | id : String, field : Field, label : String, pattern : String } -> Element Msg
+inputText model { id, field, pattern, label } =
     let
         lengthDifference =
             String.length pattern - String.length modelValue
@@ -189,6 +195,13 @@ inputText model { field, pattern, label } =
 
         largeSize =
             field == Field6DigitCode
+
+        letterSpacing =
+            if largeSize then
+                "10px"
+
+            else
+                "1px"
 
         font =
             if largeSize then
@@ -203,10 +216,10 @@ inputText model { field, pattern, label } =
 
         moveDownPlaceHolder =
             if largeSize then
-                conf.moveDownPlaceHolder.large
+                9
 
             else
-                conf.moveDownPlaceHolder.small
+                11
 
         modelValue =
             case field of
@@ -223,73 +236,72 @@ inputText model { field, pattern, label } =
             hasFocus model field || modelValue /= "" || largeSize
     in
     el
-        [ inFront <|
-            el
-                ([ if hasFocus model field && largeSize then
-                    Font.color <| Color.toElementColor Framework.Color.primary
+        []
+    <|
+        Input.text
+            ([ Events.onFocus <| OnFocus field
+             , Events.onLoseFocus <| OnLoseFocus field
+             , Background.color <| Element.rgba 0 0 0 0
+             , if largeSize then
+                Border.width 0
 
-                   else
-                    Font.color <| Color.toElementColor Framework.Color.grey_light
-                 , moveDown moveDownPlaceHolder
-                 , hackInLineStyle "pointer-events" "none"
-                 , hackInLineStyle "letter-spacing" "10px"
-                 ]
-                    ++ font
-                )
-            <|
-                text <|
-                    if labelIsAbove then
-                        patternToShow
+               else
+                Border.widthEach { bottom = 2, left = 0, right = 0, top = 0 }
+             , hackInLineStyle "letter-spacing" letterSpacing
+             , Border.rounded 0
+             , paddingXY 0 8
+             , width fill
+             , hackInLineStyle "transition" "all 0.15s"
+             , Element.htmlAttribute <| Html.Attributes.id "elementToFocus"
+             , behindContent <|
+                el
+                    ([ if hasFocus model field && largeSize then
+                        Font.color <| Color.toElementColor Framework.Color.primary
 
-                    else
-                        ""
-        , inFront <|
-            Input.text
-                ([ Events.onFocus <| OnFocus field
-                 , Events.onLoseFocus <| OnLoseFocus field
-                 , Background.color <| Element.rgba 0 0 0 0
-                 , if largeSize then
-                    Border.width 0
-
-                   else
-                    Border.widthEach { bottom = 2, left = 0, right = 0, top = 0 }
-                 , hackInLineStyle "letter-spacing" "10px"
-                 , Border.rounded 0
-                 , paddingXY 0 8
-                 , width <| px 230
-                 , hackInLineStyle "transition" "all 0.15s"
-                 ]
-                    ++ font
-                    ++ (if hasFocus model field then
-                            [ Border.color <| Color.toElementColor Framework.Color.primary ]
+                       else
+                        Font.color <| Color.toElementColor Framework.Color.grey_light
+                     , moveDown moveDownPlaceHolder
+                     , hackInLineStyle "pointer-events" "none"
+                     , hackInLineStyle "letter-spacing" letterSpacing
+                     ]
+                        ++ font
+                    )
+                <|
+                    text <|
+                        if labelIsAbove then
+                            patternToShow
 
                         else
-                            []
-                       )
-                )
-                { label =
-                    Input.labelAbove
-                        ([ hackInLineStyle "transition" "all 0.15s"
-                         , hackInLineStyle "pointer-events" "none"
-                         , Font.family [ Font.typeface conf.font.typeface, conf.font.typefaceFallback ]
-                         , Font.size 16
-                         ]
-                            ++ (if labelIsAbove then
-                                    [ scale 0.9, moveLeft 14 ]
+                            ""
+             ]
+                ++ font
+                ++ (if hasFocus model field then
+                        [ Border.color <| Color.toElementColor Framework.Color.primary ]
 
-                                else
-                                    [ moveDown 33 ]
-                               )
-                        )
-                    <|
-                        text label
-                , onChange = Input field pattern
-                , placeholder = Nothing
-                , text = modelValue
-                }
-        ]
-    <|
-        none
+                    else
+                        []
+                   )
+            )
+            { label =
+                Input.labelAbove
+                    ([ hackInLineStyle "transition" "all 0.15s"
+                     , hackInLineStyle "pointer-events" "none"
+                     , Font.family [ Font.typeface conf.font.typeface, conf.font.typefaceFallback ]
+                     , Font.size 16
+                     ]
+                        ++ (if labelIsAbove then
+                                []
+
+                            else
+                                [ moveDown 33 ]
+                           )
+                    )
+                <|
+                    text label
+            , onChange = Input field pattern
+            , placeholder = Nothing
+            , text = modelValue
+            }
 
 
 

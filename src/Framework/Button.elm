@@ -1,4 +1,7 @@
-module Framework.Button exposing (button, buttonAttr, buttonLink, buttonLinkWidth, buttonWidth, introspection)
+module Framework.Button exposing
+    ( button, buttonAttr, buttonLink, buttonLinkWidth, buttonWidth, introspection
+    , buttonWithCustomizableWith
+    )
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Buttons/States)
 
@@ -249,8 +252,8 @@ button modifiers onPress label =
         }
 
 
-extraAttrForButtonWidth : Int -> List (Attribute msg)
-extraAttrForButtonWidth buttonX =
+extraAttrForButtonWithCustimazibleWidth : Int -> List (Attribute msg)
+extraAttrForButtonWithCustimazibleWidth buttonX =
     [ Element.htmlAttribute (Html.Attributes.style "width" "100%")
     , Element.htmlAttribute (Html.Attributes.style "max-width" (String.fromInt buttonX ++ "px"))
     , Font.center
@@ -260,10 +263,10 @@ extraAttrForButtonWidth buttonX =
 
 {-| -}
 buttonWidth : List Modifier -> Maybe msg -> String -> Int -> Element msg
-buttonWidth modifiers onPress label buttonX =
+buttonWidth modifiers onPress label width =
     Input.button
         (buttonAttr modifiers
-            ++ extraAttrForButtonWidth buttonX
+            ++ extraAttrForButtonWithCustimazibleWidth width
         )
         { onPress = onPress
         , label = text label
@@ -282,19 +285,39 @@ buttonLink modifiers url label =
 
 {-| -}
 buttonLinkWidth : List Modifier -> String -> String -> Int -> Element msg
-buttonLinkWidth modifiers url label buttonX =
+buttonLinkWidth modifiers url label width =
     link
         (buttonAttr modifiers
-            ++ extraAttrForButtonWidth buttonX
+            ++ extraAttrForButtonWithCustimazibleWidth width
         )
         { url = url
         , label = text label
         }
 
 
+{-| -}
+buttonWithCustomizableWith :
+    { a
+        | width : Int
+        , label : String
+        , onPress : Maybe msg
+        , modifiers : List Modifier
+        , extraAttrs : List (Attribute msg)
+    }
+    -> Element msg
+buttonWithCustomizableWith { onPress, modifiers, label, width, extraAttrs } =
+    Input.button
+        (buttonAttr modifiers
+            ++ extraAttrForButtonWithCustimazibleWidth width
+            ++ extraAttrs
+        )
+        { onPress = onPress
+        , label = text label
+        }
+
+
 
 {-
-
    {-| -}
    buttonLinkWidthAndClick :
        { a
@@ -308,7 +331,7 @@ buttonLinkWidth modifiers url label buttonX =
    buttonLinkWidthAndClick { message, modifiers, url, label, buttonWidthInternal } =
        link
            (buttonAttr modifiers
-               ++ extraAttrForButtonWidth buttonWidthInternal
+               ++ extraAttrForButtonWithCustimazibleWidth buttonWidthInternal
                ++ [ htmlAttribute <|
                        Html.Events.onWithOptions "click"
                            { stopPropagation = True
@@ -320,9 +343,8 @@ buttonLinkWidth modifiers url label buttonX =
            { url = url
            , label = text <| label
            }
-
-
-
+-}
+{-
    -- TODO, convert buttonLinkWidthAndClick into a button because it doesn't make
    -- sense that it is a link
 
