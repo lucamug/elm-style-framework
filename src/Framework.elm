@@ -131,7 +131,10 @@ import Url
 import Url.Parser exposing ((</>))
 
 
-debug : Bool
+
+--debug : Bool
+
+
 debug =
     True
 
@@ -405,7 +408,7 @@ type Msg
 {-| -}
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg |> Debug.log "msg" of
+    case msg of
         MsgNoOp ->
             ( model, Cmd.none )
 
@@ -420,10 +423,6 @@ update msg model =
                             ( model, Cmd.none )
 
                         Just fragment ->
-                            let
-                                _ =
-                                    Debug.log "xxx" fragment
-                            in
                             ( { model | url = url }, Cmd.none )
 
                 Browser.External href ->
