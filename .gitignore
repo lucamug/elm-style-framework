@@ -3,6 +3,5 @@ documentation.json
 IGNORED.md
 svg
 
-# 0.19
 src/MyStyle.elm
-docs/build/framework.js
+# docs/build/framework.js

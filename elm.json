@@ -16,7 +16,7 @@
             "elm/svg": "1.0.0",
             "elm/time": "1.0.0",
             "elm/url": "1.0.0",
-            "mdgriffith/stylish-elephants": "8.0.2"
+            "mdgriffith/elm-ui": "1.0.0"
         },
         "indirect": {
             "elm/virtual-dom": "1.0.0"
