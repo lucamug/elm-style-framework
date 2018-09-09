@@ -250,7 +250,7 @@ flipping data =
             ([ width <| x
              , height <| y
              ]
-                ++ stylexxx "transition" "all 0.7s cubic-bezier(0.365, 1.440, 0.430, 0.965)"
+                ++ stylexxx "transition" "transform 0.7s cubic-bezier(0.365, 1.440, 0.430, 0.965)"
                 ++ stylexxx "transform-style" "preserve-3d"
                 ++ (if data.activeFront then
                         stylexxx "transform" "rotateY(0deg)"
