@@ -22,14 +22,18 @@
             function start_app() {
                 var local_storage_name = "framework";
                 var flags = {
-                    local_storage: String((localStorage.getItem(local_storage_name) || "")),
                     width: window.innerWidth,
-                    height: window.innerHeight
+                    height: window.innerHeight,
+                    locationHref: document.location.href
                 };
                 var app = Elm.Framework.init({
                     flags: flags,
                     node: document.getElementById('elm')
                 });
+
+                window.onpopstate = function() {
+                      app.ports.portFrameworkJsOnPopState.send(location.href);
+                };
             }
 
             start_app();

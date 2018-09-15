@@ -1,4 +1,7 @@
-module Framework exposing (Conf, Flags, Introspection, Model, Msg(..), init, initCmd, initConf, initModel, introspections, main, subscriptions, update, view, viewPage)
+port module Framework exposing
+    ( Conf, Flags, Introspection, Model, Msg(..), init, initCmd, initConf, initModel, introspections, main, subscriptions, update, view, viewPage
+    , portFrameworkJsOnPopState
+    )
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/)
 
@@ -232,11 +235,8 @@ emptyVariation =
 maybeSelected : Model -> Maybe ( Introspection, Variation )
 maybeSelected model =
     let
-        _ =
-            urlToRoute model.url
-
         ( slug1, slug2 ) =
-            case urlToRoute model.url of
+            case routeFromMaybeUrl model.maybeUrl of
                 RouteSubPage slug3 slug4 ->
                     ( Maybe.withDefault "" <| Url.percentDecode (slugToString slug3)
                     , Maybe.withDefault "" <| Url.percentDecode (slugToString slug4)
@@ -263,6 +263,7 @@ decodeFlags =
     Json.Decode.succeed Flags
         |> Json.Decode.Pipeline.required "width" Json.Decode.int
         |> Json.Decode.Pipeline.required "height" Json.Decode.int
+        |> Json.Decode.Pipeline.required "locationHref" Json.Decode.string
 
 
 {-| -}
@@ -272,21 +273,21 @@ type alias WindowSize =
 
 {-| -}
 type alias Model =
-    { maybeWindowSize : Maybe WindowSize
+    { maybeUrl : Maybe Url.Url
+    , maybeWindowSize : Maybe WindowSize
     , modelStyleElementsInput : StyleElementsInput.Model
     , modelFormField : FormField.Model
     , modelFormFieldWithPattern : FormFieldWithPattern.Model
     , modelCards : Card.Model
     , introspections : List ( Introspection, Bool )
-    , url : Url.Url
     , password : String
     , conf : Conf Msg
     }
 
 
-initModel : Flags -> Url.Url -> Model
-initModel flags url =
-    { url = url
+initModel : Flags -> Model
+initModel flags =
+    { maybeUrl = Url.fromString flags.locationHref
     , password = ""
     , modelStyleElementsInput = StyleElementsInput.initModel
     , modelFormField = FormField.initModel
@@ -313,9 +314,9 @@ initCmd =
 
 
 {-| -}
-init : Flags -> Url.Url -> Browser.Navigation.Key -> ( Model, Cmd Msg )
-init flags url naviagtionKey =
-    ( initModel flags url
+init : Flags -> ( Model, Cmd Msg )
+init flags =
+    ( initModel flags
     , initCmd
     )
 
@@ -349,6 +350,7 @@ introspections =
 type alias Flags =
     { width : Int
     , height : Int
+    , locationHref : String
     }
 
 
@@ -398,11 +400,10 @@ type Msg
     | MsgFormField FormField.Msg
     | MsgFormFieldWithPattern FormFieldWithPattern.Msg
     | MsgCards Card.Msg
-    | MsgChangeUrl Url.Url
     | MsgChangePassword String
     | MsgNoOp
-    | MsgChangedUrl Url.Url
-    | MsgClickedLink Browser.UrlRequest
+      -- NAVIGATION
+    | MsgFromPortJsOnPopState String
 
 
 {-| -}
@@ -412,26 +413,10 @@ update msg model =
         MsgNoOp ->
             ( model, Cmd.none )
 
-        MsgChangedUrl _ ->
-            ( model, Cmd.none )
-
-        MsgClickedLink urlRequest ->
-            case urlRequest of
-                Browser.Internal url ->
-                    case url.fragment of
-                        Nothing ->
-                            ( model, Cmd.none )
-
-                        Just fragment ->
-                            ( { model | url = url }, Cmd.none )
-
-                Browser.External href ->
-                    ( model
-                    , Browser.Navigation.load href
-                    )
-
-        MsgChangeUrl url ->
-            ( { model | url = url }, Cmd.none )
+        MsgFromPortJsOnPopState locationHref ->
+            ( { model | maybeUrl = Url.fromString locationHref }
+            , Cmd.none
+            )
 
         MsgChangePassword password ->
             ( { model | password = password }, Cmd.none )
@@ -785,36 +770,41 @@ Example, in your Style Guide page:
             ]
 
 -}
-view : Model -> Browser.Document Msg
-view model =
+viewDocument : Model -> Browser.Document Msg
+viewDocument model =
     { title = "0.19 - Elm Style Framework"
     , body =
-        [ layoutWith
-            { options =
-                [ focusStyle
-                    { borderColor = Just <| Color.toElementColor Framework.Color.primary
-                    , backgroundColor = Nothing
-                    , shadow = Nothing
-                    }
-                ]
-            }
-            [ Font.family
-                [ Font.external
-                    { name = conf.font.typeface
-                    , url = conf.font.url
-                    }
-                , Font.typeface conf.font.typeface
-                , conf.font.typefaceFallback
-                ]
-            , Font.size 16
-            , Font.color <| Color.toElementColor model.conf.gray3
-            , Background.color <| Color.toElementColor Color.white
-            , model.conf.forkMe
-            ]
-          <|
-            viewPage model.maybeWindowSize model
+        [ view model
         ]
     }
+
+
+view : Model -> Html.Html Msg
+view model =
+    layoutWith
+        { options =
+            [ focusStyle
+                { borderColor = Just <| Color.toElementColor Framework.Color.primary
+                , backgroundColor = Nothing
+                , shadow = Nothing
+                }
+            ]
+        }
+        [ Font.family
+            [ Font.external
+                { name = conf.font.typeface
+                , url = conf.font.url
+                }
+            , Font.typeface conf.font.typeface
+            , conf.font.typefaceFallback
+            ]
+        , Font.size 16
+        , Font.color <| Color.toElementColor model.conf.gray3
+        , Background.color <| Color.toElementColor Color.white
+        , model.conf.forkMe
+        ]
+    <|
+        viewPage model.maybeWindowSize model
 
 
 
@@ -999,6 +989,7 @@ subscriptions : Model -> Sub Msg
 subscriptions _ =
     Sub.batch
         [ Browser.Events.onResize MsgChangeWindowSize
+        , portFrameworkJsOnPopState MsgFromPortJsOnPopState
         ]
 
 
@@ -1044,8 +1035,8 @@ routeToString page =
     routeRoot ++ String.join "/" pieces
 
 
-urlToRoute : Url.Url -> Route
-urlToRoute url =
+routeFromUrl : Url.Url -> Route
+routeFromUrl url =
     let
         maybeRoute =
             Url.Parser.parse routeParser (fragmentAsPath url)
@@ -1069,6 +1060,16 @@ routeParser =
         ]
 
 
+routeFromMaybeUrl : Maybe Url.Url -> Route
+routeFromMaybeUrl maybeUrl =
+    case maybeUrl of
+        Just url ->
+            routeFromUrl url
+
+        Nothing ->
+            RouteHome
+
+
 rootRoute : String
 rootRoute =
     "framework"
@@ -1084,14 +1085,19 @@ fragmentAsPath url =
             { url | path = fragment }
 
 
+
+-- PORTS
+
+
+port portFrameworkJsOnPopState : (String -> msg) -> Sub msg
+
+
 {-| -}
 main : Program Flags Model Msg
 main =
-    Browser.application
+    Browser.element
         { init = init
         , view = view
         , update = update
         , subscriptions = subscriptions
-        , onUrlChange = MsgChangedUrl
-        , onUrlRequest = MsgClickedLink
         }

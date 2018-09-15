@@ -4963,13 +4963,7 @@ function _Url_percentDecode(string)
 	{
 		return elm$core$Maybe$Nothing;
 	}
-}var author$project$Framework$MsgChangedUrl = function (a) {
-	return {$: 'MsgChangedUrl', a: a};
-};
-var author$project$Framework$MsgClickedLink = function (a) {
-	return {$: 'MsgClickedLink', a: a};
-};
-var elm$core$Basics$False = {$: 'False'};
+}var elm$core$Basics$False = {$: 'False'};
 var elm$core$Basics$True = {$: 'True'};
 var elm$core$Result$isOk = function (result) {
 	if (result.$ === 'Ok') {
@@ -14732,31 +14726,148 @@ var author$project$Framework$StyleElementsInput$initModel = {
 	radio: elm$core$Maybe$Just('A'),
 	text: ''
 };
-var author$project$Framework$initModel = F2(
-	function (flags, url) {
-		return {
-			conf: author$project$Framework$initConf,
-			introspections: author$project$Framework$debug ? author$project$Framework$introspections : author$project$Framework$introspectionsForDebugging,
-			maybeWindowSize: elm$core$Maybe$Just(
-				{height: flags.height, width: flags.width}),
-			modelCards: author$project$Framework$Card$initModel,
-			modelFormField: author$project$Framework$FormField$initModel,
-			modelFormFieldWithPattern: author$project$Framework$FormFieldWithPattern$initModel,
-			modelStyleElementsInput: author$project$Framework$StyleElementsInput$initModel,
-			password: '',
-			url: url
-		};
+var elm$url$Url$Http = {$: 'Http'};
+var elm$url$Url$Https = {$: 'Https'};
+var elm$core$String$indexes = _String_indexes;
+var elm$core$String$left = F2(
+	function (n, string) {
+		return (n < 1) ? '' : A3(elm$core$String$slice, 0, n, string);
 	});
-var author$project$Framework$init = F3(
-	function (flags, url, naviagtionKey) {
-		return _Utils_Tuple2(
-			A2(author$project$Framework$initModel, flags, url),
-			author$project$Framework$initCmd);
+var elm$core$String$contains = _String_contains;
+var elm$core$String$toInt = _String_toInt;
+var elm$url$Url$Url = F6(
+	function (protocol, host, port_, path, query, fragment) {
+		return {fragment: fragment, host: host, path: path, port_: port_, protocol: protocol, query: query};
 	});
+var elm$url$Url$chompBeforePath = F5(
+	function (protocol, path, params, frag, str) {
+		if (elm$core$String$isEmpty(str) || A2(elm$core$String$contains, '@', str)) {
+			return elm$core$Maybe$Nothing;
+		} else {
+			var _n0 = A2(elm$core$String$indexes, ':', str);
+			if (!_n0.b) {
+				return elm$core$Maybe$Just(
+					A6(elm$url$Url$Url, protocol, str, elm$core$Maybe$Nothing, path, params, frag));
+			} else {
+				if (!_n0.b.b) {
+					var i = _n0.a;
+					var _n1 = elm$core$String$toInt(
+						A2(elm$core$String$dropLeft, i + 1, str));
+					if (_n1.$ === 'Nothing') {
+						return elm$core$Maybe$Nothing;
+					} else {
+						var port_ = _n1;
+						return elm$core$Maybe$Just(
+							A6(
+								elm$url$Url$Url,
+								protocol,
+								A2(elm$core$String$left, i, str),
+								port_,
+								path,
+								params,
+								frag));
+					}
+				} else {
+					return elm$core$Maybe$Nothing;
+				}
+			}
+		}
+	});
+var elm$url$Url$chompBeforeQuery = F4(
+	function (protocol, params, frag, str) {
+		if (elm$core$String$isEmpty(str)) {
+			return elm$core$Maybe$Nothing;
+		} else {
+			var _n0 = A2(elm$core$String$indexes, '/', str);
+			if (!_n0.b) {
+				return A5(elm$url$Url$chompBeforePath, protocol, '/', params, frag, str);
+			} else {
+				var i = _n0.a;
+				return A5(
+					elm$url$Url$chompBeforePath,
+					protocol,
+					A2(elm$core$String$dropLeft, i, str),
+					params,
+					frag,
+					A2(elm$core$String$left, i, str));
+			}
+		}
+	});
+var elm$url$Url$chompBeforeFragment = F3(
+	function (protocol, frag, str) {
+		if (elm$core$String$isEmpty(str)) {
+			return elm$core$Maybe$Nothing;
+		} else {
+			var _n0 = A2(elm$core$String$indexes, '?', str);
+			if (!_n0.b) {
+				return A4(elm$url$Url$chompBeforeQuery, protocol, elm$core$Maybe$Nothing, frag, str);
+			} else {
+				var i = _n0.a;
+				return A4(
+					elm$url$Url$chompBeforeQuery,
+					protocol,
+					elm$core$Maybe$Just(
+						A2(elm$core$String$dropLeft, i + 1, str)),
+					frag,
+					A2(elm$core$String$left, i, str));
+			}
+		}
+	});
+var elm$url$Url$chompAfterProtocol = F2(
+	function (protocol, str) {
+		if (elm$core$String$isEmpty(str)) {
+			return elm$core$Maybe$Nothing;
+		} else {
+			var _n0 = A2(elm$core$String$indexes, '#', str);
+			if (!_n0.b) {
+				return A3(elm$url$Url$chompBeforeFragment, protocol, elm$core$Maybe$Nothing, str);
+			} else {
+				var i = _n0.a;
+				return A3(
+					elm$url$Url$chompBeforeFragment,
+					protocol,
+					elm$core$Maybe$Just(
+						A2(elm$core$String$dropLeft, i + 1, str)),
+					A2(elm$core$String$left, i, str));
+			}
+		}
+	});
+var elm$url$Url$fromString = function (str) {
+	return A2(elm$core$String$startsWith, 'http://', str) ? A2(
+		elm$url$Url$chompAfterProtocol,
+		elm$url$Url$Http,
+		A2(elm$core$String$dropLeft, 7, str)) : (A2(elm$core$String$startsWith, 'https://', str) ? A2(
+		elm$url$Url$chompAfterProtocol,
+		elm$url$Url$Https,
+		A2(elm$core$String$dropLeft, 8, str)) : elm$core$Maybe$Nothing);
+};
+var author$project$Framework$initModel = function (flags) {
+	return {
+		conf: author$project$Framework$initConf,
+		introspections: author$project$Framework$debug ? author$project$Framework$introspections : author$project$Framework$introspectionsForDebugging,
+		maybeUrl: elm$url$Url$fromString(flags.locationHref),
+		maybeWindowSize: elm$core$Maybe$Just(
+			{height: flags.height, width: flags.width}),
+		modelCards: author$project$Framework$Card$initModel,
+		modelFormField: author$project$Framework$FormField$initModel,
+		modelFormFieldWithPattern: author$project$Framework$FormFieldWithPattern$initModel,
+		modelStyleElementsInput: author$project$Framework$StyleElementsInput$initModel,
+		password: ''
+	};
+};
+var author$project$Framework$init = function (flags) {
+	return _Utils_Tuple2(
+		author$project$Framework$initModel(flags),
+		author$project$Framework$initCmd);
+};
 var author$project$Framework$MsgChangeWindowSize = F2(
 	function (a, b) {
 		return {$: 'MsgChangeWindowSize', a: a, b: b};
 	});
+var author$project$Framework$MsgFromPortJsOnPopState = function (a) {
+	return {$: 'MsgFromPortJsOnPopState', a: a};
+};
+var author$project$Framework$portFrameworkJsOnPopState = _Platform_incomingPort('portFrameworkJsOnPopState', elm$json$Json$Decode$string);
 var elm$browser$Browser$Events$Window = {$: 'Window'};
 var elm$browser$Browser$Events$MySub = F3(
 	function (a, b, c) {
@@ -15601,10 +15712,6 @@ var elm$browser$Debugger$Expando$seqTypeToString = F2(
 			default:
 				return 'Array(' + (elm$core$String$fromInt(n) + ')');
 		}
-	});
-var elm$core$String$left = F2(
-	function (n, string) {
-		return (n < 1) ? '' : A3(elm$core$String$slice, 0, n, string);
 	});
 var elm$core$String$right = F2(
 	function (n, string) {
@@ -16760,7 +16867,6 @@ var elm$browser$Debugger$Metadata$ProblemType = F2(
 	function (name, problems) {
 		return {name: name, problems: problems};
 	});
-var elm$core$String$contains = _String_contains;
 var elm$browser$Debugger$Metadata$hasProblem = F2(
 	function (tipe, _n0) {
 		var problem = _n0.a;
@@ -18580,116 +18686,6 @@ var elm$core$Set$foldr = F3(
 			initialState,
 			dict);
 	});
-var elm$url$Url$Http = {$: 'Http'};
-var elm$url$Url$Https = {$: 'Https'};
-var elm$core$String$indexes = _String_indexes;
-var elm$core$String$toInt = _String_toInt;
-var elm$url$Url$Url = F6(
-	function (protocol, host, port_, path, query, fragment) {
-		return {fragment: fragment, host: host, path: path, port_: port_, protocol: protocol, query: query};
-	});
-var elm$url$Url$chompBeforePath = F5(
-	function (protocol, path, params, frag, str) {
-		if (elm$core$String$isEmpty(str) || A2(elm$core$String$contains, '@', str)) {
-			return elm$core$Maybe$Nothing;
-		} else {
-			var _n0 = A2(elm$core$String$indexes, ':', str);
-			if (!_n0.b) {
-				return elm$core$Maybe$Just(
-					A6(elm$url$Url$Url, protocol, str, elm$core$Maybe$Nothing, path, params, frag));
-			} else {
-				if (!_n0.b.b) {
-					var i = _n0.a;
-					var _n1 = elm$core$String$toInt(
-						A2(elm$core$String$dropLeft, i + 1, str));
-					if (_n1.$ === 'Nothing') {
-						return elm$core$Maybe$Nothing;
-					} else {
-						var port_ = _n1;
-						return elm$core$Maybe$Just(
-							A6(
-								elm$url$Url$Url,
-								protocol,
-								A2(elm$core$String$left, i, str),
-								port_,
-								path,
-								params,
-								frag));
-					}
-				} else {
-					return elm$core$Maybe$Nothing;
-				}
-			}
-		}
-	});
-var elm$url$Url$chompBeforeQuery = F4(
-	function (protocol, params, frag, str) {
-		if (elm$core$String$isEmpty(str)) {
-			return elm$core$Maybe$Nothing;
-		} else {
-			var _n0 = A2(elm$core$String$indexes, '/', str);
-			if (!_n0.b) {
-				return A5(elm$url$Url$chompBeforePath, protocol, '/', params, frag, str);
-			} else {
-				var i = _n0.a;
-				return A5(
-					elm$url$Url$chompBeforePath,
-					protocol,
-					A2(elm$core$String$dropLeft, i, str),
-					params,
-					frag,
-					A2(elm$core$String$left, i, str));
-			}
-		}
-	});
-var elm$url$Url$chompBeforeFragment = F3(
-	function (protocol, frag, str) {
-		if (elm$core$String$isEmpty(str)) {
-			return elm$core$Maybe$Nothing;
-		} else {
-			var _n0 = A2(elm$core$String$indexes, '?', str);
-			if (!_n0.b) {
-				return A4(elm$url$Url$chompBeforeQuery, protocol, elm$core$Maybe$Nothing, frag, str);
-			} else {
-				var i = _n0.a;
-				return A4(
-					elm$url$Url$chompBeforeQuery,
-					protocol,
-					elm$core$Maybe$Just(
-						A2(elm$core$String$dropLeft, i + 1, str)),
-					frag,
-					A2(elm$core$String$left, i, str));
-			}
-		}
-	});
-var elm$url$Url$chompAfterProtocol = F2(
-	function (protocol, str) {
-		if (elm$core$String$isEmpty(str)) {
-			return elm$core$Maybe$Nothing;
-		} else {
-			var _n0 = A2(elm$core$String$indexes, '#', str);
-			if (!_n0.b) {
-				return A3(elm$url$Url$chompBeforeFragment, protocol, elm$core$Maybe$Nothing, str);
-			} else {
-				var i = _n0.a;
-				return A3(
-					elm$url$Url$chompBeforeFragment,
-					protocol,
-					elm$core$Maybe$Just(
-						A2(elm$core$String$dropLeft, i + 1, str)),
-					A2(elm$core$String$left, i, str));
-			}
-		}
-	});
-var elm$url$Url$fromString = function (str) {
-	return A2(elm$core$String$startsWith, 'http://', str) ? A2(
-		elm$url$Url$chompAfterProtocol,
-		elm$url$Url$Http,
-		A2(elm$core$String$dropLeft, 7, str)) : (A2(elm$core$String$startsWith, 'https://', str) ? A2(
-		elm$url$Url$chompAfterProtocol,
-		elm$url$Url$Https,
-		A2(elm$core$String$dropLeft, 8, str)) : elm$core$Maybe$Nothing);
-};
 var elm$browser$Browser$Events$spawn = F3(
 	function (router, key, _n0) {
 		var node = _n0.a;
@@ -18851,7 +18847,8 @@ var author$project$Framework$subscriptions = function (_n0) {
 	return elm$core$Platform$Sub$batch(
 		_List_fromArray(
 			[
-				elm$browser$Browser$Events$onResize(author$project$Framework$MsgChangeWindowSize)
+				elm$browser$Browser$Events$onResize(author$project$Framework$MsgChangeWindowSize),
+				author$project$Framework$portFrameworkJsOnPopState(author$project$Framework$MsgFromPortJsOnPopState)
 			]));
 };
 var author$project$Framework$Card$update = F2(
@@ -19090,41 +19087,19 @@ var author$project$Framework$StyleElementsInput$update = F2(
 					elm$core$Platform$Cmd$none);
 		}
 	});
-var elm$browser$Browser$Navigation$load = _Browser_load;
 var author$project$Framework$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
 			case 'MsgNoOp':
 				return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
-			case 'MsgChangedUrl':
-				return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
-			case 'MsgClickedLink':
-				var urlRequest = msg.a;
-				if (urlRequest.$ === 'Internal') {
-					var url = urlRequest.a;
-					var _n2 = url.fragment;
-					if (_n2.$ === 'Nothing') {
-						return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
-					} else {
-						var fragment = _n2.a;
-						return _Utils_Tuple2(
-							_Utils_update(
-								model,
-								{url: url}),
-							elm$core$Platform$Cmd$none);
-					}
-				} else {
-					var href = urlRequest.a;
-					return _Utils_Tuple2(
-						model,
-						elm$browser$Browser$Navigation$load(href));
-				}
-			case 'MsgChangeUrl':
-				var url = msg.a;
+			case 'MsgFromPortJsOnPopState':
+				var locationHref = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{url: url}),
+						{
+							maybeUrl: elm$url$Url$fromString(locationHref)
+						}),
 					elm$core$Platform$Cmd$none);
 			case 'MsgChangePassword':
 				var password = msg.a;
@@ -19136,8 +19111,8 @@ var author$project$Framework$update = F2(
 			case 'MsgOpenAllSections':
 				var intros = A2(
 					elm$core$List$map,
-					function (_n3) {
-						var data = _n3.a;
+					function (_n1) {
+						var data = _n1.a;
 						return _Utils_Tuple2(data, true);
 					},
 					model.introspections);
@@ -19149,8 +19124,8 @@ var author$project$Framework$update = F2(
 			case 'MsgCloseAllSections':
 				var intros = A2(
 					elm$core$List$map,
-					function (_n4) {
-						var data = _n4.a;
+					function (_n2) {
+						var data = _n2.a;
 						return _Utils_Tuple2(data, false);
 					},
 					model.introspections);
@@ -19161,9 +19136,9 @@ var author$project$Framework$update = F2(
 					elm$core$Platform$Cmd$none);
 			case 'MsgToggleSection':
 				var dataName = msg.a;
-				var toggle = function (_n5) {
-					var data = _n5.a;
-					var show = _n5.b;
+				var toggle = function (_n3) {
+					var data = _n3.a;
+					var show = _n3.b;
 					return _Utils_eq(data.name, dataName) ? _Utils_Tuple2(data, !show) : _Utils_Tuple2(data, show);
 				};
 				var intros = A2(elm$core$List$map, toggle, model.introspections);
@@ -19185,8 +19160,8 @@ var author$project$Framework$update = F2(
 					elm$core$Platform$Cmd$none);
 			case 'MsgStyleElementsInput':
 				var msg2 = msg.a;
-				var _n6 = A2(author$project$Framework$StyleElementsInput$update, msg2, model.modelStyleElementsInput);
-				var newModel = _n6.a;
+				var _n4 = A2(author$project$Framework$StyleElementsInput$update, msg2, model.modelStyleElementsInput);
+				var newModel = _n4.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
@@ -19194,8 +19169,8 @@ var author$project$Framework$update = F2(
 					elm$core$Platform$Cmd$none);
 			case 'MsgFormField':
 				var msg2 = msg.a;
-				var _n7 = A2(author$project$Framework$FormField$update, msg2, model.modelFormField);
-				var newModel = _n7.a;
+				var _n5 = A2(author$project$Framework$FormField$update, msg2, model.modelFormField);
+				var newModel = _n5.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
@@ -19203,8 +19178,8 @@ var author$project$Framework$update = F2(
 					elm$core$Platform$Cmd$none);
 			case 'MsgFormFieldWithPattern':
 				var msg2 = msg.a;
-				var _n8 = A2(author$project$Framework$FormFieldWithPattern$update, msg2, model.modelFormFieldWithPattern);
-				var newModel = _n8.a;
+				var _n6 = A2(author$project$Framework$FormFieldWithPattern$update, msg2, model.modelFormFieldWithPattern);
+				var newModel = _n6.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
@@ -19212,8 +19187,8 @@ var author$project$Framework$update = F2(
 					elm$core$Platform$Cmd$none);
 			default:
 				var msg2 = msg.a;
-				var _n9 = A2(author$project$Framework$Card$update, msg2, model.modelCards);
-				var newModel = _n9.a;
+				var _n7 = A2(author$project$Framework$Card$update, msg2, model.modelCards);
+				var newModel = _n7.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
@@ -19225,10 +19200,6 @@ var author$project$Color$white = A3(author$project$Color$rgb, 230, 230, 230);
 var author$project$Framework$css = '\nbody {\n    line-height: normal !important;\n}\n.elmStyleguideGenerator-open {\ntransition: all .8s;\nttransform: translateY(0);\nmax-height: 500px;\n}\n.elmStyleguideGenerator-close {\ntransition: all .1s;\nttransform: translateY(-100%);\nmax-height: 0;\n}\npre {\n    margin: 0;\n}\n';
 var author$project$Framework$emptyIntrospection = {description: '', name: 'Not found', signature: '', variations: _List_Nil};
 var author$project$Framework$emptyVariation = _Utils_Tuple2('Not found', _List_Nil);
-var author$project$Framework$slugToString = function (_n0) {
-	var slug = _n0.a;
-	return slug;
-};
 var author$project$Framework$RouteHome = {$: 'RouteHome'};
 var author$project$Framework$fragmentAsPath = function (url) {
 	var _n0 = url.fragment;
@@ -19503,7 +19474,7 @@ var elm$url$Url$Parser$parse = F2(
 					url.fragment,
 					elm$core$Basics$identity)));
 	});
-var author$project$Framework$urlToRoute = function (url) {
+var author$project$Framework$routeFromUrl = function (url) {
 	var maybeRoute = A2(
 		elm$url$Url$Parser$parse,
 		author$project$Framework$routeParser,
@@ -19515,9 +19486,21 @@ var author$project$Framework$urlToRoute = function (url) {
 		return route;
 	}
 };
+var author$project$Framework$routeFromMaybeUrl = function (maybeUrl) {
+	if (maybeUrl.$ === 'Just') {
+		var url = maybeUrl.a;
+		return author$project$Framework$routeFromUrl(url);
+	} else {
+		return author$project$Framework$RouteHome;
+	}
+};
+var author$project$Framework$slugToString = function (_n0) {
+	var slug = _n0.a;
+	return slug;
+};
 var author$project$Framework$maybeSelected = function (model) {
 	var _n0 = function () {
-		var _n1 = author$project$Framework$urlToRoute(model.url);
+		var _n1 = author$project$Framework$routeFromMaybeUrl(model.maybeUrl);
 		if (_n1.$ === 'RouteSubPage') {
 			var slug3 = _n1.a;
 			var slug4 = _n1.b;
@@ -19556,12 +19539,11 @@ var author$project$Framework$maybeSelected = function (model) {
 		elm$core$List$head(
 			A2(
 				elm$core$List$filter,
-				function (_n5) {
-					var name = _n5.a;
+				function (_n4) {
+					var name = _n4.a;
 					return _Utils_eq(name, slug2);
 				},
 				introspection.variations)));
-	var _n4 = author$project$Framework$urlToRoute(model.url);
 	return (_Utils_eq(introspection, author$project$Framework$emptyIntrospection) || _Utils_eq(variation, author$project$Framework$emptyVariation)) ? elm$core$Maybe$Nothing : elm$core$Maybe$Just(
 		_Utils_Tuple2(introspection, variation));
 };
@@ -19746,7 +19728,7 @@ var author$project$Framework$Card$flipping = function (data) {
 							mdgriffith$elm_ui$Element$height(y)
 						]),
 					_Utils_ap(
-						A2(author$project$Framework$Card$stylexxx, 'transition', 'all 0.7s cubic-bezier(0.365, 1.440, 0.430, 0.965)'),
+						A2(author$project$Framework$Card$stylexxx, 'transition', 'transform 0.7s cubic-bezier(0.365, 1.440, 0.430, 0.965)'),
 						_Utils_ap(
 							A2(author$project$Framework$Card$stylexxx, 'transform-style', 'preserve-3d'),
 							data.activeFront ? A2(author$project$Framework$Card$stylexxx, 'transform', 'rotateY(0deg)') : A2(author$project$Framework$Card$stylexxx, 'transform', 'rotateY(180deg)')))),
@@ -22276,58 +22258,57 @@ var mdgriffith$elm_ui$Element$Font$external = function (_n0) {
 	return A2(mdgriffith$elm_ui$Internal$Model$ImportFont, name, url);
 };
 var author$project$Framework$view = function (model) {
-	return {
-		body: _List_fromArray(
+	return A3(
+		mdgriffith$elm_ui$Element$layoutWith,
+		{
+			options: _List_fromArray(
+				[
+					mdgriffith$elm_ui$Element$focusStyle(
+					{
+						backgroundColor: elm$core$Maybe$Nothing,
+						borderColor: elm$core$Maybe$Just(
+							author$project$Color$toElementColor(author$project$Framework$Color$primary)),
+						shadow: elm$core$Maybe$Nothing
+					})
+				])
+		},
+		_List_fromArray(
 			[
-				A3(
-				mdgriffith$elm_ui$Element$layoutWith,
-				{
-					options: _List_fromArray(
-						[
-							mdgriffith$elm_ui$Element$focusStyle(
-							{
-								backgroundColor: elm$core$Maybe$Nothing,
-								borderColor: elm$core$Maybe$Just(
-									author$project$Color$toElementColor(author$project$Framework$Color$primary)),
-								shadow: elm$core$Maybe$Nothing
-							})
-						])
-				},
+				mdgriffith$elm_ui$Element$Font$family(
 				_List_fromArray(
 					[
-						mdgriffith$elm_ui$Element$Font$family(
-						_List_fromArray(
-							[
-								mdgriffith$elm_ui$Element$Font$external(
-								{name: author$project$Framework$Configuration$conf.font.typeface, url: author$project$Framework$Configuration$conf.font.url}),
-								mdgriffith$elm_ui$Element$Font$typeface(author$project$Framework$Configuration$conf.font.typeface),
-								author$project$Framework$Configuration$conf.font.typefaceFallback
-							])),
-						mdgriffith$elm_ui$Element$Font$size(16),
-						mdgriffith$elm_ui$Element$Font$color(
-						author$project$Color$toElementColor(model.conf.gray3)),
-						mdgriffith$elm_ui$Element$Background$color(
-						author$project$Color$toElementColor(author$project$Color$white)),
-						model.conf.forkMe
-					]),
-				A2(author$project$Framework$viewPage, model.maybeWindowSize, model))
+						mdgriffith$elm_ui$Element$Font$external(
+						{name: author$project$Framework$Configuration$conf.font.typeface, url: author$project$Framework$Configuration$conf.font.url}),
+						mdgriffith$elm_ui$Element$Font$typeface(author$project$Framework$Configuration$conf.font.typeface),
+						author$project$Framework$Configuration$conf.font.typefaceFallback
+					])),
+				mdgriffith$elm_ui$Element$Font$size(16),
+				mdgriffith$elm_ui$Element$Font$color(
+				author$project$Color$toElementColor(model.conf.gray3)),
+				mdgriffith$elm_ui$Element$Background$color(
+				author$project$Color$toElementColor(author$project$Color$white)),
+				model.conf.forkMe
 			]),
-		title: '0.19 - Elm Style Framework'
-	};
+		A2(author$project$Framework$viewPage, model.maybeWindowSize, model));
 };
-var elm$browser$Browser$application = _Browser_application;
-var author$project$Framework$main = elm$browser$Browser$application(
-	{init: author$project$Framework$init, onUrlChange: author$project$Framework$MsgChangedUrl, onUrlRequest: author$project$Framework$MsgClickedLink, subscriptions: author$project$Framework$subscriptions, update: author$project$Framework$update, view: author$project$Framework$view});
+var elm$browser$Browser$element = _Browser_element;
+var author$project$Framework$main = elm$browser$Browser$element(
+	{init: author$project$Framework$init, subscriptions: author$project$Framework$subscriptions, update: author$project$Framework$update, view: author$project$Framework$view});
 _Platform_export({'Framework':{'init':author$project$Framework$main(
 	A2(
 		elm$json$Json$Decode$andThen,
 		function (width) {
 			return A2(
 				elm$json$Json$Decode$andThen,
-				function (height) {
-					return elm$json$Json$Decode$succeed(
-						{height: height, width: width});
+				function (locationHref) {
+					return A2(
+						elm$json$Json$Decode$andThen,
+						function (height) {
+							return elm$json$Json$Decode$succeed(
+								{height: height, locationHref: locationHref, width: width});
+						},
+						A2(elm$json$Json$Decode$field, 'height', elm$json$Json$Decode$int));
 				},
-				A2(elm$json$Json$Decode$field, 'height', elm$json$Json$Decode$int));
+				A2(elm$json$Json$Decode$field, 'locationHref', elm$json$Json$Decode$string));
 		},
-		A2(elm$json$Json$Decode$field, 'width', elm$json$Json$Decode$int)))({"versions":{"elm":"0.19.0"},"types":{"message":"Framework.Msg","aliases":{"Url.Url":{"args":[],"type":"{ protocol : Url.Protocol, host : String.String, port_ : Maybe.Maybe Basics.Int, path : String.String, query : Maybe.Maybe String.String, fragment : Maybe.Maybe String.String }"}},"unions":{"Framework.Msg":{"args":[],"tags":{"MsgToggleSection":["String.String"],"MsgOpenAllSections":[],"MsgCloseAllSections":[],"MsgChangeWindowSize":["Basics.Int","Basics.Int"],"MsgStyleElementsInput":["Framework.StyleElementsInput.Msg"],"MsgFormField":["Framework.FormField.Msg"],"MsgFormFieldWithPattern":["Framework.FormFieldWithPattern.Msg"],"MsgCards":["Framework.Card.Msg"],"MsgChangeUrl":["Url.Url"],"MsgChangePassword":["String.String"],"MsgNoOp":[],"MsgChangedUrl":["Url.Url"],"MsgClickedLink":["Browser.UrlRequest"]}},"Framework.Card.Msg":{"args":[],"tags":{"Flip":[]}},"Framework.FormField.Msg":{"args":[],"tags":{"Input":["Framework.FormField.Field","String.String"],"OnFocus":["Framework.FormField.Field"],"OnLoseFocus":["Framework.FormField.Field"]}},"Framework.FormFieldWithPattern.Msg":{"args":[],"tags":{"Input":["Framework.FormFieldWithPattern.Field","String.String","String.String"],"OnFocus":["Framework.FormFieldWithPattern.Field"],"OnLoseFocus":["Framework.FormFieldWithPattern.Field"]}},"Framework.StyleElementsInput.Msg":{"args":[],"tags":{"Radio":["String.String"],"Button":[],"Input":["String.String"],"Checkbox":["Basics.Bool"]}},"Browser.UrlRequest":{"args":[],"tags":{"Internal":["Url.Url"],"External":["String.String"]}},"Basics.Int":{"args":[],"tags":{"Int":[]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"String.String":{"args":[],"tags":{"String":[]}},"Url.Protocol":{"args":[],"tags":{"Http":[],"Https":[]}},"Framework.FormField.Field":{"args":[],"tags":{"FieldEmail":[]}},"Framework.FormFieldWithPattern.Field":{"args":[],"tags":{"FieldTelephone":[],"FieldCreditCard":[],"Field6DigitCode":[]}},"Basics.Bool":{"args":[],"tags":{"True":[],"False":[]}}}}})}});}(this));
+		A2(elm$json$Json$Decode$field, 'width', elm$json$Json$Decode$int)))({"versions":{"elm":"0.19.0"},"types":{"message":"Framework.Msg","aliases":{},"unions":{"Framework.Msg":{"args":[],"tags":{"MsgToggleSection":["String.String"],"MsgOpenAllSections":[],"MsgCloseAllSections":[],"MsgChangeWindowSize":["Basics.Int","Basics.Int"],"MsgStyleElementsInput":["Framework.StyleElementsInput.Msg"],"MsgFormField":["Framework.FormField.Msg"],"MsgFormFieldWithPattern":["Framework.FormFieldWithPattern.Msg"],"MsgCards":["Framework.Card.Msg"],"MsgChangePassword":["String.String"],"MsgNoOp":[],"MsgFromPortJsOnPopState":["String.String"]}},"Framework.Card.Msg":{"args":[],"tags":{"Flip":[]}},"Framework.FormField.Msg":{"args":[],"tags":{"Input":["Framework.FormField.Field","String.String"],"OnFocus":["Framework.FormField.Field"],"OnLoseFocus":["Framework.FormField.Field"]}},"Framework.FormFieldWithPattern.Msg":{"args":[],"tags":{"Input":["Framework.FormFieldWithPattern.Field","String.String","String.String"],"OnFocus":["Framework.FormFieldWithPattern.Field"],"OnLoseFocus":["Framework.FormFieldWithPattern.Field"]}},"Framework.StyleElementsInput.Msg":{"args":[],"tags":{"Radio":["String.String"],"Button":[],"Input":["String.String"],"Checkbox":["Basics.Bool"]}},"Basics.Int":{"args":[],"tags":{"Int":[]}},"String.String":{"args":[],"tags":{"String":[]}},"Framework.FormField.Field":{"args":[],"tags":{"FieldEmail":[]}},"Framework.FormFieldWithPattern.Field":{"args":[],"tags":{"FieldTelephone":[],"FieldCreditCard":[],"Field6DigitCode":[]}},"Basics.Bool":{"args":[],"tags":{"True":[],"False":[]}}}}})}});}(this));
