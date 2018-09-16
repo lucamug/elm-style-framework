@@ -134,10 +134,7 @@ import Url
 import Url.Parser exposing ((</>))
 
 
-
---debug : Bool
-
-
+debug : Bool
 debug =
     True
 
