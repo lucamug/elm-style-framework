@@ -5528,6 +5528,7 @@ var author$project$Framework$Logo$LogoElm = function (a) {
 	return {$: 'LogoElm', a: a};
 };
 var author$project$Framework$Logo$Orange = {$: 'Orange'};
+var author$project$Framework$Logo$White = {$: 'White'};
 var author$project$Framework$Logo$Blue = {$: 'Blue'};
 var author$project$Framework$Logo$Green = {$: 'Green'};
 var author$project$Framework$Logo$LightBlue = {$: 'LightBlue'};
@@ -5796,7 +5797,8 @@ var mdgriffith$elm_ui$Internal$Flag$Field = F2(
 		return {$: 'Field', a: a, b: b};
 	});
 var mdgriffith$elm_ui$Internal$Flag$none = A2(mdgriffith$elm_ui$Internal$Flag$Field, 0, 0);
-var mdgriffith$elm_ui$Internal$Style$classes = {above: 'a', active: 'atv', alignBottom: 'ab', alignCenterX: 'cx', alignCenterY: 'cy', alignContainerBottom: 'acb', alignContainerCenterX: 'accx', alignContainerCenterY: 'accy', alignContainerRight: 'acr', alignLeft: 'al', alignRight: 'ar', alignTop: 'at', alignedHorizontally: 'ah', alignedVertically: 'av', any: 's', behind: 'bh', below: 'b', bold: 'w7', borderDashed: 'bd', borderDotted: 'bdt', borderNone: 'bn', borderSolid: 'bs', capturePointerEvents: 'cpe', clip: 'cp', clipX: 'cpx', clipY: 'cpy', column: 'c', container: 'ctr', contentBottom: 'cb', contentCenterX: 'ccx', contentCenterY: 'ccy', contentLeft: 'cl', contentRight: 'cr', contentTop: 'ct', cursorPointer: 'cptr', cursorText: 'ctxt', focus: 'fcs', grid: 'g', hasBehind: 'hbh', heightContent: 'hc', heightFill: 'hf', heightFillPortion: 'hfp', hover: 'hv', imageContainer: 'ic', inFront: 'fr', inputMultiline: 'iml', inputText: 'it', italic: 'i', noTextSelection: 'notxt', onLeft: 'ol', onRight: 'or', opaque: 'oq', overflowHidden: 'oh', page: 'pg', paragraph: 'p', passPointerEvents: 'ppe', root: 'ui', row: 'r', scrollbars: 'sb', scrollbarsX: 'sbx', scrollbarsY: 'sby', seButton: 'sbt', single: 'e', spaceEvenly: 'sev', strike: 'sk', text: 't', textCenter: 'tc', textExtraBold: 'w8', textExtraLight: 'w2', textHeavy: 'w9', textJustify: 'tj', textJustifyAll: 'tja', textLeft: 'tl', textLight: 'w3', textMedium: 'w5', textNormalWeight: 'w4', textRight: 'tr', textSemiBold: 'w6', textThin: 'w1', textUnitalicized: 'tun', transition: 'ts', transparent: 'clr', underline: 'u', widthContent: 'wc', widthExact: 'we', widthFill: 'wf', widthFillPortion: 'wfp', wrapped: 'wrp'};
+var mdgriffith$elm_ui$Internal$Model$NoNearbyChildren = {$: 'NoNearbyChildren'};
+var mdgriffith$elm_ui$Internal$Style$classes = {above: 'a', active: 'atv', alignBottom: 'ab', alignCenterX: 'cx', alignCenterY: 'cy', alignContainerBottom: 'acb', alignContainerCenterX: 'accx', alignContainerCenterY: 'accy', alignContainerRight: 'acr', alignLeft: 'al', alignRight: 'ar', alignTop: 'at', alignedHorizontally: 'ah', alignedVertically: 'av', any: 's', behind: 'bh', below: 'b', bold: 'w7', borderDashed: 'bd', borderDotted: 'bdt', borderNone: 'bn', borderSolid: 'bs', capturePointerEvents: 'cpe', clip: 'cp', clipX: 'cpx', clipY: 'cpy', column: 'c', container: 'ctr', contentBottom: 'cb', contentCenterX: 'ccx', contentCenterY: 'ccy', contentLeft: 'cl', contentRight: 'cr', contentTop: 'ct', cursorPointer: 'cptr', cursorText: 'ctxt', focus: 'fcs', fullSize: 'fs', grid: 'g', hasBehind: 'hbh', heightContent: 'hc', heightFill: 'hf', heightFillPortion: 'hfp', hover: 'hv', imageContainer: 'ic', inFront: 'fr', inputMultiline: 'iml', inputText: 'it', italic: 'i', nearby: 'nb', noTextSelection: 'notxt', onLeft: 'ol', onRight: 'or', opaque: 'oq', overflowHidden: 'oh', page: 'pg', paragraph: 'p', passPointerEvents: 'ppe', root: 'ui', row: 'r', scrollbars: 'sb', scrollbarsX: 'sbx', scrollbarsY: 'sby', seButton: 'sbt', single: 'e', sizeByCapital: 'cap', spaceEvenly: 'sev', strike: 'sk', text: 't', textCenter: 'tc', textExtraBold: 'w8', textExtraLight: 'w2', textHeavy: 'w9', textJustify: 'tj', textJustifyAll: 'tja', textLeft: 'tl', textLight: 'w3', textMedium: 'w5', textNormalWeight: 'w4', textRight: 'tr', textSemiBold: 'w6', textThin: 'w1', textUnitalicized: 'tun', transition: 'ts', transparent: 'clr', underline: 'u', widthContent: 'wc', widthExact: 'we', widthFill: 'wf', widthFillPortion: 'wfp', wrapped: 'wrp'};
 var mdgriffith$elm_ui$Internal$Model$columnClass = mdgriffith$elm_ui$Internal$Style$classes.any + (' ' + mdgriffith$elm_ui$Internal$Style$classes.column);
 var mdgriffith$elm_ui$Internal$Model$gridClass = mdgriffith$elm_ui$Internal$Style$classes.any + (' ' + mdgriffith$elm_ui$Internal$Style$classes.grid);
 var mdgriffith$elm_ui$Internal$Model$pageClass = mdgriffith$elm_ui$Internal$Style$classes.any + (' ' + mdgriffith$elm_ui$Internal$Style$classes.page);
@@ -5881,6 +5883,32 @@ var elm$core$List$isEmpty = function (xs) {
 		return false;
 	}
 };
+var mdgriffith$elm_ui$Internal$Model$Keyed = function (a) {
+	return {$: 'Keyed', a: a};
+};
+var mdgriffith$elm_ui$Internal$Model$NoStyleSheet = {$: 'NoStyleSheet'};
+var mdgriffith$elm_ui$Internal$Model$Styled = function (a) {
+	return {$: 'Styled', a: a};
+};
+var mdgriffith$elm_ui$Internal$Model$addChildren = F2(
+	function (existing, nearbyChildren) {
+		switch (nearbyChildren.$) {
+			case 'NoNearbyChildren':
+				return existing;
+			case 'ChildrenBehind':
+				var behind = nearbyChildren.a;
+				return _Utils_ap(behind, existing);
+			case 'ChildrenInFront':
+				var inFront = nearbyChildren.a;
+				return _Utils_ap(existing, inFront);
+			default:
+				var behind = nearbyChildren.a;
+				var inFront = nearbyChildren.b;
+				return _Utils_ap(
+					behind,
+					_Utils_ap(existing, inFront));
+		}
+	});
 var elm$core$List$map = F2(
 	function (f, xs) {
 		return A3(
@@ -5895,14 +5923,51 @@ var elm$core$List$map = F2(
 			_List_Nil,
 			xs);
 	});
-var elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
-var mdgriffith$elm_ui$Internal$Model$Keyed = function (a) {
-	return {$: 'Keyed', a: a};
-};
-var mdgriffith$elm_ui$Internal$Model$NoStyleSheet = {$: 'NoStyleSheet'};
-var mdgriffith$elm_ui$Internal$Model$Styled = function (a) {
-	return {$: 'Styled', a: a};
-};
+var mdgriffith$elm_ui$Internal$Model$addKeyedChildren = F3(
+	function (key, existing, nearbyChildren) {
+		switch (nearbyChildren.$) {
+			case 'NoNearbyChildren':
+				return existing;
+			case 'ChildrenBehind':
+				var behind = nearbyChildren.a;
+				return _Utils_ap(
+					A2(
+						elm$core$List$map,
+						function (x) {
+							return _Utils_Tuple2(key, x);
+						},
+						behind),
+					existing);
+			case 'ChildrenInFront':
+				var inFront = nearbyChildren.a;
+				return _Utils_ap(
+					existing,
+					A2(
+						elm$core$List$map,
+						function (x) {
+							return _Utils_Tuple2(key, x);
+						},
+						inFront));
+			default:
+				var behind = nearbyChildren.a;
+				var inFront = nearbyChildren.b;
+				return _Utils_ap(
+					A2(
+						elm$core$List$map,
+						function (x) {
+							return _Utils_Tuple2(key, x);
+						},
+						behind),
+					_Utils_ap(
+						existing,
+						A2(
+							elm$core$List$map,
+							function (x) {
+								return _Utils_Tuple2(key, x);
+							},
+							inFront)));
+		}
+	});
 var mdgriffith$elm_ui$Internal$Model$AsEl = {$: 'AsEl'};
 var mdgriffith$elm_ui$Internal$Model$asEl = mdgriffith$elm_ui$Internal$Model$AsEl;
 var mdgriffith$elm_ui$Internal$Model$AsParagraph = {$: 'AsParagraph'};
@@ -6214,6 +6279,13 @@ var mdgriffith$elm_ui$Internal$Model$getStyleName = function (style) {
 			var bottom = style.d;
 			var left = style.e;
 			return cls;
+		case 'BorderWidth':
+			var cls = style.a;
+			var top = style.b;
+			var right = style.c;
+			var bottom = style.d;
+			var left = style.e;
+			return cls;
 		case 'GridTemplateStyle':
 			var template = style.a;
 			return 'grid-rows-' + (A2(
@@ -6409,6 +6481,7 @@ var mdgriffith$elm_ui$Internal$Model$renderFocusStyle = function (focus) {
 					A2(mdgriffith$elm_ui$Internal$Model$Property, 'outline', 'none'))
 				])));
 };
+var elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var mdgriffith$elm_ui$Internal$Style$Batch = function (a) {
 	return {$: 'Batch', a: a};
 };
@@ -6534,6 +6607,155 @@ var mdgriffith$elm_ui$Internal$Style$describeAlignment = function (values) {
 	return mdgriffith$elm_ui$Internal$Style$Batch(
 		A2(elm$core$List$concatMap, createDescription, mdgriffith$elm_ui$Internal$Style$alignments));
 };
+var mdgriffith$elm_ui$Internal$Style$elDescription = _List_fromArray(
+	[
+		A2(mdgriffith$elm_ui$Internal$Style$Prop, 'display', 'flex'),
+		A2(mdgriffith$elm_ui$Internal$Style$Prop, 'flex-direction', 'column'),
+		A2(mdgriffith$elm_ui$Internal$Style$Prop, 'white-space', 'pre'),
+		A2(
+		mdgriffith$elm_ui$Internal$Style$Descriptor,
+		mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.hasBehind),
+		_List_fromArray(
+			[
+				A2(mdgriffith$elm_ui$Internal$Style$Prop, 'z-index', '0'),
+				A2(
+				mdgriffith$elm_ui$Internal$Style$Child,
+				mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.behind),
+				_List_fromArray(
+					[
+						A2(mdgriffith$elm_ui$Internal$Style$Prop, 'z-index', '-1')
+					]))
+			])),
+		A2(
+		mdgriffith$elm_ui$Internal$Style$Descriptor,
+		mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.seButton),
+		_List_fromArray(
+			[
+				A2(
+				mdgriffith$elm_ui$Internal$Style$Child,
+				mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.text),
+				_List_fromArray(
+					[
+						A2(
+						mdgriffith$elm_ui$Internal$Style$Descriptor,
+						mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.heightFill),
+						_List_fromArray(
+							[
+								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'flex-grow', '0')
+							])),
+						A2(
+						mdgriffith$elm_ui$Internal$Style$Descriptor,
+						mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.widthFill),
+						_List_fromArray(
+							[
+								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'align-self', 'auto !important')
+							]))
+					]))
+			])),
+		A2(
+		mdgriffith$elm_ui$Internal$Style$Child,
+		mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.heightContent),
+		_List_fromArray(
+			[
+				A2(mdgriffith$elm_ui$Internal$Style$Prop, 'height', 'auto')
+			])),
+		A2(
+		mdgriffith$elm_ui$Internal$Style$Child,
+		mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.heightFill),
+		_List_fromArray(
+			[
+				A2(mdgriffith$elm_ui$Internal$Style$Prop, 'flex-grow', '100000')
+			])),
+		A2(
+		mdgriffith$elm_ui$Internal$Style$Child,
+		mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.widthFill),
+		_List_fromArray(
+			[
+				A2(mdgriffith$elm_ui$Internal$Style$Prop, 'width', '100%')
+			])),
+		A2(
+		mdgriffith$elm_ui$Internal$Style$Child,
+		mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.widthContent),
+		_List_fromArray(
+			[
+				A2(mdgriffith$elm_ui$Internal$Style$Prop, 'align-self', 'flex-start')
+			])),
+		mdgriffith$elm_ui$Internal$Style$describeAlignment(
+		function (alignment) {
+			switch (alignment.$) {
+				case 'Top':
+					return _Utils_Tuple2(
+						_List_fromArray(
+							[
+								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'justify-content', 'flex-start')
+							]),
+						_List_fromArray(
+							[
+								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin-bottom', 'auto !important'),
+								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin-top', '0 !important')
+							]));
+				case 'Bottom':
+					return _Utils_Tuple2(
+						_List_fromArray(
+							[
+								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'justify-content', 'flex-end')
+							]),
+						_List_fromArray(
+							[
+								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin-top', 'auto !important'),
+								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin-bottom', '0 !important')
+							]));
+				case 'Right':
+					return _Utils_Tuple2(
+						_List_fromArray(
+							[
+								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'align-items', 'flex-end')
+							]),
+						_List_fromArray(
+							[
+								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'align-self', 'flex-end')
+							]));
+				case 'Left':
+					return _Utils_Tuple2(
+						_List_fromArray(
+							[
+								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'align-items', 'flex-start')
+							]),
+						_List_fromArray(
+							[
+								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'align-self', 'flex-start')
+							]));
+				case 'CenterX':
+					return _Utils_Tuple2(
+						_List_fromArray(
+							[
+								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'align-items', 'center')
+							]),
+						_List_fromArray(
+							[
+								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'align-self', 'center')
+							]));
+				default:
+					return _Utils_Tuple2(
+						_List_fromArray(
+							[
+								A2(
+								mdgriffith$elm_ui$Internal$Style$Child,
+								mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.any),
+								_List_fromArray(
+									[
+										A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin-top', 'auto'),
+										A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin-bottom', 'auto')
+									]))
+							]),
+						_List_fromArray(
+							[
+								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin-top', 'auto !important'),
+								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin-bottom', 'auto !important')
+							]));
+			}
+		})
+	]);
 var mdgriffith$elm_ui$Internal$Style$gridAlignments = function (values) {
 	var createDescription = function (alignment) {
 		return _List_fromArray(
@@ -6642,12 +6864,184 @@ var mdgriffith$elm_ui$Internal$Style$baseSheet = _List_fromArray(
 					[
 						A2(
 						mdgriffith$elm_ui$Internal$Style$Descriptor,
-						mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.any),
+						mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.nearby),
 						_List_fromArray(
 							[
 								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'position', 'fixed')
 							]))
 					]))
+			])),
+		A2(
+		mdgriffith$elm_ui$Internal$Style$Class,
+		mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.nearby),
+		_List_fromArray(
+			[
+				A2(mdgriffith$elm_ui$Internal$Style$Prop, 'position', 'relative'),
+				A2(mdgriffith$elm_ui$Internal$Style$Prop, 'border', 'none'),
+				A2(mdgriffith$elm_ui$Internal$Style$Prop, 'display', 'flex'),
+				A2(mdgriffith$elm_ui$Internal$Style$Prop, 'flex-direction', 'row'),
+				A2(mdgriffith$elm_ui$Internal$Style$Prop, 'flex-basis', 'auto'),
+				A2(
+				mdgriffith$elm_ui$Internal$Style$Descriptor,
+				mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.single),
+				mdgriffith$elm_ui$Internal$Style$elDescription),
+				mdgriffith$elm_ui$Internal$Style$Batch(
+				function (fn) {
+					return A2(elm$core$List$map, fn, mdgriffith$elm_ui$Internal$Style$locations);
+				}(
+					function (loc) {
+						switch (loc.$) {
+							case 'Above':
+								return A2(
+									mdgriffith$elm_ui$Internal$Style$Descriptor,
+									mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.above),
+									_List_fromArray(
+										[
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'position', 'absolute'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'bottom', '100%'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'left', '0'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'width', '100%'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'z-index', '20'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin', '0 !important'),
+											A2(
+											mdgriffith$elm_ui$Internal$Style$Child,
+											mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.heightFill),
+											_List_fromArray(
+												[
+													A2(mdgriffith$elm_ui$Internal$Style$Prop, 'height', 'auto')
+												])),
+											A2(
+											mdgriffith$elm_ui$Internal$Style$Child,
+											mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.widthFill),
+											_List_fromArray(
+												[
+													A2(mdgriffith$elm_ui$Internal$Style$Prop, 'width', '100%')
+												])),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'pointer-events', 'none'),
+											A2(
+											mdgriffith$elm_ui$Internal$Style$Child,
+											'*',
+											_List_fromArray(
+												[
+													A2(mdgriffith$elm_ui$Internal$Style$Prop, 'pointer-events', 'auto')
+												]))
+										]));
+							case 'Below':
+								return A2(
+									mdgriffith$elm_ui$Internal$Style$Descriptor,
+									mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.below),
+									_List_fromArray(
+										[
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'position', 'absolute'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'bottom', '0'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'left', '0'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'height', '0'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'width', '100%'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'z-index', '20'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin', '0 !important'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'pointer-events', 'none'),
+											A2(
+											mdgriffith$elm_ui$Internal$Style$Child,
+											'*',
+											_List_fromArray(
+												[
+													A2(mdgriffith$elm_ui$Internal$Style$Prop, 'pointer-events', 'auto')
+												])),
+											A2(
+											mdgriffith$elm_ui$Internal$Style$Child,
+											mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.heightFill),
+											_List_fromArray(
+												[
+													A2(mdgriffith$elm_ui$Internal$Style$Prop, 'height', 'auto')
+												]))
+										]));
+							case 'OnRight':
+								return A2(
+									mdgriffith$elm_ui$Internal$Style$Descriptor,
+									mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.onRight),
+									_List_fromArray(
+										[
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'position', 'absolute'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'left', '100%'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'top', '0'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'height', '100%'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin', '0 !important'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'z-index', '20'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'pointer-events', 'none'),
+											A2(
+											mdgriffith$elm_ui$Internal$Style$Child,
+											'*',
+											_List_fromArray(
+												[
+													A2(mdgriffith$elm_ui$Internal$Style$Prop, 'pointer-events', 'auto')
+												]))
+										]));
+							case 'OnLeft':
+								return A2(
+									mdgriffith$elm_ui$Internal$Style$Descriptor,
+									mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.onLeft),
+									_List_fromArray(
+										[
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'position', 'absolute'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'right', '100%'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'top', '0'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'height', '100%'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin', '0 !important'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'z-index', '20'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'pointer-events', 'none'),
+											A2(
+											mdgriffith$elm_ui$Internal$Style$Child,
+											'*',
+											_List_fromArray(
+												[
+													A2(mdgriffith$elm_ui$Internal$Style$Prop, 'pointer-events', 'auto')
+												]))
+										]));
+							case 'Within':
+								return A2(
+									mdgriffith$elm_ui$Internal$Style$Descriptor,
+									mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.inFront),
+									_List_fromArray(
+										[
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'position', 'absolute'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'width', '100%'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'height', '100%'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'left', '0'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'top', '0'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin', '0 !important'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'pointer-events', 'none'),
+											A2(
+											mdgriffith$elm_ui$Internal$Style$Child,
+											'*',
+											_List_fromArray(
+												[
+													A2(mdgriffith$elm_ui$Internal$Style$Prop, 'pointer-events', 'auto')
+												]))
+										]));
+							default:
+								return A2(
+									mdgriffith$elm_ui$Internal$Style$Descriptor,
+									mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.behind),
+									_List_fromArray(
+										[
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'position', 'absolute'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'width', '100%'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'height', '100%'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'left', '0'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'top', '0'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin', '0 !important'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'z-index', '0'),
+											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'pointer-events', 'none'),
+											A2(
+											mdgriffith$elm_ui$Internal$Style$Child,
+											'*',
+											_List_fromArray(
+												[
+													A2(mdgriffith$elm_ui$Internal$Style$Prop, 'pointer-events', 'auto')
+												]))
+										]));
+						}
+					}))
 			])),
 		A2(
 		mdgriffith$elm_ui$Internal$Style$Class,
@@ -6661,6 +7055,7 @@ var mdgriffith$elm_ui$Internal$Style$baseSheet = _List_fromArray(
 				A2(mdgriffith$elm_ui$Internal$Style$Prop, 'flex-direction', 'row'),
 				A2(mdgriffith$elm_ui$Internal$Style$Prop, 'flex-basis', 'auto'),
 				A2(mdgriffith$elm_ui$Internal$Style$Prop, 'resize', 'none'),
+				A2(mdgriffith$elm_ui$Internal$Style$Prop, 'font-feature-settings', 'inherit'),
 				A2(mdgriffith$elm_ui$Internal$Style$Prop, 'box-sizing', 'border-box'),
 				A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin', '0'),
 				A2(mdgriffith$elm_ui$Internal$Style$Prop, 'padding', '0'),
@@ -6916,155 +7311,7 @@ var mdgriffith$elm_ui$Internal$Style$baseSheet = _List_fromArray(
 				A2(
 				mdgriffith$elm_ui$Internal$Style$Descriptor,
 				mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.single),
-				_List_fromArray(
-					[
-						A2(mdgriffith$elm_ui$Internal$Style$Prop, 'display', 'flex'),
-						A2(mdgriffith$elm_ui$Internal$Style$Prop, 'flex-direction', 'column'),
-						A2(mdgriffith$elm_ui$Internal$Style$Prop, 'white-space', 'pre'),
-						A2(
-						mdgriffith$elm_ui$Internal$Style$Descriptor,
-						mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.hasBehind),
-						_List_fromArray(
-							[
-								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'z-index', '0'),
-								A2(
-								mdgriffith$elm_ui$Internal$Style$Child,
-								mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.behind),
-								_List_fromArray(
-									[
-										A2(mdgriffith$elm_ui$Internal$Style$Prop, 'z-index', '-1')
-									]))
-							])),
-						A2(
-						mdgriffith$elm_ui$Internal$Style$Descriptor,
-						mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.seButton),
-						_List_fromArray(
-							[
-								A2(
-								mdgriffith$elm_ui$Internal$Style$Child,
-								mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.text),
-								_List_fromArray(
-									[
-										A2(
-										mdgriffith$elm_ui$Internal$Style$Descriptor,
-										mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.heightFill),
-										_List_fromArray(
-											[
-												A2(mdgriffith$elm_ui$Internal$Style$Prop, 'flex-grow', '0')
-											])),
-										A2(
-										mdgriffith$elm_ui$Internal$Style$Descriptor,
-										mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.widthFill),
-										_List_fromArray(
-											[
-												A2(mdgriffith$elm_ui$Internal$Style$Prop, 'align-self', 'auto !important')
-											]))
-									]))
-							])),
-						A2(
-						mdgriffith$elm_ui$Internal$Style$Child,
-						mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.heightContent),
-						_List_fromArray(
-							[
-								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'height', 'auto')
-							])),
-						A2(
-						mdgriffith$elm_ui$Internal$Style$Child,
-						mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.heightFill),
-						_List_fromArray(
-							[
-								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'flex-grow', '100000')
-							])),
-						A2(
-						mdgriffith$elm_ui$Internal$Style$Child,
-						mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.widthFill),
-						_List_fromArray(
-							[
-								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'width', '100%')
-							])),
-						A2(
-						mdgriffith$elm_ui$Internal$Style$Child,
-						mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.widthContent),
-						_List_fromArray(
-							[
-								A2(mdgriffith$elm_ui$Internal$Style$Prop, 'align-self', 'flex-start')
-							])),
-						mdgriffith$elm_ui$Internal$Style$describeAlignment(
-						function (alignment) {
-							switch (alignment.$) {
-								case 'Top':
-									return _Utils_Tuple2(
-										_List_fromArray(
-											[
-												A2(mdgriffith$elm_ui$Internal$Style$Prop, 'justify-content', 'flex-start')
-											]),
-										_List_fromArray(
-											[
-												A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin-bottom', 'auto !important'),
-												A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin-top', '0 !important')
-											]));
-								case 'Bottom':
-									return _Utils_Tuple2(
-										_List_fromArray(
-											[
-												A2(mdgriffith$elm_ui$Internal$Style$Prop, 'justify-content', 'flex-end')
-											]),
-										_List_fromArray(
-											[
-												A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin-top', 'auto !important'),
-												A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin-bottom', '0 !important')
-											]));
-								case 'Right':
-									return _Utils_Tuple2(
-										_List_fromArray(
-											[
-												A2(mdgriffith$elm_ui$Internal$Style$Prop, 'align-items', 'flex-end')
-											]),
-										_List_fromArray(
-											[
-												A2(mdgriffith$elm_ui$Internal$Style$Prop, 'align-self', 'flex-end')
-											]));
-								case 'Left':
-									return _Utils_Tuple2(
-										_List_fromArray(
-											[
-												A2(mdgriffith$elm_ui$Internal$Style$Prop, 'align-items', 'flex-start')
-											]),
-										_List_fromArray(
-											[
-												A2(mdgriffith$elm_ui$Internal$Style$Prop, 'align-self', 'flex-start')
-											]));
-								case 'CenterX':
-									return _Utils_Tuple2(
-										_List_fromArray(
-											[
-												A2(mdgriffith$elm_ui$Internal$Style$Prop, 'align-items', 'center')
-											]),
-										_List_fromArray(
-											[
-												A2(mdgriffith$elm_ui$Internal$Style$Prop, 'align-self', 'center')
-											]));
-								default:
-									return _Utils_Tuple2(
-										_List_fromArray(
-											[
-												A2(
-												mdgriffith$elm_ui$Internal$Style$Child,
-												mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.any),
-												_List_fromArray(
-													[
-														A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin-top', 'auto'),
-														A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin-bottom', 'auto')
-													]))
-											]),
-										_List_fromArray(
-											[
-												A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin-top', 'auto !important'),
-												A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin-bottom', 'auto !important')
-											]));
-							}
-						})
-					])),
+				mdgriffith$elm_ui$Internal$Style$elDescription),
 				A2(
 				mdgriffith$elm_ui$Internal$Style$Descriptor,
 				mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.row),
@@ -7714,143 +7961,6 @@ var mdgriffith$elm_ui$Internal$Style$baseSheet = _List_fromArray(
 					[
 						A2(mdgriffith$elm_ui$Internal$Style$Prop, 'display', 'none')
 					])),
-				mdgriffith$elm_ui$Internal$Style$Batch(
-				function (fn) {
-					return A2(elm$core$List$map, fn, mdgriffith$elm_ui$Internal$Style$locations);
-				}(
-					function (loc) {
-						switch (loc.$) {
-							case 'Above':
-								return A2(
-									mdgriffith$elm_ui$Internal$Style$Descriptor,
-									mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.above),
-									_List_fromArray(
-										[
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'position', 'absolute'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'bottom', '100%'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'left', '0'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'width', '100%'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'z-index', '10'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin', '0 !important'),
-											A2(
-											mdgriffith$elm_ui$Internal$Style$Child,
-											mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.heightFill),
-											_List_fromArray(
-												[
-													A2(mdgriffith$elm_ui$Internal$Style$Prop, 'height', 'auto')
-												])),
-											A2(
-											mdgriffith$elm_ui$Internal$Style$Child,
-											mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.widthFill),
-											_List_fromArray(
-												[
-													A2(mdgriffith$elm_ui$Internal$Style$Prop, 'width', '100%')
-												])),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'pointer-events', 'none'),
-											A2(
-											mdgriffith$elm_ui$Internal$Style$Child,
-											mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.any),
-											_List_fromArray(
-												[
-													A2(mdgriffith$elm_ui$Internal$Style$Prop, 'pointer-events', 'auto')
-												]))
-										]));
-							case 'Below':
-								return A2(
-									mdgriffith$elm_ui$Internal$Style$Descriptor,
-									mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.below),
-									_List_fromArray(
-										[
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'position', 'absolute'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'bottom', '0'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'left', '0'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'height', '0'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'width', '100%'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'z-index', '10'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin', '0 !important'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'pointer-events', 'auto'),
-											A2(
-											mdgriffith$elm_ui$Internal$Style$Child,
-											mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.heightFill),
-											_List_fromArray(
-												[
-													A2(mdgriffith$elm_ui$Internal$Style$Prop, 'height', 'auto')
-												]))
-										]));
-							case 'OnRight':
-								return A2(
-									mdgriffith$elm_ui$Internal$Style$Descriptor,
-									mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.onRight),
-									_List_fromArray(
-										[
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'position', 'absolute'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'left', '100%'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'top', '0'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'height', '100%'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin', '0 !important'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'z-index', '10'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'pointer-events', 'auto')
-										]));
-							case 'OnLeft':
-								return A2(
-									mdgriffith$elm_ui$Internal$Style$Descriptor,
-									mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.onLeft),
-									_List_fromArray(
-										[
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'position', 'absolute'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'right', '100%'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'top', '0'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'height', '100%'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin', '0 !important'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'z-index', '10'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'pointer-events', 'auto')
-										]));
-							case 'Within':
-								return A2(
-									mdgriffith$elm_ui$Internal$Style$Descriptor,
-									mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.inFront),
-									_List_fromArray(
-										[
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'position', 'absolute'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'width', '100%'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'height', '100%'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'left', '0'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'top', '0'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin', '0 !important'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'z-index', '10'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'pointer-events', 'none'),
-											A2(
-											mdgriffith$elm_ui$Internal$Style$Child,
-											mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.any),
-											_List_fromArray(
-												[
-													A2(mdgriffith$elm_ui$Internal$Style$Prop, 'pointer-events', 'auto')
-												]))
-										]));
-							default:
-								return A2(
-									mdgriffith$elm_ui$Internal$Style$Descriptor,
-									mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.behind),
-									_List_fromArray(
-										[
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'position', 'absolute'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'width', '100%'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'height', '100%'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'left', '0'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'top', '0'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'margin', '0 !important'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'z-index', '0'),
-											A2(mdgriffith$elm_ui$Internal$Style$Prop, 'pointer-events', 'none'),
-											A2(
-											mdgriffith$elm_ui$Internal$Style$Child,
-											mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.any),
-											_List_fromArray(
-												[
-													A2(mdgriffith$elm_ui$Internal$Style$Prop, 'pointer-events', 'auto')
-												]))
-										]));
-						}
-					})),
 				A2(
 				mdgriffith$elm_ui$Internal$Style$Descriptor,
 				mdgriffith$elm_ui$Internal$Style$dot(mdgriffith$elm_ui$Internal$Style$classes.textThin),
@@ -8004,6 +8114,25 @@ var mdgriffith$elm_ui$Internal$Style$baseSheet = _List_fromArray(
 					]))
 			]))
 	]);
+var mdgriffith$elm_ui$Internal$Style$fontVariant = function (_var) {
+	return _List_fromArray(
+		[
+			A2(
+			mdgriffith$elm_ui$Internal$Style$Class,
+			'.v-' + _var,
+			_List_fromArray(
+				[
+					A2(mdgriffith$elm_ui$Internal$Style$Prop, 'font-feature-settings', '\"' + (_var + '\"'))
+				])),
+			A2(
+			mdgriffith$elm_ui$Internal$Style$Class,
+			'.v-' + (_var + '-off'),
+			_List_fromArray(
+				[
+					A2(mdgriffith$elm_ui$Internal$Style$Prop, 'font-feature-settings', '\"' + (_var + '\" 0'))
+				]))
+		]);
+};
 var mdgriffith$elm_ui$Internal$Style$commonValues = elm$core$List$concat(
 	_List_fromArray(
 		[
@@ -8051,7 +8180,32 @@ var mdgriffith$elm_ui$Internal$Style$commonValues = elm$core$List$concat(
 							elm$core$String$fromInt(i) + 'px')
 						]));
 			},
-			A2(elm$core$List$range, 0, 24))
+			A2(elm$core$List$range, 0, 24)),
+			_List_fromArray(
+			[
+				A2(
+				mdgriffith$elm_ui$Internal$Style$Class,
+				'.v-smcp',
+				_List_fromArray(
+					[
+						A2(mdgriffith$elm_ui$Internal$Style$Prop, 'font-variant', 'small-caps')
+					])),
+				A2(
+				mdgriffith$elm_ui$Internal$Style$Class,
+				'.v-smcp-off',
+				_List_fromArray(
+					[
+						A2(mdgriffith$elm_ui$Internal$Style$Prop, 'font-variant', 'normal')
+					]))
+			]),
+			mdgriffith$elm_ui$Internal$Style$fontVariant('zero'),
+			mdgriffith$elm_ui$Internal$Style$fontVariant('onum'),
+			mdgriffith$elm_ui$Internal$Style$fontVariant('liga'),
+			mdgriffith$elm_ui$Internal$Style$fontVariant('dlig'),
+			mdgriffith$elm_ui$Internal$Style$fontVariant('ordn'),
+			mdgriffith$elm_ui$Internal$Style$fontVariant('tnum'),
+			mdgriffith$elm_ui$Internal$Style$fontVariant('afrc'),
+			mdgriffith$elm_ui$Internal$Style$fontVariant('frac')
 		]));
 var mdgriffith$elm_ui$Internal$Style$explainer = '\n.explain {\n    border: 6px solid rgb(174, 121, 15) !important;\n}\n.explain > .' + (mdgriffith$elm_ui$Internal$Style$classes.any + (' {\n    border: 4px dashed rgb(0, 151, 167) !important;\n}\n\n.ctr {\n    border: none !important;\n}\n.explain > .ctr > .' + (mdgriffith$elm_ui$Internal$Style$classes.any + ' {\n    border: 4px dashed rgb(0, 151, 167) !important;\n}\n\n')));
 var mdgriffith$elm_ui$Internal$Style$sliderOverrides = '\n\n/* General Input Reset */\ninput[type=range] {\n  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */\n  /* width: 100%;  Specific width is required for Firefox. */\n  background: transparent; /* Otherwise white in Chrome */\n  position:absolute;\n  left:0;\n  top:0;\n  z-index:10;\n  width: 100%;\n  outline: dashed 1px;\n  height: 100%;\n  opacity: 0;\n}\n\n/* Hide all syling for track */\ninput[type=range]::-moz-range-track {\n    background: transparent;\n    cursor: pointer;\n}\ninput[type=range]::-ms-track {\n    background: transparent;\n    cursor: pointer;\n}\ninput[type=range]::-webkit-slider-runnable-track {\n    background: transparent;\n    cursor: pointer;\n}\n\n/* Thumbs */\ninput[type=range]::-webkit-slider-thumb {\n    -webkit-appearance: none;\n    opacity: 0.5;\n    width: 80px;\n    height: 80px;\n    background-color: black;\n    border:none;\n    border-radius: 5px;\n}\ninput[type=range]::-moz-range-thumb {\n    opacity: 0.5;\n    width: 80px;\n    height: 80px;\n    background-color: black;\n    border:none;\n    border-radius: 5px;\n}\ninput[type=range]::-ms-thumb {\n    opacity: 0.5;\n    width: 80px;\n    height: 80px;\n    background-color: black;\n    border:none;\n    border-radius: 5px;\n}\ninput[type=range][orient=vertical]{\n    writing-mode: bt-lr; /* IE */\n    -webkit-appearance: slider-vertical;  /* WebKit */\n}\n';
@@ -8221,28 +8375,349 @@ var mdgriffith$elm_ui$Internal$Model$staticRoot = A3(
 		[
 			elm$virtual_dom$VirtualDom$text(mdgriffith$elm_ui$Internal$Style$rules)
 		]));
-var mdgriffith$elm_ui$Internal$Model$renderFont = function (families) {
-	var fontName = function (font) {
-		switch (font.$) {
-			case 'Serif':
-				return 'serif';
-			case 'SansSerif':
-				return 'sans-serif';
-			case 'Monospace':
-				return 'monospace';
-			case 'Typeface':
-				var name = font.a;
-				return '\"' + (name + '\"');
-			default:
-				var name = font.a;
-				var url = font.b;
-				return '\"' + (name + '\"');
+var elm$core$List$any = F2(
+	function (isOkay, list) {
+		any:
+		while (true) {
+			if (!list.b) {
+				return false;
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				if (isOkay(x)) {
+					return true;
+				} else {
+					var $temp$isOkay = isOkay,
+						$temp$list = xs;
+					isOkay = $temp$isOkay;
+					list = $temp$list;
+					continue any;
+				}
+			}
+		}
+	});
+var mdgriffith$elm_ui$Internal$Model$fontName = function (font) {
+	switch (font.$) {
+		case 'Serif':
+			return 'serif';
+		case 'SansSerif':
+			return 'sans-serif';
+		case 'Monospace':
+			return 'monospace';
+		case 'Typeface':
+			var name = font.a;
+			return '\"' + (name + '\"');
+		case 'ImportFont':
+			var name = font.a;
+			var url = font.b;
+			return '\"' + (name + '\"');
+		default:
+			var name = font.a.name;
+			return '\"' + (name + '\"');
+	}
+};
+var mdgriffith$elm_ui$Internal$Model$isSmallCaps = function (_var) {
+	switch (_var.$) {
+		case 'VariantActive':
+			var name = _var.a;
+			return name === 'smcp';
+		case 'VariantOff':
+			var name = _var.a;
+			return false;
+		default:
+			var name = _var.a;
+			var index = _var.b;
+			return (name === 'smcp') && (index === 1);
+	}
+};
+var mdgriffith$elm_ui$Internal$Model$hasSmallCaps = function (typeface) {
+	if (typeface.$ === 'FontWith') {
+		var font = typeface.a;
+		return A2(elm$core$List$any, mdgriffith$elm_ui$Internal$Model$isSmallCaps, font.variants);
+	} else {
+		return false;
+	}
+};
+var mdgriffith$elm_ui$Internal$Model$renderProps = F3(
+	function (force, _n0, existing) {
+		var key = _n0.a;
+		var val = _n0.b;
+		return force ? (existing + ('\n  ' + (key + (': ' + (val + ' !important;'))))) : (existing + ('\n  ' + (key + (': ' + (val + ';')))));
+	});
+var mdgriffith$elm_ui$Internal$Model$bracket = F2(
+	function (selector, rules) {
+		var renderPair = function (_n0) {
+			var name = _n0.a;
+			var val = _n0.b;
+			return name + (': ' + (val + ';'));
+		};
+		return selector + (' {' + (A2(
+			elm$core$String$join,
+			'',
+			A2(elm$core$List$map, renderPair, rules)) + '}'));
+	});
+var mdgriffith$elm_ui$Internal$Model$fontRule = F3(
+	function (name, modifier, _n0) {
+		var parentAdj = _n0.a;
+		var textAdjustment = _n0.b;
+		return _List_fromArray(
+			[
+				A2(mdgriffith$elm_ui$Internal$Model$bracket, '.' + (name + ('.' + (modifier + (', ' + ('.' + (name + (' .' + modifier))))))), parentAdj),
+				A2(mdgriffith$elm_ui$Internal$Model$bracket, '.' + (name + ('.' + (modifier + ('> .' + (mdgriffith$elm_ui$Internal$Style$classes.text + (', .' + (name + (' .' + (modifier + (' > .' + mdgriffith$elm_ui$Internal$Style$classes.text)))))))))), textAdjustment)
+			]);
+	});
+var mdgriffith$elm_ui$Internal$Model$renderFontAdjustmentRule = F3(
+	function (fontToAdjust, _n0, otherFontName) {
+		var full = _n0.a;
+		var capital = _n0.b;
+		var name = _Utils_eq(fontToAdjust, otherFontName) ? fontToAdjust : (otherFontName + (' .' + fontToAdjust));
+		return A2(
+			elm$core$String$join,
+			' ',
+			_Utils_ap(
+				A3(mdgriffith$elm_ui$Internal$Model$fontRule, name, mdgriffith$elm_ui$Internal$Style$classes.sizeByCapital, capital),
+				A3(mdgriffith$elm_ui$Internal$Model$fontRule, name, mdgriffith$elm_ui$Internal$Style$classes.fullSize, full)));
+	});
+var mdgriffith$elm_ui$Internal$Model$renderNullAdjustmentRule = F2(
+	function (fontToAdjust, otherFontName) {
+		var name = _Utils_eq(fontToAdjust, otherFontName) ? fontToAdjust : (otherFontName + (' .' + fontToAdjust));
+		return A2(
+			elm$core$String$join,
+			' ',
+			_List_fromArray(
+				[
+					A2(
+					mdgriffith$elm_ui$Internal$Model$bracket,
+					'.' + (name + ('.' + (mdgriffith$elm_ui$Internal$Style$classes.sizeByCapital + (', ' + ('.' + (name + (' .' + mdgriffith$elm_ui$Internal$Style$classes.sizeByCapital))))))),
+					_List_fromArray(
+						[
+							_Utils_Tuple2('line-height', '1')
+						])),
+					A2(
+					mdgriffith$elm_ui$Internal$Model$bracket,
+					'.' + (name + ('.' + (mdgriffith$elm_ui$Internal$Style$classes.sizeByCapital + ('> .' + (mdgriffith$elm_ui$Internal$Style$classes.text + (', .' + (name + (' .' + (mdgriffith$elm_ui$Internal$Style$classes.sizeByCapital + (' > .' + mdgriffith$elm_ui$Internal$Style$classes.text)))))))))),
+					_List_fromArray(
+						[
+							_Utils_Tuple2('vertical-align', '0'),
+							_Utils_Tuple2('line-height', '1')
+						]))
+				]));
+	});
+var elm$core$Basics$neq = _Utils_notEqual;
+var elm$core$List$filter = F2(
+	function (isGood, list) {
+		return A3(
+			elm$core$List$foldr,
+			F2(
+				function (x, xs) {
+					return isGood(x) ? A2(elm$core$List$cons, x, xs) : xs;
+				}),
+			_List_Nil,
+			list);
+	});
+var elm$core$List$maximum = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return elm$core$Maybe$Just(
+			A3(elm$core$List$foldl, elm$core$Basics$max, x, xs));
+	} else {
+		return elm$core$Maybe$Nothing;
+	}
+};
+var elm$core$List$minimum = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return elm$core$Maybe$Just(
+			A3(elm$core$List$foldl, elm$core$Basics$min, x, xs));
+	} else {
+		return elm$core$Maybe$Nothing;
+	}
+};
+var mdgriffith$elm_ui$Internal$Model$adjust = F3(
+	function (size, height, vertical) {
+		return {height: height / size, size: size, vertical: vertical};
+	});
+var mdgriffith$elm_ui$Internal$Model$convertAdjustment = function (adjustment) {
+	var lines = _List_fromArray(
+		[adjustment.capital, adjustment.baseline, adjustment.descender, adjustment.lowercase]);
+	var lineHeight = 1.5;
+	var normalDescender = (lineHeight - 1) / 2;
+	var oldMiddle = lineHeight / 2;
+	var descender = A2(
+		elm$core$Maybe$withDefault,
+		adjustment.descender,
+		elm$core$List$minimum(lines));
+	var newBaseline = A2(
+		elm$core$Maybe$withDefault,
+		adjustment.baseline,
+		elm$core$List$minimum(
+			A2(
+				elm$core$List$filter,
+				function (x) {
+					return !_Utils_eq(x, descender);
+				},
+				lines)));
+	var base = lineHeight;
+	var ascender = A2(
+		elm$core$Maybe$withDefault,
+		adjustment.capital,
+		elm$core$List$maximum(lines));
+	var capitalSize = 1 / (ascender - newBaseline);
+	var capitalVertical = 1 - ascender;
+	var fullSize = 1 / (ascender - descender);
+	var fullVertical = 1 - ascender;
+	var newCapitalMiddle = ((ascender - newBaseline) / 2) + newBaseline;
+	var newFullMiddle = ((ascender - descender) / 2) + descender;
+	return {
+		capital: A3(mdgriffith$elm_ui$Internal$Model$adjust, capitalSize, ascender - newBaseline, capitalVertical),
+		full: A3(mdgriffith$elm_ui$Internal$Model$adjust, fullSize, ascender - descender, fullVertical)
+	};
+};
+var mdgriffith$elm_ui$Internal$Model$fontAdjustmentRules = function (converted) {
+	return _Utils_Tuple2(
+		_List_fromArray(
+			[
+				_Utils_Tuple2('display', 'block')
+			]),
+		_List_fromArray(
+			[
+				_Utils_Tuple2('display', 'inline-block'),
+				_Utils_Tuple2(
+				'line-height',
+				elm$core$String$fromFloat(converted.height)),
+				_Utils_Tuple2(
+				'vertical-align',
+				elm$core$String$fromFloat(converted.vertical) + 'em'),
+				_Utils_Tuple2(
+				'font-size',
+				elm$core$String$fromFloat(converted.size) + 'em')
+			]));
+};
+var mdgriffith$elm_ui$Internal$Model$typefaceAdjustment = function (typefaces) {
+	return A3(
+		elm$core$List$foldl,
+		F2(
+			function (face, found) {
+				if (found.$ === 'Nothing') {
+					if (face.$ === 'FontWith') {
+						var _with = face.a;
+						var _n2 = _with.adjustment;
+						if (_n2.$ === 'Nothing') {
+							return found;
+						} else {
+							var adjustment = _n2.a;
+							return elm$core$Maybe$Just(
+								_Utils_Tuple2(
+									mdgriffith$elm_ui$Internal$Model$fontAdjustmentRules(
+										function ($) {
+											return $.full;
+										}(
+											mdgriffith$elm_ui$Internal$Model$convertAdjustment(adjustment))),
+									mdgriffith$elm_ui$Internal$Model$fontAdjustmentRules(
+										function ($) {
+											return $.capital;
+										}(
+											mdgriffith$elm_ui$Internal$Model$convertAdjustment(adjustment)))));
+						}
+					} else {
+						return found;
+					}
+				} else {
+					return found;
+				}
+			}),
+		elm$core$Maybe$Nothing,
+		typefaces);
+};
+var mdgriffith$elm_ui$Internal$Model$renderTopLevelValues = function (rules) {
+	var withImport = function (font) {
+		if (font.$ === 'ImportFont') {
+			var url = font.b;
+			return elm$core$Maybe$Just('@import url(\'' + (url + '\');'));
+		} else {
+			return elm$core$Maybe$Nothing;
 		}
 	};
-	return A2(
-		elm$core$String$join,
-		', ',
-		A2(elm$core$List$map, fontName, families));
+	var fontImports = function (_n2) {
+		var name = _n2.a;
+		var typefaces = _n2.b;
+		var imports = A2(
+			elm$core$String$join,
+			'\n',
+			A2(elm$core$List$filterMap, withImport, typefaces));
+		return imports;
+	};
+	var allNames = A2(elm$core$List$map, elm$core$Tuple$first, rules);
+	var fontAdjustments = function (_n1) {
+		var name = _n1.a;
+		var typefaces = _n1.b;
+		var _n0 = mdgriffith$elm_ui$Internal$Model$typefaceAdjustment(typefaces);
+		if (_n0.$ === 'Nothing') {
+			return A2(
+				elm$core$String$join,
+				'',
+				A2(
+					elm$core$List$map,
+					mdgriffith$elm_ui$Internal$Model$renderNullAdjustmentRule(name),
+					allNames));
+		} else {
+			var adjustment = _n0.a;
+			return A2(
+				elm$core$String$join,
+				'',
+				A2(
+					elm$core$List$map,
+					A2(mdgriffith$elm_ui$Internal$Model$renderFontAdjustmentRule, name, adjustment),
+					allNames));
+		}
+	};
+	return _Utils_ap(
+		A2(
+			elm$core$String$join,
+			'\n',
+			A2(elm$core$List$map, fontImports, rules)),
+		A2(
+			elm$core$String$join,
+			'\n',
+			A2(elm$core$List$map, fontAdjustments, rules)));
+};
+var mdgriffith$elm_ui$Internal$Model$renderVariant = function (_var) {
+	switch (_var.$) {
+		case 'VariantActive':
+			var name = _var.a;
+			return '\"' + (name + '\"');
+		case 'VariantOff':
+			var name = _var.a;
+			return '\"' + (name + '\" 0');
+		default:
+			var name = _var.a;
+			var index = _var.b;
+			return '\"' + (name + ('\" ' + elm$core$String$fromInt(index)));
+	}
+};
+var mdgriffith$elm_ui$Internal$Model$renderVariants = function (typeface) {
+	if (typeface.$ === 'FontWith') {
+		var font = typeface.a;
+		return elm$core$Maybe$Just(
+			A2(
+				elm$core$String$join,
+				', ',
+				A2(elm$core$List$map, mdgriffith$elm_ui$Internal$Model$renderVariant, font.variants)));
+	} else {
+		return elm$core$Maybe$Nothing;
+	}
+};
+var mdgriffith$elm_ui$Internal$Model$topLevelValue = function (rule) {
+	if (rule.$ === 'FontFamily') {
+		var name = rule.a;
+		var typefaces = rule.b;
+		return elm$core$Maybe$Just(
+			_Utils_Tuple2(name, typefaces));
+	} else {
+		return elm$core$Maybe$Nothing;
+	}
 };
 var mdgriffith$elm_ui$Internal$Model$transformValue = function (transform) {
 	switch (transform.$) {
@@ -8277,39 +8752,12 @@ var mdgriffith$elm_ui$Internal$Model$transformValue = function (transform) {
 };
 var mdgriffith$elm_ui$Internal$Model$toStyleSheetString = F2(
 	function (options, stylesheet) {
-		var renderTopLevels = function (rule) {
-			if (rule.$ === 'FontFamily') {
-				var name = rule.a;
-				var typefaces = rule.b;
-				var getImports = function (font) {
-					if (font.$ === 'ImportFont') {
-						var url = font.b;
-						return elm$core$Maybe$Just('@import url(\'' + (url + '\');'));
-					} else {
-						return elm$core$Maybe$Nothing;
-					}
-				};
-				return elm$core$Maybe$Just(
-					A2(
-						elm$core$String$join,
-						'\n',
-						A2(elm$core$List$filterMap, getImports, typefaces)));
-			} else {
-				return elm$core$Maybe$Nothing;
-			}
-		};
-		var renderProps = F3(
-			function (force, _n18, existing) {
-				var key = _n18.a;
-				var val = _n18.b;
-				return force ? (existing + ('\n  ' + (key + (': ' + (val + ' !important;'))))) : (existing + ('\n  ' + (key + (': ' + (val + ';')))));
-			});
 		var renderStyle = F3(
 			function (maybePseudo, selector, props) {
 				if (maybePseudo.$ === 'Nothing') {
 					return selector + ('{' + (A3(
 						elm$core$List$foldl,
-						renderProps(false),
+						mdgriffith$elm_ui$Internal$Model$renderProps(false),
 						'',
 						props) + '\n}'));
 				} else {
@@ -8323,20 +8771,20 @@ var mdgriffith$elm_ui$Internal$Model$toStyleSheetString = F2(
 								case 'ForceHover':
 									return selector + ('-hv {' + (A3(
 										elm$core$List$foldl,
-										renderProps(true),
+										mdgriffith$elm_ui$Internal$Model$renderProps(true),
 										'',
 										props) + '\n}'));
 								default:
 									return selector + ('-hv:hover {' + (A3(
 										elm$core$List$foldl,
-										renderProps(false),
+										mdgriffith$elm_ui$Internal$Model$renderProps(false),
 										'',
 										props) + '\n}'));
 							}
 						case 'Focus':
 							var renderedProps = A3(
 								elm$core$List$foldl,
-								renderProps(false),
+								mdgriffith$elm_ui$Internal$Model$renderProps(false),
 								'',
 								props);
 							return A2(
@@ -8347,7 +8795,7 @@ var mdgriffith$elm_ui$Internal$Model$toStyleSheetString = F2(
 						default:
 							return selector + ('-act:active {' + (A3(
 								elm$core$List$foldl,
-								renderProps(false),
+								mdgriffith$elm_ui$Internal$Model$renderProps(false),
 								'',
 								props) + '\n}'));
 					}
@@ -8405,16 +8853,31 @@ var mdgriffith$elm_ui$Internal$Model$toStyleSheetString = F2(
 					case 'FontFamily':
 						var name = rule.a;
 						var typefaces = rule.b;
-						return A3(
-							renderStyle,
-							maybePseudo,
-							'.' + name,
+						var features = A2(
+							elm$core$String$join,
+							', ',
+							A2(elm$core$List$filterMap, mdgriffith$elm_ui$Internal$Model$renderVariants, typefaces));
+						var families = _List_fromArray(
+							[
+								A2(
+								mdgriffith$elm_ui$Internal$Model$Property,
+								'font-family',
+								A2(
+									elm$core$String$join,
+									', ',
+									A2(elm$core$List$map, mdgriffith$elm_ui$Internal$Model$fontName, typefaces))),
+								A2(mdgriffith$elm_ui$Internal$Model$Property, 'font-feature-settings', features),
+								A2(
+								mdgriffith$elm_ui$Internal$Model$Property,
+								'font-variant',
+								A2(elm$core$List$any, mdgriffith$elm_ui$Internal$Model$hasSmallCaps, typefaces) ? 'small-caps' : 'normal')
+							]);
+						return A2(
+							elm$core$String$join,
+							' ',
 							_List_fromArray(
 								[
-									A2(
-									mdgriffith$elm_ui$Internal$Model$Property,
-									'font-family',
-									mdgriffith$elm_ui$Internal$Model$renderFont(typefaces))
+									A3(renderStyle, maybePseudo, '.' + name, families)
 								]));
 					case 'Single':
 						var _class = rule.a;
@@ -8456,6 +8919,8 @@ var mdgriffith$elm_ui$Internal$Model$toStyleSheetString = F2(
 						var paragraph = '.' + mdgriffith$elm_ui$Internal$Style$classes.paragraph;
 						var page = '.' + mdgriffith$elm_ui$Internal$Style$classes.page;
 						var left = '.' + mdgriffith$elm_ui$Internal$Style$classes.alignLeft;
+						var halfY = elm$core$String$fromFloat(y / 2) + 'px';
+						var halfX = elm$core$String$fromFloat(x / 2) + 'px';
 						var column = '.' + mdgriffith$elm_ui$Internal$Style$classes.column;
 						var _class = '.' + cls;
 						var any = '.' + mdgriffith$elm_ui$Internal$Style$classes.any;
@@ -8465,18 +8930,10 @@ var mdgriffith$elm_ui$Internal$Model$toStyleSheetString = F2(
 									A3(
 									renderStyle,
 									maybePseudo,
-									_class + (row + (' > ' + any)),
+									_class + (row + (' > ' + (any + (' + ' + any)))),
 									_List_fromArray(
 										[
-											A2(mdgriffith$elm_ui$Internal$Model$Property, 'margin-right', xPx)
-										])),
-									A3(
-									renderStyle,
-									maybePseudo,
-									_class + (row + (' > ' + (any + ':last-child'))),
-									_List_fromArray(
-										[
-											A2(mdgriffith$elm_ui$Internal$Model$Property, 'margin', '0')
+											A2(mdgriffith$elm_ui$Internal$Model$Property, 'margin-left', xPx)
 										])),
 									A3(
 									renderStyle,
@@ -8484,15 +8941,7 @@ var mdgriffith$elm_ui$Internal$Model$toStyleSheetString = F2(
 									_class + (wrappedRow + (' > ' + any)),
 									_List_fromArray(
 										[
-											A2(mdgriffith$elm_ui$Internal$Model$Property, 'margin', '0 ' + (xPx + (' ' + (yPx + ' 0'))))
-										])),
-									A3(
-									renderStyle,
-									maybePseudo,
-									_class + (wrappedRow + (' > ' + (any + ':last-child'))),
-									_List_fromArray(
-										[
-											A2(mdgriffith$elm_ui$Internal$Model$Property, 'margin-right', '0')
+											A2(mdgriffith$elm_ui$Internal$Model$Property, 'margin', halfY + (' ' + halfX))
 										])),
 									A3(
 									renderStyle,
@@ -8611,6 +9060,24 @@ var mdgriffith$elm_ui$Internal$Model$toStyleSheetString = F2(
 									A2(
 									mdgriffith$elm_ui$Internal$Model$Property,
 									'padding',
+									elm$core$String$fromInt(top) + ('px ' + (elm$core$String$fromInt(right) + ('px ' + (elm$core$String$fromInt(bottom) + ('px ' + (elm$core$String$fromInt(left) + 'px')))))))
+								]));
+					case 'BorderWidth':
+						var cls = rule.a;
+						var top = rule.b;
+						var right = rule.c;
+						var bottom = rule.d;
+						var left = rule.e;
+						var _class = '.' + cls;
+						return A3(
+							renderStyle,
+							maybePseudo,
+							_class,
+							_List_fromArray(
+								[
+									A2(
+									mdgriffith$elm_ui$Internal$Model$Property,
+									'border-width',
 									elm$core$String$fromInt(top) + ('px ' + (elm$core$String$fromInt(right) + ('px ' + (elm$core$String$fromInt(bottom) + ('px ' + (elm$core$String$fromInt(left) + 'px')))))))
 								]));
 					case 'GridTemplateStyle':
@@ -8800,31 +9267,31 @@ var mdgriffith$elm_ui$Internal$Model$toStyleSheetString = F2(
 			});
 		var combine = F2(
 			function (style, rendered) {
-				return _Utils_update(
-					rendered,
-					{
-						rules: _Utils_ap(
-							rendered.rules,
-							A2(renderStyleRule, style, elm$core$Maybe$Nothing)),
-						topLevel: function () {
-							var _n14 = renderTopLevels(style);
-							if (_n14.$ === 'Nothing') {
-								return rendered.topLevel;
-							} else {
-								var topLevel = _n14.a;
-								return _Utils_ap(rendered.topLevel, topLevel);
-							}
-						}()
-					});
+				return {
+					rules: _Utils_ap(
+						rendered.rules,
+						A2(renderStyleRule, style, elm$core$Maybe$Nothing)),
+					topLevel: function () {
+						var _n14 = mdgriffith$elm_ui$Internal$Model$topLevelValue(style);
+						if (_n14.$ === 'Nothing') {
+							return rendered.topLevel;
+						} else {
+							var topLevel = _n14.a;
+							return A2(elm$core$List$cons, topLevel, rendered.topLevel);
+						}
+					}()
+				};
 			});
 		var _n13 = A3(
 			elm$core$List$foldl,
 			combine,
-			{rules: '', topLevel: ''},
+			{rules: '', topLevel: _List_Nil},
 			stylesheet);
 		var topLevel = _n13.topLevel;
 		var rules = _n13.rules;
-		return _Utils_ap(topLevel, rules);
+		return _Utils_ap(
+			mdgriffith$elm_ui$Internal$Model$renderTopLevelValues(topLevel),
+			rules);
 	});
 var mdgriffith$elm_ui$Internal$Model$toStyleSheet = F2(
 	function (options, styleSheet) {
@@ -9071,6 +9538,24 @@ var mdgriffith$elm_ui$Internal$Model$textElement = function (str) {
 				elm$html$Html$text(str)
 			]));
 };
+var mdgriffith$elm_ui$Internal$Model$textElementFill = function (str) {
+	return A3(
+		elm$virtual_dom$VirtualDom$node,
+		'div',
+		_List_fromArray(
+			[
+				elm$html$Html$Attributes$class(
+				A2(
+					elm$core$String$join,
+					' ',
+					_List_fromArray(
+						[mdgriffith$elm_ui$Internal$Style$classes.any, mdgriffith$elm_ui$Internal$Style$classes.text, mdgriffith$elm_ui$Internal$Style$classes.widthFill, mdgriffith$elm_ui$Internal$Style$classes.heightFill])))
+			]),
+		_List_fromArray(
+			[
+				elm$virtual_dom$VirtualDom$text(str)
+			]));
+};
 var mdgriffith$elm_ui$Internal$Model$createElement = F3(
 	function (context, children, rendered) {
 		var gatherKeyed = F2(
@@ -9116,21 +9601,12 @@ var mdgriffith$elm_ui$Internal$Model$createElement = F3(
 							elm$core$List$isEmpty(existingStyles) ? styled.styles : _Utils_ap(styled.styles, existingStyles));
 					case 'Text':
 						var str = child.a;
-						return (_Utils_eq(context, mdgriffith$elm_ui$Internal$Model$asEl) || _Utils_eq(context, mdgriffith$elm_ui$Internal$Model$asParagraph)) ? _Utils_Tuple2(
+						return _Utils_Tuple2(
 							A2(
 								elm$core$List$cons,
 								_Utils_Tuple2(
 									key,
-									elm$virtual_dom$VirtualDom$text(
-										_Utils_eq(context, mdgriffith$elm_ui$Internal$Model$asParagraph) ? (str + ' ') : str)),
-								htmls),
-							existingStyles) : _Utils_Tuple2(
-							A2(
-								elm$core$List$cons,
-								_Utils_Tuple2(
-									key,
-									mdgriffith$elm_ui$Internal$Model$textElement(
-										_Utils_eq(context, mdgriffith$elm_ui$Internal$Model$asParagraph) ? (str + ' ') : str)),
+									_Utils_eq(context, mdgriffith$elm_ui$Internal$Model$asEl) ? mdgriffith$elm_ui$Internal$Model$textElementFill(str) : mdgriffith$elm_ui$Internal$Model$textElement(str)),
 								htmls),
 							existingStyles);
 					default:
@@ -9170,17 +9646,10 @@ var mdgriffith$elm_ui$Internal$Model$createElement = F3(
 							elm$core$List$isEmpty(existingStyles) ? styled.styles : _Utils_ap(styled.styles, existingStyles));
 					case 'Text':
 						var str = child.a;
-						return (_Utils_eq(context, mdgriffith$elm_ui$Internal$Model$asEl) || _Utils_eq(context, mdgriffith$elm_ui$Internal$Model$asParagraph)) ? _Utils_Tuple2(
+						return _Utils_Tuple2(
 							A2(
 								elm$core$List$cons,
-								elm$virtual_dom$VirtualDom$text(
-									_Utils_eq(context, mdgriffith$elm_ui$Internal$Model$asParagraph) ? (str + ' ') : str),
-								htmls),
-							existingStyles) : _Utils_Tuple2(
-							A2(
-								elm$core$List$cons,
-								mdgriffith$elm_ui$Internal$Model$textElement(
-									_Utils_eq(context, mdgriffith$elm_ui$Internal$Model$asParagraph) ? (str + ' ') : str),
+								_Utils_eq(context, mdgriffith$elm_ui$Internal$Model$asEl) ? mdgriffith$elm_ui$Internal$Model$textElementFill(str) : mdgriffith$elm_ui$Internal$Model$textElement(str),
 								htmls),
 							existingStyles);
 					default:
@@ -9205,14 +9674,7 @@ var mdgriffith$elm_ui$Internal$Model$createElement = F3(
 						rendered.node,
 						rendered.attributes,
 						mdgriffith$elm_ui$Internal$Model$Keyed(
-							_Utils_ap(
-								A2(
-									elm$core$List$map,
-									function (x) {
-										return _Utils_Tuple2('nearby-elements-pls', x);
-									},
-									rendered.children),
-								keyed)),
+							A3(mdgriffith$elm_ui$Internal$Model$addKeyedChildren, 'nearby-element-pls', keyed, rendered.children)),
 						mdgriffith$elm_ui$Internal$Model$NoStyleSheet));
 			} else {
 				var allStyles = newStyles;
@@ -9224,14 +9686,7 @@ var mdgriffith$elm_ui$Internal$Model$createElement = F3(
 							rendered.node,
 							rendered.attributes,
 							mdgriffith$elm_ui$Internal$Model$Keyed(
-								_Utils_ap(
-									A2(
-										elm$core$List$map,
-										function (x) {
-											return _Utils_Tuple2('nearby-elements-pls', x);
-										},
-										rendered.children),
-									keyed))),
+								A3(mdgriffith$elm_ui$Internal$Model$addKeyedChildren, 'nearby-element-pls', keyed, rendered.children))),
 						styles: allStyles
 					});
 			}
@@ -9253,7 +9708,7 @@ var mdgriffith$elm_ui$Internal$Model$createElement = F3(
 						rendered.node,
 						rendered.attributes,
 						mdgriffith$elm_ui$Internal$Model$Unkeyed(
-							_Utils_ap(rendered.children, unkeyed)),
+							A2(mdgriffith$elm_ui$Internal$Model$addChildren, unkeyed, rendered.children)),
 						mdgriffith$elm_ui$Internal$Model$NoStyleSheet));
 			} else {
 				var allStyles = newStyles;
@@ -9265,7 +9720,7 @@ var mdgriffith$elm_ui$Internal$Model$createElement = F3(
 							rendered.node,
 							rendered.attributes,
 							mdgriffith$elm_ui$Internal$Model$Unkeyed(
-								_Utils_ap(rendered.children, unkeyed))),
+								A2(mdgriffith$elm_ui$Internal$Model$addChildren, unkeyed, rendered.children))),
 						styles: allStyles
 					});
 			}
@@ -9305,7 +9760,6 @@ var mdgriffith$elm_ui$Internal$Flag$width = mdgriffith$elm_ui$Internal$Flag$flag
 var mdgriffith$elm_ui$Internal$Flag$widthContent = mdgriffith$elm_ui$Internal$Flag$flag(38);
 var mdgriffith$elm_ui$Internal$Flag$xAlign = mdgriffith$elm_ui$Internal$Flag$flag(30);
 var mdgriffith$elm_ui$Internal$Flag$yAlign = mdgriffith$elm_ui$Internal$Flag$flag(29);
-var mdgriffith$elm_ui$Internal$Model$Behind = {$: 'Behind'};
 var mdgriffith$elm_ui$Internal$Model$Embedded = F2(
 	function (a, b) {
 		return {$: 'Embedded', a: a, b: b};
@@ -9320,6 +9774,137 @@ var mdgriffith$elm_ui$Internal$Model$Single = F3(
 var mdgriffith$elm_ui$Internal$Model$Transform = function (a) {
 	return {$: 'Transform', a: a};
 };
+var mdgriffith$elm_ui$Internal$Model$ChildrenBehind = function (a) {
+	return {$: 'ChildrenBehind', a: a};
+};
+var mdgriffith$elm_ui$Internal$Model$ChildrenBehindAndInFront = F2(
+	function (a, b) {
+		return {$: 'ChildrenBehindAndInFront', a: a, b: b};
+	});
+var mdgriffith$elm_ui$Internal$Model$ChildrenInFront = function (a) {
+	return {$: 'ChildrenInFront', a: a};
+};
+var mdgriffith$elm_ui$Internal$Model$nearbyElement = F2(
+	function (location, elem) {
+		return A2(
+			elm$html$Html$div,
+			_List_fromArray(
+				[
+					elm$html$Html$Attributes$class(
+					function () {
+						switch (location.$) {
+							case 'Above':
+								return A2(
+									elm$core$String$join,
+									' ',
+									_List_fromArray(
+										[mdgriffith$elm_ui$Internal$Style$classes.nearby, mdgriffith$elm_ui$Internal$Style$classes.single, mdgriffith$elm_ui$Internal$Style$classes.above]));
+							case 'Below':
+								return A2(
+									elm$core$String$join,
+									' ',
+									_List_fromArray(
+										[mdgriffith$elm_ui$Internal$Style$classes.nearby, mdgriffith$elm_ui$Internal$Style$classes.single, mdgriffith$elm_ui$Internal$Style$classes.below]));
+							case 'OnRight':
+								return A2(
+									elm$core$String$join,
+									' ',
+									_List_fromArray(
+										[mdgriffith$elm_ui$Internal$Style$classes.nearby, mdgriffith$elm_ui$Internal$Style$classes.single, mdgriffith$elm_ui$Internal$Style$classes.onRight]));
+							case 'OnLeft':
+								return A2(
+									elm$core$String$join,
+									' ',
+									_List_fromArray(
+										[mdgriffith$elm_ui$Internal$Style$classes.nearby, mdgriffith$elm_ui$Internal$Style$classes.single, mdgriffith$elm_ui$Internal$Style$classes.onLeft]));
+							case 'InFront':
+								return A2(
+									elm$core$String$join,
+									' ',
+									_List_fromArray(
+										[mdgriffith$elm_ui$Internal$Style$classes.nearby, mdgriffith$elm_ui$Internal$Style$classes.single, mdgriffith$elm_ui$Internal$Style$classes.inFront]));
+							default:
+								return A2(
+									elm$core$String$join,
+									' ',
+									_List_fromArray(
+										[mdgriffith$elm_ui$Internal$Style$classes.nearby, mdgriffith$elm_ui$Internal$Style$classes.single, mdgriffith$elm_ui$Internal$Style$classes.behind]));
+						}
+					}())
+				]),
+			_List_fromArray(
+				[
+					function () {
+					switch (elem.$) {
+						case 'Empty':
+							return elm$virtual_dom$VirtualDom$text('');
+						case 'Text':
+							var str = elem.a;
+							return mdgriffith$elm_ui$Internal$Model$textElement(str);
+						case 'Unstyled':
+							var html = elem.a;
+							return html(mdgriffith$elm_ui$Internal$Model$asEl);
+						default:
+							var styled = elem.a;
+							return A2(styled.html, mdgriffith$elm_ui$Internal$Model$NoStyleSheet, mdgriffith$elm_ui$Internal$Model$asEl);
+					}
+				}()
+				]));
+	});
+var mdgriffith$elm_ui$Internal$Model$addNearbyElement = F3(
+	function (location, elem, existing) {
+		var nearby = A2(mdgriffith$elm_ui$Internal$Model$nearbyElement, location, elem);
+		switch (existing.$) {
+			case 'NoNearbyChildren':
+				if (location.$ === 'Behind') {
+					return mdgriffith$elm_ui$Internal$Model$ChildrenBehind(
+						_List_fromArray(
+							[nearby]));
+				} else {
+					return mdgriffith$elm_ui$Internal$Model$ChildrenInFront(
+						_List_fromArray(
+							[nearby]));
+				}
+			case 'ChildrenBehind':
+				var existingBehind = existing.a;
+				if (location.$ === 'Behind') {
+					return mdgriffith$elm_ui$Internal$Model$ChildrenBehind(
+						A2(elm$core$List$cons, nearby, existingBehind));
+				} else {
+					return A2(
+						mdgriffith$elm_ui$Internal$Model$ChildrenBehindAndInFront,
+						existingBehind,
+						_List_fromArray(
+							[nearby]));
+				}
+			case 'ChildrenInFront':
+				var existingInFront = existing.a;
+				if (location.$ === 'Behind') {
+					return A2(
+						mdgriffith$elm_ui$Internal$Model$ChildrenBehindAndInFront,
+						_List_fromArray(
+							[nearby]),
+						existingInFront);
+				} else {
+					return mdgriffith$elm_ui$Internal$Model$ChildrenInFront(
+						A2(elm$core$List$cons, nearby, existingInFront));
+				}
+			default:
+				var existingBehind = existing.a;
+				var existingInFront = existing.b;
+				if (location.$ === 'Behind') {
+					return A2(
+						mdgriffith$elm_ui$Internal$Model$ChildrenBehindAndInFront,
+						A2(elm$core$List$cons, nearby, existingBehind),
+						existingInFront);
+				} else {
+					return A2(
+						mdgriffith$elm_ui$Internal$Model$ChildrenBehindAndInFront,
+						existingBehind,
+						A2(elm$core$List$cons, nearby, existingInFront));
+				}
+		}
+	});
 var mdgriffith$elm_ui$Internal$Model$addNodeName = F2(
 	function (newNode, old) {
 		switch (old.$) {
@@ -10429,78 +11014,13 @@ var mdgriffith$elm_ui$Internal$Model$gatherAttrRecursive = F8(
 									return _Utils_ap(styles, styled.styles);
 							}
 						}();
-						var newClasses = _Utils_eq(location, mdgriffith$elm_ui$Internal$Model$Behind) ? (mdgriffith$elm_ui$Internal$Style$classes.hasBehind + (' ' + classes)) : classes;
-						var nearbyElement = A2(
-							elm$html$Html$div,
-							_List_fromArray(
-								[
-									elm$html$Html$Attributes$class(
-									function () {
-										switch (location.$) {
-											case 'Above':
-												return A2(
-													elm$core$String$join,
-													' ',
-													_List_fromArray(
-														[mdgriffith$elm_ui$Internal$Style$classes.any, mdgriffith$elm_ui$Internal$Style$classes.single, mdgriffith$elm_ui$Internal$Style$classes.above]));
-											case 'Below':
-												return A2(
-													elm$core$String$join,
-													' ',
-													_List_fromArray(
-														[mdgriffith$elm_ui$Internal$Style$classes.any, mdgriffith$elm_ui$Internal$Style$classes.single, mdgriffith$elm_ui$Internal$Style$classes.below]));
-											case 'OnRight':
-												return A2(
-													elm$core$String$join,
-													' ',
-													_List_fromArray(
-														[mdgriffith$elm_ui$Internal$Style$classes.any, mdgriffith$elm_ui$Internal$Style$classes.single, mdgriffith$elm_ui$Internal$Style$classes.onRight]));
-											case 'OnLeft':
-												return A2(
-													elm$core$String$join,
-													' ',
-													_List_fromArray(
-														[mdgriffith$elm_ui$Internal$Style$classes.any, mdgriffith$elm_ui$Internal$Style$classes.single, mdgriffith$elm_ui$Internal$Style$classes.onLeft]));
-											case 'InFront':
-												return A2(
-													elm$core$String$join,
-													' ',
-													_List_fromArray(
-														[mdgriffith$elm_ui$Internal$Style$classes.any, mdgriffith$elm_ui$Internal$Style$classes.single, mdgriffith$elm_ui$Internal$Style$classes.inFront]));
-											default:
-												return A2(
-													elm$core$String$join,
-													' ',
-													_List_fromArray(
-														[mdgriffith$elm_ui$Internal$Style$classes.any, mdgriffith$elm_ui$Internal$Style$classes.single, mdgriffith$elm_ui$Internal$Style$classes.behind]));
-										}
-									}())
-								]),
-							_List_fromArray(
-								[
-									function () {
-									switch (elem.$) {
-										case 'Empty':
-											return elm$virtual_dom$VirtualDom$text('');
-										case 'Text':
-											var str = elem.a;
-											return mdgriffith$elm_ui$Internal$Model$textElement(str);
-										case 'Unstyled':
-											var html = elem.a;
-											return html(mdgriffith$elm_ui$Internal$Model$asEl);
-										default:
-											var styled = elem.a;
-											return A2(styled.html, mdgriffith$elm_ui$Internal$Model$NoStyleSheet, mdgriffith$elm_ui$Internal$Model$asEl);
-									}
-								}()
-								]));
-						var $temp$classes = newClasses,
+						var $temp$classes = classes,
 							$temp$node = node,
 							$temp$has = has,
 							$temp$transform = transform,
 							$temp$styles = newStyles,
 							$temp$attrs = attrs,
-							$temp$children = A2(elm$core$List$cons, nearbyElement, children),
+							$temp$children = A3(mdgriffith$elm_ui$Internal$Model$addNearbyElement, location, elem, children),
 							$temp$elementAttrs = remaining;
 						classes = $temp$classes;
 						node = $temp$node;
@@ -10629,7 +11149,7 @@ var mdgriffith$elm_ui$Internal$Model$element = F4(
 				mdgriffith$elm_ui$Internal$Model$untransformed,
 				_List_Nil,
 				_List_Nil,
-				_List_Nil,
+				mdgriffith$elm_ui$Internal$Model$NoNearbyChildren,
 				elm$core$List$reverse(attributes)));
 	});
 var mdgriffith$elm_ui$Internal$Model$Attr = function (a) {
@@ -10673,17 +11193,6 @@ var mdgriffith$elm_ui$Element$el = F2(
 			mdgriffith$elm_ui$Internal$Model$Unkeyed(
 				_List_fromArray(
 					[child])));
-	});
-var elm$core$List$filter = F2(
-	function (isGood, list) {
-		return A3(
-			elm$core$List$foldr,
-			F2(
-				function (x, xs) {
-					return isGood(x) ? A2(elm$core$List$cons, x, xs) : xs;
-				}),
-			_List_Nil,
-			list);
 	});
 var elm$html$Html$Attributes$alt = elm$html$Html$Attributes$stringProperty('alt');
 var elm$html$Html$Attributes$src = function (url) {
@@ -10979,6 +11488,50 @@ var author$project$Framework$initConf = {
 							author$project$Framework$Logo$logo,
 							author$project$Framework$Logo$LogoElm(
 								author$project$Framework$Logo$ElmColor(author$project$Framework$Logo$Orange)),
+							60)),
+					url: '..'
+				}),
+				A2(
+				mdgriffith$elm_ui$Element$paragraph,
+				_List_fromArray(
+					[
+						mdgriffith$elm_ui$Element$Font$size(55),
+						mdgriffith$elm_ui$Element$Font$bold,
+						mdgriffith$elm_ui$Element$moveLeft(3)
+					]),
+				_List_fromArray(
+					[
+						A2(
+						mdgriffith$elm_ui$Element$el,
+						_List_fromArray(
+							[
+								mdgriffith$elm_ui$Element$alpha(0.5)
+							]),
+						mdgriffith$elm_ui$Element$text('elm')),
+						mdgriffith$elm_ui$Element$text('Style')
+					]))
+			])),
+	titleLeftSide: A2(
+		mdgriffith$elm_ui$Element$column,
+		_List_Nil,
+		_List_fromArray(
+			[
+				A2(
+				mdgriffith$elm_ui$Element$link,
+				_List_Nil,
+				{
+					label: A2(
+						mdgriffith$elm_ui$Element$el,
+						_List_fromArray(
+							[
+								mdgriffith$elm_ui$Element$alpha(0.3),
+								mdgriffith$elm_ui$Element$paddingEach(
+								{bottom: 20, left: 0, right: 0, top: 0})
+							]),
+						A2(
+							author$project$Framework$Logo$logo,
+							author$project$Framework$Logo$LogoElm(
+								author$project$Framework$Logo$ElmColor(author$project$Framework$Logo$White)),
 							60)),
 					url: '..'
 				}),
@@ -11881,6 +12434,8 @@ var author$project$Framework$Button$toPx = function (size) {
 			return author$project$Framework$Configuration$conf.button.fontJumbo;
 	}
 };
+var author$project$Framework$Color$disabledButtonBackground = author$project$Framework$Configuration$conf.color.grey_lighter;
+var author$project$Framework$Color$disabledButtonFont = author$project$Framework$Configuration$conf.color.grey_light;
 var author$project$Framework$Color$grey_dark = author$project$Framework$Configuration$conf.color.grey_dark;
 var author$project$Framework$Color$transparent = author$project$Framework$Configuration$conf.color.transparent;
 var author$project$Framework$Spinner$Rotation = {$: 'Rotation'};
@@ -12370,7 +12925,7 @@ var mdgriffith$elm_ui$Element$Border$color = function (clr) {
 		mdgriffith$elm_ui$Internal$Flag$borderColor,
 		A3(
 			mdgriffith$elm_ui$Internal$Model$Colored,
-			'border-color-' + mdgriffith$elm_ui$Internal$Model$formatColorClass(clr),
+			'bc-' + mdgriffith$elm_ui$Internal$Model$formatColorClass(clr),
 			'border-color',
 			clr));
 };
@@ -12381,19 +12936,25 @@ var mdgriffith$elm_ui$Element$Border$rounded = function (radius) {
 		mdgriffith$elm_ui$Internal$Flag$borderRound,
 		A3(
 			mdgriffith$elm_ui$Internal$Model$Single,
-			'border-radius-' + elm$core$String$fromInt(radius),
+			'br-' + elm$core$String$fromInt(radius),
 			'border-radius',
 			elm$core$String$fromInt(radius) + 'px'));
 };
+var mdgriffith$elm_ui$Internal$Model$BorderWidth = F5(
+	function (a, b, c, d, e) {
+		return {$: 'BorderWidth', a: a, b: b, c: c, d: d, e: e};
+	});
 var mdgriffith$elm_ui$Element$Border$width = function (v) {
 	return A2(
 		mdgriffith$elm_ui$Internal$Model$StyleClass,
 		mdgriffith$elm_ui$Internal$Flag$borderWidth,
-		A3(
-			mdgriffith$elm_ui$Internal$Model$Single,
-			'border-' + elm$core$String$fromInt(v),
-			'border-width',
-			elm$core$String$fromInt(v) + 'px'));
+		A5(
+			mdgriffith$elm_ui$Internal$Model$BorderWidth,
+			'b-' + elm$core$String$fromInt(v),
+			v,
+			v,
+			v,
+			v));
 };
 var author$project$Framework$Button$buttonAttr = function (modifiers) {
 	var confButton = A3(
@@ -12440,6 +13001,8 @@ var author$project$Framework$Button$buttonAttr = function (modifiers) {
 				return author$project$Framework$Color$transparent;
 			case 'StateWaiting':
 				return author$project$Framework$Color$transparent;
+			case 'StateDisabled':
+				return author$project$Framework$Color$disabledButtonFont;
 			default:
 				return _Utils_eq(confButton.color, author$project$Framework$Color$white) ? author$project$Framework$Color$grey_dark : author$project$Framework$Color$white;
 		}
@@ -12481,10 +13044,7 @@ var author$project$Framework$Button$buttonAttr = function (modifiers) {
 			case 'StateWaiting':
 				return cc;
 			default:
-				return A2(
-					author$project$Color$saturate,
-					0.4,
-					A2(author$project$Color$lighten, 1.1, cc));
+				return author$project$Framework$Color$disabledButtonBackground;
 		}
 	}();
 	var backgroundMouseOverColor = function () {
@@ -12583,27 +13143,6 @@ var elm$html$Html$Events$onClick = function (msg) {
 		elm$json$Json$Decode$succeed(msg));
 };
 var mdgriffith$elm_ui$Element$Events$onClick = A2(elm$core$Basics$composeL, mdgriffith$elm_ui$Internal$Model$Attr, elm$html$Html$Events$onClick);
-var elm$core$List$any = F2(
-	function (isOkay, list) {
-		any:
-		while (true) {
-			if (!list.b) {
-				return false;
-			} else {
-				var x = list.a;
-				var xs = list.b;
-				if (isOkay(x)) {
-					return true;
-				} else {
-					var $temp$isOkay = isOkay,
-						$temp$list = xs;
-					isOkay = $temp$isOkay;
-					list = $temp$list;
-					continue any;
-				}
-			}
-		}
-	});
 var mdgriffith$elm_ui$Element$Input$hasFocusStyle = function (attr) {
 	if (((attr.$ === 'StyleClass') && (attr.b.$ === 'PseudoSelector')) && (attr.b.a.$ === 'Focus')) {
 		var _n1 = attr.b;
@@ -12671,44 +13210,38 @@ var mdgriffith$elm_ui$Element$Input$button = F2(
 					mdgriffith$elm_ui$Element$height(mdgriffith$elm_ui$Element$shrink),
 					A2(
 						elm$core$List$cons,
-						mdgriffith$elm_ui$Internal$Model$htmlClass(mdgriffith$elm_ui$Internal$Style$classes.contentCenterX),
+						mdgriffith$elm_ui$Internal$Model$htmlClass(mdgriffith$elm_ui$Internal$Style$classes.contentCenterX + (' ' + (mdgriffith$elm_ui$Internal$Style$classes.contentCenterY + (' ' + (mdgriffith$elm_ui$Internal$Style$classes.seButton + (' ' + mdgriffith$elm_ui$Internal$Style$classes.noTextSelection)))))),
 						A2(
 							elm$core$List$cons,
-							mdgriffith$elm_ui$Internal$Model$htmlClass(mdgriffith$elm_ui$Internal$Style$classes.contentCenterY),
+							mdgriffith$elm_ui$Element$pointer,
 							A2(
 								elm$core$List$cons,
-								mdgriffith$elm_ui$Internal$Model$htmlClass(mdgriffith$elm_ui$Internal$Style$classes.seButton),
+								mdgriffith$elm_ui$Element$Input$focusDefault(attrs),
 								A2(
 									elm$core$List$cons,
-									mdgriffith$elm_ui$Element$pointer,
+									mdgriffith$elm_ui$Internal$Model$Describe(mdgriffith$elm_ui$Internal$Model$Button),
 									A2(
 										elm$core$List$cons,
-										mdgriffith$elm_ui$Element$Input$focusDefault(attrs),
-										A2(
-											elm$core$List$cons,
-											mdgriffith$elm_ui$Internal$Model$Describe(mdgriffith$elm_ui$Internal$Model$Button),
-											A2(
-												elm$core$List$cons,
-												mdgriffith$elm_ui$Internal$Model$Attr(
-													elm$html$Html$Attributes$tabindex(0)),
-												function () {
-													if (onPress.$ === 'Nothing') {
-														return A2(
-															elm$core$List$cons,
-															mdgriffith$elm_ui$Internal$Model$Attr(
-																elm$html$Html$Attributes$disabled(true)),
-															attrs);
-													} else {
-														var msg = onPress.a;
-														return A2(
-															elm$core$List$cons,
-															mdgriffith$elm_ui$Element$Events$onClick(msg),
-															A2(
-																elm$core$List$cons,
-																mdgriffith$elm_ui$Element$Input$onEnter(msg),
-																attrs));
-													}
-												}()))))))))),
+										mdgriffith$elm_ui$Internal$Model$Attr(
+											elm$html$Html$Attributes$tabindex(0)),
+										function () {
+											if (onPress.$ === 'Nothing') {
+												return A2(
+													elm$core$List$cons,
+													mdgriffith$elm_ui$Internal$Model$Attr(
+														elm$html$Html$Attributes$disabled(true)),
+													attrs);
+											} else {
+												var msg = onPress.a;
+												return A2(
+													elm$core$List$cons,
+													mdgriffith$elm_ui$Element$Events$onClick(msg),
+													A2(
+														elm$core$List$cons,
+														mdgriffith$elm_ui$Element$Input$onEnter(msg),
+														attrs));
+											}
+										}()))))))),
 			mdgriffith$elm_ui$Internal$Model$Unkeyed(
 				_List_fromArray(
 					[label])));
@@ -13061,7 +13594,7 @@ var author$project$Framework$Button$introspection = function () {
 								[author$project$Framework$Modifier$Disabled, author$project$Framework$Modifier$Muted]),
 							elm$core$Maybe$Nothing,
 							buttonText),
-						'button [ Muted ] Nothing \"' + (buttonText + '\"')),
+						'button [ Disabled, Muted ] Nothing \"' + (buttonText + '\"')),
 						_Utils_Tuple2(
 						A3(
 							author$project$Framework$Button$button,
@@ -13069,7 +13602,7 @@ var author$project$Framework$Button$introspection = function () {
 								[author$project$Framework$Modifier$Disabled, author$project$Framework$Modifier$Primary]),
 							elm$core$Maybe$Nothing,
 							buttonText),
-						'button [ Primary ] Nothing \"' + (buttonText + '\"')),
+						'button [ Disabled, Primary ] Nothing \"' + (buttonText + '\"')),
 						_Utils_Tuple2(
 						A3(
 							author$project$Framework$Button$button,
@@ -13077,7 +13610,7 @@ var author$project$Framework$Button$introspection = function () {
 								[author$project$Framework$Modifier$Disabled, author$project$Framework$Modifier$Success]),
 							elm$core$Maybe$Nothing,
 							buttonText),
-						'button [ Success ] Nothing \"' + (buttonText + '\"')),
+						'button [ Disabled, Success ] Nothing \"' + (buttonText + '\"')),
 						_Utils_Tuple2(
 						A3(
 							author$project$Framework$Button$button,
@@ -13085,7 +13618,7 @@ var author$project$Framework$Button$introspection = function () {
 								[author$project$Framework$Modifier$Disabled, author$project$Framework$Modifier$Info]),
 							elm$core$Maybe$Nothing,
 							buttonText),
-						'button [ Info ] Nothing \"' + (buttonText + '\"')),
+						'button [ Disabled, Info ] Nothing \"' + (buttonText + '\"')),
 						_Utils_Tuple2(
 						A3(
 							author$project$Framework$Button$button,
@@ -13093,7 +13626,7 @@ var author$project$Framework$Button$introspection = function () {
 								[author$project$Framework$Modifier$Disabled, author$project$Framework$Modifier$Warning]),
 							elm$core$Maybe$Nothing,
 							buttonText),
-						'button [ Warning ] Nothing \"' + (buttonText + '\"')),
+						'button [ Disabled, Warning ] Nothing \"' + (buttonText + '\"')),
 						_Utils_Tuple2(
 						A3(
 							author$project$Framework$Button$button,
@@ -13101,7 +13634,7 @@ var author$project$Framework$Button$introspection = function () {
 								[author$project$Framework$Modifier$Disabled, author$project$Framework$Modifier$Danger]),
 							elm$core$Maybe$Nothing,
 							buttonText),
-						'button [ Danger ] Nothing \"' + (buttonText + '\"')),
+						'button [ Disabled, Danger ] Nothing \"' + (buttonText + '\"')),
 						_Utils_Tuple2(
 						A3(
 							author$project$Framework$Button$button,
@@ -13109,7 +13642,7 @@ var author$project$Framework$Button$introspection = function () {
 								[author$project$Framework$Modifier$Disabled]),
 							elm$core$Maybe$Nothing,
 							buttonText),
-						'button [] Nothing \"' + (buttonText + '\"'))
+						'button [ Disabled ] Nothing \"' + (buttonText + '\"'))
 					])),
 				_Utils_Tuple2(
 				'Button Link',
@@ -13213,19 +13746,34 @@ var author$project$Framework$Card$simple = function (content) {
 };
 var author$project$Framework$Color$grey = author$project$Framework$Configuration$conf.color.grey;
 var author$project$Framework$Color$grey_light = author$project$Framework$Configuration$conf.color.grey_light;
+var mdgriffith$elm_ui$Element$Border$widthXY = F2(
+	function (x, y) {
+		return A2(
+			mdgriffith$elm_ui$Internal$Model$StyleClass,
+			mdgriffith$elm_ui$Internal$Flag$borderWidth,
+			A5(
+				mdgriffith$elm_ui$Internal$Model$BorderWidth,
+				'b-' + (elm$core$String$fromInt(x) + ('-' + elm$core$String$fromInt(y))),
+				y,
+				x,
+				y,
+				x));
+	});
 var mdgriffith$elm_ui$Element$Border$widthEach = function (_n0) {
 	var bottom = _n0.bottom;
 	var top = _n0.top;
 	var left = _n0.left;
 	var right = _n0.right;
-	return A2(
+	return (_Utils_eq(top, bottom) && _Utils_eq(left, right)) ? (_Utils_eq(top, right) ? mdgriffith$elm_ui$Element$Border$width(top) : A2(mdgriffith$elm_ui$Element$Border$widthXY, left, top)) : A2(
 		mdgriffith$elm_ui$Internal$Model$StyleClass,
 		mdgriffith$elm_ui$Internal$Flag$borderWidth,
-		A3(
-			mdgriffith$elm_ui$Internal$Model$Single,
-			'border-' + (elm$core$String$fromInt(top) + ('-' + (elm$core$String$fromInt(right) + (elm$core$String$fromInt(bottom) + ('-' + elm$core$String$fromInt(left)))))),
-			'border-width',
-			elm$core$String$fromInt(top) + ('px ' + (elm$core$String$fromInt(right) + ('px ' + (elm$core$String$fromInt(bottom) + ('px ' + (elm$core$String$fromInt(left) + 'px'))))))));
+		A5(
+			mdgriffith$elm_ui$Internal$Model$BorderWidth,
+			'b-' + (elm$core$String$fromInt(top) + ('-' + (elm$core$String$fromInt(right) + ('-' + (elm$core$String$fromInt(bottom) + ('-' + elm$core$String$fromInt(left))))))),
+			top,
+			right,
+			bottom,
+			left));
 };
 var author$project$Framework$Card$normal = function (_n0) {
 	var colorBackground = _n0.colorBackground;
@@ -13609,7 +14157,13 @@ var author$project$Framework$Color$introspection = {
 					'transparent'),
 					_Utils_Tuple2(
 					author$project$Framework$Color$usageWrapper(author$project$Framework$Color$muted),
-					'muted')
+					'muted'),
+					_Utils_Tuple2(
+					author$project$Framework$Color$usageWrapper(author$project$Framework$Color$disabledButtonBackground),
+					'disabledButtonBackground'),
+					_Utils_Tuple2(
+					author$project$Framework$Color$usageWrapper(author$project$Framework$Color$disabledButtonFont),
+					'disabledButtonFont')
 				]))
 		])
 };
@@ -13620,11 +14174,43 @@ var author$project$Framework$FormField$introspection = {
 	variations: _List_fromArray(
 		[
 			_Utils_Tuple2(
+			'Text',
+			_List_fromArray(
+				[
+					_Utils_Tuple2(
+					mdgriffith$elm_ui$Element$text('special: Form.example5'),
+					'')
+				])),
+			_Utils_Tuple2(
 			'Email',
 			_List_fromArray(
 				[
 					_Utils_Tuple2(
-					mdgriffith$elm_ui$Element$text('special: Form.example1'),
+					mdgriffith$elm_ui$Element$text('special: Form.example6'),
+					'')
+				])),
+			_Utils_Tuple2(
+			'Username',
+			_List_fromArray(
+				[
+					_Utils_Tuple2(
+					mdgriffith$elm_ui$Element$text('special: Form.example9'),
+					'')
+				])),
+			_Utils_Tuple2(
+			'New Password',
+			_List_fromArray(
+				[
+					_Utils_Tuple2(
+					mdgriffith$elm_ui$Element$text('special: Form.example7'),
+					'')
+				])),
+			_Utils_Tuple2(
+			'Current Password',
+			_List_fromArray(
+				[
+					_Utils_Tuple2(
+					mdgriffith$elm_ui$Element$text('special: Form.example8'),
 					'')
 				]))
 		])
@@ -13683,6 +14269,62 @@ var author$project$Framework$Icon$arrows = F2(
 						_List_Nil)
 					])));
 	});
+var author$project$Framework$Icon$blackFlag_ = F2(
+	function (cl, size) {
+		return A2(
+			elm$svg$Svg$svg,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$viewBox('0 0 512 512'),
+					elm$svg$Svg$Attributes$height(
+					elm$core$String$fromInt(size))
+				]),
+			_List_fromArray(
+				[
+					A2(
+					elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							elm$svg$Svg$Attributes$fill(
+							author$project$Color$colorToHex(cl)),
+							elm$svg$Svg$Attributes$d('M427 43H107V21a21 21 0 1 0-43 0v470a21 21 0 1 0 43 0V341h320c11 0 21-9 21-21V64c0-12-10-21-21-21z')
+						]),
+					_List_Nil)
+				]));
+	});
+var author$project$Framework$Icon$blackFlag = F2(
+	function (cl, size) {
+		return mdgriffith$elm_ui$Element$html(
+			A2(author$project$Framework$Icon$blackFlag_, cl, size));
+	});
+var author$project$Framework$Icon$blackStar_ = F2(
+	function (cl, size) {
+		return A2(
+			elm$svg$Svg$svg,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$viewBox('0 0 88 88'),
+					elm$svg$Svg$Attributes$height(
+					elm$core$String$fromInt(size))
+				]),
+			_List_fromArray(
+				[
+					A2(
+					elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							elm$svg$Svg$Attributes$fill(
+							author$project$Color$colorToHex(cl)),
+							elm$svg$Svg$Attributes$d('M44 0l12 33.6h32L61.8 53.4 71.2 88 44 67.2 16.8 88l9.4-34.6L0 33.6h32z')
+						]),
+					_List_Nil)
+				]));
+	});
+var author$project$Framework$Icon$blackStar = F2(
+	function (cl, size) {
+		return mdgriffith$elm_ui$Element$html(
+			A2(author$project$Framework$Icon$blackStar_, cl, size));
+	});
 var author$project$Framework$Icon$chevronDown = F2(
 	function (_n0, size) {
 		return mdgriffith$elm_ui$Element$html(
@@ -13735,6 +14377,71 @@ var author$project$Framework$Icon$circle = F2(
 		return mdgriffith$elm_ui$Element$html(
 			A2(author$project$Framework$Icon$circle_, cl, size));
 	});
+var author$project$Framework$Icon$edit_ = F2(
+	function (cl, size) {
+		return A2(
+			elm$svg$Svg$svg,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$viewBox('0 0 490 490'),
+					elm$svg$Svg$Attributes$height(
+					elm$core$String$fromInt(size))
+				]),
+			_List_fromArray(
+				[
+					A2(
+					elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							elm$svg$Svg$Attributes$fill(
+							author$project$Color$colorToHex(cl)),
+							elm$svg$Svg$Attributes$d('M230 145l-48 48-52 53c-4 4-7 9-8 15l-19 87-3 16c-2 7 0 15 5 20 4 5 10 7 16 7l5-1 18-3 84-18c6-1 12-4 17-9l235-236c6-6 10-13 10-21v-4l-1-6-5-17c-15-33-39-57-73-71-6-3-13-3-20-4h-1c-9-2-17 1-25 9L230 145zM386 25h3c5 0 10 1 13 3 28 11 48 30 60 58l3 11 1 5-3 5-236 235-4 3-84 17-15 3 3-13 18-86 2-3 53-53 47-47L383 27l3-2z')
+						]),
+					_List_Nil),
+					A2(
+					elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							elm$svg$Svg$Attributes$fill(
+							author$project$Color$colorToHex(cl)),
+							elm$svg$Svg$Attributes$d('M39 109h175a12 12 0 1 0 0-24H39c-22 0-39 17-39 39v327c0 22 18 39 39 39h327c22 0 39-18 39-39V284a12 12 0 1 0-24 0v167c0 8-7 14-15 14H39c-8 0-15-6-15-14V124c1-8 7-15 15-15z')
+						]),
+					_List_Nil)
+				]));
+	});
+var author$project$Framework$Icon$edit = F2(
+	function (cl, size) {
+		return mdgriffith$elm_ui$Element$html(
+			A2(author$project$Framework$Icon$edit_, cl, size));
+	});
+var author$project$Framework$Icon$exclamation_ = F2(
+	function (cl, size) {
+		return A2(
+			elm$svg$Svg$svg,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$viewBox('0 0 612 612'),
+					elm$svg$Svg$Attributes$height(
+					elm$core$String$fromInt(size))
+				]),
+			_List_fromArray(
+				[
+					A2(
+					elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							elm$svg$Svg$Attributes$fill(
+							author$project$Color$colorToHex(cl)),
+							elm$svg$Svg$Attributes$d('M605 502L350 60a51 51 0 0 0-88 0L7 502a51 51 0 0 0 44 76h510a51 51 0 0 0 44-76zM51 527L306 85l255 442H51zm255-119a34 34 0 1 0 0 68 34 34 0 0 0 0-68zm-34-153v6l17 99a17 17 0 0 0 34 0l17-99v-6a34 34 0 0 0-68 0z')
+						]),
+					_List_Nil)
+				]));
+	});
+var author$project$Framework$Icon$exclamation = F2(
+	function (cl, size) {
+		return mdgriffith$elm_ui$Element$html(
+			A2(author$project$Framework$Icon$exclamation_, cl, size));
+	});
 var author$project$Framework$Icon$exitFullscreen = F2(
 	function (_n0, size) {
 		return mdgriffith$elm_ui$Element$html(
@@ -13759,6 +14466,34 @@ var author$project$Framework$Icon$exitFullscreen = F2(
 							]),
 						_List_Nil)
 					])));
+	});
+var author$project$Framework$Icon$featureFlag_ = F2(
+	function (cl, size) {
+		return A2(
+			elm$svg$Svg$svg,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$viewBox('0 0 60 60'),
+					elm$svg$Svg$Attributes$height(
+					elm$core$String$fromInt(size))
+				]),
+			_List_fromArray(
+				[
+					A2(
+					elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							elm$svg$Svg$Attributes$fill(
+							author$project$Color$colorToHex(cl)),
+							elm$svg$Svg$Attributes$d('M51 23L10 3V1a1 1 0 1 0-2 0v58a1 1 0 1 0 2 0V41l41-17a1 1 0 0 0 0-1z')
+						]),
+					_List_Nil)
+				]));
+	});
+var author$project$Framework$Icon$featureFlag = F2(
+	function (cl, size) {
+		return mdgriffith$elm_ui$Element$html(
+			A2(author$project$Framework$Icon$featureFlag_, cl, size));
 	});
 var author$project$Framework$Icon$fullscreen = F2(
 	function (_n0, size) {
@@ -13793,8 +14528,6 @@ var author$project$Framework$Icon$hide = F2(
 					[
 						elm$svg$Svg$Attributes$viewBox('0 0 512 512'),
 						elm$svg$Svg$Attributes$height(
-						elm$core$String$fromInt(size)),
-						elm$svg$Svg$Attributes$width(
 						elm$core$String$fromInt(size))
 					]),
 				_List_fromArray(
@@ -13992,8 +14725,6 @@ var author$project$Framework$Icon$show = F2(
 					[
 						elm$svg$Svg$Attributes$viewBox('0 0 512 512'),
 						elm$svg$Svg$Attributes$height(
-						elm$core$String$fromInt(size)),
-						elm$svg$Svg$Attributes$width(
 						elm$core$String$fromInt(size))
 					]),
 				_List_fromArray(
@@ -14046,6 +14777,154 @@ var author$project$Framework$Icon$smile = F2(
 		return mdgriffith$elm_ui$Element$html(
 			A2(author$project$Framework$Icon$smile_, cl, size));
 	});
+var author$project$Framework$Icon$userVerification_ = F2(
+	function (cl, size) {
+		return A2(
+			elm$svg$Svg$svg,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$viewBox('0 0 512 512'),
+					elm$svg$Svg$Attributes$height(
+					elm$core$String$fromInt(size))
+				]),
+			_List_fromArray(
+				[
+					A2(
+					elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							elm$svg$Svg$Attributes$fill(
+							author$project$Color$colorToHex(cl)),
+							elm$svg$Svg$Attributes$d('M336 32h-35a48 48 0 0 0-90 0h-35c-9 0-16 7-16 16v32c0 9 7 16 16 16h160c9 0 16-7 16-16V48c0-9-7-16-16-16z')
+						]),
+					_List_Nil),
+					A2(
+					elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							elm$svg$Svg$Attributes$fill(
+							author$project$Color$colorToHex(cl)),
+							elm$svg$Svg$Attributes$d('M416 64h-32v16c0 26-22 48-48 48H176c-26 0-48-22-48-48V64H96c-18 0-32 14-32 32v384c0 18 14 32 32 32h320c18 0 32-14 32-32V96c0-18-14-32-32-32zM256 192a64 64 0 1 1 0 128 64 64 0 0 1 0-128zm128 240c0 9-7 16-16 16H144c-9 0-16-7-16-16v-32c0-6 3-11 8-14 74-46 166-46 240 0 5 3 8 8 8 14v32z')
+						]),
+					_List_Nil)
+				]));
+	});
+var author$project$Framework$Icon$userVerification = F2(
+	function (cl, size) {
+		return mdgriffith$elm_ui$Element$html(
+			A2(author$project$Framework$Icon$userVerification_, cl, size));
+	});
+var author$project$Framework$Icon$whiteFlag_ = F2(
+	function (cl, size) {
+		return A2(
+			elm$svg$Svg$svg,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$viewBox('0 0 464 464'),
+					elm$svg$Svg$Attributes$height(
+					elm$core$String$fromInt(size))
+				]),
+			_List_fromArray(
+				[
+					A2(
+					elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							elm$svg$Svg$Attributes$fill(
+							author$project$Color$colorToHex(cl)),
+							elm$svg$Svg$Attributes$d('M388 10H104V5c0-3-2-5-5-5H76c-3 0-5 2-5 5v454c0 3 2 5 5 5h23c3 0 5-2 5-5V205h284c3 0 5-2 5-5V15c0-3-2-5-5-5zM81 454V205h13v249H81zm302-259H104V67a5 5 0 0 0-10 0v128H81V10h13v23a5 5 0 0 0 10 0V20h279v175z')
+						]),
+					_List_Nil)
+				]));
+	});
+var author$project$Framework$Icon$whiteFlag = F2(
+	function (cl, size) {
+		return mdgriffith$elm_ui$Element$html(
+			A2(author$project$Framework$Icon$whiteFlag_, cl, size));
+	});
+var author$project$Framework$Icon$whiteStar_ = F2(
+	function (cl, size) {
+		return A2(
+			elm$svg$Svg$svg,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$viewBox('0 0 326 326'),
+					elm$svg$Svg$Attributes$height(
+					elm$core$String$fromInt(size))
+				]),
+			_List_fromArray(
+				[
+					A2(
+					elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							elm$svg$Svg$Attributes$fill(
+							author$project$Color$colorToHex(cl)),
+							elm$svg$Svg$Attributes$d('M290 115l-18-2-9-1c-17-2-37-4-44-8-6-5-15-23-22-38l-5-11-8-17c-9-21-13-30-21-30s-13 9-22 30l-8 17-5 11c-7 15-16 33-22 38-6 4-27 6-43 8l-10 1-17 2c-20 1-33 2-36 10-2 8 6 16 23 31a464 464 0 0 1 54 56c1 6 2 11 0 16l-17 71c-3 10-1 15 2 17l6 2c6 0 15-4 28-11l17-9 13-6c14-7 30-15 37-15s23 8 37 15a756 756 0 0 0 57 26l6-2c3-2 6-7 3-17l-18-71c-1-5-1-10 1-16 2-7 17-21 30-33l9-9 15-14c16-15 25-23 22-31s-16-9-35-10zm5 33a468 468 0 0 0-24 23c-15 14-29 28-32 38-3 8-3 15-1 22l17 71 1 5-21-10-18-9-13-6c-16-8-32-16-41-16-10 0-25 8-42 16l-13 6-17 9c-8 4-17 9-22 10l1-5 17-71c3-7 2-14 0-22-3-10-17-24-33-38l-9-9-15-14-19-19c5-2 17-3 26-3l17-2 10-1c20-2 40-4 48-11 9-6 17-23 26-42l5-10 8-18 12-23 11 23a438 438 0 0 0 13 28c9 19 18 36 26 42 9 7 28 9 49 11l9 1 18 2c8 0 21 1 25 3l-19 19z')
+						]),
+					_List_Nil)
+				]));
+	});
+var author$project$Framework$Icon$whiteStar = F2(
+	function (cl, size) {
+		return mdgriffith$elm_ui$Element$html(
+			A2(author$project$Framework$Icon$whiteStar_, cl, size));
+	});
+var author$project$Framework$Icon$whitelist_ = F2(
+	function (cl, size) {
+		return A2(
+			elm$svg$Svg$svg,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$viewBox('0 0 500 500'),
+					elm$svg$Svg$Attributes$height(
+					elm$core$String$fromInt(size))
+				]),
+			_List_fromArray(
+				[
+					A2(
+					elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							elm$svg$Svg$Attributes$fill(
+							author$project$Color$colorToHex(cl)),
+							elm$svg$Svg$Attributes$d('m 370.59 230.965 c -5.52344 0 -10 4.47656 -10 10 v 88.793 c -0.019532 16.5586 -13.4375 29.9805 -30 30 h -280.59 c -16.5625 -0.019531 -29.9805 -13.4414 -30 -30 v -260.59 c 0.019531 -16.5625 13.4375 -29.9805 30 -30 h 88.7891 c 5.52344 0 10 -4.47656 10 -10 c 0 -5.52344 -4.47656 -10 -10 -10 h -88.7891 c -27.6016 0.03125 -49.9688 22.3984 -50 50 v 260.59 c 0.03125 27.6016 22.3984 49.9688 50 50 h 280.59 c 27.6016 -0.03125 49.9688 -22.3984 50 -50 v -88.7891 c 0 -5.52344 -4.47656 -10.0039 -10 -10.0039 Z m 0 0')
+						]),
+					_List_Nil),
+					A2(
+					elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							elm$svg$Svg$Attributes$fill(
+							author$project$Color$colorToHex(cl)),
+							elm$svg$Svg$Attributes$d('m 156.367 178.344 l 146.012 -146.016 l 47.0898 47.0898 l -146.012 146.016 Z m 0 0')
+						]),
+					_List_Nil),
+					A2(
+					elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							elm$svg$Svg$Attributes$fill(
+							author$project$Color$colorToHex(cl)),
+							elm$svg$Svg$Attributes$d('m 132.543 249.258 l 52.0391 -14.4141 l -37.625 -37.625 Z m 0 0')
+						]),
+					_List_Nil),
+					A2(
+					elm$svg$Svg$path,
+					_List_fromArray(
+						[
+							elm$svg$Svg$Attributes$fill(
+							author$project$Color$colorToHex(cl)),
+							elm$svg$Svg$Attributes$d('m 362.488 7.57813 c -9.76953 -9.74609 -25.5859 -9.74609 -35.3555 0 l -10.6055 10.6055 l 47.0898 47.0898 l 10.6055 -10.6055 c 9.75 -9.76953 9.75 -25.5859 0 -35.3555 Z m 0 0')
+						]),
+					_List_Nil)
+				]));
+	});
+var author$project$Framework$Icon$whitelist = F2(
+	function (cl, size) {
+		return mdgriffith$elm_ui$Element$html(
+			A2(author$project$Framework$Icon$whitelist_, cl, size));
+	});
 var author$project$Framework$Icon$introspection = {
 	description: 'List of SVG icons',
 	name: 'Icons',
@@ -14094,14 +14973,40 @@ var author$project$Framework$Icon$introspection = {
 					'circle black 32'),
 					_Utils_Tuple2(
 					A2(author$project$Framework$Icon$smile, author$project$Framework$Color$black, 32),
-					'smile black 32')
+					'smile black 32'),
+					_Utils_Tuple2(
+					A2(author$project$Framework$Icon$exclamation, author$project$Framework$Color$black, 32),
+					'exclamation black 32'),
+					_Utils_Tuple2(
+					A2(author$project$Framework$Icon$edit, author$project$Framework$Color$black, 32),
+					'edit black 32'),
+					_Utils_Tuple2(
+					A2(author$project$Framework$Icon$userVerification, author$project$Framework$Color$black, 32),
+					'userVerification black 32'),
+					_Utils_Tuple2(
+					A2(author$project$Framework$Icon$featureFlag, author$project$Framework$Color$black, 32),
+					'featureFlag black 32'),
+					_Utils_Tuple2(
+					A2(author$project$Framework$Icon$blackFlag, author$project$Framework$Color$black, 32),
+					'blackFlag black 32'),
+					_Utils_Tuple2(
+					A2(author$project$Framework$Icon$whiteFlag, author$project$Framework$Color$black, 32),
+					'whiteFlag black 32'),
+					_Utils_Tuple2(
+					A2(author$project$Framework$Icon$whiteStar, author$project$Framework$Color$black, 32),
+					'whiteStar black 32'),
+					_Utils_Tuple2(
+					A2(author$project$Framework$Icon$blackStar, author$project$Framework$Color$black, 32),
+					'blackStar black 32'),
+					_Utils_Tuple2(
+					A2(author$project$Framework$Icon$whitelist, author$project$Framework$Color$black, 32),
+					'whitelist black 32')
 				]))
 		])
 };
 var author$project$Framework$Logo$Black = {$: 'Black'};
 var author$project$Framework$Logo$ElmColorful = {$: 'ElmColorful'};
 var author$project$Framework$Logo$LogoLucamug = {$: 'LogoLucamug'};
-var author$project$Framework$Logo$White = {$: 'White'};
 var author$project$Framework$Logo$introspection = {
 	description: 'List of SVG logos',
 	name: 'Logos',
@@ -14719,7 +15624,7 @@ var author$project$Framework$introspectionsForDebugging = _List_fromArray(
 		true)
 	]);
 var author$project$Framework$Card$initModel = true;
-var author$project$Framework$FormField$initModel = {focus: elm$core$Maybe$Nothing, valueEmail: ''};
+var author$project$Framework$FormField$initModel = {enteredField: elm$core$Maybe$Nothing, focusedField: elm$core$Maybe$Nothing, valueCurrentPassword: '', valueCurrentPasswordShow: false, valueEmail: '', valueNewPassword: '', valueNewPasswordShow: false, valueText: '', valueUsername: ''};
 var author$project$Framework$FormFieldWithPattern$initModel = {focus: elm$core$Maybe$Nothing, value: ''};
 var author$project$Framework$StyleElementsInput$initModel = {
 	checkbox: false,
@@ -18343,7 +19248,6 @@ var elm$browser$Debugger$Report$MessageChanged = F2(
 var elm$browser$Debugger$Report$SomethingChanged = function (a) {
 	return {$: 'SomethingChanged', a: a};
 };
-var elm$core$Basics$neq = _Utils_notEqual;
 var elm$browser$Debugger$Metadata$checkTypes = F2(
 	function (old, _new) {
 		return (!_Utils_eq(old.message, _new.message)) ? A2(elm$browser$Debugger$Report$MessageChanged, old.message, _new.message) : elm$browser$Debugger$Report$SomethingChanged(
@@ -18858,13 +19762,52 @@ var author$project$Framework$Card$update = F2(
 var author$project$Framework$FormField$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
-			case 'Input':
+			case 'OnViewToggle':
+				var field = msg.a;
+				return _Utils_Tuple2(
+					function () {
+						switch (field.$) {
+							case 'FieldNewPassword':
+								return _Utils_update(
+									model,
+									{valueNewPasswordShow: !model.valueNewPasswordShow});
+							case 'FieldCurrentPassword':
+								return _Utils_update(
+									model,
+									{valueCurrentPasswordShow: !model.valueCurrentPasswordShow});
+							default:
+								return model;
+						}
+					}(),
+					elm$core$Platform$Cmd$none);
+			case 'OnChange':
 				var field = msg.a;
 				var value = msg.b;
 				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{valueEmail: value}),
+					function () {
+						switch (field.$) {
+							case 'FieldEmail':
+								return _Utils_update(
+									model,
+									{valueEmail: value});
+							case 'FieldText':
+								return _Utils_update(
+									model,
+									{valueText: value});
+							case 'FieldUsername':
+								return _Utils_update(
+									model,
+									{valueUsername: value});
+							case 'FieldNewPassword':
+								return _Utils_update(
+									model,
+									{valueNewPassword: value});
+							default:
+								return _Utils_update(
+									model,
+									{valueCurrentPassword: value});
+						}
+					}(),
 					elm$core$Platform$Cmd$none);
 			case 'OnFocus':
 				var field = msg.a;
@@ -18872,14 +19815,23 @@ var author$project$Framework$FormField$update = F2(
 					_Utils_update(
 						model,
 						{
-							focus: elm$core$Maybe$Just(field)
+							focusedField: elm$core$Maybe$Just(field)
 						}),
 					elm$core$Platform$Cmd$none);
-			default:
+			case 'OnLoseFocus':
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{focus: elm$core$Maybe$Nothing}),
+						{focusedField: elm$core$Maybe$Nothing}),
+					elm$core$Platform$Cmd$none);
+			default:
+				var field = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							enteredField: elm$core$Maybe$Just(field)
+						}),
 					elm$core$Platform$Cmd$none);
 		}
 	});
@@ -19575,9 +20527,16 @@ var mdgriffith$elm_ui$Internal$Model$renderFontClassName = F2(
 							'-',
 							elm$core$String$words(
 								elm$core$String$toLower(name)));
-					default:
+					case 'ImportFont':
 						var name = font.a;
 						var url = font.b;
+						return A2(
+							elm$core$String$join,
+							'-',
+							elm$core$String$words(
+								elm$core$String$toLower(name)));
+					default:
+						var name = font.a.name;
 						return A2(
 							elm$core$String$join,
 							'-',
@@ -19609,7 +20568,7 @@ var author$project$Framework$sourceCodeWrapper = F2(
 					mdgriffith$elm_ui$Element$scrollbars
 				]),
 			A2(
-				mdgriffith$elm_ui$Element$paragraph,
+				mdgriffith$elm_ui$Element$row,
 				_List_fromArray(
 					[
 						mdgriffith$elm_ui$Element$Font$family(
@@ -19618,7 +20577,9 @@ var author$project$Framework$sourceCodeWrapper = F2(
 						mdgriffith$elm_ui$Element$Font$color(
 						author$project$Color$toElementColor(configuration.gray9)),
 						mdgriffith$elm_ui$Element$Font$size(16),
-						mdgriffith$elm_ui$Element$padding(16)
+						mdgriffith$elm_ui$Element$padding(16),
+						mdgriffith$elm_ui$Element$width(
+						mdgriffith$elm_ui$Element$px(100))
 					]),
 				_List_fromArray(
 					[
@@ -19820,32 +20781,20 @@ var author$project$Framework$Card$example1 = function (model) {
 			}),
 		'\nflipping\n    { width = 200\n    , height = 300\n    , activeFront = model.flip\n    , front =\n        el commonAttr <|\n            column contentAttr\n                [ el [ centerX ] <| text "Click Me"\n                , el [ centerX ] <| text "Front"\n                ]\n    , back =\n        el (commonAttr ++ [ Background.color Color.yellow ]) <|\n            column contentAttr\n                [ el [ centerX ] <| text "Click Me"\n                , el [ centerX ] <| text "Back"\n                ]\n    }');
 };
-var author$project$Framework$FormField$FieldEmail = {$: 'FieldEmail'};
-var author$project$Framework$FormField$Input = F2(
+var author$project$Framework$FormField$FieldText = {$: 'FieldText'};
+var author$project$Framework$FormField$OnChange = F2(
 	function (a, b) {
-		return {$: 'Input', a: a, b: b};
+		return {$: 'OnChange', a: a, b: b};
 	});
+var author$project$Framework$FormField$OnEnter = function (a) {
+	return {$: 'OnEnter', a: a};
+};
 var author$project$Framework$FormField$OnFocus = function (a) {
 	return {$: 'OnFocus', a: a};
 };
 var author$project$Framework$FormField$OnLoseFocus = function (a) {
 	return {$: 'OnLoseFocus', a: a};
 };
-var author$project$Framework$FormField$hackInLineStyle = F2(
-	function (text1, text2) {
-		return mdgriffith$elm_ui$Element$htmlAttribute(
-			A2(elm$html$Html$Attributes$style, text1, text2));
-	});
-var author$project$Framework$FormField$hasFocus = F2(
-	function (model, field) {
-		var _n0 = model.focus;
-		if (_n0.$ === 'Just') {
-			var focus = _n0.a;
-			return _Utils_eq(focus, field);
-		} else {
-			return false;
-		}
-	});
 var mdgriffith$elm_ui$Internal$Flag$moveY = mdgriffith$elm_ui$Internal$Flag$flag(26);
 var mdgriffith$elm_ui$Internal$Model$MoveY = function (a) {
 	return {$: 'MoveY', a: a};
@@ -19856,16 +20805,60 @@ var mdgriffith$elm_ui$Element$moveDown = function (y) {
 		mdgriffith$elm_ui$Internal$Flag$moveY,
 		mdgriffith$elm_ui$Internal$Model$MoveY(y));
 };
-var mdgriffith$elm_ui$Internal$Flag$scale = mdgriffith$elm_ui$Internal$Flag$flag(23);
-var mdgriffith$elm_ui$Internal$Model$Scale = function (a) {
-	return {$: 'Scale', a: a};
-};
-var mdgriffith$elm_ui$Element$scale = function (n) {
+var mdgriffith$elm_ui$Element$Input$Above = {$: 'Above'};
+var mdgriffith$elm_ui$Element$Input$Label = F3(
+	function (a, b, c) {
+		return {$: 'Label', a: a, b: b, c: c};
+	});
+var mdgriffith$elm_ui$Element$Input$labelAbove = mdgriffith$elm_ui$Element$Input$Label(mdgriffith$elm_ui$Element$Input$Above);
+var author$project$Framework$FormField$labelBuilder = function (_n0) {
+	var maybeFieldFocused = _n0.maybeFieldFocused;
+	var field = _n0.field;
+	var fieldValue = _n0.fieldValue;
+	var label = _n0.label;
+	var focused = function () {
+		if (maybeFieldFocused.$ === 'Nothing') {
+			return false;
+		} else {
+			var fieldFocused = maybeFieldFocused.a;
+			return _Utils_eq(fieldFocused, field);
+		}
+	}();
+	var labelIsAbove = focused || (elm$core$String$length(fieldValue) > 0);
 	return A2(
-		mdgriffith$elm_ui$Internal$Model$TransformComponent,
-		mdgriffith$elm_ui$Internal$Flag$scale,
-		mdgriffith$elm_ui$Internal$Model$Scale(
-			_Utils_Tuple3(n, n, 1)));
+		mdgriffith$elm_ui$Element$Input$labelAbove,
+		_Utils_ap(
+			_List_fromArray(
+				[
+					mdgriffith$elm_ui$Element$htmlAttribute(
+					A2(elm$html$Html$Attributes$style, 'transition', 'all 0.15s'))
+				]),
+			labelIsAbove ? _List_Nil : _List_fromArray(
+				[
+					mdgriffith$elm_ui$Element$moveDown(33),
+					mdgriffith$elm_ui$Element$alpha(0.5)
+				])),
+		label);
+};
+var author$project$Framework$FormField$inputFieldParameterForText = function (conf) {
+	return {
+		label: author$project$Framework$FormField$labelBuilder(conf),
+		onChange: conf.msgOnChange(conf.field),
+		placeholder: elm$core$Maybe$Nothing,
+		text: conf.fieldValue
+	};
+};
+var elm$html$Html$Events$keyCode = A2(elm$json$Json$Decode$field, 'keyCode', elm$json$Json$Decode$int);
+var author$project$Framework$FormField$onEnter = function (msg) {
+	return A2(
+		elm$html$Html$Events$on,
+		'keyup',
+		A2(
+			elm$json$Json$Decode$andThen,
+			function (key) {
+				return (key === 13) ? elm$json$Json$Decode$succeed(msg) : elm$json$Json$Decode$fail('Not enter');
+			},
+			elm$html$Html$Events$keyCode));
 };
 var elm$html$Html$Events$onFocus = function (msg) {
 	return A2(
@@ -19881,10 +20874,137 @@ var elm$html$Html$Events$onBlur = function (msg) {
 		elm$json$Json$Decode$succeed(msg));
 };
 var mdgriffith$elm_ui$Element$Events$onLoseFocus = A2(elm$core$Basics$composeL, mdgriffith$elm_ui$Internal$Model$Attr, elm$html$Html$Events$onBlur);
+var author$project$Framework$FormField$attrs = function (_n0) {
+	var msgOnFocus = _n0.msgOnFocus;
+	var msgOnLoseFocus = _n0.msgOnLoseFocus;
+	var maybeMsgOnEnter = _n0.maybeMsgOnEnter;
+	var inputTypeAttrs = _n0.inputTypeAttrs;
+	var field = _n0.field;
+	var maybeFieldFocused = _n0.maybeFieldFocused;
+	var focused = function () {
+		if (maybeFieldFocused.$ === 'Nothing') {
+			return false;
+		} else {
+			var fieldFocused = maybeFieldFocused.a;
+			return _Utils_eq(fieldFocused, field);
+		}
+	}();
+	return _Utils_ap(
+		_List_fromArray(
+			[
+				mdgriffith$elm_ui$Element$Events$onFocus(
+				msgOnFocus(field)),
+				mdgriffith$elm_ui$Element$Events$onLoseFocus(
+				msgOnLoseFocus(field)),
+				mdgriffith$elm_ui$Element$Background$color(
+				A4(mdgriffith$elm_ui$Element$rgba, 1, 1, 1, 0)),
+				mdgriffith$elm_ui$Element$Border$widthEach(
+				{bottom: 1, left: 0, right: 0, top: 0}),
+				mdgriffith$elm_ui$Element$Border$rounded(0),
+				A2(mdgriffith$elm_ui$Element$paddingXY, 0, 8),
+				mdgriffith$elm_ui$Element$width(mdgriffith$elm_ui$Element$fill),
+				mdgriffith$elm_ui$Element$htmlAttribute(
+				A2(elm$html$Html$Attributes$style, 'transition', 'all 0.15s'))
+			]),
+		_Utils_ap(
+			focused ? _List_fromArray(
+				[
+					mdgriffith$elm_ui$Element$Border$color(
+					author$project$Color$toElementColor(author$project$Framework$Color$primary))
+				]) : _List_Nil,
+			_Utils_ap(
+				function () {
+					if (maybeMsgOnEnter.$ === 'Just') {
+						var msgOnEnter = maybeMsgOnEnter.a;
+						return _List_fromArray(
+							[
+								mdgriffith$elm_ui$Element$htmlAttribute(
+								author$project$Framework$FormField$onEnter(
+									msgOnEnter(field)))
+							]);
+					} else {
+						return _List_Nil;
+					}
+				}(),
+				inputTypeAttrs)));
+};
+var author$project$Framework$FormField$inputGeneric = F3(
+	function (mainAttrs, conf, inputFieldParameters) {
+		var inputField = A2(
+			conf.inputType,
+			author$project$Framework$FormField$attrs(conf),
+			inputFieldParameters);
+		return A2(
+			mdgriffith$elm_ui$Element$column,
+			mainAttrs,
+			function () {
+				var _n0 = conf.helperText;
+				if (_n0.$ === 'Just') {
+					var element = _n0.a;
+					return _List_fromArray(
+						[inputField, element]);
+				} else {
+					return _List_fromArray(
+						[inputField]);
+				}
+			}());
+	});
+var author$project$Framework$FormField$inputText = F2(
+	function (mainAttrs, conf) {
+		return A3(
+			author$project$Framework$FormField$inputGeneric,
+			mainAttrs,
+			conf,
+			author$project$Framework$FormField$inputFieldParameterForText(conf));
+	});
+var author$project$Framework$FormField$errorColor = A3(author$project$Color$rgb, 200, 0, 0);
+var author$project$Framework$FormField$helperTextFormat = F2(
+	function (t, color) {
+		return A2(
+			mdgriffith$elm_ui$Element$row,
+			_List_fromArray(
+				[
+					mdgriffith$elm_ui$Element$Font$color(
+					author$project$Color$toElementColor(color)),
+					mdgriffith$elm_ui$Element$Font$size(12),
+					mdgriffith$elm_ui$Element$spacing(4)
+				]),
+			_List_fromArray(
+				[
+					A2(
+					mdgriffith$elm_ui$Element$el,
+					_List_Nil,
+					A2(author$project$Framework$Icon$exclamation, color, 12)),
+					mdgriffith$elm_ui$Element$text(t)
+				]));
+	});
+var author$project$Framework$FormField$infoColor = A3(author$project$Color$rgb, 0, 150, 0);
+var author$project$Framework$FormField$newHelperText = F3(
+	function (enteredField, field, value) {
+		var extraText = function () {
+			if (enteredField.$ === 'Just') {
+				var f = enteredField.a;
+				return _Utils_eq(f, field) ? 'You pressed Enter on this field' : 'You pressed Enter on other fields';
+			} else {
+				return 'You didn\'t press Enter on any field yet';
+			}
+		}();
+		return (elm$core$String$length(value) <= 0) ? elm$core$Maybe$Just(
+			A2(author$project$Framework$FormField$helperTextFormat, 'Type at least 5 characters (' + (extraText + ')'), author$project$Framework$FormField$infoColor)) : ((elm$core$String$length(value) < 5) ? elm$core$Maybe$Just(
+			A2(
+				author$project$Framework$FormField$helperTextFormat,
+				'You typed only ' + (elm$core$String$fromInt(
+					elm$core$String$length(value)) + (' charecters' + (' (' + (extraText + ')')))),
+				author$project$Framework$FormField$errorColor)) : elm$core$Maybe$Just(
+			A2(
+				author$project$Framework$FormField$helperTextFormat,
+				'You typed only ' + (elm$core$String$fromInt(
+					elm$core$String$length(value)) + (' charecters' + (' (' + (extraText + ')')))),
+				author$project$Framework$FormField$infoColor)));
+	});
 var mdgriffith$elm_ui$Element$Input$TextInputNode = function (a) {
 	return {$: 'TextInputNode', a: a};
 };
-var elm$core$String$lines = _String_lines;
 var elm$html$Html$Attributes$type_ = elm$html$Html$Attributes$stringProperty('type');
 var elm$html$Html$Events$alwaysStop = function (x) {
 	return _Utils_Tuple2(x, true);
@@ -19923,72 +21043,66 @@ var mdgriffith$elm_ui$Element$Input$Padding = F4(
 	});
 var mdgriffith$elm_ui$Element$Input$applyLabel = F3(
 	function (attrs, label, input) {
-		var position = label.a;
-		var labelAttrs = label.b;
-		var labelChild = label.c;
-		var labelElement = A4(
-			mdgriffith$elm_ui$Internal$Model$element,
-			mdgriffith$elm_ui$Internal$Model$asEl,
-			mdgriffith$elm_ui$Internal$Model$div,
-			labelAttrs,
-			mdgriffith$elm_ui$Internal$Model$Unkeyed(
-				_List_fromArray(
-					[labelChild])));
-		switch (position.$) {
-			case 'Above':
-				return A4(
-					mdgriffith$elm_ui$Internal$Model$element,
-					mdgriffith$elm_ui$Internal$Model$asColumn,
-					mdgriffith$elm_ui$Internal$Model$NodeName('label'),
-					attrs,
-					mdgriffith$elm_ui$Internal$Model$Unkeyed(
-						_List_fromArray(
-							[labelElement, input])));
-			case 'Below':
-				return A4(
-					mdgriffith$elm_ui$Internal$Model$element,
-					mdgriffith$elm_ui$Internal$Model$asColumn,
-					mdgriffith$elm_ui$Internal$Model$NodeName('label'),
-					attrs,
-					mdgriffith$elm_ui$Internal$Model$Unkeyed(
-						_List_fromArray(
-							[input, labelElement])));
-			case 'OnRight':
-				return A4(
-					mdgriffith$elm_ui$Internal$Model$element,
-					mdgriffith$elm_ui$Internal$Model$asRow,
-					mdgriffith$elm_ui$Internal$Model$NodeName('label'),
-					attrs,
-					mdgriffith$elm_ui$Internal$Model$Unkeyed(
-						_List_fromArray(
-							[input, labelElement])));
-			case 'OnLeft':
-				return A4(
-					mdgriffith$elm_ui$Internal$Model$element,
-					mdgriffith$elm_ui$Internal$Model$asRow,
-					mdgriffith$elm_ui$Internal$Model$NodeName('label'),
-					attrs,
-					mdgriffith$elm_ui$Internal$Model$Unkeyed(
-						_List_fromArray(
-							[labelElement, input])));
-			case 'InFront':
-				return A4(
-					mdgriffith$elm_ui$Internal$Model$element,
-					mdgriffith$elm_ui$Internal$Model$asRow,
-					mdgriffith$elm_ui$Internal$Model$NodeName('label'),
-					attrs,
-					mdgriffith$elm_ui$Internal$Model$Unkeyed(
-						_List_fromArray(
-							[labelElement, input])));
-			default:
-				return A4(
-					mdgriffith$elm_ui$Internal$Model$element,
-					mdgriffith$elm_ui$Internal$Model$asRow,
-					mdgriffith$elm_ui$Internal$Model$NodeName('label'),
-					attrs,
-					mdgriffith$elm_ui$Internal$Model$Unkeyed(
-						_List_fromArray(
-							[labelElement, input])));
+		if (label.$ === 'HiddenLabel') {
+			var labelText = label.a;
+			return A4(
+				mdgriffith$elm_ui$Internal$Model$element,
+				mdgriffith$elm_ui$Internal$Model$asColumn,
+				mdgriffith$elm_ui$Internal$Model$NodeName('label'),
+				attrs,
+				mdgriffith$elm_ui$Internal$Model$Unkeyed(
+					_List_fromArray(
+						[input])));
+		} else {
+			var position = label.a;
+			var labelAttrs = label.b;
+			var labelChild = label.c;
+			var labelElement = A4(
+				mdgriffith$elm_ui$Internal$Model$element,
+				mdgriffith$elm_ui$Internal$Model$asEl,
+				mdgriffith$elm_ui$Internal$Model$div,
+				labelAttrs,
+				mdgriffith$elm_ui$Internal$Model$Unkeyed(
+					_List_fromArray(
+						[labelChild])));
+			switch (position.$) {
+				case 'Above':
+					return A4(
+						mdgriffith$elm_ui$Internal$Model$element,
+						mdgriffith$elm_ui$Internal$Model$asColumn,
+						mdgriffith$elm_ui$Internal$Model$NodeName('label'),
+						attrs,
+						mdgriffith$elm_ui$Internal$Model$Unkeyed(
+							_List_fromArray(
+								[labelElement, input])));
+				case 'Below':
+					return A4(
+						mdgriffith$elm_ui$Internal$Model$element,
+						mdgriffith$elm_ui$Internal$Model$asColumn,
+						mdgriffith$elm_ui$Internal$Model$NodeName('label'),
+						attrs,
+						mdgriffith$elm_ui$Internal$Model$Unkeyed(
+							_List_fromArray(
+								[input, labelElement])));
+				case 'OnRight':
+					return A4(
+						mdgriffith$elm_ui$Internal$Model$element,
+						mdgriffith$elm_ui$Internal$Model$asRow,
+						mdgriffith$elm_ui$Internal$Model$NodeName('label'),
+						attrs,
+						mdgriffith$elm_ui$Internal$Model$Unkeyed(
+							_List_fromArray(
+								[input, labelElement])));
+				default:
+					return A4(
+						mdgriffith$elm_ui$Internal$Model$element,
+						mdgriffith$elm_ui$Internal$Model$asRow,
+						mdgriffith$elm_ui$Internal$Model$NodeName('label'),
+						attrs,
+						mdgriffith$elm_ui$Internal$Model$Unkeyed(
+							_List_fromArray(
+								[labelElement, input])));
+			}
 		}
 	});
 var elm$html$Html$Attributes$attribute = elm$virtual_dom$VirtualDom$attribute;
@@ -20011,10 +21125,85 @@ var mdgriffith$elm_ui$Element$Input$defaultTextBoxStyle = _List_fromArray(
 		mdgriffith$elm_ui$Element$Border$color(mdgriffith$elm_ui$Element$Input$darkGrey),
 		mdgriffith$elm_ui$Element$Background$color(mdgriffith$elm_ui$Element$Input$white),
 		mdgriffith$elm_ui$Element$Border$width(1),
-		mdgriffith$elm_ui$Element$spacing(3)
+		mdgriffith$elm_ui$Element$spacing(3),
+		mdgriffith$elm_ui$Element$width(mdgriffith$elm_ui$Element$fill)
 	]);
+var mdgriffith$elm_ui$Internal$Model$Label = function (a) {
+	return {$: 'Label', a: a};
+};
+var mdgriffith$elm_ui$Element$Input$hiddenLabelAttribute = function (label) {
+	if (label.$ === 'HiddenLabel') {
+		var textLabel = label.a;
+		return mdgriffith$elm_ui$Internal$Model$Describe(
+			mdgriffith$elm_ui$Internal$Model$Label(textLabel));
+	} else {
+		return mdgriffith$elm_ui$Internal$Model$NoAttribute;
+	}
+};
+var mdgriffith$elm_ui$Element$Input$inheritablePlaceholderAttributes = function (attr) {
+	_n0$3:
+	while (true) {
+		if (attr.$ === 'StyleClass') {
+			switch (attr.b.$) {
+				case 'PaddingStyle':
+					var _n1 = attr.b;
+					return true;
+				case 'BorderWidth':
+					var _n2 = attr.b;
+					return true;
+				case 'Transform':
+					return true;
+				default:
+					break _n0$3;
+			}
+		} else {
+			break _n0$3;
+		}
+	}
+	return false;
+};
+var mdgriffith$elm_ui$Element$Input$isHiddenLabel = function (label) {
+	if (label.$ === 'HiddenLabel') {
+		return true;
+	} else {
+		return false;
+	}
+};
 var elm$html$Html$Attributes$spellcheck = elm$html$Html$Attributes$boolProperty('spellcheck');
 var mdgriffith$elm_ui$Element$Input$spellcheck = A2(elm$core$Basics$composeL, mdgriffith$elm_ui$Internal$Model$Attr, elm$html$Html$Attributes$spellcheck);
+var elm$core$String$lines = _String_lines;
+var mdgriffith$elm_ui$Internal$Flag$heightTextAreaContent = mdgriffith$elm_ui$Internal$Flag$flag(47);
+var mdgriffith$elm_ui$Element$Input$textHeightContent = F4(
+	function (textValue, spacing, maybePadding, maybeBorder) {
+		var topBottom = function (_n0) {
+			var t = _n0.a;
+			var b = _n0.c;
+			return t + b;
+		};
+		var newlineCount = function (x) {
+			return (x < 1) ? 1 : x;
+		}(
+			elm$core$List$length(
+				elm$core$String$lines(textValue)));
+		var additionalSpacing = (((newlineCount - 1) * spacing) + A2(
+			elm$core$Maybe$withDefault,
+			0,
+			A2(elm$core$Maybe$map, topBottom, maybePadding))) + A2(
+			elm$core$Maybe$withDefault,
+			0,
+			A2(elm$core$Maybe$map, topBottom, maybeBorder));
+		var heightValue = function (count) {
+			return 'calc(' + (elm$core$String$fromInt(count) + ('em + ' + (elm$core$String$fromInt(additionalSpacing) + 'px) !important')));
+		};
+		return A2(
+			mdgriffith$elm_ui$Internal$Model$StyleClass,
+			mdgriffith$elm_ui$Internal$Flag$heightTextAreaContent,
+			A3(
+				mdgriffith$elm_ui$Internal$Model$Single,
+				'textarea-height-' + elm$core$String$fromInt(newlineCount),
+				'height',
+				heightValue(newlineCount)));
+	});
 var elm$html$Html$Attributes$value = elm$html$Html$Attributes$stringProperty('value');
 var mdgriffith$elm_ui$Element$Input$value = A2(elm$core$Basics$composeL, mdgriffith$elm_ui$Internal$Model$Attr, elm$html$Html$Attributes$value);
 var mdgriffith$elm_ui$Internal$Model$LivePolite = {$: 'LivePolite'};
@@ -20093,6 +21282,27 @@ var mdgriffith$elm_ui$Internal$Model$get = F2(
 			_List_Nil,
 			mdgriffith$elm_ui$Internal$Model$filter(attrs));
 	});
+var mdgriffith$elm_ui$Internal$Model$isContent = function (len) {
+	isContent:
+	while (true) {
+		switch (len.$) {
+			case 'Content':
+				return true;
+			case 'Max':
+				var l = len.b;
+				var $temp$len = l;
+				len = $temp$len;
+				continue isContent;
+			case 'Min':
+				var l = len.b;
+				var $temp$len = l;
+				len = $temp$len;
+				continue isContent;
+			default:
+				return false;
+		}
+	}
+};
 var mdgriffith$elm_ui$Element$Input$textHelper = F3(
 	function (textInput, attrs, textOptions) {
 		var forNearby = function (attr) {
@@ -20107,28 +21317,25 @@ var mdgriffith$elm_ui$Element$Input$textHelper = F3(
 				mdgriffith$elm_ui$Internal$Model$Attr(
 				elm$html$Html$Events$onInput(textOptions.onChange))
 			]);
-		var attributes = A2(
-			elm$core$List$cons,
-			mdgriffith$elm_ui$Element$width(mdgriffith$elm_ui$Element$fill),
-			_Utils_ap(mdgriffith$elm_ui$Element$Input$defaultTextBoxStyle, attrs));
+		var attributes = _Utils_ap(mdgriffith$elm_ui$Element$Input$defaultTextBoxStyle, attrs);
 		var attributesFromChild = A2(
 			mdgriffith$elm_ui$Internal$Model$get,
 			attributes,
 			function (attr) {
-				_n22$7:
+				_n21$7:
 				while (true) {
 					switch (attr.$) {
 						case 'Width':
 							if (attr.a.$ === 'Fill') {
 								return true;
 							} else {
-								break _n22$7;
+								break _n21$7;
 							}
 						case 'Height':
 							if (attr.a.$ === 'Fill') {
 								return true;
 							} else {
-								break _n22$7;
+								break _n21$7;
 							}
 						case 'AlignX':
 							return true;
@@ -20137,28 +21344,39 @@ var mdgriffith$elm_ui$Element$Input$textHelper = F3(
 						case 'StyleClass':
 							switch (attr.b.$) {
 								case 'SpacingStyle':
-									var _n23 = attr.b;
+									var _n22 = attr.b;
 									return true;
 								case 'FontSize':
 									return true;
 								case 'FontFamily':
-									var _n24 = attr.b;
+									var _n23 = attr.b;
 									return true;
 								default:
-									break _n22$7;
+									break _n21$7;
 							}
 						default:
-							break _n22$7;
+							break _n21$7;
 					}
 				}
 				return false;
+			});
+		var forPlaceholder = A2(elm$core$List$filter, mdgriffith$elm_ui$Element$Input$inheritablePlaceholderAttributes, attributes);
+		var heightFillFromChild = A2(
+			mdgriffith$elm_ui$Internal$Model$get,
+			attributes,
+			function (attr) {
+				if ((attr.$ === 'Height') && (attr.a.$ === 'Fill')) {
+					return true;
+				} else {
+					return false;
+				}
 			});
 		var inputPadding = A2(
 			mdgriffith$elm_ui$Internal$Model$get,
 			attributes,
 			function (attr) {
 				if ((attr.$ === 'StyleClass') && (attr.b.$ === 'PaddingStyle')) {
-					var _n21 = attr.b;
+					var _n19 = attr.b;
 					return true;
 				} else {
 					return false;
@@ -20209,43 +21427,53 @@ var mdgriffith$elm_ui$Element$Input$textHelper = F3(
 					elm$core$List$foldr,
 					F2(
 						function (attr, found) {
-							_n4$4:
+							_n4$5:
 							while (true) {
 								switch (attr.$) {
 									case 'Describe':
 										return found;
 									case 'Height':
-										var val = attr.a;
+										var len = attr.a;
 										var _n5 = found.heightContent;
 										if (_n5.$ === 'Nothing') {
-											if (val.$ === 'Content') {
-												return _Utils_update(
-													found,
-													{
-														adjustedAttributes: A2(elm$core$List$cons, attr, found.adjustedAttributes),
-														heightContent: elm$core$Maybe$Just(val)
-													});
-											} else {
-												return _Utils_update(
-													found,
-													{
-														heightContent: elm$core$Maybe$Just(val)
-													});
-											}
+											return _Utils_update(
+												found,
+												{
+													adjustedAttributes: A2(elm$core$List$cons, attr, found.adjustedAttributes),
+													heightContent: elm$core$Maybe$Just(
+														mdgriffith$elm_ui$Internal$Model$isContent(len))
+												});
 										} else {
-											var i = _n5.a;
 											return found;
 										}
 									case 'StyleClass':
 										switch (attr.b.$) {
+											case 'BorderWidth':
+												var _n6 = attr.b;
+												var t = _n6.b;
+												var r = _n6.c;
+												var b = _n6.d;
+												var l = _n6.e;
+												var _n7 = found.maybeBorder;
+												if (_n7.$ === 'Nothing') {
+													return _Utils_update(
+														found,
+														{
+															adjustedAttributes: A2(elm$core$List$cons, attr, found.adjustedAttributes),
+															maybeBorder: elm$core$Maybe$Just(
+																A4(mdgriffith$elm_ui$Element$Input$Padding, t, r, b, l))
+														});
+												} else {
+													return found;
+												}
 											case 'PaddingStyle':
-												var _n7 = attr.b;
-												var t = _n7.b;
-												var r = _n7.c;
-												var b = _n7.d;
-												var l = _n7.e;
-												var _n8 = found.maybePadding;
-												if (_n8.$ === 'Nothing') {
+												var _n8 = attr.b;
+												var t = _n8.b;
+												var r = _n8.c;
+												var b = _n8.d;
+												var l = _n8.e;
+												var _n9 = found.maybePadding;
+												if (_n9.$ === 'Nothing') {
 													return _Utils_update(
 														found,
 														{
@@ -20257,11 +21485,11 @@ var mdgriffith$elm_ui$Element$Input$textHelper = F3(
 													return found;
 												}
 											case 'SpacingStyle':
-												var _n9 = attr.b;
-												var x = _n9.b;
-												var y = _n9.c;
-												var _n10 = found.maybeSpacing;
-												if (_n10.$ === 'Nothing') {
+												var _n10 = attr.b;
+												var x = _n10.b;
+												var y = _n10.c;
+												var _n11 = found.maybeSpacing;
+												if (_n11.$ === 'Nothing') {
 													return _Utils_update(
 														found,
 														{
@@ -20272,10 +21500,10 @@ var mdgriffith$elm_ui$Element$Input$textHelper = F3(
 													return found;
 												}
 											default:
-												break _n4$4;
+												break _n4$5;
 										}
 									default:
-										break _n4$4;
+										break _n4$5;
 								}
 							}
 							return _Utils_update(
@@ -20284,12 +21512,13 @@ var mdgriffith$elm_ui$Element$Input$textHelper = F3(
 									adjustedAttributes: A2(elm$core$List$cons, attr, found.adjustedAttributes)
 								});
 						}),
-					{adjustedAttributes: _List_Nil, heightContent: elm$core$Maybe$Nothing, maybePadding: elm$core$Maybe$Nothing, maybeSpacing: elm$core$Maybe$Nothing},
+					{adjustedAttributes: _List_Nil, heightContent: elm$core$Maybe$Nothing, maybeBorder: elm$core$Maybe$Nothing, maybePadding: elm$core$Maybe$Nothing, maybeSpacing: elm$core$Maybe$Nothing},
 					attributes);
 				var maybePadding = _n3.maybePadding;
 				var heightContent = _n3.heightContent;
 				var maybeSpacing = _n3.maybeSpacing;
 				var adjustedAttributes = _n3.adjustedAttributes;
+				var maybeBorder = _n3.maybeBorder;
 				var spacing = A2(elm$core$Maybe$withDefault, 5, maybeSpacing);
 				return _Utils_Tuple3(
 					'textarea',
@@ -20306,11 +21535,11 @@ var mdgriffith$elm_ui$Element$Input$textHelper = F3(
 								if (maybePadding.$ === 'Nothing') {
 									return mdgriffith$elm_ui$Internal$Model$NoAttribute;
 								} else {
-									var _n12 = maybePadding.a;
-									var t = _n12.a;
-									var r = _n12.b;
-									var b = _n12.c;
-									var l = _n12.d;
+									var _n13 = maybePadding.a;
+									var t = _n13.a;
+									var r = _n13.b;
+									var b = _n13.c;
+									var l = _n13.d;
 									return mdgriffith$elm_ui$Element$paddingEach(
 										{
 											bottom: A2(elm$core$Basics$max, 0, b - ((spacing / 2) | 0)),
@@ -20324,36 +21553,10 @@ var mdgriffith$elm_ui$Element$Input$textHelper = F3(
 								if (heightContent.$ === 'Nothing') {
 									return mdgriffith$elm_ui$Internal$Model$NoAttribute;
 								} else {
-									if (heightContent.a.$ === 'Content') {
-										var _n14 = heightContent.a;
-										var newlineCount = function (x) {
-											return (x < 1) ? 1 : x;
-										}(
-											elm$core$List$length(
-												elm$core$String$lines(textOptions.text)));
-										var heightValue = function (count) {
-											if (maybePadding.$ === 'Nothing') {
-												return 'calc(' + (elm$core$String$fromInt(count) + ('em + ' + (elm$core$String$fromInt((count - 1) * spacing) + 'px) !important')));
-											} else {
-												var _n16 = maybePadding.a;
-												var t = _n16.a;
-												var r = _n16.b;
-												var b = _n16.c;
-												var l = _n16.d;
-												return 'calc(' + (elm$core$String$fromInt(count) + ('em + ' + (elm$core$String$fromInt((t + b) + ((count - 1) * spacing)) + 'px) !important')));
-											}
-										};
-										return A2(
-											mdgriffith$elm_ui$Internal$Model$StyleClass,
-											mdgriffith$elm_ui$Internal$Flag$height,
-											A3(
-												mdgriffith$elm_ui$Internal$Model$Single,
-												'textarea-height-' + elm$core$String$fromInt(newlineCount),
-												'height',
-												heightValue(newlineCount)));
+									if (heightContent.a) {
+										return A4(mdgriffith$elm_ui$Element$Input$textHeightContent, textOptions.text, spacing, maybePadding, maybeBorder);
 									} else {
-										var x = heightContent.a;
-										return mdgriffith$elm_ui$Internal$Model$Height(x);
+										return mdgriffith$elm_ui$Internal$Model$NoAttribute;
 									}
 								}
 							}()
@@ -20380,14 +21583,15 @@ var mdgriffith$elm_ui$Element$Input$textHelper = F3(
 					_List_fromArray(
 						[
 							nearbys,
+							heightFillFromChild,
 							function () {
-							var _n17 = textOptions.placeholder;
-							if (_n17.$ === 'Nothing') {
+							var _n15 = textOptions.placeholder;
+							if (_n15.$ === 'Nothing') {
 								return _List_Nil;
 							} else {
-								var _n18 = _n17.a;
-								var placeholderAttrs = _n18.a;
-								var placeholderEl = _n18.b;
+								var _n16 = _n15.a;
+								var placeholderAttrs = _n16.a;
+								var placeholderEl = _n16.b;
 								return _List_fromArray(
 									[
 										mdgriffith$elm_ui$Element$inFront(
@@ -20397,7 +21601,7 @@ var mdgriffith$elm_ui$Element$Input$textHelper = F3(
 												elm$core$List$cons,
 												mdgriffith$elm_ui$Element$Input$defaultTextPadding,
 												_Utils_ap(
-													noNearbys,
+													forPlaceholder,
 													_Utils_ap(
 														_List_fromArray(
 															[
@@ -20430,7 +21634,8 @@ var mdgriffith$elm_ui$Element$Input$textHelper = F3(
 								[
 									_List_fromArray(
 									[
-										mdgriffith$elm_ui$Element$Input$focusDefault(attrs)
+										mdgriffith$elm_ui$Element$Input$focusDefault(attrs),
+										mdgriffith$elm_ui$Element$Input$hiddenLabelAttribute(textOptions.label)
 									]),
 									inputAttrs,
 									behavior
@@ -20444,85 +21649,268 @@ var mdgriffith$elm_ui$Element$Input$textHelper = F3(
 				A2(mdgriffith$elm_ui$Internal$Model$Class, mdgriffith$elm_ui$Internal$Flag$cursor, mdgriffith$elm_ui$Internal$Style$classes.cursorText),
 				A2(
 					elm$core$List$cons,
-					mdgriffith$elm_ui$Element$spacing(5),
+					mdgriffith$elm_ui$Element$Input$isHiddenLabel(textOptions.label) ? mdgriffith$elm_ui$Internal$Model$NoAttribute : mdgriffith$elm_ui$Element$spacing(5),
 					A2(elm$core$List$cons, mdgriffith$elm_ui$Element$Region$announce, attributesFromChild))),
 			textOptions.label,
 			inputElement);
 	});
+var mdgriffith$elm_ui$Element$Input$text = mdgriffith$elm_ui$Element$Input$textHelper(
+	{
+		autofill: elm$core$Maybe$Nothing,
+		spellchecked: false,
+		type_: mdgriffith$elm_ui$Element$Input$TextInputNode('text')
+	});
+var author$project$Framework$FormField$example5 = function (model) {
+	return _Utils_Tuple2(
+		A2(
+			author$project$Framework$FormField$inputText,
+			_List_fromArray(
+				[
+					mdgriffith$elm_ui$Element$spacing(20),
+					mdgriffith$elm_ui$Element$inFront(
+					A2(
+						mdgriffith$elm_ui$Element$el,
+						_List_fromArray(
+							[
+								mdgriffith$elm_ui$Element$alignRight,
+								mdgriffith$elm_ui$Element$moveDown(36)
+							]),
+						A2(author$project$Framework$Icon$pencil, author$project$Framework$Color$black, 14)))
+				]),
+			{
+				field: author$project$Framework$FormField$FieldText,
+				fieldValue: model.valueText,
+				helperText: A3(author$project$Framework$FormField$newHelperText, model.enteredField, author$project$Framework$FormField$FieldText, model.valueText),
+				inputType: mdgriffith$elm_ui$Element$Input$text,
+				inputTypeAttrs: _List_Nil,
+				label: A2(
+					mdgriffith$elm_ui$Element$row,
+					_List_fromArray(
+						[
+							mdgriffith$elm_ui$Element$spacing(10)
+						]),
+					_List_fromArray(
+						[
+							A2(
+							mdgriffith$elm_ui$Element$el,
+							_List_Nil,
+							A2(author$project$Framework$Icon$pencil, author$project$Framework$Color$black, 14)),
+							mdgriffith$elm_ui$Element$text('Text')
+						])),
+				maybeFieldFocused: model.focusedField,
+				maybeMsgOnEnter: elm$core$Maybe$Just(author$project$Framework$FormField$OnEnter),
+				msgOnChange: author$project$Framework$FormField$OnChange,
+				msgOnFocus: author$project$Framework$FormField$OnFocus,
+				msgOnLoseFocus: author$project$Framework$FormField$OnLoseFocus
+			}),
+		'\n{- inputText type signature:\n\ninputText :\n    List (Attribute msg)\n    ->\n        { field : Field\n        , fieldValue : String\n        , helperText : Maybe (Element msg)\n        , inputType :\n            List (Attribute Msg)\n            ->\n                { label : Input.Label Msg\n                , onChange : String -> Msg\n                , placeholder : Maybe (Input.Placeholder msg)\n                , text : String\n                }\n            -> Element msg\n        , inputTypeAttrs : List (Attribute Msg)\n        , label : Element Msg\n        , maybeFieldFocused : Maybe Field\n        , maybeMsgOnEnter : Maybe (Field -> Msg)\n        , msgOnChange : Field -> String -> Msg\n        , msgOnFocus : Field -> Msg\n        , msgOnLoseFocus : Field -> Msg\n        }\n    -> Element msg\n-}\n\ninputText\n    [ spacing 20\n    , inFront <| el [ alignRight, moveDown 56 ] <| Icon.pencil black 14\n    ]\n    { field = FieldText\n    , label = row [ spacing 10 ] [ el [] <| Icon.pencil black 14, text "Text" ]\n    , fieldValue = model.valueText\n    , inputType = Input.text\n    , inputTypeAttrs = []\n    , maybeFieldFocused = model.focusedField\n    , msgOnChange = OnChange\n    , msgOnFocus = OnFocus\n    , msgOnLoseFocus = OnLoseFocus\n    , maybeMsgOnEnter = Just OnEnter\n    , helperText = newHelperText model.enteredField FieldText model.valueText\n    }');
+};
+var author$project$Framework$FormField$FieldEmail = {$: 'FieldEmail'};
 var mdgriffith$elm_ui$Element$Input$email = mdgriffith$elm_ui$Element$Input$textHelper(
 	{
 		autofill: elm$core$Maybe$Just('email'),
 		spellchecked: false,
 		type_: mdgriffith$elm_ui$Element$Input$TextInputNode('email')
 	});
-var mdgriffith$elm_ui$Element$Input$Label = F3(
-	function (a, b, c) {
-		return {$: 'Label', a: a, b: b, c: c};
-	});
-var mdgriffith$elm_ui$Internal$Model$Above = {$: 'Above'};
-var mdgriffith$elm_ui$Element$Input$labelAbove = mdgriffith$elm_ui$Element$Input$Label(mdgriffith$elm_ui$Internal$Model$Above);
-var author$project$Framework$FormField$inputText = F2(
-	function (model, _n0) {
-		var field = _n0.field;
-		var label = _n0.label;
-		var modelValue = model.valueEmail;
-		var labelIsAbove = A2(author$project$Framework$FormField$hasFocus, model, field) || (modelValue !== '');
-		return A2(
-			mdgriffith$elm_ui$Element$Input$email,
-			_Utils_ap(
-				_List_fromArray(
-					[
-						mdgriffith$elm_ui$Element$Events$onFocus(
-						author$project$Framework$FormField$OnFocus(field)),
-						mdgriffith$elm_ui$Element$Events$onLoseFocus(
-						author$project$Framework$FormField$OnLoseFocus(field)),
-						mdgriffith$elm_ui$Element$Background$color(
-						author$project$Color$toElementColor(author$project$Framework$Color$transparent)),
-						mdgriffith$elm_ui$Element$Border$widthEach(
-						{bottom: 1, left: 0, right: 0, top: 0}),
-						mdgriffith$elm_ui$Element$Border$rounded(0),
-						A2(mdgriffith$elm_ui$Element$paddingXY, 0, 8),
-						mdgriffith$elm_ui$Element$width(mdgriffith$elm_ui$Element$fill),
-						A2(author$project$Framework$FormField$hackInLineStyle, 'transition', 'all 0.15s'),
-						A2(author$project$Framework$FormField$hackInLineStyle, 'z-index', '10')
-					]),
-				A2(author$project$Framework$FormField$hasFocus, model, field) ? _List_fromArray(
-					[
-						mdgriffith$elm_ui$Element$Border$color(
-						author$project$Color$toElementColor(author$project$Framework$Color$primary))
-					]) : _List_Nil),
-			{
-				label: A2(
-					mdgriffith$elm_ui$Element$Input$labelAbove,
-					_Utils_ap(
-						_List_fromArray(
-							[
-								A2(author$project$Framework$FormField$hackInLineStyle, 'transition', 'all 0.15s'),
-								A2(author$project$Framework$FormField$hackInLineStyle, 'z-index', '10'),
-								A2(author$project$Framework$FormField$hackInLineStyle, 'pointer-events', 'none')
-							]),
-						labelIsAbove ? _List_fromArray(
-							[
-								mdgriffith$elm_ui$Element$scale(1),
-								mdgriffith$elm_ui$Element$moveLeft(0)
-							]) : _List_fromArray(
-							[
-								mdgriffith$elm_ui$Element$moveDown(33),
-								mdgriffith$elm_ui$Element$alpha(0.5)
-							])),
-					mdgriffith$elm_ui$Element$text(label)),
-				onChange: author$project$Framework$FormField$Input(field),
-				placeholder: elm$core$Maybe$Nothing,
-				text: modelValue
-			});
-	});
-var author$project$Framework$FormField$example1 = function (model) {
+var author$project$Framework$FormField$example6 = function (model) {
 	return _Utils_Tuple2(
 		A2(
 			author$project$Framework$FormField$inputText,
-			model,
-			{field: author$project$Framework$FormField$FieldEmail, label: 'E-mail address'}),
-		'inputText model\n    { field = FieldEmail\n    , label = "E-mail address"\n    }');
+			_List_fromArray(
+				[
+					mdgriffith$elm_ui$Element$spacing(20)
+				]),
+			{
+				field: author$project$Framework$FormField$FieldEmail,
+				fieldValue: model.valueEmail,
+				helperText: A3(author$project$Framework$FormField$newHelperText, model.enteredField, author$project$Framework$FormField$FieldEmail, model.valueEmail),
+				inputType: mdgriffith$elm_ui$Element$Input$email,
+				inputTypeAttrs: _List_Nil,
+				label: mdgriffith$elm_ui$Element$text('Email'),
+				maybeFieldFocused: model.focusedField,
+				maybeMsgOnEnter: elm$core$Maybe$Just(author$project$Framework$FormField$OnEnter),
+				msgOnChange: author$project$Framework$FormField$OnChange,
+				msgOnFocus: author$project$Framework$FormField$OnFocus,
+				msgOnLoseFocus: author$project$Framework$FormField$OnLoseFocus
+			}),
+		'\ninputText\n    [ spacing 20 ]\n    { field = FieldEmail\n    , label = text "Email"\n    , fieldValue = model.valueEmail\n    , inputType = Input.email\n    , inputTypeAttrs = []\n    , maybeFieldFocused = model.focusedField\n    , msgOnChange = OnChange\n    , msgOnFocus = OnFocus\n    , msgOnLoseFocus = OnLoseFocus\n    , maybeMsgOnEnter = Just OnEnter\n    , helperText = newHelperText model.enteredField FieldEmail model.valueEmail\n    }');
+};
+var author$project$Framework$FormField$FieldNewPassword = {$: 'FieldNewPassword'};
+var author$project$Framework$FormField$inputFieldParameterForPassword = F2(
+	function (conf, show) {
+		var temp = author$project$Framework$FormField$inputFieldParameterForText(conf);
+		return {label: temp.label, onChange: temp.onChange, placeholder: temp.placeholder, show: show, text: temp.text};
+	});
+var author$project$Framework$FormField$inputPassword = F2(
+	function (mainAttrs, conf) {
+		var extraAttr = function () {
+			var _n0 = conf.maybeShowHidePassword;
+			if (_n0.$ === 'Just') {
+				var showHidePassword = _n0.a;
+				return _List_fromArray(
+					[
+						mdgriffith$elm_ui$Element$inFront(
+						A2(
+							mdgriffith$elm_ui$Element$el,
+							_List_fromArray(
+								[
+									mdgriffith$elm_ui$Element$moveDown(14),
+									mdgriffith$elm_ui$Element$alignRight,
+									mdgriffith$elm_ui$Element$Events$onClick(
+									showHidePassword.msgOnViewToggle(conf.field)),
+									mdgriffith$elm_ui$Element$pointer
+								]),
+							function () {
+								if (conf.show) {
+									var _n1 = showHidePassword.maybeHideIcon;
+									if (_n1.$ === 'Just') {
+										var icon = _n1.a;
+										return icon;
+									} else {
+										return A2(
+											author$project$Framework$Icon$hide,
+											A3(author$project$Color$rgb, 100, 100, 100),
+											20);
+									}
+								} else {
+									var _n2 = showHidePassword.maybeShowIcon;
+									if (_n2.$ === 'Just') {
+										var icon = _n2.a;
+										return icon;
+									} else {
+										return A2(
+											author$project$Framework$Icon$show,
+											A3(author$project$Color$rgb, 100, 100, 100),
+											20);
+									}
+								}
+							}()))
+					]);
+			} else {
+				return _List_Nil;
+			}
+		}();
+		var newConf = _Utils_update(
+			conf,
+			{
+				inputTypeAttrs: _Utils_ap(conf.inputTypeAttrs, extraAttr)
+			});
+		return A3(
+			author$project$Framework$FormField$inputGeneric,
+			mainAttrs,
+			newConf,
+			A2(author$project$Framework$FormField$inputFieldParameterForPassword, newConf, newConf.show));
+	});
+var author$project$Framework$FormField$OnViewToggle = function (a) {
+	return {$: 'OnViewToggle', a: a};
+};
+var author$project$Framework$FormField$maybeShowHidePassword = elm$core$Maybe$Just(
+	{maybeHideIcon: elm$core$Maybe$Nothing, maybeShowIcon: elm$core$Maybe$Nothing, msgOnViewToggle: author$project$Framework$FormField$OnViewToggle});
+var mdgriffith$elm_ui$Element$Input$newPassword = F2(
+	function (attrs, pass) {
+		return A3(
+			mdgriffith$elm_ui$Element$Input$textHelper,
+			{
+				autofill: elm$core$Maybe$Just('new-password'),
+				spellchecked: false,
+				type_: mdgriffith$elm_ui$Element$Input$TextInputNode(
+					pass.show ? 'text' : 'password')
+			},
+			attrs,
+			{label: pass.label, onChange: pass.onChange, placeholder: pass.placeholder, text: pass.text});
+	});
+var author$project$Framework$FormField$example7 = function (model) {
+	return _Utils_Tuple2(
+		A2(
+			author$project$Framework$FormField$inputPassword,
+			_List_fromArray(
+				[
+					mdgriffith$elm_ui$Element$spacing(20)
+				]),
+			{
+				field: author$project$Framework$FormField$FieldNewPassword,
+				fieldValue: model.valueNewPassword,
+				helperText: A3(author$project$Framework$FormField$newHelperText, model.enteredField, author$project$Framework$FormField$FieldNewPassword, model.valueNewPassword),
+				inputType: mdgriffith$elm_ui$Element$Input$newPassword,
+				inputTypeAttrs: _List_Nil,
+				label: mdgriffith$elm_ui$Element$text('New Password'),
+				maybeFieldFocused: model.focusedField,
+				maybeMsgOnEnter: elm$core$Maybe$Just(author$project$Framework$FormField$OnEnter),
+				maybeShowHidePassword: author$project$Framework$FormField$maybeShowHidePassword,
+				msgOnChange: author$project$Framework$FormField$OnChange,
+				msgOnFocus: author$project$Framework$FormField$OnFocus,
+				msgOnLoseFocus: author$project$Framework$FormField$OnLoseFocus,
+				show: model.valueNewPasswordShow
+			}),
+		'\n{- inputPassword type signature:\n\ninputPassword :\n    List (Attribute msg)\n    ->\n        { field : Field\n        , fieldValue : String\n        , helperText : Maybe (Element msg)\n        , inputType :\n            List (Attribute msg)\n            ->\n                { label : Input.Label msg\n                , onChange : String -> msg\n                , placeholder : Maybe (Input.Placeholder msg)\n                , text : String\n                , show : Bool\n                }\n            -> Element msg\n        , inputTypeAttrs : List (Attribute msg)\n        , label : Element msg\n        , maybeFieldFocused : Maybe Field\n        , maybeMsgOnEnter : Maybe (Field -> msg)\n        , msgOnChange : Field -> String -> msg\n        , msgOnFocus : Field -> msg\n        , msgOnLoseFocus : Field -> msg\n        , show : Bool\n        , maybeShowHidePassword :\n            Maybe\n                { maybeHideIcon : Maybe (Element msg)\n                , maybeShowIcon : Maybe (Element msg)\n                , msgOnViewToggle : Field -> msg\n                }\n        }\n    -> Element msg\n-}\n\ninputPassword\n    [ spacing 20 ]\n    { field = FieldNewPassword\n    , label = text "New Password"\n    , fieldValue = model.valueNewPassword\n    , inputType = Input.newPassword\n    , inputTypeAttrs = []\n    , maybeFieldFocused = model.focusedField\n    , msgOnChange = OnChange\n    , msgOnFocus = OnFocus\n    , msgOnLoseFocus = OnLoseFocus\n    , maybeMsgOnEnter = Just OnEnter\n    , show = model.valueNewPasswordShow\n    , maybeShowHidePassword = maybeShowHidePassword\n    , helperText = newHelperText model.enteredField FieldNewPassword model.valueNewPassword\n    }');
+};
+var author$project$Framework$FormField$FieldCurrentPassword = {$: 'FieldCurrentPassword'};
+var mdgriffith$elm_ui$Element$Input$currentPassword = F2(
+	function (attrs, pass) {
+		return A3(
+			mdgriffith$elm_ui$Element$Input$textHelper,
+			{
+				autofill: elm$core$Maybe$Just('current-password'),
+				spellchecked: false,
+				type_: mdgriffith$elm_ui$Element$Input$TextInputNode(
+					pass.show ? 'text' : 'password')
+			},
+			attrs,
+			{label: pass.label, onChange: pass.onChange, placeholder: pass.placeholder, text: pass.text});
+	});
+var author$project$Framework$FormField$example8 = function (model) {
+	return _Utils_Tuple2(
+		A2(
+			author$project$Framework$FormField$inputPassword,
+			_List_fromArray(
+				[
+					mdgriffith$elm_ui$Element$spacing(20)
+				]),
+			{
+				field: author$project$Framework$FormField$FieldCurrentPassword,
+				fieldValue: model.valueCurrentPassword,
+				helperText: A3(author$project$Framework$FormField$newHelperText, model.enteredField, author$project$Framework$FormField$FieldCurrentPassword, model.valueCurrentPassword),
+				inputType: mdgriffith$elm_ui$Element$Input$currentPassword,
+				inputTypeAttrs: _List_Nil,
+				label: mdgriffith$elm_ui$Element$text('Current Password'),
+				maybeFieldFocused: model.focusedField,
+				maybeMsgOnEnter: elm$core$Maybe$Just(author$project$Framework$FormField$OnEnter),
+				maybeShowHidePassword: author$project$Framework$FormField$maybeShowHidePassword,
+				msgOnChange: author$project$Framework$FormField$OnChange,
+				msgOnFocus: author$project$Framework$FormField$OnFocus,
+				msgOnLoseFocus: author$project$Framework$FormField$OnLoseFocus,
+				show: model.valueCurrentPasswordShow
+			}),
+		'\ninputPassword\n    [ spacing 20 ]\n    { field = FieldCurrentPassword\n    , label = text "Current Password"\n    , fieldValue = model.valueCurrentPassword\n    , inputType = Input.currentPassword\n    , inputTypeAttrs = []\n    , maybeFieldFocused = model.focusedField\n    , msgOnChange = OnChange\n    , msgOnFocus = OnFocus\n    , msgOnLoseFocus = OnLoseFocus\n    , maybeMsgOnEnter = Just OnEnter\n    , show = model.valueCurrentPasswordShow\n    , maybeShowHidePassword = maybeShowHidePassword\n    , helperText = newHelperText model.enteredField FieldCurrentPassword model.valueCurrentPassword\n    }');
+};
+var mdgriffith$elm_ui$Element$Input$username = mdgriffith$elm_ui$Element$Input$textHelper(
+	{
+		autofill: elm$core$Maybe$Just('username'),
+		spellchecked: false,
+		type_: mdgriffith$elm_ui$Element$Input$TextInputNode('text')
+	});
+var author$project$Framework$FormField$example9 = function (model) {
+	return _Utils_Tuple2(
+		A2(
+			author$project$Framework$FormField$inputText,
+			_List_fromArray(
+				[
+					mdgriffith$elm_ui$Element$spacing(10)
+				]),
+			{
+				field: author$project$Framework$FormField$FieldText,
+				fieldValue: model.valueText,
+				helperText: A3(author$project$Framework$FormField$newHelperText, model.enteredField, author$project$Framework$FormField$FieldText, model.valueText),
+				inputType: mdgriffith$elm_ui$Element$Input$username,
+				inputTypeAttrs: _List_Nil,
+				label: mdgriffith$elm_ui$Element$text('Username'),
+				maybeFieldFocused: model.focusedField,
+				maybeMsgOnEnter: elm$core$Maybe$Just(author$project$Framework$FormField$OnEnter),
+				msgOnChange: author$project$Framework$FormField$OnChange,
+				msgOnFocus: author$project$Framework$FormField$OnFocus,
+				msgOnLoseFocus: author$project$Framework$FormField$OnLoseFocus
+			}),
+		'\ninputText\n    [ spacing 10 ]\n    { field = FieldText\n    , label = text "Username"\n    , fieldValue = model.valueText\n    , inputType = Input.username\n    , inputTypeAttrs = []\n    , maybeFieldFocused = model.focusedField\n    , msgOnChange = OnChange\n    , msgOnFocus = OnFocus\n    , msgOnLoseFocus = OnLoseFocus\n    , maybeMsgOnEnter = Just OnEnter\n    , helperText = newHelperText model.enteredField FieldText model.valueText\n    }');
 };
 var author$project$Framework$FormFieldWithPattern$FieldTelephone = {$: 'FieldTelephone'};
 var author$project$Framework$FormFieldWithPattern$Field6DigitCode = {$: 'Field6DigitCode'};
@@ -20551,6 +21939,7 @@ var author$project$Framework$FormFieldWithPattern$hasFocus = F2(
 			return false;
 		}
 	});
+var mdgriffith$elm_ui$Internal$Model$Behind = {$: 'Behind'};
 var mdgriffith$elm_ui$Element$behindContent = function (element) {
 	return A2(mdgriffith$elm_ui$Internal$Model$Nearby, mdgriffith$elm_ui$Internal$Model$Behind, element);
 };
@@ -20558,12 +21947,6 @@ var mdgriffith$elm_ui$Internal$Model$Typeface = function (a) {
 	return {$: 'Typeface', a: a};
 };
 var mdgriffith$elm_ui$Element$Font$typeface = mdgriffith$elm_ui$Internal$Model$Typeface;
-var mdgriffith$elm_ui$Element$Input$text = mdgriffith$elm_ui$Element$Input$textHelper(
-	{
-		autofill: elm$core$Maybe$Nothing,
-		spellchecked: false,
-		type_: mdgriffith$elm_ui$Element$Input$TextInputNode('text')
-	});
 var author$project$Framework$FormFieldWithPattern$inputText = F2(
 	function (model, _n0) {
 		var id = _n0.id;
@@ -20616,8 +21999,6 @@ var author$project$Framework$FormFieldWithPattern$inputText = F2(
 							A2(mdgriffith$elm_ui$Element$paddingXY, 0, 8),
 							mdgriffith$elm_ui$Element$width(mdgriffith$elm_ui$Element$fill),
 							A2(author$project$Framework$FormFieldWithPattern$hackInLineStyle, 'transition', 'all 0.15s'),
-							mdgriffith$elm_ui$Element$htmlAttribute(
-							elm$html$Html$Attributes$id('elementToFocus')),
 							mdgriffith$elm_ui$Element$behindContent(
 							A2(
 								mdgriffith$elm_ui$Element$el,
@@ -20691,7 +22072,7 @@ var author$project$Framework$FormFieldWithPattern$example3 = function (model) {
 			author$project$Framework$FormFieldWithPattern$inputText,
 			model,
 			{field: author$project$Framework$FormFieldWithPattern$Field6DigitCode, id: 'test', label: '6 Digits Code', pattern: '______'}),
-		'inputText model\n        { field = Field6DigitCode\n        , pattern = "______"\n        , label = "6 Digits Code"\n        , id = "test"\n        }');
+		'inputText model\n    { field = Field6DigitCode\n    , pattern = "______"\n    , label = "6 Digits Code"\n    , id = "test"\n    }');
 };
 var author$project$Framework$StyleElementsInput$Button = {$: 'Button'};
 var author$project$Framework$StyleElementsInput$example0 = function (_n0) {
@@ -20795,36 +22176,26 @@ var mdgriffith$elm_ui$Element$Input$checkbox = F2(
 		var icon = _n0.icon;
 		var checked = _n0.checked;
 		var onChange = _n0.onChange;
-		var attributes = A2(
-			elm$core$List$cons,
-			mdgriffith$elm_ui$Element$spacing(6),
-			_Utils_ap(
-				_List_fromArray(
-					[
-						mdgriffith$elm_ui$Internal$Model$Attr(
-						elm$html$Html$Events$onClick(
-							onChange(!checked))),
-						mdgriffith$elm_ui$Element$Region$announce,
-						mdgriffith$elm_ui$Element$Input$onKeyLookup(
-						function (code) {
-							return _Utils_eq(code, mdgriffith$elm_ui$Element$Input$enter) ? elm$core$Maybe$Just(
-								onChange(!checked)) : (_Utils_eq(code, mdgriffith$elm_ui$Element$Input$space) ? elm$core$Maybe$Just(
-								onChange(!checked)) : elm$core$Maybe$Nothing);
-						})
-					]),
-				A2(
-					elm$core$List$cons,
+		var attributes = _Utils_ap(
+			_List_fromArray(
+				[
+					mdgriffith$elm_ui$Element$Input$isHiddenLabel(label) ? mdgriffith$elm_ui$Internal$Model$NoAttribute : mdgriffith$elm_ui$Element$spacing(6),
+					mdgriffith$elm_ui$Internal$Model$Attr(
+					elm$html$Html$Events$onClick(
+						onChange(!checked))),
+					mdgriffith$elm_ui$Element$Region$announce,
+					mdgriffith$elm_ui$Element$Input$onKeyLookup(
+					function (code) {
+						return _Utils_eq(code, mdgriffith$elm_ui$Element$Input$enter) ? elm$core$Maybe$Just(
+							onChange(!checked)) : (_Utils_eq(code, mdgriffith$elm_ui$Element$Input$space) ? elm$core$Maybe$Just(
+							onChange(!checked)) : elm$core$Maybe$Nothing);
+					}),
 					mdgriffith$elm_ui$Element$Input$tabindex(0),
-					A2(
-						elm$core$List$cons,
-						mdgriffith$elm_ui$Element$pointer,
-						A2(
-							elm$core$List$cons,
-							mdgriffith$elm_ui$Element$alignLeft,
-							A2(
-								elm$core$List$cons,
-								mdgriffith$elm_ui$Element$width(mdgriffith$elm_ui$Element$fill),
-								attrs))))));
+					mdgriffith$elm_ui$Element$pointer,
+					mdgriffith$elm_ui$Element$alignLeft,
+					mdgriffith$elm_ui$Element$width(mdgriffith$elm_ui$Element$fill)
+				]),
+			attrs);
 		return A3(
 			mdgriffith$elm_ui$Element$Input$applyLabel,
 			attributes,
@@ -20842,6 +22213,7 @@ var mdgriffith$elm_ui$Element$Input$checkbox = F2(
 							elm$html$Html$Attributes$attribute,
 							'aria-checked',
 							checked ? 'true' : 'false')),
+						mdgriffith$elm_ui$Element$Input$hiddenLabelAttribute(label),
 						mdgriffith$elm_ui$Element$centerY,
 						mdgriffith$elm_ui$Element$height(mdgriffith$elm_ui$Element$fill),
 						mdgriffith$elm_ui$Element$width(mdgriffith$elm_ui$Element$shrink)
@@ -20984,15 +22356,13 @@ var mdgriffith$elm_ui$Element$Input$row = F2(
 			mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
 	});
 var mdgriffith$elm_ui$Element$Input$upArrow = 'ArrowUp';
-var mdgriffith$elm_ui$Internal$Flag$active = mdgriffith$elm_ui$Internal$Flag$flag(32);
-var mdgriffith$elm_ui$Internal$Flag$focus = mdgriffith$elm_ui$Internal$Flag$flag(31);
 var mdgriffith$elm_ui$Element$Input$radioHelper = F3(
 	function (orientation, attrs, input) {
 		var track = F2(
-			function (opt, _n24) {
-				var found = _n24.a;
-				var prev = _n24.b;
-				var nxt = _n24.c;
+			function (opt, _n14) {
+				var found = _n14.a;
+				var prev = _n14.b;
+				var nxt = _n14.c;
 				var val = opt.a;
 				switch (found.$) {
 					case 'NotFound':
@@ -21005,9 +22375,9 @@ var mdgriffith$elm_ui$Element$Input$radioHelper = F3(
 						return _Utils_Tuple3(found, prev, nxt);
 				}
 			});
-		var renderOption = function (_n21) {
-			var val = _n21.a;
-			var view = _n21.b;
+		var renderOption = function (_n11) {
+			var val = _n11.a;
+			var view = _n11.b;
 			var status = _Utils_eq(
 				elm$core$Maybe$Just(val),
 				input.selected) ? mdgriffith$elm_ui$Element$Input$Selected : mdgriffith$elm_ui$Element$Input$Idle;
@@ -21040,16 +22410,16 @@ var mdgriffith$elm_ui$Element$Input$radioHelper = F3(
 				view(status));
 		};
 		var prevNext = function () {
-			var _n15 = input.options;
-			if (!_n15.b) {
+			var _n5 = input.options;
+			if (!_n5.b) {
 				return elm$core$Maybe$Nothing;
 			} else {
-				var _n16 = _n15.a;
-				var val = _n16.a;
-				return function (_n17) {
-					var found = _n17.a;
-					var b = _n17.b;
-					var a = _n17.c;
+				var _n6 = _n5.a;
+				var val = _n6.a;
+				return function (_n7) {
+					var found = _n7.a;
+					var b = _n7.b;
+					var a = _n7.c;
 					switch (found.$) {
 						case 'NotFound':
 							return elm$core$Maybe$Just(
@@ -21073,127 +22443,19 @@ var mdgriffith$elm_ui$Element$Input$radioHelper = F3(
 			if (orientation.$ === 'Row') {
 				return A2(
 					mdgriffith$elm_ui$Element$Input$row,
-					attrs,
+					A2(
+						elm$core$List$cons,
+						mdgriffith$elm_ui$Element$Input$hiddenLabelAttribute(input.label),
+						attrs),
 					A2(elm$core$List$map, renderOption, input.options));
 			} else {
 				return A2(
 					mdgriffith$elm_ui$Element$Input$column,
-					attrs,
-					A2(elm$core$List$map, renderOption, input.options));
-			}
-		}();
-		var labelVisible = function () {
-			var _n11 = input.label;
-			var labelAttrs = _n11.b;
-			return elm$core$List$isEmpty(
-				A2(
-					mdgriffith$elm_ui$Internal$Model$get,
-					labelAttrs,
-					function (attr) {
-						_n12$2:
-						while (true) {
-							switch (attr.$) {
-								case 'StyleClass':
-									if (attr.b.$ === 'Transparency') {
-										var _n13 = attr.b;
-										return true;
-									} else {
-										break _n12$2;
-									}
-								case 'Class':
-									if (attr.b === 'hidden') {
-										return true;
-									} else {
-										break _n12$2;
-									}
-								default:
-									break _n12$2;
-							}
-						}
-						return false;
-					}));
-		}();
-		var inputVisible = elm$core$List$isEmpty(
-			A2(
-				mdgriffith$elm_ui$Internal$Model$get,
-				attrs,
-				function (attr) {
-					_n9$2:
-					while (true) {
-						switch (attr.$) {
-							case 'StyleClass':
-								if (attr.b.$ === 'Transparency') {
-									var _n10 = attr.b;
-									return true;
-								} else {
-									break _n9$2;
-								}
-							case 'Class':
-								if (attr.b === 'hidden') {
-									return true;
-								} else {
-									break _n9$2;
-								}
-							default:
-								break _n9$2;
-						}
-					}
-					return false;
-				}));
-		var hideIfEverythingisInvisible = function () {
-			if ((!labelVisible) && (!inputVisible)) {
-				var pseudos = A2(
-					elm$core$List$filterMap,
-					function (attr) {
-						if (attr.$ === 'StyleClass') {
-							var style = attr.b;
-							if (style.$ === 'PseudoSelector') {
-								var pseudo = style.a;
-								var styles = style.b;
-								var forTransparency = function (psuedoStyle) {
-									if (psuedoStyle.$ === 'Transparency') {
-										return true;
-									} else {
-										return false;
-									}
-								};
-								var transparent = A2(elm$core$List$filter, forTransparency, styles);
-								var flag = function () {
-									switch (pseudo.$) {
-										case 'Hover':
-											return mdgriffith$elm_ui$Internal$Flag$hover;
-										case 'Focus':
-											return mdgriffith$elm_ui$Internal$Flag$focus;
-										default:
-											return mdgriffith$elm_ui$Internal$Flag$active;
-									}
-								}();
-								if (!transparent.b) {
-									return elm$core$Maybe$Nothing;
-								} else {
-									return elm$core$Maybe$Just(
-										A2(
-											mdgriffith$elm_ui$Internal$Model$StyleClass,
-											flag,
-											A2(mdgriffith$elm_ui$Internal$Model$PseudoSelector, pseudo, transparent)));
-								}
-							} else {
-								return elm$core$Maybe$Nothing;
-							}
-						} else {
-							return elm$core$Maybe$Nothing;
-						}
-					},
-					attrs);
-				return A2(
-					elm$core$List$cons,
 					A2(
-						mdgriffith$elm_ui$Internal$Model$StyleClass,
-						mdgriffith$elm_ui$Internal$Flag$transparency,
-						A2(mdgriffith$elm_ui$Internal$Model$Transparency, 'transparent', 1.0)),
-					pseudos);
-			} else {
-				return _List_Nil;
+						elm$core$List$cons,
+						mdgriffith$elm_ui$Element$Input$hiddenLabelAttribute(input.label),
+						attrs),
+					A2(elm$core$List$map, renderOption, input.options));
 			}
 		}();
 		var events = A2(
@@ -21285,7 +22547,7 @@ var mdgriffith$elm_ui$Element$Input$radioHelper = F3(
 							}
 						}()
 						])),
-				_Utils_ap(events, hideIfEverythingisInvisible)),
+				events),
 			input.label,
 			optionArea);
 	});
@@ -21352,12 +22614,6 @@ var author$project$Framework$StyleElementsInput$example4 = function (model) {
 			}),
 		'Input.radioRow []\n    { label = Input.labelAbove [] <| text "Label"\n    , onChange = Radio\n    , selected = model.radio\n    , options =\n        [ Input.option "A" (text "Radio A")\n        , Input.option "B" (text "Radio B")\n        , Input.option "C" (text "Radio C")\n        ]\n    }');
 };
-var mdgriffith$elm_ui$Element$Input$username = mdgriffith$elm_ui$Element$Input$textHelper(
-	{
-		autofill: elm$core$Maybe$Just('username'),
-		spellchecked: false,
-		type_: mdgriffith$elm_ui$Element$Input$TextInputNode('text')
-	});
 var author$project$Framework$StyleElementsInput$example5 = function (model) {
 	return _Utils_Tuple2(
 		A2(
@@ -21374,19 +22630,6 @@ var author$project$Framework$StyleElementsInput$example5 = function (model) {
 			}),
 		'Input.username []\n    { label = Input.labelAbove [] <| text "Label"\n    , onChange = Input\n    , placeholder = Nothing\n    , text = model.text\n    }');
 };
-var mdgriffith$elm_ui$Element$Input$newPassword = F2(
-	function (attrs, pass) {
-		return A3(
-			mdgriffith$elm_ui$Element$Input$textHelper,
-			{
-				autofill: elm$core$Maybe$Just('new-password'),
-				spellchecked: false,
-				type_: mdgriffith$elm_ui$Element$Input$TextInputNode(
-					pass.show ? 'text' : 'password')
-			},
-			attrs,
-			{label: pass.label, onChange: pass.onChange, placeholder: pass.placeholder, text: pass.text});
-	});
 var author$project$Framework$StyleElementsInput$example6 = function (model) {
 	return _Utils_Tuple2(
 		A2(
@@ -21404,19 +22647,6 @@ var author$project$Framework$StyleElementsInput$example6 = function (model) {
 			}),
 		'Input.newPassword []\n    { label = Input.labelAbove [] <| text "Label"\n    , onChange = Input\n    , placeholder = Nothing\n    , text = model.text\n    , show = False\n    }');
 };
-var mdgriffith$elm_ui$Element$Input$currentPassword = F2(
-	function (attrs, pass) {
-		return A3(
-			mdgriffith$elm_ui$Element$Input$textHelper,
-			{
-				autofill: elm$core$Maybe$Just('current-password'),
-				spellchecked: false,
-				type_: mdgriffith$elm_ui$Element$Input$TextInputNode(
-					pass.show ? 'text' : 'password')
-			},
-			attrs,
-			{label: pass.label, onChange: pass.onChange, placeholder: pass.placeholder, text: pass.text});
-	});
 var author$project$Framework$StyleElementsInput$example7 = function (model) {
 	return _Utils_Tuple2(
 		A2(
@@ -21479,7 +22709,15 @@ var author$project$Framework$viewSubSection = F2(
 		var componentExampleSourceCode = _n0.b;
 		var _n1 = _Utils_eq(
 			componentExample,
-			mdgriffith$elm_ui$Element$text('special: Form.example1')) ? A2(author$project$Framework$specialComponentFormField, model, author$project$Framework$FormField$example1) : (_Utils_eq(
+			mdgriffith$elm_ui$Element$text('special: Form.example5')) ? A2(author$project$Framework$specialComponentFormField, model, author$project$Framework$FormField$example5) : (_Utils_eq(
+			componentExample,
+			mdgriffith$elm_ui$Element$text('special: Form.example6')) ? A2(author$project$Framework$specialComponentFormField, model, author$project$Framework$FormField$example6) : (_Utils_eq(
+			componentExample,
+			mdgriffith$elm_ui$Element$text('special: Form.example7')) ? A2(author$project$Framework$specialComponentFormField, model, author$project$Framework$FormField$example7) : (_Utils_eq(
+			componentExample,
+			mdgriffith$elm_ui$Element$text('special: Form.example8')) ? A2(author$project$Framework$specialComponentFormField, model, author$project$Framework$FormField$example8) : (_Utils_eq(
+			componentExample,
+			mdgriffith$elm_ui$Element$text('special: Form.example9')) ? A2(author$project$Framework$specialComponentFormField, model, author$project$Framework$FormField$example9) : (_Utils_eq(
 			componentExample,
 			mdgriffith$elm_ui$Element$text('special: FormFieldWithPattern.example1')) ? A2(author$project$Framework$specialComponentFormFieldWithPattern, model, author$project$Framework$FormFieldWithPattern$example1) : (_Utils_eq(
 			componentExample,
@@ -21513,7 +22751,7 @@ var author$project$Framework$viewSubSection = F2(
 			componentExample,
 			mdgriffith$elm_ui$Element$text('special: example10')) ? A2(author$project$Framework$specialComponent, model, author$project$Framework$StyleElementsInput$example10) : (_Utils_eq(
 			componentExample,
-			mdgriffith$elm_ui$Element$text('special: example11')) ? A2(author$project$Framework$specialComponent, model, author$project$Framework$StyleElementsInput$example11) : _Utils_Tuple2(componentExample, componentExampleSourceCode))))))))))))))))));
+			mdgriffith$elm_ui$Element$text('special: example11')) ? A2(author$project$Framework$specialComponent, model, author$project$Framework$StyleElementsInput$example11) : _Utils_Tuple2(componentExample, componentExampleSourceCode))))))))))))))))))))));
 		var componentExampleToDisplay = _n1.a;
 		var componentExampleSourceCodeToDisplay = _n1.b;
 		return A2(
@@ -21701,10 +22939,10 @@ var author$project$Framework$viewLogo = F3(
 							mdgriffith$elm_ui$Element$el,
 							_List_fromArray(
 								[
-									mdgriffith$elm_ui$Element$Font$size(12),
+									mdgriffith$elm_ui$Element$Font$size(14),
 									mdgriffith$elm_ui$Element$Font$bold
 								]),
-							mdgriffith$elm_ui$Element$text('v' + version))
+							mdgriffith$elm_ui$Element$text('Version ' + version))
 						])),
 				url: author$project$Framework$routeToString(author$project$Framework$RouteHome)
 			});
@@ -21806,8 +23044,6 @@ var author$project$Framework$viewContentColumn = function (model) {
 				]));
 	}
 };
-var author$project$Framework$MsgCloseAllSections = {$: 'MsgCloseAllSections'};
-var author$project$Framework$MsgOpenAllSections = {$: 'MsgOpenAllSections'};
 var author$project$Framework$MsgToggleSection = function (a) {
 	return {$: 'MsgToggleSection', a: a};
 };
@@ -21895,14 +23131,14 @@ var author$project$Framework$viewIntrospectionForMenu = F3(
 					_Utils_ap(
 						_List_fromArray(
 							[
-								mdgriffith$elm_ui$Element$clip,
 								mdgriffith$elm_ui$Element$height(mdgriffith$elm_ui$Element$shrink),
 								mdgriffith$elm_ui$Element$Font$size(16),
 								mdgriffith$elm_ui$Element$Font$color(
 								author$project$Color$toElementColor(configuration.grayD)),
-								mdgriffith$elm_ui$Element$spacing(12),
+								mdgriffith$elm_ui$Element$spacing(8),
 								mdgriffith$elm_ui$Element$paddingEach(
-								{bottom: 0, left: 26, right: 0, top: 12})
+								{bottom: 1, left: 26, right: 0, top: 12}),
+								mdgriffith$elm_ui$Element$clip
 							]),
 						open ? _List_fromArray(
 							[
@@ -21941,41 +23177,13 @@ var author$project$Framework$viewMenuColumn = function (model) {
 					]),
 				_List_fromArray(
 					[
-						A3(author$project$Framework$viewLogo, model.conf.title, model.conf.subTitle, model.conf.version),
-						A2(
-						mdgriffith$elm_ui$Element$row,
-						_List_fromArray(
-							[
-								mdgriffith$elm_ui$Element$spacing(10),
-								mdgriffith$elm_ui$Element$Font$size(14),
-								mdgriffith$elm_ui$Element$Font$color(
-								author$project$Color$toElementColor(model.conf.gray9)),
-								A2(mdgriffith$elm_ui$Element$paddingXY, 0, 20)
-							]),
-						_List_fromArray(
-							[
-								A2(
-								mdgriffith$elm_ui$Element$el,
-								_List_fromArray(
-									[
-										mdgriffith$elm_ui$Element$pointer,
-										mdgriffith$elm_ui$Element$Events$onClick(author$project$Framework$MsgOpenAllSections)
-									]),
-								mdgriffith$elm_ui$Element$text('Expand All')),
-								A2(
-								mdgriffith$elm_ui$Element$el,
-								_List_fromArray(
-									[
-										mdgriffith$elm_ui$Element$pointer,
-										mdgriffith$elm_ui$Element$Events$onClick(author$project$Framework$MsgCloseAllSections)
-									]),
-								mdgriffith$elm_ui$Element$text('Close All'))
-							]))
+						A3(author$project$Framework$viewLogo, model.conf.titleLeftSide, model.conf.subTitle, model.conf.version)
 					])),
 				A2(
 				mdgriffith$elm_ui$Element$column,
 				_List_fromArray(
 					[
+						mdgriffith$elm_ui$Element$moveLeft(5),
 						mdgriffith$elm_ui$Element$spacing(30),
 						mdgriffith$elm_ui$Element$height(mdgriffith$elm_ui$Element$shrink),
 						mdgriffith$elm_ui$Element$alignTop
@@ -22206,9 +23414,9 @@ var mdgriffith$elm_ui$Internal$Model$rootStyle = function () {
 			A3(
 				mdgriffith$elm_ui$Internal$Model$Colored,
 				'bg-color-' + mdgriffith$elm_ui$Internal$Model$formatColorClass(
-					A4(mdgriffith$elm_ui$Internal$Model$Rgba, 1, 1, 1, 1)),
+					A4(mdgriffith$elm_ui$Internal$Model$Rgba, 1, 1, 1, 0)),
 				'background-color',
-				A4(mdgriffith$elm_ui$Internal$Model$Rgba, 1, 1, 1, 1))),
+				A4(mdgriffith$elm_ui$Internal$Model$Rgba, 1, 1, 1, 0))),
 			A2(
 			mdgriffith$elm_ui$Internal$Model$StyleClass,
 			mdgriffith$elm_ui$Internal$Flag$fontColor,
@@ -22311,4 +23519,4 @@ _Platform_export({'Framework':{'init':author$project$Framework$main(
 				},
 				A2(elm$json$Json$Decode$field, 'locationHref', elm$json$Json$Decode$string));
 		},
-		A2(elm$json$Json$Decode$field, 'width', elm$json$Json$Decode$int)))({"versions":{"elm":"0.19.0"},"types":{"message":"Framework.Msg","aliases":{},"unions":{"Framework.Msg":{"args":[],"tags":{"MsgToggleSection":["String.String"],"MsgOpenAllSections":[],"MsgCloseAllSections":[],"MsgChangeWindowSize":["Basics.Int","Basics.Int"],"MsgStyleElementsInput":["Framework.StyleElementsInput.Msg"],"MsgFormField":["Framework.FormField.Msg"],"MsgFormFieldWithPattern":["Framework.FormFieldWithPattern.Msg"],"MsgCards":["Framework.Card.Msg"],"MsgChangePassword":["String.String"],"MsgNoOp":[],"MsgFromPortJsOnPopState":["String.String"]}},"Framework.Card.Msg":{"args":[],"tags":{"Flip":[]}},"Framework.FormField.Msg":{"args":[],"tags":{"Input":["Framework.FormField.Field","String.String"],"OnFocus":["Framework.FormField.Field"],"OnLoseFocus":["Framework.FormField.Field"]}},"Framework.FormFieldWithPattern.Msg":{"args":[],"tags":{"Input":["Framework.FormFieldWithPattern.Field","String.String","String.String"],"OnFocus":["Framework.FormFieldWithPattern.Field"],"OnLoseFocus":["Framework.FormFieldWithPattern.Field"]}},"Framework.StyleElementsInput.Msg":{"args":[],"tags":{"Radio":["String.String"],"Button":[],"Input":["String.String"],"Checkbox":["Basics.Bool"]}},"Basics.Int":{"args":[],"tags":{"Int":[]}},"String.String":{"args":[],"tags":{"String":[]}},"Framework.FormField.Field":{"args":[],"tags":{"FieldEmail":[]}},"Framework.FormFieldWithPattern.Field":{"args":[],"tags":{"FieldTelephone":[],"FieldCreditCard":[],"Field6DigitCode":[]}},"Basics.Bool":{"args":[],"tags":{"True":[],"False":[]}}}}})}});}(this));
+		A2(elm$json$Json$Decode$field, 'width', elm$json$Json$Decode$int)))({"versions":{"elm":"0.19.0"},"types":{"message":"Framework.Msg","aliases":{},"unions":{"Framework.Msg":{"args":[],"tags":{"MsgToggleSection":["String.String"],"MsgOpenAllSections":[],"MsgCloseAllSections":[],"MsgChangeWindowSize":["Basics.Int","Basics.Int"],"MsgStyleElementsInput":["Framework.StyleElementsInput.Msg"],"MsgFormField":["Framework.FormField.Msg"],"MsgFormFieldWithPattern":["Framework.FormFieldWithPattern.Msg"],"MsgCards":["Framework.Card.Msg"],"MsgChangePassword":["String.String"],"MsgNoOp":[],"MsgFromPortJsOnPopState":["String.String"]}},"Framework.Card.Msg":{"args":[],"tags":{"Flip":[]}},"Framework.FormField.Msg":{"args":[],"tags":{"OnChange":["Framework.FormField.Field","String.String"],"OnFocus":["Framework.FormField.Field"],"OnLoseFocus":["Framework.FormField.Field"],"OnEnter":["Framework.FormField.Field"],"OnViewToggle":["Framework.FormField.Field"]}},"Framework.FormFieldWithPattern.Msg":{"args":[],"tags":{"Input":["Framework.FormFieldWithPattern.Field","String.String","String.String"],"OnFocus":["Framework.FormFieldWithPattern.Field"],"OnLoseFocus":["Framework.FormFieldWithPattern.Field"]}},"Framework.StyleElementsInput.Msg":{"args":[],"tags":{"Radio":["String.String"],"Button":[],"Input":["String.String"],"Checkbox":["Basics.Bool"]}},"Basics.Int":{"args":[],"tags":{"Int":[]}},"String.String":{"args":[],"tags":{"String":[]}},"Framework.FormField.Field":{"args":[],"tags":{"FieldEmail":[],"FieldText":[],"FieldUsername":[],"FieldNewPassword":[],"FieldCurrentPassword":[]}},"Framework.FormFieldWithPattern.Field":{"args":[],"tags":{"FieldTelephone":[],"FieldCreditCard":[],"Field6DigitCode":[]}},"Basics.Bool":{"args":[],"tags":{"True":[],"False":[]}}}}})}});}(this));

@@ -175,11 +175,11 @@ example3 model =
         , id = "test"
         }
     , """inputText model
-        { field = Field6DigitCode
-        , pattern = "______"
-        , label = "6 Digits Code"
-        , id = "test"
-        }"""
+    { field = Field6DigitCode
+    , pattern = "______"
+    , label = "6 Digits Code"
+    , id = "test"
+    }"""
     )
 
 
@@ -252,7 +252,8 @@ inputText model { id, field, pattern, label } =
              , paddingXY 0 8
              , width fill
              , hackInLineStyle "transition" "all 0.15s"
-             , Element.htmlAttribute <| Html.Attributes.id "elementToFocus"
+
+             --, Element.htmlAttribute <| Html.Attributes.id "elementToFocus"
              , behindContent <|
                 el
                     ([ if hasFocus model field && largeSize then

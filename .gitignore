@@ -4,4 +4,6 @@ IGNORED.md
 svg
 
 src/MyStyle.elm
-# docs/build/framework.js
+docs/build
+package.json
+package-lock.json

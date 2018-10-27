@@ -147,6 +147,7 @@ type alias Conf msg =
     , grayB : Color.Color
     , grayD : Color.Color
     , grayF : Color.Color
+    , titleLeftSide : Element msg
     , title : Element msg
     , subTitle : String
     , version : String
@@ -166,6 +167,32 @@ initConf =
     , grayB = Color.rgb 0xB6 0xB6 0xB6
     , grayD = Color.rgb 0xD1 0xD1 0xD1
     , grayF = Color.rgb 0xF7 0xF7 0xF7
+    , titleLeftSide =
+        column []
+            [ link []
+                { label =
+                    el
+                        [ alpha 0.3
+                        , paddingEach
+                            { top = 0
+                            , right = 0
+                            , bottom = 20
+                            , left = 0
+                            }
+                        ]
+                    <|
+                        Logo.logo (Logo.LogoElm <| Logo.ElmColor Logo.White) 60
+                , url = ".."
+                }
+            , paragraph
+                [ Font.size 55
+                , Font.bold
+                , moveLeft 3
+                ]
+                [ el [ alpha 0.5 ] <| text "elm"
+                , text "Style"
+                ]
+            ]
     , title =
         column []
             [ link []
@@ -513,18 +540,25 @@ viewMenuColumn model =
         , height fill
         ]
         [ column [ height shrink ]
-            [ viewLogo model.conf.title model.conf.subTitle model.conf.version
-            , row
-                [ spacing 10
-                , Font.size 14
-                , Font.color <| Color.toElementColor model.conf.gray9
-                , paddingXY 0 20
-                ]
-                [ el [ pointer, Events.onClick MsgOpenAllSections ] <| text "Expand All"
-                , el [ pointer, Events.onClick MsgCloseAllSections ] <| text "Close All"
-                ]
+            [ viewLogo model.conf.titleLeftSide model.conf.subTitle model.conf.version
+
+            {- , row
+               [ spacing 10
+               , Font.size 14
+               , Font.color <| Color.toElementColor model.conf.gray9
+               , paddingXY 0 20
+               ]
+               [ el [ pointer, Events.onClick MsgOpenAllSections ] <| text "Expand All"
+               , el [ pointer, Events.onClick MsgCloseAllSections ] <| text "Close All"
+               ]
+            -}
             ]
-        , column [ spacing 30, height shrink, alignTop ] <| List.map (\( data, show ) -> viewIntrospectionForMenu model.conf data show) model.introspections
+        , column [ moveLeft 5, spacing 30, height shrink, alignTop ] <|
+            List.map
+                (\( data, show ) ->
+                    viewIntrospectionForMenu model.conf data show
+                )
+                model.introspections
         ]
 
 
@@ -613,13 +647,13 @@ viewLogo title subTitle version =
             column [ height shrink, spacing 10 ]
                 [ el [ Font.size 60, Font.bold ] title
                 , el [ Font.size 16, Font.bold ] <| text subTitle
-                , el [ Font.size 12, Font.bold ] <| text <| "v" ++ version
+                , el [ Font.size 14, Font.bold ] <| text <| "Version " ++ version
                 ]
         , url = routeToString RouteHome
         }
 
 
-viewIntrospectionForMenu : Conf msg -> Introspection -> Bool -> Element Msg
+viewIntrospectionForMenu : Conf Msg -> Introspection -> Bool -> Element Msg
 viewIntrospectionForMenu configuration introspection open =
     column
         [ Font.color <| Color.toElementColor configuration.gray9
@@ -648,15 +682,16 @@ viewIntrospectionForMenu configuration introspection open =
                     , Font.bold
                     ]
                   <|
-                    text introspection.name
+                    text <|
+                        introspection.name
                 ]
         , column
-            ([ clip
-             , height shrink
+            ([ height shrink
              , Font.size 16
              , Font.color <| Color.toElementColor configuration.grayD
-             , spacing 12
-             , paddingEach { bottom = 0, left = 26, right = 0, top = 12 }
+             , spacing 8
+             , paddingEach { bottom = 1, left = 26, right = 0, top = 12 }
+             , clip
              ]
                 ++ (if open then
                         [ htmlAttribute <| Html.Attributes.class "elmStyleguideGenerator-open" ]
@@ -856,8 +891,20 @@ viewSubSection : Model -> SubSection -> Element Msg
 viewSubSection model ( componentExample, componentExampleSourceCode ) =
     let
         ( componentExampleToDisplay, componentExampleSourceCodeToDisplay ) =
-            if componentExample == text "special: Form.example1" then
-                specialComponentFormField model FormField.example1
+            if componentExample == text "special: Form.example5" then
+                specialComponentFormField model FormField.example5
+
+            else if componentExample == text "special: Form.example6" then
+                specialComponentFormField model FormField.example6
+
+            else if componentExample == text "special: Form.example7" then
+                specialComponentFormField model FormField.example7
+
+            else if componentExample == text "special: Form.example8" then
+                specialComponentFormField model FormField.example8
+
+            else if componentExample == text "special: Form.example9" then
+                specialComponentFormField model FormField.example9
 
             else if componentExample == text "special: FormFieldWithPattern.example1" then
                 specialComponentFormFieldWithPattern model FormFieldWithPattern.example1
@@ -947,11 +994,12 @@ sourceCodeWrapper configuration sourceCode =
     <|
         -- there is a very subtle bug here that if I don't use paragraph,
         -- it doesn't fit. See https://ellie-app.com/38Nf6ygRSMta1
-        paragraph
+        row
             [ Font.family [ Font.monospace ]
             , Font.color <| Color.toElementColor configuration.gray9
             , Font.size 16
             , padding 16
+            , width <| px 100
             ]
             [ text sourceCode
             ]

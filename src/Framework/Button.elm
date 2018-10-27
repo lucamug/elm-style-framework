@@ -103,13 +103,13 @@ Input.button (buttonAttr [ Primary, Danger ]) <|
             ]
           )
         , ( "Disabled"
-          , [ ( button [ Disabled, Muted ] Nothing buttonText, "button [ Muted ] Nothing \"" ++ buttonText ++ "\"" )
-            , ( button [ Disabled, Primary ] Nothing buttonText, "button [ Primary ] Nothing \"" ++ buttonText ++ "\"" )
-            , ( button [ Disabled, Success ] Nothing buttonText, "button [ Success ] Nothing \"" ++ buttonText ++ "\"" )
-            , ( button [ Disabled, Info ] Nothing buttonText, "button [ Info ] Nothing \"" ++ buttonText ++ "\"" )
-            , ( button [ Disabled, Warning ] Nothing buttonText, "button [ Warning ] Nothing \"" ++ buttonText ++ "\"" )
-            , ( button [ Disabled, Danger ] Nothing buttonText, "button [ Danger ] Nothing \"" ++ buttonText ++ "\"" )
-            , ( button [ Disabled ] Nothing buttonText, "button [] Nothing \"" ++ buttonText ++ "\"" )
+          , [ ( button [ Disabled, Muted ] Nothing buttonText, "button [ Disabled, Muted ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Disabled, Primary ] Nothing buttonText, "button [ Disabled, Primary ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Disabled, Success ] Nothing buttonText, "button [ Disabled, Success ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Disabled, Info ] Nothing buttonText, "button [ Disabled, Info ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Disabled, Warning ] Nothing buttonText, "button [ Disabled, Warning ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Disabled, Danger ] Nothing buttonText, "button [ Disabled, Danger ] Nothing \"" ++ buttonText ++ "\"" )
+            , ( button [ Disabled ] Nothing buttonText, "button [ Disabled ] Nothing \"" ++ buttonText ++ "\"" )
             ]
           )
         , ( "Button Link"
@@ -316,62 +316,6 @@ buttonWithCustomizableWith { onPress, modifiers, label, width, extraAttrs } =
         }
 
 
-
-{-
-   {-| -}
-   buttonLinkWidthAndClick :
-       { a
-           | buttonWidth : Int
-           , label : String
-           , message : msg
-           , modifiers : List Modifier
-           , url : String
-       }
-       -> Element msg
-   buttonLinkWidthAndClick { message, modifiers, url, label, buttonWidthInternal } =
-       link
-           (buttonAttr modifiers
-               ++ extraAttrForButtonWithCustimazibleWidth buttonWidthInternal
-               ++ [ htmlAttribute <|
-                       Html.Events.onWithOptions "click"
-                           { stopPropagation = True
-                           , preventDefault = True
-                           }
-                           (Json.Decode.succeed message)
-                  ]
-           )
-           { url = url
-           , label = text <| label
-           }
--}
-{-
-   -- TODO, convert buttonLinkWidthAndClick into a button because it doesn't make
-   -- sense that it is a link
-
-
-   buttonLinkWidthAndClick2 :
-       { a
-           | buttonWidth : Int
-           , label : String
-           , message : String -> msg
-           , modifiers : List Modifier
-           , url : String
-       }
-       -> Element msg
-   buttonLinkWidthAndClick2 { message, modifiers, url, label, buttonWidthInternal } =
-       Element.html <|
-           Html.button
-               [ Html.Events.onWithOptions "click"
-                   { stopPropagation = True
-                   , preventDefault = True
-                   }
-                   (Json.Decode.succeed (message url))
-               ]
-               [ Html.text <| label
-               ]
--}
-
-
 colorDefault : Color.Color
 colorDefault =
     Framework.Color.white
@@ -457,9 +401,7 @@ buttonAttr modifiers =
                     cc
 
                 StateDisabled ->
-                    cc
-                        |> Color.lighten 1.1
-                        |> Color.saturate 0.4
+                    Framework.Color.disabledButtonBackground
 
         borderRounded =
             case confButton.size of
@@ -498,6 +440,9 @@ buttonAttr modifiers =
 
                 StateWaiting ->
                     Framework.Color.transparent
+
+                StateDisabled ->
+                    Framework.Color.disabledButtonFont
 
                 _ ->
                     if confButton.color == Framework.Color.white then

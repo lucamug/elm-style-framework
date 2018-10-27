@@ -1,6 +1,6 @@
 module Framework.Icon exposing
     ( arrows, chevronDown, exitFullscreen, fullscreen, hide, home, introspection, mobileNotification, mobileNotification2, mobileRinging, pencil, show
-    , circle, circle_, smile, smile_
+    , blackFlag, blackFlag_, blackStar, blackStar_, circle, circle_, edit, edit_, exclamation, exclamation_, featureFlag, featureFlag_, smile, smile_, userVerification, userVerification_, whiteFlag, whiteFlag_, whiteStar, whiteStar_, whitelist, whitelist_
     )
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Icons/Icons)
@@ -49,6 +49,15 @@ introspection =
             , ( arrows black 32, "arrows black 32" )
             , ( circle black 32, "circle black 32" )
             , ( smile black 32, "smile black 32" )
+            , ( exclamation black 32, "exclamation black 32" )
+            , ( edit black 32, "edit black 32" )
+            , ( userVerification black 32, "userVerification black 32" )
+            , ( featureFlag black 32, "featureFlag black 32" )
+            , ( blackFlag black 32, "blackFlag black 32" )
+            , ( whiteFlag black 32, "whiteFlag black 32" )
+            , ( whiteStar black 32, "whiteStar black 32" )
+            , ( blackStar black 32, "blackStar black 32" )
+            , ( whitelist black 32, "whitelist black 32" )
             ]
           )
         ]
@@ -104,7 +113,7 @@ fullscreen _ size =
 hide : Color.Color -> Int -> Element.Element msg
 hide cl size =
     Element.html <|
-        Svg.svg [ SA.viewBox "0 0 512 512", SA.height <| String.fromInt size, SA.width <| String.fromInt size ]
+        Svg.svg [ SA.viewBox "0 0 512 512", SA.height <| String.fromInt size ]
             [ Svg.path
                 [ SA.fill
                     (Color.colorToHex cl)
@@ -119,7 +128,7 @@ hide cl size =
 show : Color.Color -> Int -> Element.Element msg
 show cl size =
     Element.html <|
-        Svg.svg [ SA.viewBox "0 0 512 512", SA.height <| String.fromInt size, SA.width <| String.fromInt size ]
+        Svg.svg [ SA.viewBox "0 0 512 512", SA.height <| String.fromInt size ]
             [ Svg.path
                 [ SA.fill
                     (Color.colorToHex cl)
@@ -220,3 +229,125 @@ smile : Color.Color -> Int -> Element.Element msg
 smile cl size =
     Element.html <|
         smile_ cl size
+
+
+exclamation_ : Color.Color -> Int -> Html.Html msg
+exclamation_ cl size =
+    Svg.svg [ SA.viewBox "0 0 612 612", SA.height <| String.fromInt size ]
+        [ Svg.path [ SA.fill (Color.colorToHex cl), SA.d "M605 502L350 60a51 51 0 0 0-88 0L7 502a51 51 0 0 0 44 76h510a51 51 0 0 0 44-76zM51 527L306 85l255 442H51zm255-119a34 34 0 1 0 0 68 34 34 0 0 0 0-68zm-34-153v6l17 99a17 17 0 0 0 34 0l17-99v-6a34 34 0 0 0-68 0z" ] []
+        ]
+
+
+exclamation : Color.Color -> Int -> Element.Element msg
+exclamation cl size =
+    Element.html <|
+        exclamation_ cl size
+
+
+edit : Color.Color -> Int -> Element.Element msg
+edit cl size =
+    Element.html <|
+        edit_ cl size
+
+
+edit_ : Color.Color -> Int -> Html.Html msg
+edit_ cl size =
+    Svg.svg [ SA.viewBox "0 0 490 490", SA.height <| String.fromInt size ]
+        [ Svg.path [ SA.fill (Color.colorToHex cl), SA.d "M230 145l-48 48-52 53c-4 4-7 9-8 15l-19 87-3 16c-2 7 0 15 5 20 4 5 10 7 16 7l5-1 18-3 84-18c6-1 12-4 17-9l235-236c6-6 10-13 10-21v-4l-1-6-5-17c-15-33-39-57-73-71-6-3-13-3-20-4h-1c-9-2-17 1-25 9L230 145zM386 25h3c5 0 10 1 13 3 28 11 48 30 60 58l3 11 1 5-3 5-236 235-4 3-84 17-15 3 3-13 18-86 2-3 53-53 47-47L383 27l3-2z" ] []
+        , Svg.path [ SA.fill (Color.colorToHex cl), SA.d "M39 109h175a12 12 0 1 0 0-24H39c-22 0-39 17-39 39v327c0 22 18 39 39 39h327c22 0 39-18 39-39V284a12 12 0 1 0-24 0v167c0 8-7 14-15 14H39c-8 0-15-6-15-14V124c1-8 7-15 15-15z" ] []
+        ]
+
+
+userVerification : Color.Color -> Int -> Element.Element msg
+userVerification cl size =
+    Element.html <|
+        userVerification_ cl size
+
+
+userVerification_ : Color.Color -> Int -> Html.Html msg
+userVerification_ cl size =
+    Svg.svg [ SA.viewBox "0 0 512 512", SA.height <| String.fromInt size ]
+        [ Svg.path [ SA.fill (Color.colorToHex cl), SA.d "M336 32h-35a48 48 0 0 0-90 0h-35c-9 0-16 7-16 16v32c0 9 7 16 16 16h160c9 0 16-7 16-16V48c0-9-7-16-16-16z" ] []
+        , Svg.path [ SA.fill (Color.colorToHex cl), SA.d "M416 64h-32v16c0 26-22 48-48 48H176c-26 0-48-22-48-48V64H96c-18 0-32 14-32 32v384c0 18 14 32 32 32h320c18 0 32-14 32-32V96c0-18-14-32-32-32zM256 192a64 64 0 1 1 0 128 64 64 0 0 1 0-128zm128 240c0 9-7 16-16 16H144c-9 0-16-7-16-16v-32c0-6 3-11 8-14 74-46 166-46 240 0 5 3 8 8 8 14v32z" ] []
+        ]
+
+
+featureFlag : Color.Color -> Int -> Element.Element msg
+featureFlag cl size =
+    Element.html <|
+        featureFlag_ cl size
+
+
+featureFlag_ : Color.Color -> Int -> Html.Html msg
+featureFlag_ cl size =
+    Svg.svg [ SA.viewBox "0 0 60 60", SA.height <| String.fromInt size ]
+        [ Svg.path [ SA.fill (Color.colorToHex cl), SA.d "M51 23L10 3V1a1 1 0 1 0-2 0v58a1 1 0 1 0 2 0V41l41-17a1 1 0 0 0 0-1z" ] []
+        ]
+
+
+blackFlag : Color.Color -> Int -> Element.Element msg
+blackFlag cl size =
+    Element.html <|
+        blackFlag_ cl size
+
+
+blackFlag_ : Color.Color -> Int -> Html.Html msg
+blackFlag_ cl size =
+    Svg.svg [ SA.viewBox "0 0 512 512", SA.height <| String.fromInt size ]
+        [ Svg.path [ SA.fill (Color.colorToHex cl), SA.d "M427 43H107V21a21 21 0 1 0-43 0v470a21 21 0 1 0 43 0V341h320c11 0 21-9 21-21V64c0-12-10-21-21-21z" ] []
+        ]
+
+
+whiteFlag : Color.Color -> Int -> Element.Element msg
+whiteFlag cl size =
+    Element.html <|
+        whiteFlag_ cl size
+
+
+whiteFlag_ : Color.Color -> Int -> Html.Html msg
+whiteFlag_ cl size =
+    Svg.svg [ SA.viewBox "0 0 464 464", SA.height <| String.fromInt size ]
+        [ Svg.path [ SA.fill (Color.colorToHex cl), SA.d "M388 10H104V5c0-3-2-5-5-5H76c-3 0-5 2-5 5v454c0 3 2 5 5 5h23c3 0 5-2 5-5V205h284c3 0 5-2 5-5V15c0-3-2-5-5-5zM81 454V205h13v249H81zm302-259H104V67a5 5 0 0 0-10 0v128H81V10h13v23a5 5 0 0 0 10 0V20h279v175z" ] []
+        ]
+
+
+whiteStar : Color.Color -> Int -> Element.Element msg
+whiteStar cl size =
+    Element.html <|
+        whiteStar_ cl size
+
+
+whiteStar_ : Color.Color -> Int -> Html.Html msg
+whiteStar_ cl size =
+    Svg.svg [ SA.viewBox "0 0 326 326", SA.height <| String.fromInt size ]
+        [ Svg.path [ SA.fill (Color.colorToHex cl), SA.d "M290 115l-18-2-9-1c-17-2-37-4-44-8-6-5-15-23-22-38l-5-11-8-17c-9-21-13-30-21-30s-13 9-22 30l-8 17-5 11c-7 15-16 33-22 38-6 4-27 6-43 8l-10 1-17 2c-20 1-33 2-36 10-2 8 6 16 23 31a464 464 0 0 1 54 56c1 6 2 11 0 16l-17 71c-3 10-1 15 2 17l6 2c6 0 15-4 28-11l17-9 13-6c14-7 30-15 37-15s23 8 37 15a756 756 0 0 0 57 26l6-2c3-2 6-7 3-17l-18-71c-1-5-1-10 1-16 2-7 17-21 30-33l9-9 15-14c16-15 25-23 22-31s-16-9-35-10zm5 33a468 468 0 0 0-24 23c-15 14-29 28-32 38-3 8-3 15-1 22l17 71 1 5-21-10-18-9-13-6c-16-8-32-16-41-16-10 0-25 8-42 16l-13 6-17 9c-8 4-17 9-22 10l1-5 17-71c3-7 2-14 0-22-3-10-17-24-33-38l-9-9-15-14-19-19c5-2 17-3 26-3l17-2 10-1c20-2 40-4 48-11 9-6 17-23 26-42l5-10 8-18 12-23 11 23a438 438 0 0 0 13 28c9 19 18 36 26 42 9 7 28 9 49 11l9 1 18 2c8 0 21 1 25 3l-19 19z" ] []
+        ]
+
+
+blackStar : Color.Color -> Int -> Element.Element msg
+blackStar cl size =
+    Element.html <|
+        blackStar_ cl size
+
+
+blackStar_ : Color.Color -> Int -> Html.Html msg
+blackStar_ cl size =
+    Svg.svg [ SA.viewBox "0 0 88 88", SA.height <| String.fromInt size ]
+        [ Svg.path [ SA.fill (Color.colorToHex cl), SA.d "M44 0l12 33.6h32L61.8 53.4 71.2 88 44 67.2 16.8 88l9.4-34.6L0 33.6h32z" ] []
+        ]
+
+
+whitelist : Color.Color -> Int -> Element.Element msg
+whitelist cl size =
+    Element.html <|
+        whitelist_ cl size
+
+
+whitelist_ : Color.Color -> Int -> Html.Html msg
+whitelist_ cl size =
+    Svg.svg [ SA.viewBox "0 0 500 500", SA.height <| String.fromInt size ]
+        [ Svg.path [ SA.fill (Color.colorToHex cl), SA.d "m 370.59 230.965 c -5.52344 0 -10 4.47656 -10 10 v 88.793 c -0.019532 16.5586 -13.4375 29.9805 -30 30 h -280.59 c -16.5625 -0.019531 -29.9805 -13.4414 -30 -30 v -260.59 c 0.019531 -16.5625 13.4375 -29.9805 30 -30 h 88.7891 c 5.52344 0 10 -4.47656 10 -10 c 0 -5.52344 -4.47656 -10 -10 -10 h -88.7891 c -27.6016 0.03125 -49.9688 22.3984 -50 50 v 260.59 c 0.03125 27.6016 22.3984 49.9688 50 50 h 280.59 c 27.6016 -0.03125 49.9688 -22.3984 50 -50 v -88.7891 c 0 -5.52344 -4.47656 -10.0039 -10 -10.0039 Z m 0 0" ] []
+        , Svg.path [ SA.fill (Color.colorToHex cl), SA.d "m 156.367 178.344 l 146.012 -146.016 l 47.0898 47.0898 l -146.012 146.016 Z m 0 0" ] []
+        , Svg.path [ SA.fill (Color.colorToHex cl), SA.d "m 132.543 249.258 l 52.0391 -14.4141 l -37.625 -37.625 Z m 0 0" ] []
+        , Svg.path [ SA.fill (Color.colorToHex cl), SA.d "m 362.488 7.57813 c -9.76953 -9.74609 -25.5859 -9.74609 -35.3555 0 l -10.6055 10.6055 l 47.0898 47.0898 l 10.6055 -10.6055 c 9.75 -9.76953 9.75 -25.5859 0 -35.3555 Z m 0 0" ] []
+        ]

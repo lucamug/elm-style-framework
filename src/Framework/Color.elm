@@ -1,54 +1,7 @@
-module Framework.Color
-    exposing
-        ( background
-        , black
-        , black_bis
-        , black_ter
-        , blue
-        , border
-        , border_hover
-        , code
-        , code_background
-        , cyan
-        , danger
-        , dark
-        , green
-        , grey
-        , grey_dark
-        , grey_darker
-        , grey_light
-        , grey_lighter
-        , info
-        , introspection
-        , light
-        , link
-        , link_active
-        , link_active_border
-        , link_focus
-        , link_focus_border
-        , link_hover
-        , link_hover_border
-        , link_invert
-        , link_visited
-        , muted
-        , orange
-        , pre
-        , pre_background
-        , primary
-        , purple
-        , red
-        , success
-        , text
-        , text_light
-        , text_strong
-        , transparent
-        , turquoise
-        , warning
-        , white
-        , white_bis
-        , white_ter
-        , yellow
-        )
+module Framework.Color exposing
+    ( background, black, black_bis, black_ter, blue, border, border_hover, code, code_background, cyan, danger, dark, green, grey, grey_dark, grey_darker, grey_light, grey_lighter, info, introspection, light, link, link_active, link_active_border, link_focus, link_focus_border, link_hover, link_hover_border, link_invert, link_visited, muted, orange, pre, pre_background, primary, purple, red, success, text, text_light, text_strong, transparent, turquoise, warning, white, white_bis, white_ter, yellow
+    , disabledButtonBackground, disabledButtonFont
+    )
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Colors/Gray%20Scale)
 
@@ -149,6 +102,8 @@ introspection =
             -- Others
             , ( usageWrapper <| transparent, "transparent" )
             , ( usageWrapper <| muted, "muted" )
+            , ( usageWrapper <| disabledButtonBackground, "disabledButtonBackground" )
+            , ( usageWrapper <| disabledButtonFont, "disabledButtonFont" )
             ]
           )
         ]
@@ -168,8 +123,6 @@ usageWrapper cl =
     <|
         column []
             [ Element.text <| Color.colorToHex cl
-
-            --, Element.text <| Debug.toString <| Color.toHsl cl
             ]
 
 
@@ -417,6 +370,16 @@ text_strong =
 transparent : Color.Color
 transparent =
     conf.color.transparent
+
+
+disabledButtonBackground : Color.Color
+disabledButtonBackground =
+    conf.color.grey_lighter
+
+
+disabledButtonFont : Color.Color
+disabledButtonFont =
+    conf.color.grey_light
 
 
 {-| -}
