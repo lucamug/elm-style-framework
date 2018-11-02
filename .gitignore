@@ -2,6 +2,7 @@ elm-stuff
 documentation.json
 IGNORED.md
 svg
+node_modules
 
 src/MyStyle.elm
 docs/build

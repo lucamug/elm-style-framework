@@ -30,7 +30,6 @@
                     flags: flags,
                     node: document.getElementById('elm')
                 });
-                window.xxx = app;
                 window.onpopstate = function() {
                     app.ports.onPopState.send(location.href);
                 };

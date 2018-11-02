@@ -1,6 +1,6 @@
-port module Framework exposing
+module Framework exposing
     ( Conf, Flags, Introspection, Model, Msg(..), init, initCmd, initConf, initModel, introspections, main, subscriptions, update, view, viewPage
-    , portFrameworkJsOnPopState
+    , viewDocument
     )
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/)
@@ -100,8 +100,6 @@ For any issue or to get in touch with the authors, refer to the github page.
 @docs Conf, Flags, Introspection, Model, Msg, init, initCmd, initConf, initModel, introspections, main, subscriptions, update, view, viewPage
 
 -}
-
---import Element.Input as Input
 
 import Browser
 import Browser.Events
@@ -306,11 +304,13 @@ type alias Model =
     , introspections : List ( Introspection, Bool )
     , password : String
     , conf : Conf Msg
+    , key : Browser.Navigation.Key
     }
 
 
-initModel : Flags -> Model
-initModel flags =
+{-| -}
+initModel : Flags -> Url.Url -> Browser.Navigation.Key -> Model
+initModel flags url key =
     { maybeUrl = Url.fromString flags.locationHref
     , password = ""
     , modelStyleElementsInput = StyleElementsInput.initModel
@@ -328,20 +328,21 @@ initModel flags =
 
         else
             introspectionsForDebugging
+    , key = key
     }
 
 
 {-| -}
-initCmd : Cmd msg
-initCmd =
+initCmd : Flags -> Url.Url -> Browser.Navigation.Key -> Cmd Msg
+initCmd _ _ _ =
     Cmd.batch []
 
 
 {-| -}
-init : Flags -> ( Model, Cmd Msg )
-init flags =
-    ( initModel flags
-    , initCmd
+init : Flags -> Url.Url -> Browser.Navigation.Key -> ( Model, Cmd Msg )
+init flags url key =
+    ( initModel flags url key
+    , initCmd flags url key
     )
 
 
@@ -427,20 +428,27 @@ type Msg
     | MsgChangePassword String
     | MsgNoOp
       -- NAVIGATION
-    | MsgFromPortJsOnPopState String
+    | LinkClicked Browser.UrlRequest
+    | UrlChanged Url.Url
 
 
 {-| -}
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        LinkClicked urlRequest ->
+            case urlRequest of
+                Browser.Internal url ->
+                    ( model, Browser.Navigation.pushUrl model.key (Url.toString url) )
+
+                Browser.External href ->
+                    ( model, Browser.Navigation.load href )
+
+        UrlChanged url ->
+            ( { model | maybeUrl = Just url }, Cmd.none )
+
         MsgNoOp ->
             ( model, Cmd.none )
-
-        MsgFromPortJsOnPopState locationHref ->
-            ( { model | maybeUrl = Url.fromString locationHref }
-            , Cmd.none
-            )
 
         MsgChangePassword password ->
             ( { model | password = password }, Cmd.none )
@@ -811,6 +819,7 @@ viewDocument model =
     }
 
 
+{-| -}
 view : Model -> Html.Html Msg
 view model =
     layoutWith
@@ -1034,7 +1043,6 @@ subscriptions : Model -> Sub Msg
 subscriptions _ =
     Sub.batch
         [ Browser.Events.onResize MsgChangeWindowSize
-        , portFrameworkJsOnPopState MsgFromPortJsOnPopState
         ]
 
 
@@ -1130,19 +1138,14 @@ fragmentAsPath url =
             { url | path = fragment }
 
 
-
--- PORTS
-
-
-port portFrameworkJsOnPopState : (String -> msg) -> Sub msg
-
-
 {-| -}
 main : Program Flags Model Msg
 main =
-    Browser.element
+    Browser.application
         { init = init
-        , view = view
+        , view = viewDocument
         , update = update
         , subscriptions = subscriptions
+        , onUrlRequest = LinkClicked
+        , onUrlChange = UrlChanged
         }

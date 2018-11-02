@@ -1,14 +1,11 @@
-module Framework.Button exposing
-    ( button, buttonAttr, buttonLink, buttonLinkWidth, buttonWidth, introspection
-    , buttonWithCustomizableWith
-    )
+module Framework.Button exposing (button, buttonAttr, buttonLink, buttonLinkWidth, buttonWidth, introspection, buttonWithCustomizableWith)
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Buttons/States)
 
 
 # Functions
 
-@docs button, buttonAttr, buttonLink, buttonLinkWidth, buttonWidth, introspection
+@docs button, buttonAttr, buttonLink, buttonLinkWidth, buttonWidth, introspection, buttonWithCustomizableWith
 
 -}
 

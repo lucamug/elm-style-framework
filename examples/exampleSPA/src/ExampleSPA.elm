@@ -31,7 +31,6 @@ version =
 
 type Msg
     = MsgWidgetExample WidgetExample.Msg
-    | MsgFramework Framework.Msg
     | MsgOnPopState String
     | MsgClick MouseClickData
     | MsgChangePassword String
@@ -89,13 +88,6 @@ update msg model =
             in
             ( { model | modelWidgetExample = modelWidgetExample }, Cmd.map MsgWidgetExample cmd )
 
-        MsgFramework msgFramework ->
-            let
-                ( modelFramework, cmd ) =
-                    Framework.update msgFramework model.modelFramework
-            in
-            ( { model | modelFramework = modelFramework }, Cmd.map MsgFramework cmd )
-
 
 init : Flag -> ( Model, Cmd Msg )
 init flag =
@@ -112,7 +104,6 @@ type alias Model =
 
     -- WIDGETS
     , modelWidgetExample : WidgetExample.Model
-    , modelFramework : Framework.Model
     }
 
 
@@ -125,7 +116,6 @@ initModel flag =
 
     -- WIDGETS
     , modelWidgetExample = WidgetExample.initModel flag
-    , modelFramework = Framework.initModel flag
     }
 
 
@@ -134,26 +124,9 @@ initCmd _ =
     Cmd.none
 
 
-viewFramework : Model -> Html.Html Msg
-viewFramework model =
-    let
-        modelFramework =
-            model.modelFramework
-    in
-    Html.map MsgFramework (FrameworkCustomized.view { modelFramework | conf = FrameworkCustomized.initConf })
-
-
 view : Model -> Html.Html Msg
 view model =
-    case Route.fromUrl model.url of
-        Route.RouteFramework ->
-            viewFramework model
-
-        Route.RouteFramework2 _ _ ->
-            viewFramework model
-
-        _ ->
-            viewStylish model
+    viewStylish model
 
 
 centralColumnWithMaxWidth : List (Attribute Msg) -> Int -> Element Msg -> Element Msg
@@ -281,7 +254,6 @@ viewHeaderMenu model =
     row [ alignRight, spacing 10 ]
         [ Button.buttonLink [ Modifier.Small ] (Route.toStringAndHash <| Route.RouteWidgetExampleEmailStep1) "Example E-mail Field"
         , Button.buttonLink [ Modifier.Small ] (Route.toStringAndHash <| Route.RouteWidgetExample4DigitCodeStep1) "Example 4 digit code"
-        , Button.buttonLink [ Modifier.Small ] (Route.toStringAndHash <| Route.RouteFramework) "Framework"
         ]
 
 
