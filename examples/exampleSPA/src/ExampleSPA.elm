@@ -1,7 +1,9 @@
 module ExampleSPA exposing (main)
 
+import Browser
+import Browser.Events
 import Color
-import Element exposing (Attribute, Element, alpha, centerX, centerY, column, el, fill, fillPortion, focusStyle, height, htmlAttribute, layoutWith, map, none, padding, px, row, scrollbarX, shrink, spacing, text, width)
+import Element exposing (..)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
@@ -16,10 +18,10 @@ import Html
 import Html.Attributes
 import Html.Events
 import Json.Decode
-import Navigation
+import Port
 import Route
+import Url
 import Widgets.WidgetExample as WidgetExample
-import Window
 
 
 version : String
@@ -30,11 +32,11 @@ version =
 type Msg
     = MsgWidgetExample WidgetExample.Msg
     | MsgFramework Framework.Msg
-    | MsgChangeLocation Navigation.Location
+    | MsgOnPopState String
     | MsgClick MouseClickData
     | MsgChangePassword String
       -- SUBSCRIPTIONS
-    | MsgChangeWindowSize { width : Int, height : Int }
+    | MsgChangeWindowSize Int Int
 
 
 type alias MouseClickData =
@@ -53,44 +55,19 @@ type alias MouseClickData =
 type alias Flag =
     { width : Int
     , height : Int
+    , locationHref : String
     }
-
-
-
--- port portFromJavascriptToElm : (Json.Decode.Value -> msg) -> Sub msg
--- port portFromElmToJavascript : PortMessage.PortMessage -> Cmd msg
-
-
-changeLocation : Model -> Navigation.Location -> ( Model, Cmd Msg )
-changeLocation model location =
-    let
-        ( modelFramework, cmdFramework ) =
-            Framework.update (Framework.MsgChangeLocation location) model.modelFramework
-
-        ( modelWidgetExample, cmdWidgetExample ) =
-            WidgetExample.update (WidgetExample.MsgChangeLocation location) model.modelWidgetExample
-    in
-    ( { model
-        | location = location
-        , modelFramework = modelFramework
-        , modelWidgetExample = modelWidgetExample
-      }
-    , Cmd.batch
-        [ Cmd.map MsgFramework cmdFramework
-        , Cmd.map MsgWidgetExample cmdWidgetExample
-        ]
-    )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     --case msg |> Debug.log "msg" of
     case msg of
-        MsgChangeWindowSize windowSize ->
-            ( { model | windowSize = Just windowSize }, Cmd.none )
+        MsgChangeWindowSize x y ->
+            ( { model | windowSize = Just { width = x, height = y } }, Cmd.none )
 
-        MsgChangeLocation location ->
-            changeLocation model location
+        MsgOnPopState locationHref ->
+            ( { model | url = Route.fromStringToUrl locationHref }, Cmd.none )
 
         MsgChangePassword password ->
             ( { model | password = password }, Cmd.none )
@@ -99,7 +76,10 @@ update msg model =
             if data.id1 == "SPA-backdrop" || data.id2 == "SPA-backdrop" then
                 -- Here I should check if the page is already in RouteHome, in
                 -- that case I should not newUrl again
-                ( model, Navigation.newUrl <| Route.routeToString Route.RouteHome )
+                -- TODO
+                -- ( model, Navigation.newUrl <| Route.toStringAndHash Route.RouteHome )
+                ( model, Cmd.none )
+
             else
                 ( model, Cmd.none )
 
@@ -118,18 +98,18 @@ update msg model =
             ( { model | modelFramework = modelFramework }, Cmd.map MsgFramework cmd )
 
 
-init : Flag -> Navigation.Location -> ( Model, Cmd Msg )
-init flag location =
-    ( initModel flag location
-    , initCmd flag location
+init : Flag -> ( Model, Cmd Msg )
+init flag =
+    ( initModel flag
+    , initCmd flag
     )
 
 
 type alias Model =
     { -- COMMON STUFF
-      location : Navigation.Location
+      url : Url.Url
     , password : String
-    , windowSize : Maybe Window.Size
+    , windowSize : Maybe { height : Int, width : Int }
 
     -- WIDGETS
     , modelWidgetExample : WidgetExample.Model
@@ -137,21 +117,21 @@ type alias Model =
     }
 
 
-initModel : Flag -> Navigation.Location -> Model
-initModel flag location =
+initModel : Flag -> Model
+initModel flag =
     { -- COMMON STUFF
-      location = location
+      url = Route.fromStringToUrl flag.locationHref
     , password = ""
     , windowSize = Just { width = flag.width, height = flag.height }
 
     -- WIDGETS
-    , modelWidgetExample = WidgetExample.initModel flag location
-    , modelFramework = Framework.initModel { width = flag.width, height = flag.height } location
+    , modelWidgetExample = WidgetExample.initModel flag
+    , modelFramework = Framework.initModel flag
     }
 
 
-initCmd : Flag -> Navigation.Location -> Cmd Msg
-initCmd _ _ =
+initCmd : Flag -> Cmd Msg
+initCmd _ =
     Cmd.none
 
 
@@ -166,58 +146,60 @@ viewFramework model =
 
 view : Model -> Html.Html Msg
 view model =
-    case Route.maybeRoute model.location of
-        Just routeRoute ->
-            case routeRoute of
-                Route.RouteFramework ->
-                    viewFramework model
+    case Route.fromUrl model.url of
+        Route.RouteFramework ->
+            viewFramework model
 
-                Route.RouteFramework2 _ _ ->
-                    viewFramework model
+        Route.RouteFramework2 _ _ ->
+            viewFramework model
 
-                _ ->
-                    view2 model
-
-        Nothing ->
-            view2 model
-
-
-view2 : Model -> Html.Html Msg
-view2 model =
-    viewStylish model
+        _ ->
+            viewStylish model
 
 
 centralColumnWithMaxWidth : List (Attribute Msg) -> Int -> Element Msg -> Element Msg
 centralColumnWithMaxWidth attributes maxWidth content =
-    row
-        attributes
-        [ el [ width fill ] <| none
-        , el
-            [ Border.width 0
-            , width <| fillPortion 100000000
-            , hackStyle "max-width" (toString maxWidth ++ "px")
-            ]
-          <|
-            content
-        , el [ width fill ] <| none
-        ]
+    el
+        ([ width
+            (fill
+                |> maximum maxWidth
+            )
+         , centerX
+
+         --, Element.explain Debug.todo
+         ]
+            ++ attributes
+        )
+    <|
+        content
 
 
 viewHeader : Model -> Element Msg
 viewHeader model =
     centralColumnWithMaxWidth
-        [ Background.color <| Framework.Color.white
-        , Border.shadow { offset = ( 0, 0 ), blur = 10, size = 2, color = Color.rgba 0 0 0 0.05 }
-        , hackStyle "z-index" "1"
+        [ Background.color <| Color.toElementColor Framework.Color.white
+        , Border.shadow { offset = ( 0, 0 ), blur = 10, size = 2, color = Element.rgba 0 0 0 0.05 }
+
+        --, hackStyle "z-index" "1"
         , padding 12
+
+        --, width fill
         ]
-        1400
-        (el [ Element.alignLeft ] <| Element.link [] { label = Logo.logo Logo.LogoMassiveDynamics 36, url = Route.routeToString <| Route.RouteHome })
+        900
+        (row
+            [ spacing 10
+            , width fill
+            ]
+            [ el [ Element.alignLeft ] <|
+                Element.link [] { label = Logo.logo Logo.LogoMassiveDynamics 36, url = Route.toStringAndHash <| Route.RouteHome }
+            , viewHeaderMenu model
+            ]
+        )
 
 
 hackStyle : String -> String -> Attribute Msg
 hackStyle name value =
-    htmlAttribute (Html.Attributes.style [ ( name, value ) ])
+    htmlAttribute (Html.Attributes.style name value)
 
 
 viewStylish : Model -> Html.Html Msg
@@ -225,7 +207,7 @@ viewStylish model =
     layoutWith
         { options =
             [ focusStyle
-                { borderColor = Just <| Framework.Color.primary
+                { borderColor = Just <| Color.toElementColor Framework.Color.primary
                 , backgroundColor = Nothing
                 , shadow = Nothing
                 }
@@ -240,8 +222,8 @@ viewStylish model =
             , conf.font.typefaceFallback
             ]
         , Font.size 16
-        , Font.color <| Color.rgb 0x33 0x33 0x33
-        , Background.color Color.white
+        , Font.color <| Element.rgb 0.3 0.3 0.3
+        , Background.color <| Element.rgb 0xFF 0xFF 0xFF
         ]
     <|
         viewElement model
@@ -250,14 +232,12 @@ viewStylish model =
 viewElement : Model -> Element Msg
 viewElement model =
     let
-        header =
-            viewHeader model
-
         menuType =
             case model.windowSize of
                 Just windowSize ->
                     if windowSize.width < 550 then
                         column
+
                     else
                         row
 
@@ -273,6 +253,7 @@ viewElement model =
                         , padding 6
                         , width <| px 200
                         ]
+
                     else
                         [ alpha 0.7
                         , spacing 10
@@ -286,55 +267,55 @@ viewElement model =
                     ]
     in
     column
-        --[ Events.onClick MsgClick ]
-        []
-        [ header
+        [ width fill
+        , height fill
+
+        --, Element.explain Debug.todo
+        ]
+        [ viewHeader model
         , viewBody model
-        , menuType
-            ([ hackStyle "position" "fixed"
-             , hackStyle "top" "0"
-             , hackStyle "right" "0"
-             , hackStyle "z-index" "2"
-             ]
-                ++ menuAttributes
-            )
-          <|
-            widgetMenu model
+
+        --        , menuType
+        --            ([ hackStyle "position" "fixed"
+        --             , hackStyle "top" "0"
+        --             , hackStyle "right" "0"
+        --             , hackStyle "z-index" "2"
+        --             ]
+        --                ++ menuAttributes
+        --            )
+        --          <|
+        --            viewHeaderMenu model
         ]
 
 
-widgetMenu : Model -> List (Element Msg)
-widgetMenu model =
-    [ el [ width fill ] <| Button.buttonLink [ Modifier.Small ] (Route.routeToString <| Route.RouteWidgetExampleEmailStep1) "Example E-mail Field"
-    , el [ width fill ] <| Button.buttonLink [ Modifier.Small ] (Route.routeToString <| Route.RouteWidgetExample4DigitCodeStep1) "Example 4 digit code"
-    , el [ width fill ] <| Button.buttonLink [ Modifier.Small ] (Route.routeToString <| Route.RouteFramework) "Framework"
-    ]
+viewHeaderMenu : Model -> Element Msg
+viewHeaderMenu model =
+    row [ alignRight, spacing 10 ]
+        [ Button.buttonLink [ Modifier.Small ] (Route.toStringAndHash <| Route.RouteWidgetExampleEmailStep1) "Example E-mail Field"
+        , Button.buttonLink [ Modifier.Small ] (Route.toStringAndHash <| Route.RouteWidgetExample4DigitCodeStep1) "Example 4 digit code"
+        , Button.buttonLink [ Modifier.Small ] (Route.toStringAndHash <| Route.RouteFramework) "Framework"
+        ]
 
 
 viewBody : Model -> Element Msg
 viewBody model =
     let
         background =
-            case Route.maybeRoute model.location of
-                Nothing ->
+            case Route.fromUrl model.url of
+                Route.RouteWidgetExampleEmailStep1 ->
                     Background.image "images/bg01.jpg"
 
-                Just route ->
-                    case route of
-                        Route.RouteWidgetExampleEmailStep1 ->
-                            Background.image "images/bg01.jpg"
+                Route.RouteWidgetExampleEmailStep2 ->
+                    Background.image "images/bg01.jpg"
 
-                        Route.RouteWidgetExampleEmailStep2 ->
-                            Background.image "images/bg01.jpg"
+                Route.RouteWidgetExample4DigitCodeStep1 ->
+                    Background.image "images/bg04.jpg"
 
-                        Route.RouteWidgetExample4DigitCodeStep1 ->
-                            Background.image "images/bg04.jpg"
+                Route.RouteWidgetExample4DigitCodeStep2 ->
+                    Background.image "images/bg04.jpg"
 
-                        Route.RouteWidgetExample4DigitCodeStep2 ->
-                            Background.image "images/bg04.jpg"
-
-                        _ ->
-                            Background.image "images/bg02.jpg"
+                _ ->
+                    Background.image "images/bg02.jpg"
     in
     el
         [ width fill
@@ -343,28 +324,23 @@ viewBody model =
         , background
         , htmlAttribute <| Html.Attributes.id "SPA-backdrop"
         , htmlAttribute <| Html.Events.on "click" (Json.Decode.map MsgClick decoder)
-        , Border.color <| Framework.Color.primary
+        , Border.color <| Color.toElementColor Framework.Color.primary
         ]
     <|
-        case Route.maybeRoute model.location of
-            Just routeRoute ->
-                case routeRoute of
-                    Route.RouteWidgetExampleEmailStep1 ->
-                        viewExample model
+        case Route.fromUrl model.url of
+            Route.RouteWidgetExampleEmailStep1 ->
+                viewExample model
 
-                    Route.RouteWidgetExampleEmailStep2 ->
-                        viewExample model
+            Route.RouteWidgetExampleEmailStep2 ->
+                viewExample model
 
-                    Route.RouteWidgetExample4DigitCodeStep1 ->
-                        viewExample model
+            Route.RouteWidgetExample4DigitCodeStep1 ->
+                viewExample model
 
-                    Route.RouteWidgetExample4DigitCodeStep2 ->
-                        viewExample model
+            Route.RouteWidgetExample4DigitCodeStep2 ->
+                viewExample model
 
-                    _ ->
-                        viewSelectWidget
-
-            Nothing ->
+            _ ->
                 viewSelectWidget
 
 
@@ -390,7 +366,7 @@ decoder =
 viewSelectWidget : Element Msg
 viewSelectWidget =
     Element.paragraph
-        [ Background.color <| Framework.Color.white
+        [ Background.color <| Color.toElementColor Framework.Color.white
         , padding 20
         , centerX
         , centerY
@@ -416,10 +392,10 @@ viewFrame model content =
     centralColumnWithMaxWidth [ height fill ] 500 <|
         el
             [ Border.rounded 4
-            , Border.shadow { offset = ( 0, 5 ), blur = 15, size = 3, color = Color.rgba 0 0 0 0.05 }
+            , Border.shadow { offset = ( 0, 5 ), blur = 15, size = 3, color = Element.rgba 0 0 0 0.05 }
             , redLineAtTheFrameTop
-            , Border.color <| Framework.Color.primary
-            , Background.color <| Framework.Color.white
+            , Border.color <| Color.toElementColor Framework.Color.primary
+            , Background.color <| Color.toElementColor Framework.Color.white
             , hackStyle "max-width" "500px"
             , height <| px 400
             , width fill
@@ -438,13 +414,14 @@ subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
         [ Sub.map MsgWidgetExample (WidgetExample.subscriptions model.modelWidgetExample)
-        , Window.resizes MsgChangeWindowSize
+        , Browser.Events.onResize MsgChangeWindowSize
+        , Port.onPopState MsgOnPopState
         ]
 
 
 main : Program Flag Model Msg
 main =
-    Navigation.programWithFlags MsgChangeLocation
+    Browser.element
         { init = init
         , view = view
         , update = update

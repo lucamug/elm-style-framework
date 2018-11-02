@@ -1,4 +1,4 @@
-module FrameworkCustomized.Logo exposing (Logo(..), introspection, logo)
+module FrameworkCustomized.Logo exposing (Logo(..), logo, introspection)
 
 {-| [Demo](https://lucamug.github.io/elm-style-framework/#/framework/Logos/Logos)
 
@@ -38,9 +38,9 @@ introspection =
 {-| SVG Logo
 -}
 logo : Logo -> Int -> Element.Element msg
-logo logo size =
+logo logoType size =
     Element.html <|
-        case logo of
+        case logoType of
             LogoMassiveDynamics ->
                 logoMassiveDynamics size
 
@@ -55,8 +55,8 @@ logoMassiveDynamics : Int -> Html.Html msg
 logoMassiveDynamics height =
     Svg.svg
         [ SA.viewBox "0 0 437.2 319.9"
-        , SA.height <| toString height
-        , SA.width <| toString <| floor <| toFloat height * 1
+        , SA.height <| String.fromInt height
+        , SA.width <| String.fromInt <| floor <| toFloat height * 1
         ]
         [ Svg.path [ SA.fill "none", SA.d "M0 0h437.1v319.9H0z" ] []
         , Svg.path [ SA.d "M362 38.3l-58 15.4L293.8 20 218.6 0l-75.2 20-10.3 33.7-58-15.5L0 58.3v203.4L58 277l26.5-7.1 4.3 15.3 41 10.9 30.7-8.2v16.4l58 15.5 58.1-15.5V288l30.8 8.2 41-11 4.2-15.2 26.5 7 58-15.4V58.3l-75.1-20z" ] []

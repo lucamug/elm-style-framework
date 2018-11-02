@@ -1,33 +1,31 @@
 module FrameworkCustomized exposing (initConf, main, view)
 
+import Browser
 import Element exposing (alpha, column, el, link, moveLeft, none, paragraph, text)
 import Element.Font as Font
 import Framework
 import FrameworkCustomized.Logo as Logo
-import Html
-import Navigation
 
 
-main : Program Framework.Flag Framework.Model Framework.Msg
+main : Program Framework.Flags Framework.Model Framework.Msg
 main =
-    Navigation.programWithFlags Framework.MsgChangeLocation
+    Browser.element
         { init = init
-        , view = Framework.view
+        , view = view
         , update = Framework.update
         , subscriptions = Framework.subscriptions
         }
 
 
-view : Framework.Model -> Html.Html Framework.Msg
-view model =
-    Framework.view model
+view =
+    Framework.view
 
 
-init : Framework.Flag -> Navigation.Location -> ( Framework.Model, Cmd msg )
-init flag location =
+init : Framework.Flags -> ( Framework.Model, Cmd msg )
+init flags =
     let
         initModel =
-            Framework.initModel flag location
+            Framework.initModel flags
     in
     ( { initModel
         | conf = initConf

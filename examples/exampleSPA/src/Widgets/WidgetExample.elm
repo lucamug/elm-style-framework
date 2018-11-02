@@ -1,9 +1,20 @@
-module Widgets.WidgetExample exposing (Model, Msg(..), initModel, main, subscriptions, update, viewElement)
+module Widgets.WidgetExample exposing
+    ( Model
+    , Msg(..)
+    , initModel
+    , main
+    , subscriptions
+    , update
+    , viewElement
+    )
 
+import Browser
+import Browser.Events
 import Color
 import Element exposing (..)
 import Element.Background as Background
 import Element.Font as Font
+import Element.Input as Input
 import Framework.Button as Button
 import Framework.Card as Card
 import Framework.Color
@@ -12,20 +23,22 @@ import Framework.FormFieldWithPattern as FormFieldWithPattern
 import Framework.Modifier as Modifier
 import FrameworkCustomized.Logo as Logo
 import Html
-import Navigation
+import Port
 import Regex
 import Route
-import Window
+import Url
 
 
 type alias Model =
     { -- COMMON STUFF
-      location : Navigation.Location
-    , windowSize : Maybe Window.Size
+      url : Url.Url
+    , windowSize : Maybe { height : Int, width : Int }
 
     -- OTHER STUFF
+    , email : String
     , modelFormField : FormField.Model
     , modelFormFieldWithPattern : FormFieldWithPattern.Model
+    , focusedField : Maybe Field
     }
 
 
@@ -34,23 +47,24 @@ type Flow
     | FlowPhone
 
 
-initModel :
-    { c | height : a, width : b }
-    -> d
-    ->
-        { location : d
-        , modelFormField : FormField.Model
-        , modelFormFieldWithPattern : FormFieldWithPattern.Model
-        , windowSize : Maybe { height : a, width : b }
-        }
-initModel flag location =
+type alias Flag =
+    { height : Int
+    , width : Int
+    , locationHref : String
+    }
+
+
+initModel : Flag -> Model
+initModel flag =
     { -- COMMON STUFF
-      location = location
+      url = Route.fromStringToUrl flag.locationHref
     , windowSize = Just { width = flag.width, height = flag.height }
 
     -- OTHER STUFF
+    , email = ""
     , modelFormField = FormField.initModel
     , modelFormFieldWithPattern = FormFieldWithPattern.initModel
+    , focusedField = Nothing
     }
 
 
@@ -66,13 +80,14 @@ viewElement model =
             500
 
         sizeY =
-            500
+            520
 
         ( widthCard, heightCard ) =
             case model.windowSize of
                 Just windowSize ->
                     if windowSize.width < 550 then
                         ( windowSize.width - 50, sizeY )
+
                     else
                         ( sizeX, sizeY )
 
@@ -81,9 +96,6 @@ viewElement model =
 
         logoInsideTheFrame =
             el [] <| Logo.logo Logo.LogoMassiveDynamics 100
-
-        redLineAtTheFrameTop =
-            []
 
         commonAttr =
             let
@@ -100,15 +112,20 @@ viewElement model =
             , width fill
             , paddingXY genericPaddingX genericPaddingY
             , spacing globalSpacing
-            , onRight <| link [ moveLeft <| iconSize + genericPaddingX, moveDown genericPaddingY ] { label = text "✕", url = Route.routeToString Route.RouteHome }
+
+            --, Element.explain Debug.todo
+            , onRight <| link [ moveLeft <| iconSize + genericPaddingX, moveDown genericPaddingY ] { label = text "✕", url = Route.toStringAndHash Route.RouteHome }
             ]
-                ++ redLineAtTheFrameTop
     in
-    el [ centerX, centerY ] <|
+    el
+        [ centerX
+        , centerY
+        ]
+    <|
         Card.flipping
             { width = widthCard
             , height = heightCard
-            , activeFront = flow model.location /= FlowEmail
+            , activeFront = flow model.url /= FlowEmail
             , front =
                 column commonAttr
                     (logoInsideTheFrame
@@ -134,13 +151,14 @@ codeComplete model =
 
 viewFront : Model -> List (Element Msg)
 viewFront model =
-    case defaultRouteFromLocation model.location of
+    case Route.fromUrl model.url of
         Route.RouteWidgetExample4DigitCodeStep1 ->
             [ paragraph [ width fill, Font.size 20 ] [ text "Example of 4 digit code" ]
-            , el [ centerX, width <| Element.px 230, height <| Element.px 92, moveUp 15 ] <|
+            , el [ centerX, width <| Element.px 300, height <| Element.px 92, moveUp 15 ] <|
                 Element.map MsgFormFieldWIdthPattern
                     (FormFieldWithPattern.inputText model.modelFormFieldWithPattern
-                        { field = FormFieldWithPattern.Field4DigitCode
+                        { field = FormFieldWithPattern.Field6DigitCode
+                        , id = ""
                         , pattern = "_ _ _ _"
                         , label = " "
                         }
@@ -148,21 +166,22 @@ viewFront model =
             , if codeComplete model then
                 Button.buttonLinkWidth
                     [ Modifier.Primary ]
-                    (Route.routeToString <| Route.RouteWidgetExample4DigitCodeStep2)
+                    (Route.toStringAndHash <| Route.RouteWidgetExample4DigitCodeStep2)
                     "Submit Code"
                     200
+
               else
                 Button.buttonWidth
                     [ Modifier.Muted, Modifier.Disabled ]
                     Nothing
                     "Submit Code"
                     200
-            , el [ centerX ] <| Button.buttonLink [] (Route.routeToString <| Route.RouteWidgetExampleEmailStep1) "See an example of E-mail Input Field"
+            , el [ centerX, alignBottom ] <| Button.buttonLink [] (Route.toStringAndHash <| Route.RouteWidgetExampleEmailStep1) "See an example of E-mail Input Field"
             ]
 
         Route.RouteWidgetExample4DigitCodeStep2 ->
             [ el [ paddingEach { bottom = 0, left = 0, right = 0, top = 48 }, centerX ] <| text "Thank you!"
-            , Button.buttonLinkWidth [ Modifier.Primary ] (Route.routeToString <| Route.RouteHome) "Done" 200
+            , Button.buttonLinkWidth [ Modifier.Primary ] (Route.toStringAndHash <| Route.RouteHome) "Done" 200
             ]
 
         _ ->
@@ -172,23 +191,30 @@ viewFront model =
 viewBack : Model -> List (Element Msg)
 viewBack model =
     -- CREATE ACCOUNT WITH EMAIL
-    case defaultRouteFromLocation model.location of
+    case Route.fromUrl model.url of
         Route.RouteWidgetExampleEmailStep1 ->
             [ paragraph [ width fill, Font.size 20 ] [ text <| "Example of E-mail input field" ]
             , paragraph [ width fill ] [ text <| "This is an example of E-mail input field" ]
-            , Element.map MsgFormField <|
-                FormField.inputText model.modelFormField
-                    { field = FormField.FieldEmail
-                    , pattern = validateEmail
-                    , label = "E-mail address"
-                    }
-            , el [ width fill ] <| Button.buttonLinkWidth [ Modifier.Primary ] (Route.routeToString <| Route.RouteWidgetExampleEmailStep2) "Submit Email" 300
-            , el [ centerX ] <| Button.buttonLink [] (Route.routeToString <| Route.RouteWidgetExample4DigitCodeStep1) "See an example of 4 digit code"
+            , FormField.inputText [ width fill ]
+                { field = Email
+                , fieldValue = model.email
+                , helperText = Nothing
+                , inputType = Input.text
+                , inputTypeAttrs = []
+                , label = text "E-mail address"
+                , maybeFieldFocused = model.focusedField
+                , maybeMsgOnEnter = Nothing
+                , msgOnChange = MsgOnChange
+                , msgOnFocus = MsgOnFocus
+                , msgOnLoseFocus = MsgOnLoseFocus
+                }
+            , el [ width fill ] <| Button.buttonLinkWidth [ Modifier.Primary ] (Route.toStringAndHash <| Route.RouteWidgetExampleEmailStep2) "Submit Email" 300
+            , el [ centerX ] <| Button.buttonLink [] (Route.toStringAndHash <| Route.RouteWidgetExample4DigitCodeStep1) "See an example of 4 digit code"
             ]
 
         Route.RouteWidgetExampleEmailStep2 ->
             [ el [ paddingEach { bottom = 0, left = 0, right = 0, top = 48 }, centerX ] <| text "Thank you!"
-            , Button.buttonLinkWidth [ Modifier.Primary ] (Route.routeToString <| Route.RouteHome) "Done" 200
+            , Button.buttonLinkWidth [ Modifier.Primary ] (Route.toStringAndHash <| Route.RouteHome) "Done" 200
             ]
 
         _ ->
@@ -197,7 +223,7 @@ viewBack model =
 
 validateEmail : Regex.Regex
 validateEmail =
-    Regex.regex "@"
+    Maybe.withDefault Regex.never <| Regex.fromString "@"
 
 
 view : Model -> Html.Html Msg
@@ -205,7 +231,7 @@ view model =
     layoutWith
         { options =
             [ focusStyle
-                { borderColor = Just <| Framework.Color.red
+                { borderColor = Just <| Element.rgb 0x99 0x00 0x00
                 , backgroundColor = Nothing
                 , shadow = Nothing
                 }
@@ -220,8 +246,8 @@ view model =
             , Font.sansSerif
             ]
         , Font.size 16
-        , Font.color <| Color.rgb 0x33 0x33 0x33
-        , Background.color Color.white
+        , Font.color <| Element.rgb 0.3 0.3 0.3
+        , Background.color <| Element.rgb 0 0 0
         ]
     <|
         viewElement model
@@ -230,23 +256,31 @@ view model =
 subscriptions : Model -> Sub Msg
 subscriptions _ =
     Sub.batch
-        [ Window.resizes MsgChangeWindowSize
+        [ Browser.Events.onResize MsgChangeWindowSize
+        , Port.onPopState MsgOnPopState
         ]
 
 
 type Msg
-    = MsgChangeLocation Navigation.Location
-    | MsgFormField FormField.Msg
+    = MsgFormField FormField.Msg
     | MsgFormFieldWIdthPattern FormFieldWithPattern.Msg
+    | MsgOnPopState String
       -- SUBSCRIPTIONS
-    | MsgChangeWindowSize { width : Int, height : Int }
+    | MsgChangeWindowSize Int Int
+    | MsgOnChange Field String
+    | MsgOnFocus Field
+    | MsgOnLoseFocus Field
+
+
+type Field
+    = Email
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        MsgChangeWindowSize windowSize ->
-            ( { model | windowSize = Just windowSize }, Cmd.none )
+        MsgChangeWindowSize x y ->
+            ( { model | windowSize = Just { width = x, height = y } }, Cmd.none )
 
         MsgFormField msg2 ->
             let
@@ -262,28 +296,26 @@ update msg model =
             in
             ( { model | modelFormFieldWithPattern = newModel }, Cmd.none )
 
-        MsgChangeLocation location ->
-            ( { model | location = location }, Cmd.none )
+        MsgOnPopState locationHref ->
+            ( { model | url = Route.fromStringToUrl locationHref }, Cmd.none )
+
+        MsgOnChange field text ->
+            ( { model | email = text }, Cmd.none )
+
+        MsgOnFocus field ->
+            ( { model | focusedField = Just field }, Cmd.none )
+
+        MsgOnLoseFocus _ ->
+            ( { model | focusedField = Nothing }, Cmd.none )
 
 
-defaultRouteFromLocation : Navigation.Location -> Route.Route
-defaultRouteFromLocation location =
-    defaultRoute <| Route.maybeRoute location
-
-
-defaultRoute : Maybe Route.Route -> Route.Route
-defaultRoute maybeRoute =
-    case maybeRoute of
-        Nothing ->
-            Route.RouteHome
-
-        Just route ->
-            route
-
-
-flow : Navigation.Location -> Flow
-flow location =
-    (case defaultRouteFromLocation location of
+flow : Url.Url -> Flow
+flow url =
+    let
+        _ =
+            Debug.log "url" <| Route.fromUrl url
+    in
+    (case Route.fromUrl url of
         Route.RouteWidgetExampleEmailStep1 ->
             FlowEmail
 
@@ -293,28 +325,22 @@ flow location =
         _ ->
             FlowPhone
     )
-        |> Debug.log "xxx2"
+        |> Debug.log "flow"
 
 
-type alias Flag =
-    { width : Int
-    , height : Int
-    }
+init : Flag -> ( Model, Cmd Msg )
+init flag =
+    ( initModel flag, initCmd flag )
 
 
-init : Flag -> Navigation.Location -> ( Model, Cmd Msg )
-init flag location =
-    ( initModel flag location, initCmd flag location )
-
-
-initCmd : Flag -> Navigation.Location -> Cmd Msg
-initCmd _ _ =
+initCmd : Flag -> Cmd Msg
+initCmd _ =
     Cmd.none
 
 
 main : Program Flag Model Msg
 main =
-    Navigation.programWithFlags MsgChangeLocation
+    Browser.element
         { init = init
         , view = view
         , update = update

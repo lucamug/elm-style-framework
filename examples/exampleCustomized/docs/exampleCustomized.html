@@ -6,13 +6,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" href="http://guupa.com/elm-style-framework/images/favicon.png">
-    <title>Elm Style Framework</title>
+    <title>Customized - Elm Style Framework</title>
 </head>
 
 <body>
     <noscript>
         You need to enable JavaScript to run this app.
     </noscript>
+    <div id="elm"></div>
     <script src="exampleCustomized.js"></script>
     <script>
         (function() {
@@ -20,11 +21,19 @@
 
             function start_app() {
                 var local_storage_name = "framework";
-                var app = Elm.ExampleCustomized.fullscreen({
-                    local_storage: String((localStorage.getItem(local_storage_name) || "")),
+                var flags = {
                     width: window.innerWidth,
-                    height: window.innerHeight
+                    height: window.innerHeight,
+                    locationHref: document.location.href
+                };
+                var app = Elm.FrameworkCustomized.init({
+                    flags: flags,
+                    node: document.getElementById('elm')
                 });
+
+                window.onpopstate = function() {
+                    app.ports.portFrameworkJsOnPopState.send(location.href);
+                };
             }
 
             start_app();

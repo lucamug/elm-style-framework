@@ -13,6 +13,7 @@
     <noscript>
         You need to enable JavaScript to run this app.
     </noscript>
+    <div id="elm"></div>
     <script src="exampleSPA.js"></script>
     <script>
         (function() {
@@ -20,15 +21,22 @@
 
             function start_app() {
                 var local_storage_name = "framework";
-                var app = Elm.ExampleSPA.fullscreen({
-                    local_storage: String((localStorage.getItem(local_storage_name) || "")),
+                var flags = {
                     width: window.innerWidth,
-                    height: window.innerHeight
+                    height: window.innerHeight,
+                    locationHref: document.location.href
+                };
+                var app = Elm.ExampleSPA.init({
+                    flags: flags,
+                    node: document.getElementById('elm')
                 });
+                window.xxx = app;
+                window.onpopstate = function() {
+                    app.ports.onPopState.send(location.href);
+                };
             }
 
             start_app();
-
         })();
     </script>
 </body>

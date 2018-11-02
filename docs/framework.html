@@ -32,12 +32,11 @@
                 });
 
                 window.onpopstate = function() {
-                      app.ports.portFrameworkJsOnPopState.send(location.href);
+                    app.ports.portFrameworkJsOnPopState.send(location.href);
                 };
             }
 
             start_app();
-
         })();
     </script>
 </body>

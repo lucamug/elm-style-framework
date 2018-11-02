@@ -1,7 +1,17 @@
-module Route exposing (Route(..), Slug(..), maybeRoute, routeToString)
+module Route exposing
+    ( Route(..)
+    , Slug(..)
+    , fromStringToUrl
+    , fromUrl
+    , toString
+    , toStringAndHash
+    )
 
-import Navigation
-import UrlParser exposing ((</>))
+--import Navigation
+
+import Url
+import Url.Parser exposing ((</>))
+
 
 
 -- ROUTING --
@@ -35,16 +45,16 @@ path =
     }
 
 
-route : UrlParser.Parser (Route -> a) a
-route =
-    UrlParser.oneOf
-        [ UrlParser.map RouteHome (UrlParser.s "")
-        , UrlParser.map RouteFramework (UrlParser.s path.framework)
-        , UrlParser.map RouteFramework2 (UrlParser.s path.framework </> stateParser </> stateParser)
-        , UrlParser.map RouteWidgetExampleEmailStep1 (UrlParser.s path.example </> UrlParser.s path.withEmail)
-        , UrlParser.map RouteWidgetExampleEmailStep2 (UrlParser.s path.example </> UrlParser.s path.withEmail </> UrlParser.s path.emailOk)
-        , UrlParser.map RouteWidgetExample4DigitCodeStep1 (UrlParser.s path.example </> UrlParser.s path.withPhone)
-        , UrlParser.map RouteWidgetExample4DigitCodeStep2 (UrlParser.s path.example </> UrlParser.s path.withPhone </> UrlParser.s path.codeOk)
+parser : Url.Parser.Parser (Route -> a) a
+parser =
+    Url.Parser.oneOf
+        [ Url.Parser.map RouteFramework2 (Url.Parser.s path.framework </> stateParser </> stateParser)
+        , Url.Parser.map RouteFramework (Url.Parser.s path.framework)
+        , Url.Parser.map RouteWidgetExampleEmailStep2 (Url.Parser.s path.example </> Url.Parser.s path.withEmail </> Url.Parser.s path.emailOk)
+        , Url.Parser.map RouteWidgetExampleEmailStep1 (Url.Parser.s path.example </> Url.Parser.s path.withEmail)
+        , Url.Parser.map RouteWidgetExample4DigitCodeStep2 (Url.Parser.s path.example </> Url.Parser.s path.withPhone </> Url.Parser.s path.codeOk)
+        , Url.Parser.map RouteWidgetExample4DigitCodeStep1 (Url.Parser.s path.example </> Url.Parser.s path.withPhone)
+        , Url.Parser.map RouteHome (Url.Parser.s "")
         ]
 
 
@@ -61,22 +71,13 @@ slugToString (Slug slug) =
     slug
 
 
-stateParser : UrlParser.Parser (Slug -> a) a
+stateParser : Url.Parser.Parser (Slug -> a) a
 stateParser =
-    UrlParser.custom "SLUG" (Ok << Slug)
+    Url.Parser.custom "SLUG" (Just << Slug)
 
 
-
--- INTERNAL --
-
-
-routeRoot : String
-routeRoot =
-    "#/"
-
-
-routeToString : Route -> String
-routeToString page =
+toString : Route -> String
+toString page =
     let
         pieces =
             case page of
@@ -101,16 +102,43 @@ routeToString page =
                 RouteFramework2 slug1 slug2 ->
                     [ path.framework, slugToString slug1, slugToString slug2 ]
     in
-    routeRoot ++ String.join "/" pieces
+    "/" ++ String.join "/" pieces
+
+
+toStringAndHash route =
+    "#" ++ toString route
+
+
+fromUrl url =
+    Maybe.withDefault RouteHome <| urlToMaybeRoute url
+
+
+urlToMaybeRoute url =
+    -- We copy the fragment in to the path first because the parser only works
+    -- on the path
+    Url.Parser.parse parser { url | path = Maybe.withDefault "" url.fragment }
+
+
+fromStringToUrl locationHref =
+    Maybe.withDefault
+        { protocol = Url.Https
+        , host = ""
+        , port_ = Nothing
+        , path = ""
+        , query = Nothing
+        , fragment = Nothing
+        }
+    <|
+        Url.fromString locationHref
 
 
 
--- PUBLIC HELPERS --
+{-
+   maybeRoute : Url.Url -> Maybe Route
+   maybeRoute url =
+       if String.isEmpty location.hash then
+           Just RouteHome
 
-
-maybeRoute : Navigation.Location -> Maybe Route
-maybeRoute location =
-    if String.isEmpty location.hash then
-        Just RouteHome
-    else
-        UrlParser.parseHash route location
+       else
+           Url.Parser.parseHash route location
+-}
