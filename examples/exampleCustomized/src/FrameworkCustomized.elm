@@ -63,7 +63,7 @@ initConf =
                 , el [ moveLeft 3 ] <| text "Dynamics"
                 ]
         , subTitle = "STYLE FRAMEWORK"
-        , version = "0.0.2"
+        , version = "0.19.0"
         , introduction =
             paragraph []
                 [ text "This is a cutomized version of "

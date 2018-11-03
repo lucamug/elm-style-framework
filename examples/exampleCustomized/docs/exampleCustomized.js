@@ -20372,7 +20372,7 @@ var author$project$FrameworkCustomized$initConf = function () {
 							]),
 						mdgriffith$elm_ui$Element$text('Dynamics'))
 					])),
-			version: '0.0.2'
+			version: '0.19.0'
 		});
 }();
 var author$project$FrameworkCustomized$Logo$introspection = {

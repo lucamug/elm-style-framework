@@ -26,7 +26,7 @@ import Widgets.WidgetExample as WidgetExample
 
 version : String
 version =
-    "0.0.10"
+    "0.19.0"
 
 
 type Msg

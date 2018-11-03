@@ -20543,7 +20543,7 @@ var author$project$FrameworkCustomized$initConf = function () {
 							]),
 						mdgriffith$elm_ui$Element$text('Dynamics'))
 					])),
-			version: '0.0.2'
+			version: '0.19.0'
 		});
 }();
 var author$project$Color$white = A3(author$project$Color$rgb, 230, 230, 230);
