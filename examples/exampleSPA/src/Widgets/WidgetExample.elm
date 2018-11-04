@@ -311,11 +311,7 @@ update msg model =
 
 flow : Url.Url -> Flow
 flow url =
-    let
-        _ =
-            Debug.log "url" <| Route.fromUrl url
-    in
-    (case Route.fromUrl url of
+    case Route.fromUrl url of
         Route.RouteWidgetExampleEmailStep1 ->
             FlowEmail
 
@@ -324,8 +320,6 @@ flow url =
 
         _ ->
             FlowPhone
-    )
-        |> Debug.log "flow"
 
 
 init : Flag -> ( Model, Cmd Msg )

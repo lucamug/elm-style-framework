@@ -61,7 +61,6 @@ type alias Flag =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    --case msg |> Debug.log "msg" of
     case msg of
         MsgChangeWindowSize x y ->
             ( { model | windowSize = Just { width = x, height = y } }, Cmd.none )
@@ -274,17 +273,6 @@ viewElement model =
         ]
         [ viewHeader model
         , viewBody model
-
-        --        , menuType
-        --            ([ hackStyle "position" "fixed"
-        --             , hackStyle "top" "0"
-        --             , hackStyle "right" "0"
-        --             , hackStyle "z-index" "2"
-        --             ]
-        --                ++ menuAttributes
-        --            )
-        --          <|
-        --            viewHeaderMenu model
         ]
 
 

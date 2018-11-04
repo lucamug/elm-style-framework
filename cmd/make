@@ -1,3 +1,12 @@
 #!/bin/bash
-elm make src/Framework.elm --output=docs/build/framework.js --report=json
-# sudo npm install -g git://github.com/architectcodes/elm-live.git#upgrade-to-elm-19
+cp src/myStyle.elm.example src/myStyle.elm
+elm make src/Framework.elm           --optimize --output=docs/js-compiled/framework.js
+cd examples/exampleButton
+elm make src/ExampleButton.elm       --optimize --output=../../docs/js-compiled/exampleButton.js
+cd ../..
+rm src/myStyle.elm
+cd examples/exampleCustomized
+elm make src/FrameworkCustomized.elm --optimize --output=../../docs/js-compiled/frameworkCustomized.js
+cd ../..
+cd examples/exampleSPA
+elm make src/ExampleSPA.elm          --optimize --output=../../docs/js-compiled/exampleSPA.js
