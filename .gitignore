@@ -3,7 +3,7 @@ documentation.json
 IGNORED.md
 svg
 
-src/MyStyle.elm
+# src/MyStyle.elm
 docs/build
 package.json
 package-lock.json

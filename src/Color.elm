@@ -3,7 +3,10 @@ module Color exposing (Color(..), Color2, black, colorToHex, erroneousHex, fmod,
 import Element
 
 
-black : Color
+
+-- black : Color
+
+
 black =
     rgb 20 20 20
 
@@ -23,6 +26,7 @@ yellow =
     hsla 54 100 62 1
 
 
+hsl2 : Float -> Float -> Float -> Color
 hsl2 h2 s2 l2 =
     hsl (degrees h2) (s2 / 100) (l2 / 100)
 
@@ -449,6 +453,7 @@ lighten quantity cl =
     cl
 
 
+maximumContrast : Color -> a -> a -> a
 maximumContrast c dark bright =
     -- From https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
     if intensity c < 186 then

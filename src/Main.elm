@@ -1,4 +1,4 @@
-port module Framework exposing
+port module Main exposing
     ( Conf, Flags, Introspection, Model, Msg(..), init, initCmd, initConf, initModel, introspections, main, subscriptions, update, view, viewPage
     , portFrameworkJsOnPopState
     )
@@ -134,7 +134,10 @@ import Url
 import Url.Parser exposing ((</>))
 
 
-debug : Bool
+
+-- debug : Bool
+
+
 debug =
     True
 
@@ -160,7 +163,12 @@ type alias Conf msg =
 
 
 {-| -}
-initConf : Conf msg
+
+
+
+--initConf : Conf msg
+
+
 initConf =
     { gray3 = Color.rgb 0x33 0x33 0x33
     , gray9 = Color.rgb 0x99 0x99 0x99
