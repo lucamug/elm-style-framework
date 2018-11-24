@@ -28,7 +28,7 @@ introspection =
     , signature = "Logo -> Int -> Element.Element msg"
     , variations =
         [ ( "Logo"
-          , [ ( logo LogoMassiveDynamics 100, "logo (LogoElm <| ElmColorful) 100" )
+          , [ ( logo LogoMassiveDynamics 100, "logo LogoMassiveDynamics 100" )
             ]
           )
         ]

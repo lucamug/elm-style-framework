@@ -28,7 +28,7 @@ introspection =
     , signature = ""
     , variations =
         [ ( "Logos"
-          , [ ( logo (LogoElm ElmColorful) 100, "logo (LogoElm <| ElmColorful) 100" )
+          , [ ( logo (LogoElm ElmColorful) 100, "logo (LogoElm ElmColorful) 100" )
             , ( logo (LogoElm <| ElmColor Orange) 100, "logo (LogoElm <| (ElmColor Orange) 100" )
             , ( logo (LogoElm <| ElmColor Green) 100, "logo (LogoElm <| (ElmColor Green) 100" )
             , ( logo (LogoElm <| ElmColor LightBlue) 100, "logo (LogoElm <| (ElmColor LightBlue) 100" )

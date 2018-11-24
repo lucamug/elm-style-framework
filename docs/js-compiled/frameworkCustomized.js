@@ -15366,7 +15366,7 @@ var author$project$Framework$Logo$introspection = {
 						author$project$Framework$Logo$logo,
 						author$project$Framework$Logo$LogoElm(author$project$Framework$Logo$ElmColorful),
 						100),
-					'logo (LogoElm <| ElmColorful) 100'),
+					'logo (LogoElm ElmColorful) 100'),
 					_Utils_Tuple2(
 					A2(
 						author$project$Framework$Logo$logo,
@@ -16216,7 +16216,7 @@ var author$project$FrameworkCustomized$Logo$introspection = {
 				[
 					_Utils_Tuple2(
 					A2(author$project$FrameworkCustomized$Logo$logo, 0, 100),
-					'logo (LogoElm <| ElmColorful) 100')
+					'logo LogoMassiveDynamics 100')
 				]))
 		])
 };
